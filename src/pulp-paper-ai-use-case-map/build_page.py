@@ -15,6 +15,9 @@ import html
 import json
 import re
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "shared"))
+from cta import CTA_BUTTONS  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
@@ -381,7 +384,7 @@ HTML = f"""<!doctype html>
     <div><em>2</em><h3>Prove</h3><p>A live dashboard and first quantified value-unlock inside 4–6 weeks.</p></div>
     <div><em>3</em><h3>Scale</h3><p>A mill-wide rollout plan with shared models and per-area value targets.</p></div>
   </div>
-  <div class="cta-row"><p style="font-size:13px">Faclon Labs Pvt Ltd · The operating layer for industrial autonomy. All terms are indicative and subject to mutual agreement.</p><a class="btn" href="https://www.faclon.com">www.faclon.com</a></div>
+  <div class="cta-row"><p style="font-size:13px">Faclon Labs Pvt Ltd · The operating layer for industrial autonomy. All terms are indicative and subject to mutual agreement.</p>{CTA_BUTTONS}</div>
 </div></div>
 <div class="foot"><div class="wrap"><span><a href="../">← All solutions</a> · Faclon Labs · Pulp &amp; Paper AI Use Case Map</span><span>Industrial AI operating layer for pulp &amp; paper</span></div></div>
 <script>{JS}</script>

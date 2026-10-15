@@ -19,6 +19,9 @@ import base64
 import html
 import json
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "shared"))
+from cta import CTA_BUTTONS  # noqa: E402
 
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -439,10 +442,7 @@ HTML = f"""<!doctype html>
 
 <div class="cta"><div class="wrap">
   <div><div class="eyebrow" style="color:var(--blue2)">Your digital backbone for operational efficiency</div><h2>Start with a pilot on your traps</h2><p>Begin with a header of up to 30 traps on one gateway, see the failures and steam loss it surfaces, then scale across the plant.</p></div>
-  <div class="contact">
-    <a class="btn" href="mailto:{E(ct["email"])}">{E(ct["email"])}</a>
-    <a class="btn ghost" href="tel:{E(ct["tel"])}">{E(ct["name"])} · {E(ct["phone"])}</a>
-  </div>
+  {CTA_BUTTONS}
 </div></div>
 <div class="foot"><div class="wrap"><span><a href="../">← All solutions</a> · Faclon Labs · Steam Trap Failure Detection</span><span><a href="https://{E(ct["web"])}">{E(ct["web"])}</a></span></div></div>
 <script>{JS}</script>

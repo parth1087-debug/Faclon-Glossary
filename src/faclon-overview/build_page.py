@@ -25,6 +25,9 @@ import html
 import json
 import re
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "shared"))
+from cta import CTA_BUTTONS  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
@@ -52,7 +55,7 @@ customers = f"""<!-- 3 -->
     <div class="lwall" id="lwall">{tiles}</div>
   </div>
 </section>"""
-t = t.replace("<!--CUSTOMERS-->", customers)
+t = t.replace("<!--CUSTOMERS-->", customers).replace("<!--CTABUTTONS-->", CTA_BUTTONS)
 
 # ---------- Customer Cases ----------
 cases = content["cases"]

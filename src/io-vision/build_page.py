@@ -23,6 +23,9 @@ import base64
 import html
 import json
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "shared"))
+from cta import CTA_BUTTONS  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
@@ -412,7 +415,7 @@ HTML = f"""<!doctype html>
 
 <div class="cta"><div class="wrap">
   <div><div class="k">We're here as your</div><h2>Digital Backbone to Drive Operational Efficiency and Decision Intelligence</h2><p>Tell us what you would like your cameras to watch for. We will show you which I/O Vision use cases fit your plant.</p></div>
-  <div class="acts"><a class="btn" href="mailto:parth@faclon.com">parth@faclon.com</a><a class="btn ghost" href="https://www.faclon.com">www.faclon.com</a></div>
+  {CTA_BUTTONS}
 </div></div>
 <div class="foot"><div class="wrap"><span><a href="../">← All solutions</a> · Faclon Labs · I/O Vision</span><span>Computer vision for safer, smarter plants</span></div></div>
 <script>{JS}</script>

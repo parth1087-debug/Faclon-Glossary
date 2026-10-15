@@ -20,6 +20,9 @@ import base64
 import html
 import json
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "shared"))
+from cta import CTA_BUTTONS  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
@@ -365,7 +368,7 @@ HTML = f"""<!doctype html>
 <div class="cta" id="contact"><div class="wrap">
   <div><div class="eyebrow" style="color:var(--blue2)">Your digital backbone</div><h2>Start with the meters you already have</h2>
   <p>We're here as your digital backbone to drive operational efficiency and decision intelligence. Talk to us about connecting your substations and seeing your first dashboards.</p>
-  <a class="btn" href="https://www.faclon.com">www.faclon.com</a></div>
+  <div style="margin-top:18px">{CTA_BUTTONS}</div></div>
   <div class="cts">{contacts}</div>
 </div></div>
 <div class="foot"><div class="wrap"><span><a href="../">← All solutions</a> · Faclon Labs · Energy Management</span><span>Powered by I/O Sense</span></div></div>

@@ -6,6 +6,9 @@ A solution with "live": True becomes a clickable card linking to /<slug>/.
 """
 import html
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "shared"))
+from cta import CTA_BUTTONS  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "index.html"
@@ -37,7 +40,7 @@ SOLUTIONS = [
         "blurb": "Advisory Agents and Automated Process Control for boilers, turbines and auxiliaries "
                  "in captive and utility power plants.",
         "tags": ["7 Advisory Agents", "8 APC applications", "CFBC · AFBC · PF"],
-        "links": [("Use-case catalogue (PDF)", "power-plant-ai-use-case-catalogue.pdf")],
+        "links": [],
     },
     {
         "slug": "steel-ai-use-case-map",
@@ -307,7 +310,7 @@ h2{{font-size:32px;font-weight:700;margin:8px 0 10px}}
 
 <div class="cta"><div class="wrap">
   <div><div class="eyebrow" style="color:var(--blue2)">Talk to us</div><h2>Start with your plant’s data</h2><p>Tell us which plant and which problem. We will show you which solution fits and what it can be worth.</p></div>
-  <a class="btn" href="https://www.faclonlabs.com">www.faclonlabs.com</a>
+  {CTA_BUTTONS}
 </div></div>
 <div class="foot"><div class="wrap"><span>Faclon Labs</span><span>Industrial AI solutions</span></div></div>
 </body></html>"""

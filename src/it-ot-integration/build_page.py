@@ -24,6 +24,9 @@ import html
 import json
 import sys
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "shared"))
+from cta import CTA_BUTTONS  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
@@ -439,10 +442,7 @@ HTML = f"""<!doctype html>
 
 <div class="cta"><div class="wrap">
   <div><div class="eyebrow" style="color:var(--blue2)">Secure plant data, ready for AI</div><h2>Start with one area and the DMZ</h2><p>Connect one electrical room or machine line through the DMZ into your tenancy, prove the data path and the security controls, then scale area by area and plant by plant.</p></div>
-  <div class="contact">
-    <a class="btn" href="mailto:{E(ct["email"])}">{E(ct["email"])}</a>
-    <a class="btn ghost" href="tel:{E(ct["tel"])}">{E(ct["name"])} · {E(ct["phone"])}</a>
-  </div>
+  {CTA_BUTTONS}
 </div></div>
 <div class="foot"><div class="wrap"><span><a href="../">← All solutions</a> · Faclon Labs · IT-OT Integration</span><span><a href="https://{E(ct["web"])}">{E(ct["web"])}</a></span></div></div>
 <script>{JS}</script>
