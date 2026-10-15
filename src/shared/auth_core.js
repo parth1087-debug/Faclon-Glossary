@@ -8,6 +8,11 @@
      all key     = HMAC-SHA256(master, "all")                 (super users hold this one key)
      vault[slug] = page key (base64) encrypted with the all key; users.vault, kept current by
                    protect.py, so super users can open every page, including ones added later
+     pdf key     = HMAC-SHA256(master, "pdf:" + slug)        (encrypts <slug>/page-pdf.bin)
+     dvault[slug]= pdf key encrypted with the all key, only for solutions whose Download switch is on
+     policy[slug]= {read, download}: global switches set in the User Manager (missing = both on).
+                   Read off: the page key leaves every keyring and the vault. Download off: the pdf key
+                   leaves every keyring and the dvault, and download options are hidden.
      user key    = PBKDF2-SHA256(user password, user.s, users.iter)  (encrypts the user's keyring)
      user id     = SHA-256(users.salt + "|" + lower(username)) as hex
 */
@@ -45,16 +50,35 @@ var FA = (function () {
   function userId(U, username) { return sha256hex(U.salt + "|" + norm(username)); }
   function pageKey(master, slug) { return hmac(master, "page:" + slug); }
   function allKey(master) { return hmac(master, "all"); }
-  /* Adds any missing vault entries (admin only). Returns how many were added. */
-  async function fillVault(U, master, slugs) {
-    var ak = await allKey(master), n = 0;
-    U.vault = U.vault || {};
+  function pdfKey(master, slug) { return hmac(master, "pdf:" + slug); }
+  function canRead(U, slug) { var p = (U.policy || {})[slug]; return slug === "home" || !p || p.read !== false; }
+  function canDownload(U, slug) { var p = (U.policy || {})[slug]; return slug !== "home" && canRead(U, slug) && (!p || p.download !== false); }
+  /* Rebuilds the super-user vaults from the policy (admin only): vault = readable page keys,
+     dvault = downloadable pdf keys, both locked with the all key. Returns true if anything changed. */
+  async function syncVault(U, master, slugs) {
+    var ak = await allKey(master), changed = false;
+    var vault = {}, dvault = {}, ov = U.vault || {}, od = U.dvault || {};
     for (var i = 0; i < slugs.length; i++) {
-      if (U.vault[slugs[i]]) continue;
-      U.vault[slugs[i]] = await encrypt(ak, b64(await pageKey(master, slugs[i])));
-      n++;
+      var sl = slugs[i];
+      if (canRead(U, sl)) { if (ov[sl]) vault[sl] = ov[sl]; else { vault[sl] = await encrypt(ak, b64(await pageKey(master, sl))); changed = true; } }
+      else if (ov[sl]) changed = true;
+      if (canDownload(U, sl)) { if (od[sl]) dvault[sl] = od[sl]; else { dvault[sl] = await encrypt(ak, b64(await pdfKey(master, sl))); changed = true; } }
+      else if (od[sl]) changed = true;
     }
-    return n;
+    U.vault = vault; U.dvault = dvault;
+    return changed;
+  }
+  function fillVault(U, master, slugs) { return syncVault(U, master, slugs); }
+  /* The keyring a user gets from their assignment (meta) under the current policy. */
+  async function buildRing(U, master, meta) {
+    var ring = { n: meta.name, p: { home: b64(await pageKey(master, "home")) }, d: {} };
+    if (meta.all) { ring.all = 1; ring.a = b64(await allKey(master)); return ring; }
+    var pages = meta.pages || [];
+    for (var i = 0; i < pages.length; i++) {
+      if (canRead(U, pages[i])) ring.p[pages[i]] = b64(await pageKey(master, pages[i]));
+      if (canDownload(U, pages[i])) ring.d[pages[i]] = b64(await pdfKey(master, pages[i]));
+    }
+    return ring;
   }
   async function loadUsers(base) {
     var r = await fetch(base + "users.json?t=" + Date.now(), { cache: "no-store" });
@@ -85,26 +109,30 @@ var FA = (function () {
     if (s.t === "a") {
       var m = u8(s.k);
       if (b64(await hmac(m, "check")) !== U.check) throw new Error("stale");
-      return { name: "Admin", admin: true, allowed: null, key: function (slug) { return pageKey(m, slug); } };
+      return { name: "Admin", admin: true, allowed: null, downloadable: null,
+        key: function (slug) { return pageKey(m, slug); }, dkey: function (slug) { return pdfKey(m, slug); } };
     }
     var e = (U.users || []).filter(function (x) { return x.id === s.id; })[0];
     if (!e) throw new Error("removed");
     var ring = JSON.parse(await decrypt(u8(s.k), e.iv, e.kr));
     if (ring.all) {
       var ak = u8(ring.a);
+      var open = async function (box, slug) {
+        var v = (box || {})[slug]; if (!v) return null;
+        try { return u8(await decrypt(ak, v.iv, v.ct)); } catch (x) { return null; }
+      };
       return {
-        name: ring.n, admin: false, allowed: null, superUser: true,
-        key: async function (slug) {
-          if (ring.p && ring.p[slug]) return u8(ring.p[slug]);
-          var v = (U.vault || {})[slug];
-          if (!v) return null;
-          try { return u8(await decrypt(ak, v.iv, v.ct)); } catch (x) { return null; }
-        }
+        name: ring.n, admin: false, superUser: true,
+        allowed: Object.keys(U.vault || {}), downloadable: Object.keys(U.dvault || {}),
+        key: function (slug) { return slug === "home" && ring.p && ring.p.home ? Promise.resolve(u8(ring.p.home)) : open(U.vault, slug); },
+        dkey: function (slug) { return open(U.dvault, slug); }
       };
     }
+    var d = ring.d || {};
     return {
-      name: ring.n, admin: false, allowed: Object.keys(ring.p),
-      key: function (slug) { return Promise.resolve(ring.p[slug] ? u8(ring.p[slug]) : null); }
+      name: ring.n, admin: false, allowed: Object.keys(ring.p), downloadable: Object.keys(d),
+      key: function (slug) { return Promise.resolve(ring.p[slug] ? u8(ring.p[slug]) : null); },
+      dkey: function (slug) { return Promise.resolve(d[slug] ? u8(d[slug]) : null); }
     };
   }
   function getSession() { try { return JSON.parse(localStorage.getItem(SESSION) || sessionStorage.getItem(SESSION) || "null"); } catch (e) { return null; } }
@@ -112,7 +140,7 @@ var FA = (function () {
   function clearSession() { try { localStorage.removeItem(SESSION); sessionStorage.removeItem(SESSION); localStorage.removeItem("faclon-glossary-key"); } catch (e) {} }
   return {
     u8: u8, b64: b64, pbkdf2: pbkdf2, hmac: hmac, encrypt: encrypt, decrypt: decrypt, decryptBytes: decryptBytes, sha256hex: sha256hex,
-    norm: norm, userId: userId, pageKey: pageKey, allKey: allKey, fillVault: fillVault, loadUsers: loadUsers, adminMaster: adminMaster,
+    norm: norm, userId: userId, pageKey: pageKey, allKey: allKey, pdfKey: pdfKey, canRead: canRead, canDownload: canDownload, syncVault: syncVault, fillVault: fillVault, buildRing: buildRing, loadUsers: loadUsers, adminMaster: adminMaster,
     login: login, access: access, getSession: getSession, setSession: setSession, clearSession: clearSession
   };
 })();

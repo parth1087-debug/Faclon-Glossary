@@ -157,8 +157,8 @@ button:disabled{opacity:.6;cursor:default}
 </div>
 <div class="card" id="noacc" hidden>
   <div class="eyebrow">Faclon Labs</div>
-  <h1>No access to this page</h1>
-  <p>You're signed in as <b id="who"></b>, but this solution hasn't been shared with you. Ask your Faclon contact if you need it.</p>
+  <h1 id="nah">No access to this page</h1>
+  <p id="nap">You're signed in as <b id="who"></b>, but this solution hasn't been shared with you. Ask your Faclon contact if you need it.</p>
   <div class="acts"><a class="btn" id="home" href="#">See your solutions</a><button class="ghost" id="out" type="button">Sign in as someone else</button></div>
 </div>
 <script id="fa-core">
@@ -171,7 +171,7 @@ var D={slug:"__SLUG__",base:"__BASE__",iv:"__IV__",ct:"__CT__"};
 var $=function(i){return document.getElementById(i)};
 var gate=$("gate"),noacc=$("noacc"),err=$("err");
 function after(html,acc,U){
-  var args=[acc.allowed,acc.name,acc.admin,D.base,U.solutions||[],D.slug].map(function(v){return JSON.stringify(v).replace(/</g,"\\u003c")}).join(",");
+  var args=[acc.allowed,acc.name,acc.admin,D.base,U.solutions||[],D.slug,acc.downloadable,U.policy||{}].map(function(v){return JSON.stringify(v).replace(/</g,"\\u003c")}).join(",");
   var js='<script>'+$("fa-core").textContent+'\n'+TOOLS+'\nFTOOLS('+args+')<\/script>';
   var i=html.toLowerCase().lastIndexOf("</body>");
   return i<0?html+js:html.slice(0,i)+js+html.slice(i);
@@ -179,7 +179,7 @@ function after(html,acc,U){
 function show(html){function go(){document.open();document.write(html);document.close()}if(document.readyState==="complete")go();else window.addEventListener("load",go)}
 async function open(U,acc){
   var k=await acc.key(D.slug);
-  if(!k){gate.hidden=true;$("who").textContent=acc.name;$("home").href=D.base||"./";noacc.hidden=false;return}
+  if(!k){gate.hidden=true;$("who").textContent=acc.name;if(!FA.canRead(U,D.slug)){$("nah").textContent="This solution isn't available right now";$("nap").textContent="It has been switched off for all users. Ask your Faclon contact if you need it."}$("home").href=D.base||"./";noacc.hidden=false;return}
   show(after(await FA.decrypt(k,D.iv,D.ct),acc,U));
 }
 $("out").onclick=function(){FA.clearSession();noacc.hidden=true;gate.hidden=false;gate.style.visibility="visible";$("u").focus()};
@@ -217,6 +217,82 @@ def build_admin(core):
     return out
 
 
+def can_read(users, slug):
+    p = (users.get("policy") or {}).get(slug) or {}
+    return slug == "home" or p.get("read", True) is not False
+
+
+def can_download(users, slug):
+    p = (users.get("policy") or {}).get(slug) or {}
+    return slug != "home" and can_read(users, slug) and p.get("download", True) is not False
+
+
+def sync_box(old, all_key, wanted):
+    """Keeps a vault ({slug: key encrypted with the all key}) equal to `wanted`, reusing unchanged entries."""
+    out = {}
+    for slug, want in wanted.items():
+        v = old.get(slug)
+        try:
+            if v and unb64(AESGCM(all_key).decrypt(unb64(v["iv"]), unb64(v["ct"]), None).decode()) == want:
+                out[slug] = v
+                continue
+        except Exception:
+            pass
+        iv = secrets.token_bytes(12)
+        out[slug] = {"iv": b64(iv), "ct": b64(AESGCM(all_key).encrypt(iv, b64(want).encode(), None))}
+    return out
+
+
+def migrate_pdfs(targets, master, fresh):
+    """PDFs used to share the page key; re-lock older ones with their own pdf key."""
+    for slug, path in targets:
+        f = path.parent / PDF_NAME
+        if slug == "home" or slug in fresh or not f.exists():
+            continue
+        data = f.read_bytes()
+        try:
+            AESGCM(mac(master, "pdf:" + slug)).decrypt(data[:12], data[12:], None)
+            continue
+        except Exception:
+            pdf = AESGCM(mac(master, "page:" + slug)).decrypt(data[:12], data[12:], None)
+        iv = secrets.token_bytes(12)
+        f.write_bytes(iv + AESGCM(mac(master, "pdf:" + slug)).encrypt(iv, pdf, None))
+        print("re-locked pdf", slug)
+
+
+def build_ring(users, master, m):
+    """Mirror of FA.buildRing in auth_core.js."""
+    ring = {"n": m["name"], "p": {"home": b64(mac(master, "page:home"))}, "d": {}}
+    if m.get("all"):
+        ring["all"] = 1
+        ring["a"] = b64(mac(master, "all"))
+        return ring
+    for slug in m.get("pages") or []:
+        if can_read(users, slug):
+            ring["p"][slug] = b64(mac(master, "page:" + slug))
+        if can_download(users, slug):
+            ring["d"][slug] = b64(mac(master, "pdf:" + slug))
+    return ring
+
+
+def upgrade_rings(users, master):
+    """One-off: rebuilds every keyring so it carries download keys (ring.d) under the current policy."""
+    admin_key = mac(master, "admin")
+    n = 0
+    for e in users.get("users") or []:
+        try:
+            m = json.loads(AESGCM(admin_key).decrypt(unb64(e["miv"]), unb64(e["meta"]), None))
+            uk = unb64(m["uk"])
+        except Exception:
+            print("  skipped an unreadable user entry")
+            continue
+        iv = secrets.token_bytes(12)
+        e["iv"] = b64(iv)
+        e["kr"] = b64(AESGCM(uk).encrypt(iv, json.dumps(build_ring(users, master, m), separators=(",", ":")).encode(), None))
+        n += 1
+    return n
+
+
 def main():
     targets = pages()
     core = AUTH_CORE.read_text(encoding="utf-8")
@@ -236,9 +312,10 @@ def main():
             print("MISSING: users.json")
             bad.append(USERS)
         else:
-            vault = json.loads(USERS.read_text(encoding="utf-8")).get("vault") or {}
+            u = json.loads(USERS.read_text(encoding="utf-8"))
+            vault = u.get("vault") or {}
             for slug, _ in targets:
-                if slug not in vault:
+                if slug not in vault and can_read(u, slug):
                     print("MISSING VAULT KEY:", slug, "(re-run protect.py)")
                     bad.append(USERS)
         sys.exit(1 if bad else 0)
@@ -286,26 +363,22 @@ def main():
             for slug, path, plain in need_pdf:
                 pdf, h, scale = r.pdf(plain)
                 iv = secrets.token_bytes(12)
-                (path.parent / PDF_NAME).write_bytes(iv + AESGCM(mac(master, "page:" + slug)).encrypt(iv, pdf, None))
+                (path.parent / PDF_NAME).write_bytes(iv + AESGCM(mac(master, "pdf:" + slug)).encrypt(iv, pdf, None))
                 print(f"pdf {slug}: one page, {h}px tall" + (f", scaled to {scale:.2f}" if scale < 1 else ""))
         finally:
             r.close()
 
     users["solutions"] = solutions
+    migrate_pdfs(targets, master, [x[0] for x in need_pdf])
     all_key = mac(master, "all")
-    old_vault, vault = users.get("vault") or {}, {}
-    for slug, _ in targets:
-        want = mac(master, "page:" + slug)
-        v = old_vault.get(slug)
-        try:
-            if v and unb64(AESGCM(all_key).decrypt(unb64(v["iv"]), unb64(v["ct"]), None).decode()) == want:
-                vault[slug] = v
-                continue
-        except Exception:
-            pass
-        iv = secrets.token_bytes(12)
-        vault[slug] = {"iv": b64(iv), "ct": b64(AESGCM(all_key).encrypt(iv, b64(want).encode(), None))}
-    users["vault"] = vault
+    users["vault"] = sync_box(users.get("vault") or {}, all_key,
+                              {slug: mac(master, "page:" + slug) for slug, _ in targets if can_read(users, slug)})
+    users["dvault"] = sync_box(users.get("dvault") or {}, all_key,
+                               {slug: mac(master, "pdf:" + slug) for slug, _ in targets if can_download(users, slug)})
+    if users.get("version", 2) < 3:
+        n = upgrade_rings(users, master)
+        users["version"] = 3
+        print(f"upgraded {n} user keyrings to separate read and download keys")
     USERS.write_text(json.dumps(users, indent=1) + "\n", encoding="utf-8")
     print("updated users.json solutions:", ", ".join(x["slug"] for x in solutions))
 
