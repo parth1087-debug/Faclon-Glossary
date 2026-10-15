@@ -13,6 +13,7 @@ Customer-facing pages for Faclon Labs solution lines, published as a static webs
 | Bus Bar Monitoring | [`/bus-bar-monitoring/`](bus-bar-monitoring/index.html) | |
 | Energy Management | [`/energy-management/`](energy-management/index.html) | |
 | Condition Based Monitoring | [`/condition-based-monitoring/`](condition-based-monitoring/index.html) | |
+| IT-OT Integration | [`/it-ot-integration/`](it-ot-integration/index.html) | |
 
 ## Layout
 
@@ -42,6 +43,7 @@ python3 src/steam-trap-monitoring/build_page.py   # writes steam-trap-monitoring
 python3 src/bus-bar-monitoring/build_page.py      # writes bus-bar-monitoring/index.html (content in content.json, photos in assets/)
 python3 src/energy-management/build_page.py       # writes energy-management/index.html (content in content.json, screenshots in assets/)
 python3 src/condition-based-monitoring/build_page.py  # writes condition-based-monitoring/index.html (content in content.json)
+python3 src/it-ot-integration/build_page.py      # writes it-ot-integration/index.html (content in content.json, drawing in diagram.py)
 python3 src/power-plant-ai/build_catalogue_pdf.py  # writes the PDF (needs: pip install playwright && playwright install chromium)
 ```
 

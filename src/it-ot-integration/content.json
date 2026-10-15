@@ -1,0 +1,921 @@
+{
+ "hero": {
+  "lede": "A reference architecture for bringing plant data from electrical rooms, machine lines and utilities into the Faclon platforms, safely. Every area keeps its own segment, a two-firewall industrial DMZ brokers the data, and upload runs outbound only into the plant owner's own cloud tenancy.",
+  "kpis": [
+   {
+    "value": "L0 → L5",
+    "label": "Field to cloud, layered on the Purdue model"
+   },
+   {
+    "value": "2 OT firewalls",
+    "label": "South and North, with an industrial DMZ between"
+   },
+   {
+    "value": "≥ 7 days",
+    "label": "Store-and-forward on I/O Connect"
+   },
+   {
+    "value": "Read-only",
+    "label": "No write path from IT or cloud to any controller"
+   }
+  ]
+ },
+ "key_points": [
+  "One switch, fibre patch panel (LIU) and fibre run per electrical room, machine line and utility section, in a star to a common termination. All electrical rooms share one VLAN with no NAT.",
+  "Machine lines keep their existing PLC, DCS and OPC server addressing; overlapping subnets are resolved by 1:1 NAT.",
+  "Protocol converters only where a device speaks a non-TCP protocol (Profibus, Modbus RTU and similar) or Profinet cyclic I/O.",
+  "South firewall has no default route and accepts nothing inbound from the field. Only I/O Connect and the jump server reach field subnets.",
+  "I/O Connect brokers field protocols to HTTPS or MQTT and buffers at least 7 days of data.",
+  "Upload is outbound only, over a private link to the plant owner's tenancy. The cloud never initiates a session into the plant.",
+  "UDF is the system of record; enterprise apps and AI agents pull data through its API or the Bruce MCP Gateway.",
+  "Firewall and master-switch HA pairs are optional."
+ ],
+ "platforms": [
+  {
+   "name": "I/O Connect",
+   "level": "IDMZ · L3.5",
+   "status": "Core",
+   "color": "slate",
+   "role": "Pipeline gateway for plant data across many OT protocols",
+   "notes": "Polls field devices read-only, brokers them to HTTPS 443 or MQTT/TLS 8883, buffers at least 7 days and replays in order. Holds field credentials locally. Can also sit on the OT or IT network where a design calls for it."
+  },
+  {
+   "name": "UDF",
+   "level": "Cloud · L5 (edge optional)",
+   "status": "Core",
+   "color": "blue",
+   "role": "Unified Data Fabric: ingestion, system of record and data API",
+   "notes": "Private ingestion endpoint with mutual TLS per gateway and idempotent writes, so buffered data replays without duplicates. Time-series, document, graph and vector storage with retention and downsampling per tag class. Read-only, OAuth2 API per consumer with rate limits and an audit log of every call. Not exposed outside the platform. An edge instance in the DMZ is optional."
+  },
+  {
+   "name": "I/O Sense",
+   "level": "Cloud · L5",
+   "status": "Core",
+   "color": "green",
+   "role": "Visibility: dashboards, apps and prompt-to-dashboard",
+   "notes": "Default visualisation apps for plant and corporate users on web and mobile, with App Studio for new apps. Access by plant, area and app through Foundry."
+  },
+  {
+   "name": "Foundry",
+   "level": "Cloud · L5",
+   "status": "Core",
+   "color": "dark",
+   "role": "Governance: authentication, users and access across all platforms",
+   "notes": "Single sign-on with the customer's identity provider; role-based access by plant, area and app; per-consumer API clients; audit trail into the customer SIEM."
+  },
+  {
+   "name": "Forge",
+   "level": "Cloud · L5",
+   "status": "Core",
+   "color": "dark",
+   "role": "Deployment layer inside the customer's tenancy",
+   "notes": "Spins up and manages the platform's compute, containers and libraries on any public cloud or on-premise, inside a private network with no public IPs."
+  },
+  {
+   "name": "Ontology",
+   "level": "Cloud · L5",
+   "status": "Optional",
+   "color": "navy",
+   "role": "Asset model and directory of what exists and how it is served",
+   "notes": "ISA-95 style site → area → line → asset hierarchy; units, ranges and descriptions for every tag, used by I/O Sense, Bruce and API consumers."
+  },
+  {
+   "name": "Bruce",
+   "level": "Cloud · L5",
+   "status": "Optional",
+   "color": "purple",
+   "role": "Agent factory, plus the Bruce MCP Gateway for agentic data access",
+   "notes": "Needs a model token and API access. Preferred: a model endpoint inside the customer's own tenancy so data does not leave it. Read-only MCP tools, per-user or per-agent auth through Foundry, prompts and responses logged; no write tools."
+  },
+  {
+   "name": "Deepsense",
+   "level": "Cloud · L5 (edge optional)",
+   "status": "Optional",
+   "color": "purple",
+   "role": "Build, deploy and run custom ML and AI models",
+   "notes": "Runs on platform compute, reads from UDF and writes results back as derived tags. An edge instance in the DMZ is optional for local inference; it reads from I/O Connect and has no route to field subnets."
+  }
+ ],
+ "scope": [
+  {
+   "area": "Data sources",
+   "in": "Energy meters in electrical rooms; PLCs, DCS and OPC servers on machine lines; utility PLCs and controllers (chillers, compressors, DGs, WTPs, ETPs); utility meters (flow, compressed air, BTU); boiler and turbine DCS",
+   "out": "Collecting data from ERP, internal portals or plant-maintenance modules"
+  },
+  {
+   "area": "Network",
+   "in": "Converters, NAT switches, LIUs, fibre star, master switch, South and North firewalls, IDMZ switch and servers",
+   "out": "Perimeter firewall and VPN server ownership stays with the customer's IT team; their rules are specified here"
+  },
+  {
+   "area": "Platform",
+   "in": "Faclon platforms in the customer's cloud tenancy: I/O Connect, UDF, I/O Sense, Foundry and Forge. Optional: Ontology, Bruce, Deepsense",
+   "out": "Cloud subscription, tenancy landing zone and AI model tokens (customer-provided)"
+  },
+  {
+   "area": "Integration",
+   "in": "Outbound data through the UDF API (HTTPS, OAuth2) and the Bruce MCP Gateway to ERP, MES, LIMS and other tools",
+   "out": "Consumer-side build inside those tools"
+  },
+  {
+   "area": "Control",
+   "in": "Read-only data acquisition",
+   "out": "Any write-back or control from IT or cloud to the field"
+  }
+ ],
+ "scope_note": "Enterprise systems are consumers in this design: they pull plant data from UDF. No provision is made for collecting data from them.",
+ "vlans": [
+  [
+   "101",
+   "Electrical rooms (all)",
+   "One VLAN shared by every electrical room. Converters are freshly addressed by the project from one unique subnet, so no NAT is needed.",
+   "Each room's managed L2 switch · master switch · trunk · South FW sub-interface"
+  ],
+  [
+   "201–2nn",
+   "Machine lines",
+   "One per PLC / DCS line cell. Real cell subnet inside the NAT switch, translated subnet on its uplink.",
+   "Line NAT switch · master switch · trunk · South FW sub-interface"
+  ],
+  [
+   "301–30n",
+   "Utility sections",
+   "301 utility PLCs and controllers · 302 flow, compressed-air and BTU meters · 303 boiler and turbine DCS. Each behind a NAT switch.",
+   "Section NAT switch · master switch · trunk · South FW sub-interface"
+  ],
+  [
+   "11",
+   "I/O Connect",
+   "Collector, buffer and cloud uplink; optional edge UDF and Deepsense",
+   "IDMZ switch · North FW · South FW"
+  ],
+  [
+   "12",
+   "Jump",
+   "Jump server / privileged access",
+   "IDMZ switch · North FW · South FW"
+  ],
+  [
+   "13",
+   "Firewall management",
+   "Firewall manager (policy, backup, logs)",
+   "IDMZ switch · North FW · South FW"
+  ],
+  [
+   "14",
+   "IDMZ services",
+   "NTP, patch / AV relay, syslog forwarder",
+   "IDMZ switch · North FW"
+  ],
+  [
+   "999",
+   "Native (trunks)",
+   "Unused, no ports assigned",
+   "Every trunk"
+  ]
+ ],
+ "vlan_note": "Every subnet above the NAT switches is unique. The South FW joins only VLANs 11–13; VLAN 14 is reachable from the North FW only.",
+ "nat": [
+  [
+   "NAT switch (each machine line / utility section)",
+   "Inside → outside, 1:1",
+   "Only the hosts that must be read: converters, PLCs, controllers, and an engineering station where remote access is approved"
+  ],
+  [
+   "NAT switch",
+   "Outside → inside, 1:1",
+   "South FW data identity and remote identity, mapped to free addresses in the real subnet"
+  ],
+  [
+   "South FW",
+   "Source NAT",
+   "I/O Connect traffic → FW data identity; jump traffic → FW remote identity"
+  ],
+  [
+   "North FW",
+   "None",
+   "Routing and policy only"
+  ],
+  [
+   "Perimeter FW",
+   "None on tunnel · PAT on internet",
+   "IDMZ subnet reaches the cloud tenancy over the private link without NAT where address plans allow"
+  ]
+ ],
+ "nat_note": "Twice-NAT per session: real field addresses never appear above a NAT switch, and field devices need no gateway or configuration change.",
+ "routing": [
+  [
+   "Field hosts (meters, PLCs, controllers)",
+   "None needed",
+   "Unchanged. Reverse NAT makes firewall identities look local"
+  ],
+  [
+   "Converters",
+   "None, or NAT switch side",
+   "Converter IP sits in its area's real subnet"
+  ],
+  [
+   "NAT switch / room L2 switch",
+   "Management only",
+   "Layer 2. One uplink fibre pair to its LIU. No routing between areas"
+  ],
+  [
+   "Master L2 switch",
+   "Management only",
+   "Layer 2. All field VLANs; trunk to South FW"
+  ],
+  [
+   "South FW",
+   "None",
+   "Connected only: translated field subnets, VLANs 11, 12, 13"
+  ],
+  [
+   "I/O Connect",
+   "North FW (VLAN 11)",
+   "Static: translated field subnets → South FW"
+  ],
+  [
+   "Jump server",
+   "North FW (VLAN 12)",
+   "Static: translated field subnets → South FW"
+  ],
+  [
+   "Firewall manager",
+   "North FW (VLAN 13)",
+   "None"
+  ],
+  [
+   "North FW",
+   "IT core",
+   "Connected: VLANs 11–14. No routes to field subnets"
+  ],
+  [
+   "IT core",
+   "Perimeter FW",
+   "Static: IDMZ subnets → North FW. No routes to field subnets"
+  ],
+  [
+   "Perimeter FW",
+   "Internet",
+   "Cloud tenancy prefixes → private link / IPsec tunnel"
+  ]
+ ],
+ "firewalls": [
+  {
+   "id": "south",
+   "name": "South FW",
+   "sub": "OT firewall · I/O Connect and jump VLANs ↔ translated field subnets",
+   "rules": [
+    [
+     "S1",
+     "Any, with a real (untranslated) field address",
+     "Any",
+     "Any",
+     "Drop + alert",
+     "Catches a missing or broken NAT on a field uplink"
+    ],
+    [
+     "S2",
+     "I/O Connect (VLAN 11)",
+     "Electrical-room converters (VLAN 101, real addresses)",
+     "Modbus TCP 502",
+     "Allow",
+     "No NAT on this VLAN. Function codes 3 / 4 only (read) where the firewall supports Modbus inspection"
+    ],
+    [
+     "S3",
+     "I/O Connect (VLAN 11)",
+     "Line PLC / DCS / OPC server (VLAN 201–2nn)",
+     "EtherNet/IP CIP 44818 · OPC UA where present",
+     "Allow",
+     "Explicit messaging reads only. Implicit I/O (UDP 2222) never leaves the cell"
+    ],
+    [
+     "S4",
+     "I/O Connect (VLAN 11)",
+     "Utility PLCs and controllers, utility meters, boiler / turbine DCS (VLAN 301–303)",
+     "Modbus TCP 502 · BACnet/IP 47808 · OPC UA 4840 · S7 102, per device",
+     "Allow",
+     "Per-host rules from the site survey; no subnet-wide allow"
+    ],
+    [
+     "S5",
+     "Jump server (VLAN 12)",
+     "Line engineering stations / PLCs (translated)",
+     "RDP 3389 · CIP 44818 (PLC engineering software)",
+     "Allow on request",
+     "Disabled by default; enabled per approved window. SNAT to FW remote identity"
+    ],
+    [
+     "S6",
+     "Firewall manager (VLAN 13)",
+     "South FW management",
+     "HTTPS 443 · SSH 22 · vendor port",
+     "Allow",
+     "No other source can manage the South FW"
+    ],
+    [
+     "S6a",
+     "South FW",
+     "Firewall manager (VLAN 13)",
+     "Syslog over TLS 6514",
+     "Allow",
+     "South FW logs reach the SIEM through the manager"
+    ],
+    [
+     "S7",
+     "Any field VLAN",
+     "Any other field VLAN",
+     "Any",
+     "Deny",
+     "No traffic between rooms, lines or sections"
+    ],
+    [
+     "S8",
+     "Field VLANs",
+     "IDMZ",
+     "Any",
+     "Deny",
+     "Field devices never start connections"
+    ],
+    [
+     "S9",
+     "Any",
+     "Any",
+     "Any",
+     "Deny + log",
+     "Default"
+    ]
+   ]
+  },
+  {
+   "id": "north",
+   "name": "North FW",
+   "sub": "IDMZ / IT firewall · IT network ↔ IDMZ VLANs 11–14",
+   "rules": [
+    [
+     "N1",
+     "I/O Connect (VLAN 11)",
+     "UDF ingestion endpoint (private IP / FQDN)",
+     "HTTPS 443 · MQTT/TLS 8883",
+     "Allow",
+     "The only outbound data path. Leaves via IT core and the perimeter private link"
+    ],
+    [
+     "N2",
+     "VPN OT / vendor pools (IT)",
+     "Jump server (VLAN 12)",
+     "HTTPS 443 (remote desktop gateway / PAM portal)",
+     "Allow",
+     "MFA and directory group check; sessions recorded"
+    ],
+    [
+     "N3",
+     "Jump server (admin role)",
+     "I/O Connect, firewall manager, IDMZ services",
+     "RDP 3389 · SSH 22 · HTTPS 443",
+     "Allow",
+     "IDMZ administration only from the jump server"
+    ],
+    [
+     "N4",
+     "Firewall manager (VLAN 13)",
+     "North FW management",
+     "HTTPS 443 · SSH 22 · vendor port",
+     "Allow",
+     "Policy push and backup. No direct firewall admin from IT"
+    ],
+    [
+     "N5",
+     "IDMZ services (VLAN 14)",
+     "IT NTP, patch / AV servers",
+     "NTP 123 · HTTPS 443",
+     "Allow",
+     "Updates pulled from IT and relayed; nothing pushed in"
+    ],
+    [
+     "N6",
+     "IDMZ servers, firewall manager, North FW",
+     "Customer SIEM",
+     "Syslog over TLS 6514",
+     "Allow",
+     "Audit trail"
+    ],
+    [
+     "N7",
+     "IT network",
+     "I/O Connect (VLAN 11)",
+     "Any",
+     "Deny",
+     "The gateway is never reachable from IT"
+    ],
+    [
+     "N8",
+     "IT network (incl. VPN pools)",
+     "Firewall manager (VLAN 13)",
+     "Any",
+     "Deny + alert",
+     "Reachable only from the jump server"
+    ],
+    [
+     "N9",
+     "I/O Connect",
+     "Internet / IT",
+     "Anything other than N1, N5, N6",
+     "Deny",
+     "No general internet access from the IDMZ"
+    ],
+    [
+     "N10",
+     "Any",
+     "Any",
+     "Any",
+     "Deny + log",
+     "Default"
+    ]
+   ]
+  },
+  {
+   "id": "perimeter",
+   "name": "Perimeter FW",
+   "sub": "Customer IT edge · IT ↔ internet and cloud tenancy",
+   "rules": [
+    [
+     "P1",
+     "IDMZ subnet (VLAN 11)",
+     "UDF ingestion endpoint (cloud tenancy)",
+     "HTTPS 443 · MQTT/TLS 8883, inside IPsec / private circuit",
+     "Allow",
+     "Outbound only. Preferred over public internet"
+    ],
+    [
+     "P2",
+     "Plant and corporate users, ERP and other consumers",
+     "I/O Sense · UDF API · Bruce MCP Gateway (cloud)",
+     "HTTPS 443",
+     "Allow",
+     "Through the private link or internet with SSO / OAuth2, per the customer's IT policy"
+    ],
+    [
+     "P3",
+     "Internet",
+     "VPN server",
+     "IPsec / SSL VPN",
+     "Allow",
+     "Existing corporate rule; MFA; separate OT and vendor pools"
+    ],
+    [
+     "P4",
+     "Cloud tenancy",
+     "Any on-premises subnet",
+     "Any new session",
+     "Deny + alert",
+     "The cloud never initiates a session into the plant"
+    ],
+    [
+     "P5",
+     "Internet",
+     "IDMZ / I/O Connect",
+     "Any",
+     "Deny",
+     "No inbound publishing of plant systems"
+    ],
+    [
+     "P6",
+     "Any",
+     "Any",
+     "Any",
+     "Deny + log",
+     "Default"
+    ]
+   ]
+  }
+ ],
+ "fw_note": "Rules are evaluated top to bottom and every allowed rule is logged. Ports are typical values, confirmed per device during the site survey.",
+ "flows": [
+  {
+   "t": "Data collection",
+   "steps": [
+    "I/O Connect",
+    "static route → South FW",
+    "SNAT data identity",
+    "Master switch",
+    "Fibre star",
+    "Area LIU",
+    "NAT switch · 1:1 NAT",
+    "Converter / PLC / controller"
+   ],
+   "rules": "S2 · S3 · S4",
+   "d": "Non-TCP devices are polled through their converter; PLCs and DCS controllers are read over CIP explicit messaging or through their OPC server; boiler and turbine DCS are read through their OPC server."
+  },
+  {
+   "t": "Upload to cloud",
+   "steps": [
+    "I/O Connect buffer",
+    "North FW",
+    "IT core",
+    "Perimeter FW · private link",
+    "UDF ingestion endpoint",
+    "UDF system of record"
+   ],
+   "rules": "N1 · P1",
+   "d": "On any break, I/O Connect keeps polling and buffers locally, then replays in order when the link returns."
+  },
+  {
+   "t": "Consumption",
+   "steps": [
+    "ERP · MES · LIMS · other tools",
+    "OAuth2",
+    "UDF API",
+    "UDF"
+   ],
+   "alt": [
+    [
+     "Users",
+     "SSO via Foundry",
+     "I/O Sense"
+    ],
+    [
+     "AI agents (optional)",
+     "Bruce MCP Gateway",
+     "UDF · Ontology"
+    ]
+   ],
+   "rules": "P2",
+   "d": "Consumers only pull. Nothing in IT or the cloud can reach I/O Connect or any field device."
+  },
+  {
+   "t": "Remote engineering",
+   "steps": [
+    "Remote user / OEM",
+    "VPN server",
+    "North FW",
+    "Jump server · MFA, recorded",
+    "South FW · rule on request",
+    "NAT switch",
+    "Engineering station / PLC"
+   ],
+   "rules": "P3 · N2 · S5",
+   "d": "S5 stays disabled until an access window is approved; vendor accounts are time-bound."
+  },
+  {
+   "t": "Firewall administration",
+   "steps": [
+    "Admin",
+    "VPN",
+    "Jump server · firewall-admin role",
+    "Firewall manager · approved change",
+    "North FW · South FW"
+   ],
+   "rules": "N3 · N4 · S6",
+   "d": "IT access to the manager is blocked by N8. Sealed local break-glass accounts cover a manager outage."
+  }
+ ],
+ "design_rules": [
+  [
+   "Star, one area per run",
+   "Every electrical room, machine line and utility section has its own switch, LIU and fibre run to the common termination, so one cut affects one area only. Machine lines and utility sections are each their own subnet behind a NAT switch."
+  ],
+  [
+   "One VLAN for electrical rooms",
+   "Meters and converters are of one type and trust level and are addressed fresh by the project, so one VLAN means one South FW sub-interface and one rule instead of one per room. A few hundred devices is far below any broadcast concern; if room count grows large, split it by building."
+  ],
+  [
+   "Lines as cell/area zones",
+   "Existing PLC addressing is left unchanged; overlapping OEM subnets (for example 192.168.1.0/24 on several lines) are resolved by 1:1 NAT on the line's NAT-capable industrial switch."
+  ],
+  [
+   "Real-time traffic stays in the cell",
+   "EtherNet/IP implicit I/O, Profinet RT, drive and safety networks stay inside each cell and are never translated or routed."
+  ],
+  [
+   "Converters only where needed",
+   "Added only where data is not reachable over a routable TCP protocol: serial and fieldbus links (Modbus RTU on RS-485, Profibus DP) and Profinet cyclic I/O. A gateway configured as a Profinet I/O device exposes it as Modbus TCP or OPC UA. Where the PLC supports native Ethernet reads (S7 or OPC UA), reading it directly usually avoids the gateway."
+  ],
+  [
+   "Read-only acquisition",
+   "No write path exists from the IDMZ, IT or cloud to any PLC or controller."
+  ],
+  [
+   "Routes held by two hosts only",
+   "The South FW has no default route and no static routes; only I/O Connect and the jump server hold routes to field subnets. The North FW has no route to field subnets at all."
+  ],
+  [
+   "A broker, not a pass-through",
+   "I/O Connect terminates field protocols and re-originates HTTPS / MQTT to UDF: two sessions, never one. It holds field credentials locally."
+  ],
+  [
+   "Outbound only",
+   "The cloud never initiates a session into the plant. All data movement from plant to cloud is outbound from the IDMZ."
+  ],
+  [
+   "Firewalls are the only way between segments",
+   "The IDMZ switch is Layer 2 with no SVI in any VLAN. The firewall manager is the only source allowed to change either OT firewall, and it is reached only from the jump server."
+  ],
+  [
+   "Locked-down trunks",
+   "Trunks carry an explicit allowed-VLAN list, native VLAN 999 with no ports, negotiation disabled. VLAN 1 is not used."
+  ]
+ ],
+ "considerations": [
+  [
+   "Private connectivity to the cloud tenancy (site-to-site IPsec or a dedicated cloud interconnect)",
+   "Keeps plant data off the public internet and lets the perimeter rule be scoped to tenancy prefixes",
+   "Recommended"
+  ],
+  [
+   "Store-and-forward on I/O Connect, sized for at least 7 days",
+   "Covers WAN outages and planned firewall maintenance without data loss",
+   "Recommended"
+  ],
+  [
+   "NTP across converters, I/O Connect and firewalls (VLAN 14)",
+   "Energy meters often have no reliable clock; timestamps must be consistent before they reach UDF",
+   "Recommended"
+  ],
+  [
+   "Converter list per device: Profibus, Profinet I/O, Modbus RTU, and on older lines DeviceNet or ControlNet",
+   "Decides how many converters are needed; devices already on EtherNet/IP, Modbus TCP or OPC UA need none. Profibus and Profinet gateways also need a change to the master PLC's hardware configuration",
+   "Site survey"
+  ],
+  [
+   "Electrical rooms on one shared VLAN, no NAT; NAT only where OEM devices have fixed or overlapping IPs",
+   "Converters are newly addressed by the project, so a managed L2 switch per room is enough. Saves NAT switches and firewall sub-interfaces",
+   "Applied"
+  ],
+  [
+   "HA on the master switch and both OT firewalls",
+   "Every field area converges on them; a single unit is a plant-wide single point of failure",
+   "Option"
+  ],
+  [
+   "Spare fibre cores and a ring option",
+   "Star is simpler; a ring (MRP / ERPS) between area switches adds path redundancy where trench routes allow",
+   "Option"
+  ],
+  [
+   "UPS-backed field panels, DIN-rail industrial switches, IP54 enclosures",
+   "Electrical rooms and utility areas are hot, dusty and see supply dips",
+   "Recommended"
+  ],
+  [
+   "IDMZ hosts not joined to the corporate directory domain",
+   "A corporate directory compromise must not give access to the IDMZ; use a separate IDMZ domain or local accounts plus PAM",
+   "Recommended"
+  ],
+  [
+   "SIEM integration and log retention",
+   "Firewall, jump and I/O Connect logs into the customer SOC; supports audits and incident response",
+   "Recommended"
+  ],
+  [
+   "Cloud tenancy controls: private network, private endpoints, key vault, India region, UDF backup and DR",
+   "The cloud is the system of record; it needs backup and a recovery target",
+   "Recommended"
+  ],
+  [
+   "AI data governance for Bruce and the MCP Gateway",
+   "Model endpoint inside the customer's tenancy; read-only MCP tools; prompts and responses logged",
+   "If optional modules are taken"
+  ],
+  [
+   "Tag list, naming convention and asset hierarchy in Ontology",
+   "Drives dashboards, agents and API consumers; agree before commissioning",
+   "Recommended"
+  ],
+  [
+   "Sampling rates and bandwidth estimate per area",
+   "Sizes converters, polling cycles, the I/O Connect buffer and the cloud link",
+   "Site survey"
+  ],
+  [
+   "OEM / vendor remote-access policy",
+   "Machine builders will ask for access; time-bound, approved, recorded, via the jump server only",
+   "Recommended"
+  ],
+  [
+   "Multi-plant template",
+   "Each plant gets its own field network, OT firewalls and IDMZ; all plants share one Faclon platform in the tenancy",
+   "Option"
+  ],
+  [
+   "IEC 62443 zone and conduit mapping, with target security level per zone",
+   "Gives the customer's auditors a standard reference for the design",
+   "Recommended"
+  ]
+ ],
+ "protocols": [
+  [
+   "EtherNet/IP (CIP)",
+   "PLCs and DCS controllers",
+   "TCP 44818 explicit messaging",
+   "No",
+   "IP address · backplane path / slot · controller family · tag list with data types (data-table addresses on legacy PLCs) · spare CIP connections",
+   "None for tag reads. Read-only access confirmed if controller security is enabled"
+  ],
+  [
+   "Modbus TCP",
+   "Meters, DG / chiller controllers, PLCs",
+   "TCP 502",
+   "No",
+   "IP address · port · unit ID · register map (holding / input, function code 3 / 4) · data type · byte and word order · scaling",
+   "None"
+  ],
+  [
+   "Modbus RTU (RS-485)",
+   "Energy, flow, BTU meters, small controllers",
+   "Serial → converter → Modbus TCP 502",
+   "Yes (Modbus gateway)",
+   "Slave ID per device · baud rate · parity · data / stop bits · register map · word order · loop length and device count (32 unit loads per segment without repeaters)",
+   "None, unless the loop already has a master; then the gateway shares or replaces it"
+  ],
+  [
+   "Profibus DP",
+   "Older PLCs, drives, compressors",
+   "Fieldbus → converter → Modbus TCP / OPC UA",
+   "Yes (DP gateway)",
+   "Master PLC make and model · free DP address for the gateway · baud rate · GSD file · I/O data to be mapped",
+   "Gateway added as a DP slave: a hardware-configuration change and download on the master PLC"
+  ],
+  [
+   "Profinet",
+   "PLC lines, drives",
+   "Ethernet; cyclic I/O not routable → converter",
+   "Only for cyclic I/O",
+   "Controller make and model · device name and IP for the gateway · GSDML file · I/O data to be mapped",
+   "Gateway added as an I/O device: hardware-configuration change on the controller. Prefer native S7 or OPC UA reads where possible"
+  ],
+  [
+   "OPC UA",
+   "PLCs with OPC UA, DCS OPC servers, third-party OPC servers",
+   "TCP 4840 (default; vendor may differ)",
+   "No",
+   "Endpoint URL · security policy and mode · certificate exchange · user credentials · namespace and node IDs · max sessions / subscriptions",
+   "Server runtime licence on some products; client licence where the vendor charges per connection"
+  ],
+  [
+   "OPC DA (Classic)",
+   "Older DCS, legacy OPC servers and SCADA",
+   "COM / DCOM; not firewall-friendly",
+   "Tunneller / UA wrapper",
+   "OPC server ProgID · host name and Windows version · DCOM account · tag list · update rate",
+   "Tunneller or OPC UA wrapper installed on the OPC server host so only OPC UA crosses the network. Some lite editions of OPC software have no OPC server"
+  ],
+  [
+   "IEC 61850",
+   "Numerical protection relays, substation IEDs",
+   "MMS over TCP 102 (GOOSE / SV are layer-2 only)",
+   "No",
+   "IED IP · SCL files (ICD / CID / SCD) · logical device and node names · datasets · report control blocks (buffered / unbuffered) and free client slots",
+   "MMS client licence on the gateway. A free report control block per IED, or polling"
+  ],
+  [
+   "MC protocol / SLMP",
+   "PLCs that expose MC protocol",
+   "TCP / UDP, port set in the PLC",
+   "No",
+   "PLC series · IP · port · frame (3E / 4E) · binary or ASCII · device addresses (D, M, X, Y, R) · data type",
+   "An open MC-protocol connection configured in the PLC: a parameter change if not already set. Online write disabled"
+  ],
+  [
+   "S7 (S7comm)",
+   "PLCs that expose S7",
+   "ISO-on-TCP 102",
+   "No",
+   "IP · rack and slot · DB numbers and byte offsets · data types",
+   "On newer PLCs: PUT / GET access enabled and the DBs to be read set to non-optimised: a PLC configuration change and download"
+  ]
+ ],
+ "protocol_note": "All protocols above are supported by I/O Connect, directly or through a converter. Acquisition is read-only in every case.",
+ "hosts": [
+  [
+   "Electrical rooms",
+   "Energy meters (incomers, feeders, MCC / PCC)",
+   "Modbus RTU RS-485 · Modbus TCP"
+  ],
+  [
+   "Electrical rooms",
+   "Numerical protection relays (if in scope)",
+   "IEC 61850 MMS · Modbus"
+  ],
+  [
+   "Electrical rooms",
+   "Transformer / APFC / UPS controllers (if in scope)",
+   "Modbus RTU · Modbus TCP"
+  ],
+  [
+   "Machine lines",
+   "Line PLCs (current and legacy families)",
+   "EtherNet/IP · legacy fieldbus"
+  ],
+  [
+   "Machine lines",
+   "Line DCS",
+   "EtherNet/IP · OPC UA"
+  ],
+  [
+   "Machine lines",
+   "Line OPC server",
+   "OPC UA · OPC DA"
+  ],
+  [
+   "Machine lines",
+   "Other-make machine PLCs",
+   "S7 · MC protocol · Profinet · Profibus"
+  ],
+  [
+   "Utilities",
+   "Chiller controllers",
+   "Modbus · BACnet/IP"
+  ],
+  [
+   "Utilities",
+   "DG controllers",
+   "Modbus RTU · Modbus TCP"
+  ],
+  [
+   "Utilities",
+   "Air compressor controllers",
+   "Modbus · Profibus · OEM-specific"
+  ],
+  [
+   "Utilities",
+   "WTP / ETP PLCs",
+   "Per make (S7, MC protocol, Modbus, EtherNet/IP)"
+  ],
+  [
+   "Utilities",
+   "Flow, compressed-air and BTU meters",
+   "Modbus RTU · Modbus TCP · 4–20 mA"
+  ],
+  [
+   "Utilities",
+   "Boiler DCS / PLC",
+   "OPC UA · OPC DA · Modbus TCP"
+  ],
+  [
+   "Utilities",
+   "Turbine DCS / governor",
+   "OPC UA · OPC DA · Modbus TCP"
+  ],
+  [
+   "Utilities",
+   "Boiler / turbine OPC server or historian",
+   "OPC UA · OPC DA"
+  ]
+ ],
+ "hosts_note": "Filled in by the plant team with their OEMs before detailed engineering: one row per host type, repeated per make and model, with make, model and firmware, quantity, IP / address, panel location and OEM contact. With each row, share the tag or register list, the required polling rate, and written approval from the OEM or DCS vendor to connect.",
+ "open_items": [
+  [
+   "Number of electrical rooms, machine lines and utility sections, and their locations",
+   "VLAN count, NAT switches, LIUs, fibre runs"
+  ],
+  [
+   "Per machine line: PLC family and network (EtherNet/IP, DeviceNet, ControlNet, other legacy fieldbus)",
+   "Which lines need protocol gateways"
+  ],
+  [
+   "Existing IP plans per line; overlaps between lines",
+   "NAT table per line switch"
+  ],
+  [
+   "Meter makes and counts per room; RS-485 loop lengths",
+   "Converter count and polling cycle"
+  ],
+  [
+   "Utility OEM controllers and protocols (Modbus, BACnet, OPC UA, S7); utility meter makes and protocols",
+   "Per-host South FW rules (S4), converter count"
+  ],
+  [
+   "Boiler and turbine DCS make, OPC UA / DA availability, and written DCS vendor approval to connect",
+   "How the DCS is read; whether an OPC tunneller is needed"
+  ],
+  [
+   "Cloud provider and region; existing private link from the plant to the tenancy",
+   "Perimeter rule P1 and the upload path"
+  ],
+  [
+   "The customer's approved firewall vendor or rate contract",
+   "Firewall and manager selection"
+  ],
+  [
+   "Identity provider for single sign-on",
+   "Foundry, I/O Sense and UDF API authentication"
+  ],
+  [
+   "Who consumes data via API, and at what rate (ERP, MES, LIMS, others)",
+   "UDF API sizing and OAuth client list"
+  ],
+  [
+   "Whether Ontology, Bruce and Deepsense are in the first phase",
+   "Platform sizing and AI model access"
+  ]
+ ],
+ "contact": {
+  "name": "Parth Chaudhary",
+  "phone": "+91 93266 50795",
+  "tel": "+919326650795",
+  "email": "parth@faclon.com",
+  "web": "www.faclon.com"
+ }
+}
