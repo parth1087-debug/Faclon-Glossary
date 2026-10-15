@@ -73,6 +73,17 @@ SOLUTIONS = [
         "links": [],
     },
     {
+        "slug": "it-ot-integration",
+        "name": "IT-OT Integration",
+        "sector": "All industries",
+        "accent": "blue",
+        "live": True,
+        "blurb": "A reference architecture for bringing plant data into the Faclon platforms safely: segmented "
+                 "field networks, a two-firewall industrial DMZ with I/O Connect, and outbound-only upload to UDF.",
+        "tags": ["Two-firewall IDMZ", "Read-only · outbound only", "IEC 62443 aligned"],
+        "links": [],
+    },
+    {
         "slug": "metals-ai",
         "name": "Metals AI",
         "sector": "Metals",
