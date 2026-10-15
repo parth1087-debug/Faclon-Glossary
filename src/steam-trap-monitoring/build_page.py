@@ -20,6 +20,10 @@ import html
 import json
 from pathlib import Path
 
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import diagrams  # noqa: E402  inline SVG architecture diagrams
+
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 OUT = ROOT / "steam-trap-monitoring" / "index.html"
@@ -79,9 +83,10 @@ rows = "".join(
 assum = "".join(f"<div><dt>{E(a)}</dt><dd>{E(b)}</dd></div>" for a, b in bc["assumptions"])
 plus = "".join(f"<li>{E(p)}</li>" for p in bc["plus"])
 
+FIGS = [diagrams.header_install(), diagrams.hx_install()]
 install = "".join(
-    f'<article class="inst"><h3>{E(i["t"])}</h3><ol>' + "".join(f"<li>{E(p)}</li>" for p in i["points"])
-    + "</ol></article>" for i in D["install"])
+    f'<article class="inst"><h3>{E(i["t"])}</h3><figure class="fig">{FIGS[n]}</figure><p class="swipe">Swipe sideways to see the whole diagram →</p><ol>'
+    + "".join(f"<li>{E(p)}</li>" for p in i["points"]) + "</ol></article>" for n, i in enumerate(D["install"]))
 
 features = "".join(f"<li>{E(p)}</li>" for p in D["platform"])
 views = "".join(f'<article class="view"><h3>{E(v["t"])}</h3><p>{E(v["d"])}</p></article>' for v in D["views"])
@@ -216,7 +221,8 @@ dl.as dt{color:var(--mute);font-weight:600}
 dl.as dd{color:var(--ink2)}
 
 /* install */
-.insts{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.insts{display:grid;grid-template-columns:minmax(0,1fr);gap:18px}
+.inst ol{display:grid!important;grid-template-columns:1fr 1fr;gap:10px 28px}
 .inst{border:1px solid var(--line);border-radius:16px;padding:20px 22px}
 .inst h3{font-size:18px;margin-bottom:12px}
 .inst ol{counter-reset:s;display:flex;flex-direction:column;gap:10px}
@@ -261,6 +267,47 @@ dl.as dd{color:var(--ink2)}
 .foot .wrap{display:flex;justify-content:space-between;gap:16px;padding-top:18px;padding-bottom:22px;flex-wrap:wrap}
 .foot a{color:inherit;text-decoration:none}
 
+/* architecture diagrams */
+.fig{margin:0;border:1px solid var(--line);border-radius:16px;background:#fff;padding:12px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.fig svg{display:block;width:100%;height:auto;min-width:680px}
+.fig figcaption{font-size:12.5px;color:var(--mute);padding:6px 6px 0}
+.inst .fig{background:var(--bg);border:0;margin-bottom:16px}
+.dg text{font-family:Inter,system-ui,sans-serif;fill:var(--ink2);font-size:13px}
+.dg .b{font-weight:600;fill:var(--ink)}
+.dg .eb{font-size:10.5px;font-weight:700;letter-spacing:.12em;fill:var(--mute)}
+.dg .eb.a,.dg .a{fill:var(--blue)}
+.dg .o{fill:#C25A0E}.dg .bl{fill:#2F6FB5}.dg .m{fill:var(--mute);font-size:12px}
+.dg .v{writing-mode:vertical-rl;font-size:12px;fill:#2F4F8F}
+.dg .dots{font-size:22px;fill:var(--mute);font-weight:700}
+.dg .pipe{fill:none;stroke:#8A97AA;stroke-width:6;stroke-linejoin:round}
+.dg .pipe.thin{stroke-width:4}
+.dg .hdrl{stroke-width:8}
+.dg .insul{fill:none;stroke:#F2E2B0;stroke-width:22;stroke-linejoin:round}
+.dg .hdr{fill:#C9D1DC}.dg .hl{fill:var(--ink);font-weight:600}
+.dg .well{fill:#C9D1DC}
+.dg .trap rect{fill:#5B6778}.dg .trap line{stroke:#5B6778;stroke-width:4}
+.dg .valve path{fill:#fff;stroke:#2F6FB5;stroke-width:2.5}.dg .valve line{stroke:#2F6FB5;stroke-width:2.5}.dg .valve .hdl{stroke:#C0392B;stroke-width:4}
+.dg .lead{fill:none;stroke-width:3}.dg .lead.li{stroke:#E0701B}.dg .lead.lo{stroke:#4A8FE0}
+.dg .rtd.ri{fill:#E0701B}.dg .rtd.ro{fill:#4A8FE0}
+.dg .nbox{fill:#9FC8B6;stroke:#4E8A72;stroke-width:2}.dg .nface{fill:#E8F1EC;stroke:#4E8A72;stroke-width:2}
+.dg .ant{stroke:#2A3340;stroke-width:3;stroke-linecap:round}
+.dg .wave{fill:none;stroke:var(--mute);stroke-width:1.6}
+.dg .gbox{fill:#9FC8B6;stroke:#4E8A72;stroke-width:2}.dg .gt{fill:#173A2C;font-weight:700;font-size:13px}.dg .gt.s{font-weight:500;font-size:11.5px}
+.dg .cbox{fill:var(--navy)}.dg .ct{fill:#fff;font-weight:700;font-size:15px}.dg .cs{fill:var(--blue2);font-size:12px}
+.dg .radio{fill:none;stroke:#E0701B;stroke-width:2.2;stroke-dasharray:2 6;stroke-linecap:round}
+.dg .flow{fill:none;stroke:var(--blue);stroke-width:2.2}.dg .flow.dash{stroke-dasharray:6 5}.dg .flow.g{stroke:var(--mute);stroke-width:1.6}
+.dg .data{fill:none;stroke:#E0701B;stroke-width:2.2}
+.dg .opt{fill:var(--blueBg);stroke:#B9C6E8;stroke-dasharray:5 4}
+.dg .out{fill:var(--greenBg);stroke:#CDE9DC}
+.dg .pillar{fill:#B9CCF0}
+.dg .bldg{fill:#EEF1F6;stroke:#9AA7BB;stroke-width:2}.dg .win{stroke:#B9C6E8;stroke-width:8}.dg .mast{stroke:#2A3340;stroke-width:3}
+.dg .hx{fill:#fff;stroke:#2A3340;stroke-width:2.5}.dg .coil{fill:none;stroke:#2A3340;stroke-width:2.5}
+.dg .tag{fill:#fff;stroke:#6B7A90;stroke-width:2}
+.dg .sys{fill:#fff;stroke:#2A3340;stroke-width:1.6}
+.arch{margin-bottom:8px}
+.swipe{display:none;font-size:12px;color:var(--mute);margin:-8px 0 14px}
+.flowx,.dcs{display:none}
+
 @media (max-width:1000px){
   .flowx{grid-template-columns:minmax(0,1fr)}.link{flex-direction:row;gap:10px;padding:10px 0;min-width:0}
   .link i{width:2px;height:28px;margin:0;order:-1;background:repeating-linear-gradient(180deg,var(--blue) 0 6px,transparent 6px 11px)}
@@ -272,6 +319,8 @@ dl.as dd{color:var(--ink2)}
 @media (max-width:640px){
   .wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
   .hero h1{margin-top:40px}.kp b{font-size:21px}
+  .arch{display:none}.flowx{display:grid}.dcs{display:block}.inst ol{grid-template-columns:1fr}.swipe{display:block}
+  .fig svg{min-width:640px}
   section{padding-top:48px}
   .fails,.feat,.whys,.views,.insts,.hw{grid-template-columns:minmax(0,1fr)}
   .case{grid-template-columns:1fr;gap:10px}.clogo{justify-content:start;height:48px}.cmet{text-align:left}
@@ -318,6 +367,7 @@ HTML = f"""<!doctype html>
 <section id="how"><div class="wrap">
   <div class="sh"><div class="eyebrow">How it works</div><h2>From the trap to an alert, with no cables</h2>
   <p>A battery node on each trap reads its inlet and outlet temperature and radios it to a gateway. The gateway sends it to the I/O Sense cloud, where every trap gets a live status, a diagnosis and its steam loss.</p></div>
+  <figure class="fig arch">{diagrams.architecture()}<figcaption>System architecture. Header traps need no DCS connection; process data is an optional input.</figcaption></figure>
   <div class="flowx">
     <div class="fx"><small>On each trap</small><h3>Steam trap node</h3><p>Battery powered, conformally coated, flameproof enclosure, 2 temperature sensors on inlet and outlet.</p></div>
     <div class="link" aria-hidden="true"><b>Wireless LoRa</b><i></i><span>up to 1,000 m</span></div>
