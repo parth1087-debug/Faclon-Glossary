@@ -1,4 +1,4 @@
-"""Builds power-plant-ai/power-plant-ai-use-case-catalogue.pdf — one continuous (single tall page) PDF
+"""Builds power-plant-ai-use-case-catalogue.pdf — one continuous (single tall page) PDF
 covering all 24 use cases, customer cases and engagement approach.
 
 Run:  python3 src/power-plant-ai/build_catalogue_pdf.py   (needs: pip install playwright; a Chromium)
@@ -8,7 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 TMP = Path(__file__).with_name("_catalogue.html")
-OUT = ROOT / "power-plant-ai" / "power-plant-ai-use-case-catalogue.pdf"
+OUT = ROOT / "power-plant-ai-use-case-catalogue.pdf"
 from playwright.sync_api import sync_playwright
 
 E = html.escape

@@ -1,4 +1,4 @@
-"""Builds power-plant-ai/index.html (Advisory Agents + Automated Process Control page).
+"""Builds index.html (the site home page) (Advisory Agents + Automated Process Control page).
 
 Run from anywhere:  python3 src/power-plant-ai/build_page.py
 Edit the AGENTS and APC lists below to change content; the page is regenerated in full.
@@ -7,7 +7,7 @@ import math
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-OUT = ROOT / "power-plant-ai" / "index.html"
+OUT = ROOT / "index.html"
 
 # ======================= ADVISORY AGENTS =======================
 AGENTS = [
@@ -489,7 +489,7 @@ ul{{list-style:none}}
 <body>
 
 <div class="hero"><div class="wrap">
-  <div class="brand"><a href="../" style="color:#fff;text-decoration:none"><b>Faclon Labs</b></a><span>Power Plant AI · Boiler · Turbine · Auxiliaries</span></div>
+  <div class="brand"><b>Faclon Labs</b><span>Power Plant AI · Boiler · Turbine · Auxiliaries</span></div>
   <h1>AI that advises your people <em>and</em> controls your process</h1>
   <p class="lede">Two complementary offerings for captive and utility power plants. Advisory Agents turn plant data into decisions for every team. Automated Process Control writes optimal setpoints back to the DCS, around the clock.</p>
   <div class="split">
