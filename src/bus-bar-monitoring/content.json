@@ -14,10 +14,10 @@
     }
   ],
   "consequences": [
-    "Difficult manual thermal inspection",
-    "Risk of fire hazards",
-    "Possibility of unplanned downtimes",
-    "Greater energy losses"
+    "Slow, risky manual thermal inspection",
+    "Fire risk",
+    "Unplanned downtime",
+    "Higher energy losses"
   ],
   "flow": [
     {
@@ -113,7 +113,7 @@
       "specs": [
         [
           "Type",
-          "Spread spectrum technology, communicates with 60 sensors"
+          "Spread-spectrum RF; communicates with up to 60 sensors"
         ],
         [
           "Frequency",
@@ -210,16 +210,16 @@
     }
   ],
   "roi": {
-    "basis": "Calculations for ROI justification for 30 critical bus-bar joints",
+    "basis": "Indicative ROI for 30 critical bus-bar joints",
     "rows": [
       {
         "metric": "2 major",
-        "label": "Incidents averted as a result of online monitoring",
+        "label": "Major incidents averted by online monitoring",
         "value": "₹50 Lakh"
       },
       {
         "metric": "15%",
-        "label": "Reduction in downtimes",
+        "label": "Reduction in downtime",
         "value": "₹7.5 Lakh"
       },
       {

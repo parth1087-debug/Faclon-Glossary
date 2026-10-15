@@ -8,106 +8,188 @@
   "unit": "₹ Cr per MTPA",
   "note": "Savings are indicative (₹ Cr per MTPA of throughput) and subject to site assessment and mutual agreement.",
   "modes": [
-    {"id": "opencast", "name": "Opencast"},
-    {"id": "underground", "name": "Underground"},
-    {"id": "both", "name": "Both"}
+    {
+      "id": "opencast",
+      "name": "Opencast"
+    },
+    {
+      "id": "underground",
+      "name": "Underground"
+    },
+    {
+      "id": "both",
+      "name": "Both"
+    }
   ],
   "domains": [
-    {"id": "fleet", "name": "Mobile Equipment & Fleet"},
-    {"id": "material", "name": "Material Handling"},
-    {"id": "fixed", "name": "Fixed Plant & Rotating Equipment"},
-    {"id": "processing", "name": "Coal Processing & Beneficiation"},
-    {"id": "energy", "name": "Energy & Utilities"},
-    {"id": "safety", "name": "Mine Safety & Gas Management"},
-    {"id": "environment", "name": "Geotechnical & Environment"}
+    {
+      "id": "fleet",
+      "name": "Mobile Equipment & Fleet"
+    },
+    {
+      "id": "material",
+      "name": "Material Handling"
+    },
+    {
+      "id": "fixed",
+      "name": "Fixed Plant & Rotating Equipment"
+    },
+    {
+      "id": "processing",
+      "name": "Coal Processing & Beneficiation"
+    },
+    {
+      "id": "energy",
+      "name": "Energy & Utilities"
+    },
+    {
+      "id": "safety",
+      "name": "Mine Safety & Gas Management"
+    },
+    {
+      "id": "environment",
+      "name": "Geotechnical & Environment"
+    }
   ],
   "use_cases": [
     {
-      "n": 1, "d": "fleet", "t": "Haulage & dispatch optimization", "v": 1.0, "m": "opencast",
+      "n": 1,
+      "d": "fleet",
+      "t": "Haulage & dispatch optimisation",
+      "v": 1.0,
+      "m": "opencast",
       "sense": "Live GPS/AVL, engine ECU/CAN telemetry and payload data stream in from every dumper and shovel.",
       "analyse": "Analytics surface cycle and queue/idle times, shovel–truck matching, haul-road speed losses and excess diesel burn.",
       "act": "Dispatchers receive live re-routing prompts, idle and over-speed alarms, and daily fleet-productivity and fuel dashboards.",
       "solves": "Trucks idling, poor shovel matching, long cycles and excess diesel burn."
     },
     {
-      "n": 2, "d": "fleet", "t": "HEMM predictive maintenance", "v": 0.85, "m": "opencast",
+      "n": 2,
+      "d": "fleet",
+      "t": "HEMM predictive maintenance",
+      "v": 0.85,
+      "m": "opencast",
       "sense": "Onboard HEMM telemetry is pulled directly from the OEM/VIMS/CAN bus (engine, hydraulics, transmission, payload and active fault codes) with no retrofit sensors.",
       "analyse": "Condition models track engine, hydraulic and transmission health, derates, recurring fault-code patterns and duty-cycle stress trends.",
       "act": "Maintenance teams receive early fault alerts with severity, remaining-useful-life estimates and planning insights.",
       "solves": "Unplanned breakdowns, high MTTR and lost production from HEMM downtime."
     },
     {
-      "n": 3, "d": "fleet", "t": "OTR tyre management (TPMS)", "v": 0.6, "m": "opencast",
+      "n": 3,
+      "d": "fleet",
+      "t": "OTR tyre management (TPMS)",
+      "v": 0.6,
+      "m": "opencast",
       "sense": "In-tyre pressure and temperature (TPMS) sensors, plus load and speed telemetry, are collected across the haul fleet.",
       "analyse": "Analytics flag under- and over-inflation, heat build-up, TKPH breaches and overload conditions.",
       "act": "Operators receive real-time heat and pressure alarms, tyre-rotation guidance and tyre-life forecasts.",
       "solves": "Giant OTR tyres fail prematurely at very high unit cost."
     },
     {
-      "n": 4, "d": "material", "t": "Conveyor monitoring (computer vision)", "v": 0.4, "m": "both",
+      "n": 4,
+      "d": "material",
+      "t": "Conveyor monitoring (computer vision)",
+      "v": 0.4,
+      "m": "both",
       "sense": "AI cameras (RGB and thermal) watch the critical conveyors: CHP transfer and junction points, overland belts, tripper cars and load/discharge chutes.",
       "analyse": "Vision models spot belt tears and rips, tracking misalignment, idler hotspots and smoke, spillage, and foreign or oversized particles such as tramp metal, rock and wood.",
       "act": "The system raises belt-damage and fire-risk alerts, triggers foreign-object and tramp-metal stops, and trends belt condition over time.",
       "solves": "Belt tears, idler fires, tramp-metal damage and sudden CHP/overland stoppages."
     },
     {
-      "n": 5, "d": "fixed", "t": "Vibration condition-based monitoring (CBM)", "v": 0.5, "m": "both",
+      "n": 5,
+      "d": "fixed",
+      "t": "Vibration condition-based monitoring (CBM)",
+      "v": 0.5,
+      "m": "both",
       "sense": "Wireless triaxial vibration and temperature sensors are mounted on stationary rotating assets: CHP crushers, screens, conveyor drives and gearboxes, washery pumps and plant fans.",
       "analyse": "FFT and spectral analysis reveal bearing defects, imbalance, misalignment, looseness, gear-mesh and lubrication faults.",
       "act": "Crews get ISO 10816 threshold alarms, fault-type diagnoses and remaining-useful-life and planning insights.",
       "solves": "Sudden failure of fixed rotating equipment causing plant downtime."
     },
     {
-      "n": 6, "d": "processing", "t": "Washery yield & media optimization", "v": 2.0, "m": "both",
+      "n": 6,
+      "d": "processing",
+      "t": "Washery yield & media optimisation",
+      "v": 2.0,
+      "m": "both",
       "sense": "Online ash analysers, density and flow meters and level sensors monitor the dense-media circuit, with soft sensors where lab data is sparse.",
       "analyse": "Analytics measure product ash against spec and flag yield loss, magnetite and media losses and circuit imbalances.",
       "act": "Operators receive media-dosing set-point recommendations, off-spec alarms and yield-versus-target insights every shift.",
       "solves": "Yield loss and excess media consumption; off-spec ash."
     },
     {
-      "n": 7, "d": "energy", "t": "CHP specific energy (SEC) optimization", "v": 0.3, "m": "both",
+      "n": 7,
+      "d": "energy",
+      "t": "CHP specific energy (SEC) optimisation",
+      "v": 0.3,
+      "m": "both",
       "sense": "Energy meters and CTs at MCC and feeder level are mapped to crushers, screens and conveyors as hierarchical energy nodes.",
       "analyse": "Energy analytics compute kWh per tonne by equipment and surface idling load, off-baseline consumption and energy-inefficient units.",
       "act": "Teams receive SEC-deviation alerts, idle-running notifications and benchmarking insights against best demonstrated performance.",
       "solves": "High and uncontrolled specific power consumption in coal handling."
     },
     {
-      "n": 8, "d": "safety", "t": "Methane monitoring & drainage", "v": 0.65, "m": "underground",
+      "n": 8,
+      "d": "safety",
+      "t": "Methane monitoring & drainage",
+      "v": 0.65,
+      "m": "underground",
       "sense": "Fixed and personal methane and CO sensors cover the workings and returns, alongside drainage-borehole flow and vacuum telemetry.",
       "analyse": "Gas analytics track methane concentration trends, statutory-threshold approaches and drainage-borehole performance.",
       "act": "It raises graded gas alarms, triggers automatic power trips and reports CMM-utilisation insights.",
       "solves": "Gas-related withdrawals/stoppages, safety risk and vented methane."
     },
     {
-      "n": 9, "d": "safety", "t": "Spontaneous combustion / fire detection", "v": 0.45, "m": "both",
+      "n": 9,
+      "d": "safety",
+      "t": "Spontaneous combustion / fire detection",
+      "v": 0.45,
+      "m": "both",
       "sense": "CO and gas-ratio sensors and thermal/IR cameras cover stockpiles, goaf and conveyors.",
       "analyse": "Models watch for rising CO, Graham's ratio and thermal hotspots that signal early heating.",
       "act": "The system sends early-heating warnings, escalates fire risk and provides stockpile-turnover insights.",
       "solves": "Heatings and fires cause sealing, reserve loss and evacuation."
     },
     {
-      "n": 10, "d": "safety", "t": "Collision avoidance / proximity detection", "v": 0.25, "m": "both",
+      "n": 10,
+      "d": "safety",
+      "t": "Collision avoidance / proximity detection",
+      "v": 0.25,
+      "m": "both",
       "sense": "Proximity-detection units (RF/RFID, radar and camera) are fitted to HEMM, with wearable tags on personnel.",
       "analyse": "Proximity logic identifies vehicle-to-person and vehicle-to-vehicle breaches and blind-spot intrusions.",
       "act": "Operators receive in-cab audible and visual warnings, automatic slow/stop interventions and near-miss and incident logs.",
       "solves": "Fatality risk and incident-driven stoppages."
     },
     {
-      "n": 11, "d": "safety", "t": "PPE detection (vision-based)", "v": 0.1, "m": "both",
+      "n": 11,
+      "d": "safety",
+      "t": "PPE detection (vision-based)",
+      "v": 0.1,
+      "m": "both",
       "sense": "AI cameras with edge-based person detection cover gates, walkways, workshops and high-risk zones such as the CHP, washery and plant.",
       "analyse": "Vision models flag missing helmets, high-vis jackets, safety shoes or masks, and entry into restricted zones, per person.",
       "act": "Supervisors receive real-time non-compliance alerts, zone-wise violation dashboards and audit-ready evidence logs.",
       "solves": "PPE non-compliance driving injuries and statutory exposure."
     },
     {
-      "n": 12, "d": "safety", "t": "Manpower / personnel location tracking", "v": 0.2, "m": "both",
+      "n": 12,
+      "d": "safety",
+      "t": "Manpower / personnel location tracking",
+      "v": 0.2,
+      "m": "both",
       "sense": "RFID/UWB/BLE tags on personnel, with readers and anchors across underground workings, plant and gates, integrate with the cap-lamp and lamp-room systems.",
       "analyse": "A real-time headcount is maintained with zone-wise location, time-in-zone, and lone-worker and restricted-area presence.",
       "act": "The system supports emergency mustering, lone-worker and SOS alerts, and shift-attendance and zone-occupancy insights.",
       "solves": "No live visibility of where people are during incidents or evacuation."
     },
     {
-      "n": 13, "d": "environment", "t": "Dust & environmental compliance", "v": 0.15, "m": "both",
+      "n": 13,
+      "d": "environment",
+      "t": "Dust & environmental compliance",
+      "v": 0.15,
+      "m": "both",
       "sense": "Ambient PM10 and PM2.5 monitors, fugitive and stack dust sensors, and blast-vibration and noise meters are deployed across the site.",
       "analyse": "Analytics detect dust exceedances, attribute them to sources and check blast vibration and noise against limits.",
       "act": "It triggers suppression on demand, raises compliance-breach alerts and generates regulatory-reporting insights.",

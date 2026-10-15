@@ -94,7 +94,8 @@ CSS = """
 --blue:#3D63F5;--blue2:#7C95FF;--blueBg:#EEF2FF;--green:#11875F;--greenBg:#E5F5EE;--amber:#C77A12;--amberBg:#FDF3E3;--red:#B5452F;--redBg:#FBEEEB;color-scheme:light}
 *{box-sizing:border-box;margin:0;padding:0}
 html{background:#fff;scroll-padding-top:24px}
-body{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:#fff;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+body{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:#fff;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+table{font-variant-numeric:tabular-nums}
 ul,ol{list-style:none}
 button{font:inherit;color:inherit}
 .wrap{max-width:1180px;margin:0 auto;padding-left:max(28px,env(safe-area-inset-left,0px));padding-right:max(28px,env(safe-area-inset-right,0px))}
@@ -295,7 +296,7 @@ HTML = f"""<!doctype html>
         <div class="mrow"><span>Opencast mine</span><b>{cr(oc)} / MTPA</b></div>
         <div class="mrow"><span>Underground mine</span><b>{cr(ug)} / MTPA</b></div>
         </div></div>
-      <div class="mbox"><h3>Biggest single lever</h3><p>Washery yield and media optimization, at {cr(max(u["v"] for u in UCS))} per MTPA, followed by haulage and dispatch optimization.</p></div>
+      <div class="mbox"><h3>Biggest single lever</h3><p>Washery yield and media optimisation, at {cr(max(u["v"] for u in UCS))} per MTPA, followed by haulage and dispatch optimisation.</p></div>
     </div>
   </div>
   <p class="note">{E(C["note"])}</p>

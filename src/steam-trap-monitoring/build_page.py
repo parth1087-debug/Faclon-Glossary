@@ -114,7 +114,8 @@ CSS = """
 --blue:#3D63F5;--blue2:#7C95FF;--blueBg:#EEF2FF;--green:#11875F;--greenBg:#E5F5EE;--amber:#C77A12;--amberBg:#FDF3E3;--red:#B5452F;--redBg:#FBEDEA;color-scheme:light}
 *{box-sizing:border-box;margin:0;padding:0}
 html{background:#fff;scroll-padding-top:64px}
-body{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:#fff;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+body{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:#fff;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+table{font-variant-numeric:tabular-nums}
 ul,ol{list-style:none}
 .wrap{max-width:1180px;margin:0 auto;padding-left:max(28px,env(safe-area-inset-left,0px));padding-right:max(28px,env(safe-area-inset-right,0px))}
 h1,h2,h3{letter-spacing:-.015em;line-height:1.2;text-wrap:balance}
@@ -390,7 +391,7 @@ HTML = f"""<!doctype html>
 </div></section>
 
 <section id="why"><div class="wrap">
-  <div class="sh"><div class="eyebrow">Steam traps management</div><h2>Why temperature-only, wireless monitoring</h2></div>
+  <div class="sh"><div class="eyebrow">Steam trap management</div><h2>Why temperature-only, wireless monitoring</h2></div>
   <div class="whys">{why}</div>
 </div></section>
 
@@ -444,7 +445,7 @@ HTML = f"""<!doctype html>
   <div><div class="eyebrow" style="color:var(--blue2)">Your digital backbone for operational efficiency</div><h2>Start with a pilot on your traps</h2><p>Begin with a header of up to 30 traps on one gateway, see the failures and steam loss it surfaces, then scale across the plant.</p></div>
   {CTA_BUTTONS}
 </div></div>
-<div class="foot"><div class="wrap"><span><a href="../">← All solutions</a> · Faclon Labs · Steam Trap Failure Detection</span><span><a href="https://{E(ct["web"])}">{E(ct["web"])}</a></span></div></div>
+<div class="foot"><div class="wrap"><span><a href="../">← All solutions</a> · Faclon Labs · Steam Trap Failure Detection</span><span>Steam trap monitoring for process industries</span></div></div>
 <script>{JS}</script>
 </body></html>"""
 

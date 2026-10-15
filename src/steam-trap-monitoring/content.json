@@ -44,15 +44,15 @@
       "d": "Without DCS integration the algorithm uses static baselines, since header pressure and condensate recovery do not vary much. With integration, it runs on real-time process data: header temperature and pressure, control valve position, steam flow, condensate flow and temperature, and heat exchanger process temperature."
     },
     {
-      "t": "Proven and long term",
+      "t": "Proven and long-term",
       "o": true,
-      "d": "The hardware is designed and field tested to last for many years in corrosive areas, hydrocarbon Zone 1 and all weather, with large-scale implementations in upstream and downstream refineries, pulp and fibre, and pharma. The oldest implementations have been running for more than 4 years."
+      "d": "The hardware is designed and field-tested to last for many years in corrosive areas, hydrocarbon Zone 1 and all weather, with large-scale implementations in upstream and downstream refineries, pulp and fibre, and pharma. The oldest implementations have been running for more than 4 years."
     }
   ],
   "failures": [
     {
       "n": 1,
-      "t": "Non operational",
+      "t": "Non-operational",
       "sig": "Low inlet temperature",
       "d": "The trap has been manually isolated using its valve. Once isolated it is either choked or bypassed.",
       "impact": "If choked: waterlogging that affects steam quality and may lead to water hammering. If bypassed: steam losses."
@@ -131,14 +131,14 @@
       ],
       [
         "Cost of steam",
-        "INR 2,700 per ton"
+        "₹2,700 per tonne"
       ]
     ],
     "plus": [
-      "Manual check-up man-hour savings",
+      "Fewer man-hours spent on manual checks",
       "Better steam quality from less choking",
       "Avoided steam bypass losses due to choking",
-      "Reduced water hammering safety hazard"
+      "Lower water-hammer safety risk"
     ]
   },
   "install": [
@@ -202,8 +202,8 @@
     "2 L-shaped temperature sensors, up to 550 °C, for inlet and outlet; waterproof, SS316",
     "Battery operated, minimum 4–5 years",
     "PESO certified flameproof enclosure and double compression glands",
-    "Zone 1 compliant; IP-67 enclosure; conformal coating",
-    "LoRa range up to 1 km in free line of sight",
+    "Zone 1 compliant; IP67 enclosure; conformal coating",
+    "LoRa range up to 1 km in clear line of sight",
     "Data every 30 minutes",
     "Extended antenna, fibreglass canopy; wall or metal clamp / tie mounting",
     "1 year warranty"
@@ -211,7 +211,7 @@
   "gateway": [
     "LoRa receiver; connects up to 30 traps",
     "4G uplink with local data storage buffer",
-    "230 VAC power supply",
+    "230 V AC power supply",
     "PESO approved flameproof enclosure and double compression glands",
     "IP67; outdoor, with canopy; conformal coating",
     "1 year warranty"

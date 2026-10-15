@@ -138,7 +138,8 @@ CSS = """
 --blue:#3D63F5;--blue2:#7C95FF;--blueBg:#EEF2FF;--green:#11875F;--greenBg:#E5F5EE;--amber:#C77A12;--red:#B5452F;--redBg:#FBEEEB;color-scheme:light}
 *{box-sizing:border-box;margin:0;padding:0}
 html{background:#fff;scroll-padding-top:24px}
-body{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:#fff;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+body{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:#fff;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+table{font-variant-numeric:tabular-nums}
 ul{list-style:none}
 img{max-width:100%;display:block}
 button{font:inherit}
@@ -414,7 +415,7 @@ HTML = f"""<!doctype html>
 </main>
 
 <div class="cta"><div class="wrap">
-  <div><div class="k">We're here as your</div><h2>Digital Backbone to Drive Operational Efficiency and Decision Intelligence</h2><p>Tell us what you would like your cameras to watch for. We will show you which I/O Vision use cases fit your plant.</p></div>
+  <div><div class="k">Next step</div><h2>Your digital backbone for operational efficiency and decision intelligence</h2><p>Tell us what you would like your cameras to watch for. We will show you which I/O Vision use cases fit your plant.</p></div>
   {CTA_BUTTONS}
 </div></div>
 <div class="foot"><div class="wrap"><span><a href="../">← All solutions</a> · Faclon Labs · I/O Vision</span><span>Computer vision for safer, smarter plants</span></div></div>

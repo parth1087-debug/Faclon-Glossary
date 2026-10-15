@@ -124,7 +124,8 @@ CSS = """
 --red:#B5452F;--redBg:#FBEDEA;--purple:#7B4FE0;--purpleBg:#F3EEFE;--slate:#2A3340;color-scheme:light}
 *{box-sizing:border-box;margin:0;padding:0}
 html{background:#fff;scroll-padding-top:64px}
-body{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:#fff;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+body{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:#fff;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+table{font-variant-numeric:tabular-nums}
 ul,ol{list-style:none}
 button{font:inherit;cursor:pointer}
 .wrap{max-width:1180px;margin:0 auto;padding-left:max(28px,env(safe-area-inset-left,0px));padding-right:max(28px,env(safe-area-inset-right,0px))}
