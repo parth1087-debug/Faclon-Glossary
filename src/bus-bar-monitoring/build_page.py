@@ -9,6 +9,7 @@ Content lives in content.json next to this script:
   screens[]      {name, img, desc}      I/O Sense platform screens, one tab each
   roi            {basis, rows[{metric, label, value}], net{label, value}}   indicative ROI exactly as the deck states it
   install[]      {img, cap}             installation photos
+  architecture   labels for the architecture diagram (wide SVG on desktop, tall SVG on phones)
   img            file name (without .jpg) in assets/, embedded as a data URI
 Source: Faclon "Bus Bar Monitoring" deck. Edit the JSON and re-run; the page is regenerated in full.
 All content is in the HTML; the script only switches tabs (without JS every tab is shown).
@@ -40,6 +41,77 @@ for i, f in enumerate(C["flow"]):
     via = f'<small class="via">{E(f["link"])} →</small>' if f["link"] else ""
     flow += (f'<li class="node"><div class="nbox"><em>{i + 1:02d}</em><b>{E(f["name"])}</b>'
              f'<span>{E(f["sub"])}</span>{via}</div>{arrow}</li>')
+
+# ---------- architecture diagram (two SVGs: wide for desktop, tall for phones) ----------
+A = C["architecture"]
+STRAP, RECV, GW = img("strap"), img("receiver"), img("gateway")
+
+
+def t(x, y, s, cls="lb", anchor="middle"):
+    return f'<text x="{x}" y="{y}" class="{cls}" text-anchor="{anchor}">{E(s)}</text>'
+
+
+def cloud(cx, cy, k=1.0):
+    return (f'<g transform="translate({cx} {cy}) scale({k})"><path class="cl" d="M-38 18h76a22 22 0 0 0 2-44 '
+            f'30 30 0 0 0-57-8 22 22 0 0 0-21 52z"/><path class="ck" d="M-12 2h24M-12 -6h24M-12 10h24"/></g>')
+
+
+def devices(cx, cy, k=1.0):
+    return (f'<g transform="translate({cx} {cy}) scale({k})"><rect class="dv" x="-46" y="-30" width="64" height="42" rx="4"/>'
+            f'<path class="dv" d="M-54 16h80l-6 6h-68z"/><rect class="dv" x="28" y="-24" width="24" height="44" rx="5"/>'
+            f'<path class="ck" d="M37 14h6"/></g>')
+
+
+def arrow(x1, y1, x2, y2, mid="ah"):
+    return f'<path class="ar" d="M{x1} {y1}L{x2} {y2}" marker-end="url(#{mid})"/>'
+
+
+DEFS = ('<defs><marker id="{mid}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">'
+        '<path d="M0 0L10 5L0 10z" class="ahf"/></marker></defs>')  # .format(mid=...)
+
+# wide
+w = [DEFS.replace('{mid}', 'ah')]
+for i, y in enumerate((20, 232)):
+    w += [f'<rect class="pn" x="10" y="{y}" width="500" height="188" rx="14"/>',
+          t(28, y + 26, f"Panel {i + 1}", "pk", "start"),
+          f'<image href="{STRAP}" x="44" y="{y + 40}" width="74" height="133"/>',
+          t(170, y + 92, A["straps"], "lb", "start"), t(170, y + 112, A["straps_sub"], "sb", "start"),
+          arrow(300, y + 100, 372, y + 100), t(336, y + 90, A["rf"], "sb"),
+          f'<image href="{RECV}" x="384" y="{y + 30}" width="94" height="136"/>',
+          t(431, y + 182, A["receiver_sub"], "sb"),
+          f'<path class="bus" d="M478 {y + 100}H548"/>']
+w += ['<path class="bus" d="M548 120V332"/>', f'<text x="538" y="226" class="bl" text-anchor="middle" transform="rotate(-90 538 226)">{E(A["bus"])}</text>',
+      arrow(548, 226, 620, 226).replace('M548', 'M552'),
+      f'<image href="{GW}" x="628" y="152" width="130" height="154"/>',
+      t(693, 330, A["gateway"]), t(693, 349, A["gateway_sub"], "sb"), t(693, 366, A["gateway_cap"], "sb"),
+      arrow(768, 226, 848, 226), t(808, 214, A["uplink"], "sb"),
+      cloud(935, 226, 1.15), t(935, 286, A["cloud"]), t(935, 304, A["cloud_sub"], "sb"),
+      arrow(1012, 226, 1044, 226),
+      devices(1104, 226, 1.0), t(1094, 286, A["users"]), t(1094, 304, A["users_sub"], "sb")]
+wide = (f'<svg class="arch-h" viewBox="0 0 1180 432" role="img" aria-label="{E(A["title"])}">' + "".join(w) + "</svg>")
+
+# tall
+v = [DEFS.replace('{mid}', 'av')]
+for i, x in enumerate((6, 186)):
+    cx = x + 84
+    v += [f'<rect class="pn" x="{x}" y="6" width="168" height="270" rx="12"/>',
+          t(x + 12, 26, f"Panel {i + 1}", "pk", "start"),
+          f'<image href="{STRAP}" x="{x + 14}" y="36" width="44" height="80"/>',
+          t(x + 66, 66, "R · Y · B", "lb", "start"), t(x + 66, 84, "straps", "sb", "start"),
+          arrow(cx, 124, cx, 156, 'av'), t(cx + 8, 145, "RF 10 m", "sb", "start"),
+          f'<image href="{RECV}" x="{cx - 32}" y="160" width="64" height="93"/>',
+          t(cx, 268, A["receiver_sub"], "sb"),
+          f'<path class="bus" d="M{cx} 276V304"/>']
+v += ['<path class="bus" d="M90 304H270"/>', t(180, 322, A["bus"], "bl"),
+      arrow(180, 330, 180, 356, 'av'),
+      f'<image href="{GW}" x="128" y="362" width="104" height="123"/>',
+      t(180, 506, A["gateway"]), t(180, 524, A["gateway_sub"], "sb"), t(180, 540, A["gateway_cap"], "sb"),
+      arrow(180, 552, 180, 586, 'av'),
+      cloud(180, 620, 1.1), t(180, 670, A["cloud"]), t(180, 688, A["cloud_sub"], "sb"),
+      arrow(180, 700, 180, 732, 'av'),
+      devices(185, 772, 1.0), t(180, 822, A["users"]), t(180, 840, A["users_sub"], "sb")]
+tall = (f'<svg class="arch-v" viewBox="0 0 360 852" role="img" aria-label="{E(A["title"])}">' + "".join(v) + "</svg>")
+arch = f'<figure class="arch">{wide}{tall}</figure>'
 
 hw_tabs, hw_panels = "", ""
 for i, h in enumerate(C["hardware"]):
@@ -140,6 +212,21 @@ h1,h2,h3{letter-spacing:-.015em;line-height:1.2;text-wrap:balance}
 .arrow:before{content:"";position:absolute;left:4px;right:6px;top:50%;border-top:2px dashed #9DB0F8}
 .arrow:after{content:"";position:absolute;right:2px;top:calc(50% - 5px);border:5px solid transparent;border-left-color:var(--blue);border-right:0}
 .arrow span{display:none;position:absolute;font-size:10.5px;color:var(--mute);line-height:1.25}
+.arch{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;margin-bottom:22px}
+.arch svg{display:block;width:100%;height:auto;font-family:Inter,system-ui,sans-serif}
+.arch-v{display:none!important;max-width:380px;margin:0 auto}
+.arch .pn{fill:var(--bg);stroke:var(--line)}
+.arch .pk{font-size:11px;font-weight:700;letter-spacing:.14em;fill:var(--mute);text-transform:uppercase}
+.arch .lb{font-size:14px;font-weight:700;fill:var(--ink)}
+.arch .sb{font-size:12px;fill:var(--ink2)}
+.arch .bl{font-size:12px;font-weight:700;fill:var(--amber)}
+.arch .ar{stroke:var(--blue);stroke-width:2;stroke-dasharray:6 5;fill:none}
+.arch .ahf{fill:var(--blue)}
+.arch .bus{stroke:var(--amber);stroke-width:3;fill:none;stroke-linecap:round}
+.arch .cl{fill:var(--blueBg);stroke:var(--blue);stroke-width:2}
+.arch .ck{stroke:var(--blue);stroke-width:2;stroke-linecap:round;fill:none}
+.arch .dv{fill:#fff;stroke:var(--ink2);stroke-width:2;stroke-linejoin:round}
+@media (max-width:760px){.arch-h{display:none!important}.arch-v{display:block!important}.arch{padding:12px}}
 .callout{margin-top:22px;font-size:15px;color:var(--ink2)}
 .callout b{color:var(--green)}
 
@@ -287,6 +374,7 @@ HTML = f"""<!doctype html>
 <section class="sec alt" id="how"><div class="wrap">
   <div class="sh"><div class="eyebrow">How it works</div><h2>From joint to phone in five steps</h2>
   <p>No wiring to the hot side: the straps are battery powered and talk wirelessly to a receiver in the panel.</p></div>
+  {arch}
   <ol class="flow">{flow}</ol>
   <p class="callout">Online continuous monitoring with critical alerts helps <b>avert major losses, increase safety and improve the upkeep</b> of electrical operations.</p>
 </div></section>
