@@ -12,6 +12,9 @@ How access works
   the user's own password. Visitors sign in with a username and password; the
   landing page then shows only their solutions. Signing in as "admin" with the
   admin password opens everything.
+- Super users hold one "all pages" key instead of a list. users.json "vault" keeps
+  every page key encrypted with that key; this script adds each new page to it on
+  every run, so super users see new solutions as soon as they are published.
 - Users are created, edited and removed on /admin/ (the User Manager), which
   writes users.json back to GitHub. This script never touches the user list; it
   only refreshes the list of solutions the User Manager offers.
@@ -232,6 +235,12 @@ def main():
         if not USERS.exists():
             print("MISSING: users.json")
             bad.append(USERS)
+        else:
+            vault = json.loads(USERS.read_text(encoding="utf-8")).get("vault") or {}
+            for slug, _ in targets:
+                if slug not in vault:
+                    print("MISSING VAULT KEY:", slug, "(re-run protect.py)")
+                    bad.append(USERS)
         sys.exit(1 if bad else 0)
 
     password = os.environ.get("GLOSSARY_PASSWORD") or getpass.getpass("Admin password: ")
@@ -283,6 +292,20 @@ def main():
             r.close()
 
     users["solutions"] = solutions
+    all_key = mac(master, "all")
+    old_vault, vault = users.get("vault") or {}, {}
+    for slug, _ in targets:
+        want = mac(master, "page:" + slug)
+        v = old_vault.get(slug)
+        try:
+            if v and unb64(AESGCM(all_key).decrypt(unb64(v["iv"]), unb64(v["ct"]), None).decode()) == want:
+                vault[slug] = v
+                continue
+        except Exception:
+            pass
+        iv = secrets.token_bytes(12)
+        vault[slug] = {"iv": b64(iv), "ct": b64(AESGCM(all_key).encrypt(iv, b64(want).encode(), None))}
+    users["vault"] = vault
     USERS.write_text(json.dumps(users, indent=1) + "\n", encoding="utf-8")
     print("updated users.json solutions:", ", ".join(x["slug"] for x in solutions))
 

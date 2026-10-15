@@ -15,6 +15,7 @@ This repo holds Faclon Labs customer-facing solution pages, published with GitHu
 - `protect.py` also renders each changed solution page to one continuous PDF page (`src/shared/pagepdf.py`, Playwright + Chromium, Inter from `src/shared/fonts/`) and stores it encrypted as `<solution>/page-pdf.bin` for the in-page Download button. Never hand-edit those files.
 - The signed-in bar and Download dialog (PDF of this page, or one offline HTML file of chosen solutions) come from `src/shared/page_tools.js`. Edit that source and re-run `protect.py`.
 - A new solution page is visible only to admin until Parth ticks it for users in the User Manager.
+- Exception: super users ("Super user" switch in the User Manager) see every page, including new ones, through the `vault` in `users.json`. `protect.py` adds each new page to the vault; never edit it by hand.
 - Do not change `src/shared/protect_salt.txt` or the admin password: either one changes every page key, which logs everyone out and means every user has to be recreated.
 
 ## Visual system (shared by all pages)
