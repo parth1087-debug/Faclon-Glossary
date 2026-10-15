@@ -9,10 +9,16 @@
      vault[slug] = page key (base64) encrypted with the all key; users.vault, kept current by
                    protect.py, so super users can open every page, including ones added later
      pdf key     = HMAC-SHA256(master, "pdf:" + slug)        (encrypts <slug>/page-pdf.bin)
-     dvault[slug]= pdf key encrypted with the all key, only for solutions whose Download switch is on
+     dall key    = HMAC-SHA256(master, "dall")                (super users with the Can download right)
+     dvault[slug]= pdf key encrypted with the dall key, only for solutions whose Download switch is on
+     contrib key = HMAC-SHA256(master, "contrib")             (contributors hold it; unlocks users.contrib.tok)
+     upload key  = HMAC-SHA256(contrib key, "page:" + slug)  page key of a contributor upload (users.uploads)
+     spub/spriv  = ECDH P-256 key pair; spriv (PKCS8) is locked with the all key. Contributors lock a new
+                   upload's page key to spub, so super users see uploads at once: vault entry {e, iv, ct}.
      policy[slug]= {read, download}: global switches set in the User Manager (missing = both on).
                    Read off: the page key leaves every keyring and the vault. Download off: the pdf key
                    leaves every keyring and the dvault, and download options are hidden.
+     keyring     = {n, p:{slug:page key}, d:{slug:pdf key}, c?: contrib key, all?/a?/da?: super user}
      user key    = PBKDF2-SHA256(user password, user.s, users.iter)  (encrypts the user's keyring)
      user id     = SHA-256(users.salt + "|" + lower(username)) as hex
 */
@@ -50,33 +56,58 @@ var FA = (function () {
   function userId(U, username) { return sha256hex(U.salt + "|" + norm(username)); }
   function pageKey(master, slug) { return hmac(master, "page:" + slug); }
   function allKey(master) { return hmac(master, "all"); }
+  function dallKey(master) { return hmac(master, "dall"); }
+  function contribKey(master) { return hmac(master, "contrib"); }
+  function uploadKey(c, slug) { return hmac(c, "page:" + slug); }
+  function isUpload(U, slug) { return !!(U.uploads || {})[slug]; }
+  async function keyFor(U, master, slug) { return isUpload(U, slug) ? uploadKey(await contribKey(master), slug) : pageKey(master, slug); }
   function pdfKey(master, slug) { return hmac(master, "pdf:" + slug); }
   function canRead(U, slug) { var p = (U.policy || {})[slug]; return slug === "home" || !p || p.read !== false; }
   function canDownload(U, slug) { var p = (U.policy || {})[slug]; return slug !== "home" && canRead(U, slug) && (!p || p.download !== false); }
-  /* Rebuilds the super-user vaults from the policy (admin only): vault = readable page keys,
-     dvault = downloadable pdf keys, both locked with the all key. Returns true if anything changed. */
+  async function sha256(buf) { return new Uint8Array(await crypto.subtle.digest("SHA-256", buf)); }
+  /* Locks a page key to the super-user public key (contributors use this; no admin secret needed). */
+  async function wrapForSuper(U, key) {
+    if (!U.spub) return null;
+    var pub = await crypto.subtle.importKey("raw", u8(U.spub), { name: "ECDH", namedCurve: "P-256" }, false, []);
+    var eph = await crypto.subtle.generateKey({ name: "ECDH", namedCurve: "P-256" }, true, ["deriveBits"]);
+    var aes = await sha256(await crypto.subtle.deriveBits({ name: "ECDH", public: pub }, eph.privateKey, 256));
+    var box = await encrypt(aes, b64(key));
+    return { e: b64(await crypto.subtle.exportKey("raw", eph.publicKey)), iv: box.iv, ct: box.ct };
+  }
+  async function unwrapSuper(U, ak, v) {
+    var der = u8(await decrypt(ak, U.spriv.iv, U.spriv.ct));
+    var priv = await crypto.subtle.importKey("pkcs8", der, { name: "ECDH", namedCurve: "P-256" }, false, ["deriveBits"]);
+    var pub = await crypto.subtle.importKey("raw", u8(v.e), { name: "ECDH", namedCurve: "P-256" }, false, []);
+    var aes = await sha256(await crypto.subtle.deriveBits({ name: "ECDH", public: pub }, priv, 256));
+    return u8(await decrypt(aes, v.iv, v.ct));
+  }
+  /* Rebuilds the super-user vaults from the policy (admin only): vault = readable page keys (all key),
+     dvault = downloadable pdf keys (dall key). Existing entries are kept. Returns true if anything changed. */
   async function syncVault(U, master, slugs) {
-    var ak = await allKey(master), changed = false;
+    var ak = await allKey(master), dk = await dallKey(master), changed = false;
     var vault = {}, dvault = {}, ov = U.vault || {}, od = U.dvault || {};
     for (var i = 0; i < slugs.length; i++) {
       var sl = slugs[i];
-      if (canRead(U, sl)) { if (ov[sl]) vault[sl] = ov[sl]; else { vault[sl] = await encrypt(ak, b64(await pageKey(master, sl))); changed = true; } }
+      if (canRead(U, sl)) { if (ov[sl]) vault[sl] = ov[sl]; else { vault[sl] = await encrypt(ak, b64(await keyFor(U, master, sl))); changed = true; } }
       else if (ov[sl]) changed = true;
-      if (canDownload(U, sl)) { if (od[sl]) dvault[sl] = od[sl]; else { dvault[sl] = await encrypt(ak, b64(await pdfKey(master, sl))); changed = true; } }
+      if (canDownload(U, sl)) { if (od[sl]) dvault[sl] = od[sl]; else { dvault[sl] = await encrypt(dk, b64(await pdfKey(master, sl))); changed = true; } }
       else if (od[sl]) changed = true;
     }
     U.vault = vault; U.dvault = dvault;
     return changed;
   }
   function fillVault(U, master, slugs) { return syncVault(U, master, slugs); }
-  /* The keyring a user gets from their assignment (meta) under the current policy. */
+  /* The keyring a user gets from their assignment (meta) under the current policy and their rights.
+     Mirror of build_ring in protect.py. */
   async function buildRing(U, master, meta) {
     var ring = { n: meta.name, p: { home: b64(await pageKey(master, "home")) }, d: {} };
-    if (meta.all) { ring.all = 1; ring.a = b64(await allKey(master)); return ring; }
+    var dl = meta.download !== false;
+    if (meta.contrib) ring.c = b64(await contribKey(master));
+    if (meta.all) { ring.all = 1; ring.a = b64(await allKey(master)); if (dl) ring.da = b64(await dallKey(master)); return ring; }
     var pages = meta.pages || [];
     for (var i = 0; i < pages.length; i++) {
-      if (canRead(U, pages[i])) ring.p[pages[i]] = b64(await pageKey(master, pages[i]));
-      if (canDownload(U, pages[i])) ring.d[pages[i]] = b64(await pdfKey(master, pages[i]));
+      if (canRead(U, pages[i])) ring.p[pages[i]] = b64(await keyFor(U, master, pages[i]));
+      if (dl && canDownload(U, pages[i])) ring.d[pages[i]] = b64(await pdfKey(master, pages[i]));
     }
     return ring;
   }
@@ -109,29 +140,33 @@ var FA = (function () {
     if (s.t === "a") {
       var m = u8(s.k);
       if (b64(await hmac(m, "check")) !== U.check) throw new Error("stale");
-      return { name: "Admin", admin: true, allowed: null, downloadable: null,
-        key: function (slug) { return pageKey(m, slug); }, dkey: function (slug) { return pdfKey(m, slug); } };
+      return { name: "Admin", admin: true, allowed: null, downloadable: null, contrib: await contribKey(m),
+        key: function (slug) { return keyFor(U, m, slug); }, dkey: function (slug) { return pdfKey(m, slug); } };
     }
     var e = (U.users || []).filter(function (x) { return x.id === s.id; })[0];
     if (!e) throw new Error("removed");
     var ring = JSON.parse(await decrypt(u8(s.k), e.iv, e.kr));
+    var contrib = ring.c ? u8(ring.c) : null;
     if (ring.all) {
-      var ak = u8(ring.a);
-      var open = async function (box, slug) {
-        var v = (box || {})[slug]; if (!v) return null;
-        try { return u8(await decrypt(ak, v.iv, v.ct)); } catch (x) { return null; }
+      var ak = u8(ring.a), dk = ring.da ? u8(ring.da) : null;
+      var open = async function (box, slug, k) {
+        var v = (box || {})[slug]; if (!v || !k) return null;
+        try { return v.e ? await unwrapSuper(U, ak, v) : u8(await decrypt(k, v.iv, v.ct)); } catch (x) { return null; }
       };
       return {
-        name: ring.n, admin: false, superUser: true,
-        allowed: Object.keys(U.vault || {}), downloadable: Object.keys(U.dvault || {}),
-        key: function (slug) { return slug === "home" && ring.p && ring.p.home ? Promise.resolve(u8(ring.p.home)) : open(U.vault, slug); },
-        dkey: function (slug) { return open(U.dvault, slug); }
+        name: ring.n, admin: false, superUser: true, contrib: contrib,
+        allowed: Object.keys(U.vault || {}), downloadable: dk ? Object.keys(U.dvault || {}) : [],
+        key: function (slug) { return slug === "home" && ring.p && ring.p.home ? Promise.resolve(u8(ring.p.home)) : open(U.vault, slug, ak); },
+        dkey: function (slug) { return open(U.dvault, slug, dk); }
       };
     }
     var d = ring.d || {};
     return {
-      name: ring.n, admin: false, allowed: Object.keys(ring.p), downloadable: Object.keys(d),
-      key: function (slug) { return Promise.resolve(ring.p[slug] ? u8(ring.p[slug]) : null); },
+      name: ring.n, admin: false, contrib: contrib, allowed: Object.keys(ring.p), downloadable: Object.keys(d),
+      key: function (slug) {
+        if (ring.p[slug]) return Promise.resolve(u8(ring.p[slug]));
+        return contrib && isUpload(U, slug) && canRead(U, slug) ? uploadKey(contrib, slug) : Promise.resolve(null);
+      },
       dkey: function (slug) { return Promise.resolve(d[slug] ? u8(d[slug]) : null); }
     };
   }
@@ -140,7 +175,7 @@ var FA = (function () {
   function clearSession() { try { localStorage.removeItem(SESSION); sessionStorage.removeItem(SESSION); localStorage.removeItem("faclon-glossary-key"); } catch (e) {} }
   return {
     u8: u8, b64: b64, pbkdf2: pbkdf2, hmac: hmac, encrypt: encrypt, decrypt: decrypt, decryptBytes: decryptBytes, sha256hex: sha256hex,
-    norm: norm, userId: userId, pageKey: pageKey, allKey: allKey, pdfKey: pdfKey, canRead: canRead, canDownload: canDownload, syncVault: syncVault, fillVault: fillVault, buildRing: buildRing, loadUsers: loadUsers, adminMaster: adminMaster,
+    norm: norm, userId: userId, pageKey: pageKey, allKey: allKey, dallKey: dallKey, contribKey: contribKey, uploadKey: uploadKey, isUpload: isUpload, keyFor: keyFor, wrapForSuper: wrapForSuper, pdfKey: pdfKey, canRead: canRead, canDownload: canDownload, syncVault: syncVault, fillVault: fillVault, buildRing: buildRing, loadUsers: loadUsers, adminMaster: adminMaster,
     login: login, access: access, getSession: getSession, setSession: setSession, clearSession: clearSession
   };
 })();

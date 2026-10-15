@@ -6,6 +6,7 @@
          SOL = [{slug,title}] every solution, SLUG = this page's slug ("home" for the landing page),
          DL = slugs this user may download (null = all), POL = global {slug:{read,download}} switches. */
 function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
+  var REPO = "parth1087-debug/Faclon-Glossary";
   var slugs = SOL.map(function (s) { return s.slug; });
   var base = new URL(B, location.href).pathname;
   var siteURL = new URL(B || "./", location.href).href;
@@ -58,9 +59,16 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
     '.big{font-size:14px;padding:10px 16px;border-radius:9px}' +
     '.note{margin-top:16px;font-size:12px;color:#6B7A90}' +
     '.st{font-size:13px;color:#11875F;min-height:18px}.st.err{color:#C0392B}' +
+    '.fl{display:block;font-size:12px;font-weight:600;color:#3A4A5F;margin:12px 0 5px}' +
+    '.fl em{font-style:normal;font-weight:500;color:#6B7A90}' +
+    '.in{display:block;width:100%;font:14px Inter,system-ui,sans-serif;padding:9px 11px;border:1px solid #E3E8EF;border-radius:9px;color:#0F1B2D;background:#fff;outline:none}' +
+    '.in:focus{border-color:#3D63F5}textarea.in{min-height:64px;resize:vertical}' +
+    '.drop{display:block;border:1.5px dashed #C9D2DF;border-radius:12px;padding:16px;text-align:center;font-size:13px;color:#3A4A5F;cursor:pointer;margin-top:12px}' +
+    '.drop b{color:#3D63F5}.drop input{display:none}.drop.has{border-style:solid;border-color:#11875F;background:#E5F5EE}' +
+    '.st a{color:#3D63F5;font-weight:600}' +
     '[hidden]{display:none!important}' +
     '</style>' +
-    '<div class="bar"><span class="who"></span><button class="pri" id="dl" type="button">Download</button>' +
+    '<div class="bar"><span class="who"></span><button class="pri" id="dl" type="button">Download</button><button id="upb" type="button" hidden>Upload</button>' +
     (ADM ? '<button id="mu" type="button">Manage users</button>' : '') +
     '<button id="so" type="button">Sign out</button></div>' +
     '<div class="scrim" id="scrim" hidden><div class="dlg" role="dialog" aria-modal="true" aria-labelledby="dh">' +
@@ -73,6 +81,16 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
     '<div class="st" id="hst"></div></div>' +
     '<p class="note">Downloaded files are not password-protected. Share them only with people who should see these solutions.</p>' +
     '<div class="row" style="justify-content:flex-end"><button id="close" type="button">Close</button></div>' +
+    '</div></div>' +
+    '<div class="scrim" id="uscrim" hidden><div class="dlg" role="dialog" aria-modal="true" aria-labelledby="uh">' +
+    '<h2 id="uh">Upload a solution page</h2><p>Add a self-contained HTML page (styles and images inside the file). It goes live straight away for admin, super users and contributors; the admin can share it with other users.</p>' +
+    '<label class="drop" id="drop"><input type="file" id="uf" accept=".html,.htm,text/html"><span id="ufl"><b>Choose an HTML file</b> or drop it here</span></label>' +
+    '<span class="fl">Title</span><input class="in" id="ut" maxlength="80" placeholder="e.g. Cooling Tower Optimisation">' +
+    '<span class="fl">Category <em>(optional)</em></span><input class="in" id="uc" maxlength="40" placeholder="e.g. Power, Metals, Utilities">' +
+    '<span class="fl">Short description <em>(optional)</em></span><textarea class="in" id="ud" maxlength="240" placeholder="One or two lines shown on the solution card"></textarea>' +
+    '<span class="fl">Your name <em>(optional, shown as \u201cContributed by\u201d)</em></span><input class="in" id="un" maxlength="60">' +
+    '<div class="st" id="ust" style="margin-top:12px"></div>' +
+    '<div class="row" style="justify-content:flex-end"><button id="ucancel" type="button">Cancel</button><button class="pri big" id="ugo" type="button">Upload and publish</button></div>' +
     '</div></div>';
   var $ = function (id) { return root.querySelector("#" + id); };
   root.querySelector(".who").textContent = N;
@@ -86,7 +104,12 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
   }).join("") || '<p>No solutions are shared with you yet.</p>';
   if (!mine.length) $("dl").hidden = true;
   $("pdfSec").hidden = SLUG === "home" || mine.every(function (s) { return s.slug !== SLUG; });
-  $("dl").onclick = function () { $("scrim").hidden = false; $("pst").textContent = ""; $("hst").textContent = ""; };
+  $("dl").onclick = function () {
+    $("scrim").hidden = false; $("pst").textContent = ""; $("hst").textContent = "";
+    if (!$("pdfSec").hidden) fetch(B + SLUG + "/page-pdf.bin?t=" + Date.now(), { method: "HEAD", cache: "no-store" }).then(function (r) {
+      if (r.ok) return; $("pdf").disabled = true; $("pst").className = "st"; $("pst").textContent = "The PDF of a newly uploaded page appears after the next site build.";
+    }).catch(function () {});
+  };
   $("close").onclick = function () { $("scrim").hidden = true; };
   $("scrim").onclick = function (e) { if (e.target === $("scrim")) $("scrim").hidden = true; };
   $("all").onclick = function () {
@@ -100,6 +123,110 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
     return accP;
   }
   function title(slug) { var s = SOL.filter(function (x) { return x.slug === slug; })[0]; return s ? s.title : "Faclon Labs"; }
+
+  // contributor uploads: cards on the landing page + the Upload button
+  function cardHTML(slug, m) {
+    var tags = m.by ? '<div class="tags"><span>Contributed by ' + esc(m.by) + '</span></div>' : '';
+    return '<article class="card live b" data-upload="' + esc(slug) + '"><a class="main" href="' + esc(slug) + '/">' +
+      '<div class="top"><span class="sec">' + esc(m.sector || "Contributed") + '</span><span class="pill on">Live</span></div>' +
+      '<h3>' + esc(m.title) + '</h3>' + (m.blurb ? '<p>' + esc(m.blurb) + '</p>' : '') + tags +
+      '<span class="open">Open solution →</span></a></article>';
+  }
+  async function uploadCards(acc, U, only) {
+    var out = [], ups = U.uploads || {};
+    for (var slug in ups) {
+      if (only && only.indexOf(slug) < 0) continue;
+      try {
+        var k = await acc.key(slug); if (!k) continue;
+        out.push({ slug: slug, html: cardHTML(slug, JSON.parse(await FA.decrypt(k, ups[slug].meta.iv, ups[slug].meta.ct))) });
+      } catch (e) {}
+    }
+    return out;
+  }
+  function placeCards(doc, cards) {
+    var first = doc.querySelector("article.card"); if (!first || !cards.length) return;
+    var box = first.parentNode;
+    cards.forEach(function (c) { if (!doc.querySelector('[data-upload="' + c.slug + '"]')) box.insertAdjacentHTML("beforeend", c.html); });
+  }
+  var usersP = FA.loadUsers(B);
+  access().then(async function (acc) {
+    var U = await usersP;
+    if (acc.contrib) $("upb").hidden = false;
+    if (SLUG === "home") placeCards(document, await uploadCards(acc, U));
+  }).catch(function () {});
+  $("upb").onclick = function () { $("uscrim").hidden = false; $("ust").textContent = ""; if (!$("un").value) $("un").value = ADM ? "" : N; };
+  $("ucancel").onclick = function () { $("uscrim").hidden = true; };
+  $("uscrim").onclick = function (e) { if (e.target === $("uscrim")) $("uscrim").hidden = true; };
+  var upFile = null;
+  function pick(f) {
+    if (!f) return; upFile = f; $("drop").classList.add("has"); $("ufl").textContent = f.name + " (" + (f.size / 1048576).toFixed(1) + " MB)";
+    f.text().then(function (t) { var m = t.match(/<title[^>]*>([\s\S]*?)<\/title>/i); if (m && !$("ut").value) $("ut").value = m[1].replace(/\s+/g, " ").trim().slice(0, 80); });
+  }
+  $("uf").onchange = function () { pick(this.files[0]); };
+  $("drop").ondragover = function (e) { e.preventDefault(); };
+  $("drop").ondrop = function (e) { e.preventDefault(); pick(e.dataTransfer.files[0]); };
+  function slugify(t) { return t.toLowerCase().normalize("NFKD").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 50) || "solution"; }
+  function gh(token, path, opt) {
+    opt = opt || {};
+    opt.headers = Object.assign({ "Accept": "application/vnd.github+json", "Authorization": "Bearer " + token, "X-GitHub-Api-Version": "2022-11-28" }, opt.headers || {});
+    return fetch(GH_API + path, opt);
+  }
+  var GH_API = "https://api.github.com/repos/" + REPO;
+  $("ugo").onclick = async function () {
+    var st = $("ust"), b = this; st.className = "st";
+    var t = $("ut").value.trim();
+    if (!upFile) { st.className = "st err"; st.textContent = "Choose an HTML file first."; return; }
+    if (!t) { st.className = "st err"; st.textContent = "Give the page a title."; return; }
+    if (upFile.size > 20 * 1048576) { st.className = "st err"; st.textContent = "That file is over 20 MB. Compress its images and try again."; return; }
+    b.disabled = true;
+    try {
+      var acc = await access(), U = await FA.loadUsers(B), C = acc.contrib;
+      if (!C) throw new Error("you don't have contributor rights");
+      st.textContent = "Preparing…";
+      var token = null;
+      if (U.contrib && U.contrib.tok) token = await FA.decrypt(C, U.contrib.tok.iv, U.contrib.tok.ct);
+      if (!token && ADM) { try { token = localStorage.getItem("faclon-glossary-gh-token"); } catch (e) {} }
+      if (!token) throw new Error("the admin hasn't set up contributor GitHub access yet");
+      var html = await upFile.text();
+      var taken = {}; (U.solutions || []).forEach(function (x) { taken[x.slug] = 1; }); Object.keys(U.uploads || {}).forEach(function (x) { taken[x] = 1; });
+      ["home", "admin", "src"].forEach(function (x) { taken[x] = 1; });
+      var slug = slugify(t), n = 2; while (taken[slug]) slug = slugify(t).slice(0, 46) + "-" + n++;
+      var K = await FA.uploadKey(C, slug), box = await FA.encrypt(K, html);
+      var content = (await FA.sha256hex(html)).slice(0, 16);
+      var tpl = (U.solutions || []).filter(function (x) { return !(U.uploads || {})[x.slug]; })[0];
+      var tr = await fetch(B + tpl.slug + "/index.html?t=" + Date.now(), { cache: "no-store" });
+      var gate = await tr.text();
+      var dLine = /\nvar D=\{(up:1,)?slug:"[^"\\]*",base:"[^"\\]*",iv:"[^"\\]*",ct:"[^"\\]*"\};/;
+      if (!dLine.test(gate)) throw new Error("couldn't prepare the page wrapper");
+      gate = gate.replace(dLine, function () { return '\nvar D={up:1,slug:"' + slug + '",base:"../",iv:"' + box.iv + '",ct:"' + box.ct + '"};'; })
+                 .replace(/<meta name="faclon-content" content="[^"]*">/, function () { return '<meta name="faclon-content" content="' + content + '">'; });
+      var by = $("un").value.trim();
+      var meta = await FA.encrypt(K, JSON.stringify({ title: t, sector: $("uc").value.trim(), blurb: $("ud").value.trim(), by: by, user: N, at: new Date().toISOString() }));
+      var sup = await FA.wrapForSuper(U, K);
+      st.textContent = "Publishing the page…";
+      var r = await gh(token, "/contents/" + slug + "/index.html", { method: "PUT", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: "Add " + t + " (uploaded by " + (by || N) + ")", content: FA.b64(new TextEncoder().encode(gate)), branch: "main" }) });
+      if (r.status === 401 || r.status === 403) throw new Error("GitHub didn't accept the contributor access token; ask the admin to renew it");
+      if (!r.ok) throw new Error("GitHub said " + r.status);
+      st.textContent = "Adding it to the site…";
+      for (var tries = 0; ; tries++) {
+        var g = await gh(token, "/contents/users.json?ref=main&t=" + Date.now(), { cache: "no-store" });
+        if (!g.ok) throw new Error("couldn't read the user list (" + g.status + ")");
+        var gj = await g.json(), J = JSON.parse(new TextDecoder().decode(FA.u8(gj.content.replace(/\s/g, ""))));
+        J.solutions = (J.solutions || []).filter(function (x) { return x.slug !== slug; }).concat([{ slug: slug, title: t }]);
+        J.uploads = J.uploads || {}; J.uploads[slug] = { meta: meta, at: new Date().toISOString() };
+        if (sup) { J.vault = J.vault || {}; J.vault[slug] = sup; }
+        var pr = await gh(token, "/contents/users.json", { method: "PUT", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: "Register uploaded page " + t, content: FA.b64(new TextEncoder().encode(JSON.stringify(J, null, 1) + "\n")), sha: gj.sha, branch: "main" }) });
+        if (pr.ok) break;
+        if ((pr.status === 409 || pr.status === 422) && tries < 4) { await new Promise(function (ok) { setTimeout(ok, 800 * (tries + 1)); }); continue; }
+        throw new Error("couldn't register the page (" + pr.status + ")");
+      }
+      st.innerHTML = 'Published. It will be live in about a minute: <a href="' + esc(B + slug + "/") + '">open ' + esc(t) + '</a>';
+      upFile = null; $("drop").classList.remove("has"); $("ufl").innerHTML = "<b>Choose an HTML file</b> or drop it here"; $("ut").value = ""; $("uc").value = ""; $("ud").value = ""; $("uf").value = "";
+    } catch (e) { st.className = "st err"; st.textContent = "Couldn't upload: " + e.message; }
+    b.disabled = false;
+  };
   function save(blob, name) {
     var a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name;
     document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 4000);
@@ -140,7 +267,8 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
       for (var i = 0; i < picked.length; i++) { st.textContent = "Adding " + title(picked[i]) + "…"; pages[picked[i]] = await pageHTML(acc, picked[i]); }
       var start = picked.length === 1 ? picked[0] : "home";
       var name = picked.length === 1 ? title(picked[0]) + " - Faclon Labs" : "Faclon Labs Solutions";
-      var json = JSON.stringify({ pages: pages, picked: picked, all: slugs, start: start, site: siteURL }).replace(/</g, "\\u003c");
+      var cards = await uploadCards(acc, await usersP, picked);
+      var json = JSON.stringify({ pages: pages, picked: picked, all: slugs, start: start, site: siteURL, cards: cards }).replace(/</g, "\\u003c");
       var html = '<!doctype html>\n<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">' +
         '<meta name="robots" content="noindex"><title>' + esc(name) + '</title>' +
         '<style>html,body{margin:0;height:100%;background:#fff}iframe{border:0;width:100%;height:100%;display:block}</style></head>' +
@@ -172,6 +300,10 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
       v.onload = function () {
         var doc = v.contentDocument; if (!doc) return;
         document.title = doc.title || document.title;
+        if (p === "home" && D.cards && D.cards.length) {
+          var first = doc.querySelector("article.card");
+          if (first) D.cards.forEach(function (c) { first.parentNode.insertAdjacentHTML("beforeend", c.html); });
+        }
         doc.querySelectorAll("a[href]").forEach(function (a) {
           var t = target(a.getAttribute("href"), p); if (!t) return;
           if (t.hide) { var c = a.closest("article.card"); (c || a).style.display = "none"; return; }
