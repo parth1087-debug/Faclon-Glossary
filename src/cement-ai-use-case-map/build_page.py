@@ -86,7 +86,8 @@ CSS = """
 --red:#B5452F;--violet:#7A4FD6;--violetBg:#F2EDFC;--teal:#0E7C8C;--tealBg:#E4F4F6;color-scheme:light}
 *{box-sizing:border-box;margin:0;padding:0}
 html{background:#fff;scroll-padding-top:80px}
-body{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:#fff;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+body{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:#fff;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+table{font-variant-numeric:tabular-nums}
 ul{list-style:none}
 .wrap{max-width:1180px;margin:0 auto;padding-left:max(28px,env(safe-area-inset-left,0px));padding-right:max(28px,env(safe-area-inset-right,0px))}
 h1,h2,h3,h4{letter-spacing:-.015em;line-height:1.2;text-wrap:balance}
@@ -107,7 +108,7 @@ h1,h2,h3,h4{letter-spacing:-.015em;line-height:1.2;text-wrap:balance}
 .kp{background:var(--navy2);padding:16px 20px}
 .kp b{font-size:30px;display:block;line-height:1.2}
 .kp span{font-size:12.5px;color:#9FB0CC}
-.kp.hl{background:var(--blue)}.kp.hl span{color:#DCE3FF}
+.kp.hl b{color:#7FD9B3}
 .areas{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
 .areas a{display:inline-flex;gap:8px;align-items:center;font-size:13.5px;color:#E4EAF5;text-decoration:none;padding:6px 12px;border-radius:20px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04)}
 .areas a:hover{border-color:var(--blue2)}

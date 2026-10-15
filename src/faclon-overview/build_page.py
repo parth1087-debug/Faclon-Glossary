@@ -50,7 +50,7 @@ for n, ind in enumerate(inds):
 customers = f"""<!-- 3 -->
 <section class="sec alt" id="s3" data-title="Key Customers">
   <div class="wrap">
-    <div class="sh rv"><div class="k">Customers</div><h2><b>Key</b> Customers</h2><p>Trusted and Ideal digital partner for Industrial setups, commercial setups and OEMs</p></div>
+    <div class="sh rv"><div class="k">Customers</div><h2><b>Key</b> customers</h2><p>A trusted digital partner for industrial plants, commercial buildings and OEMs</p></div>
     <div class="tabs" role="group" aria-label="Filter customers by industry" id="ctabs">{tabs}</div>
     <div class="lwall" id="lwall">{tiles}</div>
   </div>
@@ -82,7 +82,7 @@ ongoing = sum(1 for c in cases if c["ongoing"])
 case_html = f"""<!-- 9 -->
 <section class="sec" id="s9" data-title="Customer Cases" data-cases>
   <div class="wrap">
-    <div class="sh rv"><div class="k">Proof in production</div><h2>Customer <b>Cases</b></h2><p>{len(cases)} implementations across production, energy, maintenance and quality, plus {ongoing} projects underway.</p></div>
+    <div class="sh rv"><div class="k">Proof in production</div><h2>Customer <b>cases</b></h2><p>{len(cases) - ongoing} implementations across production, energy, maintenance and quality, plus {ongoing} projects underway.</p></div>
     <div class="cwrap">
       <div class="clist">{body}</div>
       <nav class="rail" aria-label="Jump to case"><div class="rail-in"><div class="rail-h">Jump to</div>{rail}</div></nav>

@@ -48,7 +48,7 @@ AGENTS = [
    "Section-wise heat-exchange index, APH leakage, HP/LP heater TTD and DCA, ESP field behaviour",
    "Generator winding and cooler temperatures, water and steam chemistry"],
   ["Failure warnings 2–8 weeks ahead with remaining-useful-life estimates",
-   "A prioritized work list ranked by risk and ₹ impact, with draft CMMS work orders",
+   "A prioritised work list ranked by risk and ₹ impact, with draft CMMS work orders",
    "Condition-based schedules for soot blowing, ESP, heater and APH seal maintenance",
    "Condenser tube-leak and chemistry-excursion alerts before tube damage sets in"],
   "What should I plan for the shutdown next month?",
@@ -119,8 +119,8 @@ agent_chips = "".join(f"<div class='chip-ag'>{icon(a[2])}<span>{a[0]}</span></di
 # ======================= APC APPLICATIONS =======================
 # name, applicability, model, CVs, MVs, DVs, logic (how it decides, plain language), benefits, value
 APC = [
- ("Combustion & Air–Fuel Ratio Optimization", "All boilers", "MPC",
-  ["Excess O<sub>2</sub> (economizer outlet)", "CO", "NOx", "FEGT", "Furnace draft"],
+ ("Combustion & Air–Fuel Ratio Optimisation", "All boilers", "MPC",
+  ["Excess O<sub>2</sub> (economiser outlet)", "CO", "NOx", "FEGT", "Furnace draft"],
   ["FD / secondary-air damper demand", "PA fan / mill air", "Feeder bias", "OFA dampers"],
   ["Coal GCV and moisture (soft sensor)", "Unit load", "Mill combination"],
   ["Finds the lowest excess O<sub>2</sub> the current coal and load allow before CO starts to rise", "Trims air and feeder bias together to hold that point, while keeping fan power in check", "Backs off at once if CO, NOx or furnace draft approach their limits"],
@@ -143,11 +143,11 @@ APC = [
   ["Fouling rate per section", "Coal ash and slagging index", "Load"],
   ["Scores each section by how much heat it is losing to fouling", "Blows a section only when the heat recovered is worth more than the steam used and the tube wear caused", "Sequences blows to respect steam-header limits and avoid upsetting steam temperature"],
   ["Blows only the sections that need it", "Less blowing steam and tube erosion", "Restores SH/RH absorption balance"], 5),
- ("Condenser Vacuum, CT & CW Optimization", "All boilers", "LP / MILP",
+ ("Condenser Vacuum, CT & CW Optimisation", "All boilers", "LP / MILP",
   ["Condenser back pressure", "CW supply temperature"],
   ["CT fan cells on/off", "Per-cell VFD speed", "CW pump combination", "Vacuum pump duty"],
   ["Ambient wet bulb", "Unit load", "Air ingress"],
-  ["Weighs the extra MW from a better vacuum against the power drawn by CT fans and CW pumps", "Picks the fan cells, fan speeds and pump combination that give the highest net MW", "Re-optimizes as wet bulb and load change, and rotates cells for even wear"],
+  ["Weighs the extra MW from a better vacuum against the power drawn by CT fans and CW pumps", "Picks the fan cells, fan speeds and pump combination that give the highest net MW", "Re-optimises as wet bulb and load change, and rotates cells for even wear"],
   ["Net MW gain, not just a better vacuum", "Fewer fans in mild weather", "Even wear across cells"], 4),
  ("Auxiliary Load Allocation", "All boilers", "LP",
   ["Total feedwater / air / CW demand met"],
@@ -155,7 +155,7 @@ APC = [
   ["Unit load", "Re-traced efficiency curve of each unit"],
   ["Uses each pump’s and fan’s efficiency curve, re-traced from plant data", "Splits the required flow so total power drawn is lowest, loading the most efficient units first", "Respects each unit’s minimum and maximum flow and decides which units should be running"],
   ["Efficient units loaded first, degraded ones relieved", "Direct cut in auxiliary power", "Maintenance priorities from the same curves"], 6),
- ("ESP Energy Optimization", "All boilers", "MPC + LP",
+ ("ESP Energy Optimisation", "All boilers", "MPC + LP",
   ["Stack SPM"],
   ["Per-field TR-set voltage / current limit", "Rapping sequence"],
   ["Dust loading", "Load", "Coal ash content"],
@@ -240,7 +240,7 @@ HTML = f"""<!doctype html>
 html{{background:#fff}}
 body{{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:#fff;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}}
 sub{{font-size:.68em;line-height:0}}
-.wrap{{max-width:1080px;margin:0 auto;padding-left:max(28px,env(safe-area-inset-left,0px));padding-right:max(28px,env(safe-area-inset-right,0px))}}
+.wrap{{max-width:1180px;margin:0 auto;padding-left:max(28px,env(safe-area-inset-left,0px));padding-right:max(28px,env(safe-area-inset-right,0px))}}
 h1,h2,h3,h4{{letter-spacing:-.015em;line-height:1.2}}
 .eyebrow{{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--blue)}}
 section{{padding:72px 0}}
@@ -269,7 +269,7 @@ ul{{list-style:none}}
 .kp{{background:var(--navy2);padding:16px 20px}}
 .kp b{{font-size:26px;display:block}}
 .kp span{{font-size:12.5px;color:#9FB0CC}}
-.kp.ac b{{color:#F2B256}}
+.kp.ac b{{color:#7FD9B3}}
 
 /* part banners */
 .part{{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding:28px 0 22px;border-bottom:2px solid var(--ink);margin-bottom:8px}}
@@ -498,7 +498,7 @@ ul{{list-style:none}}
   <p class="lede">Two complementary offerings for captive and utility power plants. Advisory Agents turn plant data into decisions for every team. Automated Process Control writes optimal setpoints back to the DCS, around the clock.</p>
   <div class="split">
     <a class="sp a" href="#agents"><div class="k">Part A</div><h3>Advisory Agents</h3><p>AI agents that analyse plant data through a shared plant ontology and give each team insights, reports, recommendations and root causes.</p><div class="meta">7 agents · humans decide →</div></a>
-    <a class="sp b" href="#apc"><div class="k">Part B</div><h3>Automated Process Control</h3><p>Model-predictive and optimization controllers running in the OT network, writing setpoints to the DCS over OPC within safe bounds.</p><div class="meta">8 APC applications · closed loop →</div></a>
+    <a class="sp b" href="#apc"><div class="k">Part B</div><h3>Automated Process Control</h3><p>Model-predictive and optimisation controllers running in the OT network, writing setpoints to the DCS over OPC within safe bounds.</p><div class="meta">8 APC applications · closed loop →</div></a>
   </div>
   <div class="kpis">
     <div class="kp ac"><b>3–5%</b><span>Net heat rate reduction</span></div>
@@ -515,7 +515,7 @@ ul{{list-style:none}}
 
   <div class="eyebrow" style="margin-top:36px">Architecture</div>
   <h2>Data → Ontology → Agents</h2>
-  <p class="sub">Every agent reasons over one shared model of the plant, the ontology. It knows that tag <i>2HFB10CP001</i> is the economizer outlet O<sub>2</sub> of boiler 2, which ID fan it relates to, its design value, and which manual page explains it.</p>
+  <p class="sub">Every agent reasons over one shared model of the plant, the ontology. It knows that tag <i>2HFB10CP001</i> is the economiser outlet O<sub>2</sub> of boiler 2, which ID fan it relates to, its design value, and which manual page explains it.</p>
 
   <div class="archA">
     <div class="col"><h5>Plant data</h5>
@@ -606,10 +606,10 @@ ul{{list-style:none}}
   </div>
 
   <div class="eyebrow" style="margin-top:72px;color:var(--green)">Models</div>
-  <h2>The right optimizer for each control problem</h2>
+  <h2>The right optimiser for each control problem</h2>
   <div class="models">
     <div class="model"><div class="mt">Dynamic · fast</div><h4>Model Predictive Control (MPC)</h4><p>Predicts how each CV will move over the next minutes for every possible MV move. It picks the moves that best meet targets without breaking limits, then repeats every cycle.</p><div class="use"><b>Used for</b>Combustion, bed temperature, steam temperature, ESP, emissions</div></div>
-    <div class="model"><div class="mt">Steady-state · economic</div><h4>Linear / Mixed-Integer Programming</h4><p>Finds the cheapest way to meet a demand across many units with on/off and capacity limits. It works from efficiency curves re-traced from plant data.</p><div class="use"><b>Used for</b>Aux load allocation, CT/CW optimization, soot-blowing schedules</div></div>
+    <div class="model"><div class="mt">Steady-state · economic</div><h4>Linear / Mixed-Integer Programming</h4><p>Finds the cheapest way to meet a demand across many units with on/off and capacity limits. It works from efficiency curves re-traced from plant data.</p><div class="use"><b>Used for</b>Aux load allocation, CT/CW optimisation, soot-blowing schedules</div></div>
     <div class="model"><div class="mt">Inference · AI</div><h4>Soft sensors &amp; ML models</h4><p>Estimate what isn’t measured online (coal GCV, PF fineness, NOx ahead of the analyser, fouling) and feed them to the MPC and LP as live inputs.</p><div class="use"><b>Used for</b>Feedforward and disturbance rejection in every application</div></div>
   </div>
 

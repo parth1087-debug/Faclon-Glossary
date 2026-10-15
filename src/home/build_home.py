@@ -27,8 +27,8 @@ SOLUTIONS = [
         "accent": "blue",
         "live": True,
         "blurb": "Who we are, the AI-native stack, an example industrial AI architecture, 25+ use cases "
-                 "and 38 customer cases across power, metals, process and manufacturing plants.",
-        "tags": ["8-layer AI-native stack", "25+ use cases", "38 customer cases"],
+                 "and 37 customer cases across power, metals, process and manufacturing plants.",
+        "tags": ["8-layer AI-native stack", "25+ use cases", "37 customer cases"],
         "links": [],
     },
     {
@@ -50,7 +50,7 @@ SOLUTIONS = [
         "live": True,
         "blurb": "70 AI use cases across every section of a steel plant, from mining and iron making to "
                  "rolling, finishing and utilities, with indicative value per MTPA.",
-        "tags": ["10 plant sections", "70 use cases", "28 Computer Vision"],
+        "tags": ["10 plant sections", "70 use cases", "28 Vision AI"],
         "links": [],
     },
     {
@@ -235,8 +235,9 @@ HTML = f"""<!doctype html>
 --blue:#3D63F5;--blue2:#7C95FF;--blueBg:#EEF2FF;--green:#11875F;--greenBg:#E5F5EE;color-scheme:light}}
 *{{box-sizing:border-box;margin:0;padding:0}}
 html{{background:#fff}}
-body{{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:#fff;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}}
-.wrap{{max-width:1080px;margin:0 auto;padding-left:max(28px,env(safe-area-inset-left,0px));padding-right:max(28px,env(safe-area-inset-right,0px))}}
+body{{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:#fff;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}}
+table{{font-variant-numeric:tabular-nums}}
+.wrap{{max-width:1180px;margin:0 auto;padding-left:max(28px,env(safe-area-inset-left,0px));padding-right:max(28px,env(safe-area-inset-right,0px))}}
 h1,h2,h3{{letter-spacing:-.015em;line-height:1.2}}
 .eyebrow{{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--blue)}}
 

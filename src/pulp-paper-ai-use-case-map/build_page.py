@@ -1,4 +1,4 @@
-"""Builds pulp-paper-ai-use-case-map/index.html (AI use-case catalog for an integrated pulp & paper mill).
+"""Builds pulp-paper-ai-use-case-map/index.html (AI use-case catalogue for an integrated pulp & paper mill).
 
 Run from anywhere:  python3 src/pulp-paper-ai-use-case-map/build_page.py
 Content lives in use_cases.json next to this script: process areas -> process units -> use cases.
@@ -25,7 +25,7 @@ OUT = ROOT / "pulp-paper-ai-use-case-map" / "index.html"
 DATA = json.loads((HERE / "use_cases.json").read_text(encoding="utf-8"))
 E = html.escape
 
-KIND = {"ai": ("AI Advisory", "soft sensors, optimization, setpoint advisory"),
+KIND = {"ai": ("AI Advisory", "soft sensors, optimisation, setpoint advisory"),
         "cv": ("Vision AI", "camera-based detection & condition monitoring"),
         "fd": ("Foundation", "IT-OT data layer enabling everything else")}
 
@@ -114,7 +114,8 @@ CSS = """
 --red:#B5452F;--redBg:#FBEFEC;--violet:#7A4FD6;--violetBg:#F2EDFC;color-scheme:light}
 *{box-sizing:border-box;margin:0;padding:0}
 html{background:#fff;scroll-padding-top:80px}
-body{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:#fff;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+body{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:#fff;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+table{font-variant-numeric:tabular-nums}
 ul{list-style:none}
 .wrap{max-width:1180px;margin:0 auto;padding-left:max(28px,env(safe-area-inset-left,0px));padding-right:max(28px,env(safe-area-inset-right,0px))}
 h1,h2,h3,h4{letter-spacing:-.015em;line-height:1.2;text-wrap:balance}
@@ -136,8 +137,8 @@ h1,h2,h3,h4{letter-spacing:-.015em;line-height:1.2;text-wrap:balance}
 .kp b{font-size:30px;display:block;line-height:1.2}
 .kp b small{font-size:15px;font-weight:600;margin-left:2px}
 .kp span{font-size:12.5px;color:#9FB0CC}
-.kp.hl{background:var(--blue)}
-.kp.hl span{color:#DCE3FF}
+.kp.hl b{color:#7FD9B3}
+
 .kfoot{font-size:12.5px;color:#9FB0CC;margin-top:10px}
 .proof{margin-top:22px;display:flex;flex-wrap:wrap;gap:8px 22px;align-items:center;font-size:14px;color:#E4EAF5;padding:14px 18px;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08)}
 .proof b{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue2);font-weight:700}
@@ -318,7 +319,7 @@ HTML = f"""<!doctype html>
   <div class="brand"><a href="../" style="color:#fff;text-decoration:none"><b>Faclon Labs</b></a><span>Industrial AI · Operating layer for plant autonomy</span></div>
   <a class="back" href="../">← All solutions</a>
   <div class="eyebrow">Industry brief · Pulp &amp; paper manufacturing</div>
-  <h1>An AI use-case catalog for the <em>integrated pulp &amp; paper mill</em></h1>
+  <h1>An AI use-case catalogue for the <em>integrated pulp &amp; paper mill</em></h1>
   <p class="lede">Forty deployable AI use cases mapped across the full mill, wood yard to winder, plus chemical recovery, utilities and cross-cutting reliability. Each one turns disconnected plant data into continuous intelligence and action, with the value at stake quantified per million tonnes of annual paper capacity.</p>
   <div class="kpis">
     <div class="kp"><b>{n_uc}</b><span>Deployable AI use cases</span></div>
@@ -335,7 +336,7 @@ HTML = f"""<!doctype html>
   <h2>Where the value sits, and how Faclon unlocks it</h2>
   <div class="cca">
     <div><em>01 · Connect</em><h3>One data fabric across the mill</h3><p>I/O Connect ingests DCS, PLC, lab, ERP and camera streams into a unified namespace: no rip-and-replace, no per-project data plumbing.</p></div>
-    <div><em>02 · Contextualize</em><h3>Models tuned to the process</h3><p>Deepsense builds soft sensors and kinetic models (kappa, brightness, H-factor, heat rate) that fill the gaps between slow lab samples.</p></div>
+    <div><em>02 · Contextualise</em><h3>Models tuned to the process</h3><p>Deepsense builds soft sensors and kinetic models (kappa, brightness, H-factor, heat rate) that fill the gaps between slow lab samples.</p></div>
     <div><em>03 · Act</em><h3>Advisories into the control room</h3><p>Bruce AI turns predictions into location-tagged alerts and setpoint advisories operators can act on, with the value tracked per tonne.</p></div>
   </div>
   <div class="ov-grid">
@@ -378,7 +379,7 @@ HTML = f"""<!doctype html>
 <div class="cta"><div class="wrap">
   <div class="eyebrow" style="color:var(--blue2)">Next step</div>
   <h2>Explore a <em>focused pilot</em></h2>
-  <p>Pick one process area and one KPI from this catalog. Faclon connects the existing instrumentation, stands up a live dashboard, and returns a quantified value-unlock with a mill-wide scale-out plan, typically within a 4–6 week assessment.</p>
+  <p>Pick one process area and one KPI from this catalogue. Faclon connects the existing instrumentation, stands up a live dashboard, and returns a quantified value-unlock with a mill-wide scale-out plan, typically within a 4–6 week assessment.</p>
   <div class="steps3">
     <div><em>1</em><h3>Connect</h3><p>We tap existing DCS, PLC, lab and camera data: no rip-and-replace.</p></div>
     <div><em>2</em><h3>Prove</h3><p>A live dashboard and first quantified value-unlock inside 4–6 weeks.</p></div>

@@ -1,6 +1,6 @@
 {
   "title": "Energy Management",
-  "tagline": "Decision Intelligence at scale to unlock the latent potential of each plant",
+  "tagline": "Decision intelligence at scale to unlock the latent potential of each plant",
   "lede": "I/O Sense connects every energy, water and compressed-air meter in the plant, maps it to sections, lines and machines, and turns it into dashboards, alerts, reports and drill-downs that teams act on every shift.",
   "pillars": [
     "Improve production throughput and yield",
@@ -45,7 +45,7 @@
     {
       "t": "Power factor management",
       "c": "cost",
-      "d": "Continuous PF monitoring per feeder, with capacitor bank failure flagged early. Avoids PF penalty and captures incentive."
+      "d": "Continuous PF monitoring per feeder, with capacitor bank failure flagged early. Avoids PF penalties and earns the PF incentive."
     },
     {
       "t": "Bill verification",
@@ -119,7 +119,7 @@
         "Alerts and events",
         "Historian",
         "Analytics",
-        "Real-time process digitization"
+        "Real-time process digitisation"
       ],
       "diagram": "arch-cloud",
       "diagram_cap": "3 substations × 50 energy meters, each sending data over 4G, Wi-Fi or the network to I/O Sense Cloud"
@@ -311,7 +311,7 @@
       "d": "The plant SLD with live kW on every incomer, bus-coupler and feeder, with feeders at zero load flagged in red."
     }
   ],
-  "customers_note": "Energy management deployed at",
+  "customers_note": "Running at leading Indian manufacturers",
   "customers": [
     "Grasim Pulp and Fibre (Aditya Birla Group)",
     "Escorts Kubota",

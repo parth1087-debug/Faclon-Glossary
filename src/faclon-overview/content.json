@@ -328,7 +328,7 @@
    "metrics": [],
    "points": [
     "Deployed a flagship Model Digital Plant for JSW Cement's integrated plant at Nandyal, <b>integrating DCS systems, energy meters, vibration sensors, solar inverters, ERP, and lab equipment</b> to create a single source of truth — a unified data lake with tailor-made dashboards for every department.",
-    "Implemented <b>AI use cases</b> including <b>cement strength prediction</b>, <b>C3S prediction</b>, <b>cyclone health prediction</b>, and <b>kiln fuel-ratio optimization to increase AFR</b>, along with <b>root-cause analysis and recommendations</b> for high specific energy consumption in mills and kilns."
+    "Implemented <b>AI use cases</b> including <b>cement strength prediction</b>, <b>C3S prediction</b>, <b>cyclone health prediction</b>, and <b>kiln fuel-ratio optimisation to increase AFR</b>, along with <b>root-cause analysis and recommendations</b> for high specific energy consumption in mills and kilns."
    ]
   },
   {
@@ -360,7 +360,7 @@
     }
    ],
    "points": [
-    "Digitized <b>2,500+ energy meters</b> across <b>4 plants</b> — Vilayat, Kharach, Harihar, and Indonesia — with deviation analysis at every level of energy distribution. Prevented <b>critical motor failures</b> through motor-load-based alerts. The complete platform is deployed on Grasim's private cloud, catering to all the use cases from a single environment.",
+    "Digitised <b>2,500+ energy meters</b> across <b>4 plants</b> — Vilayat, Kharach, Harihar, and Indonesia — with deviation analysis at every level of energy distribution. Prevented <b>critical motor failures</b> through motor-load-based alerts. The complete platform is deployed on Grasim's private cloud, catering to all the use cases from a single environment.",
     "Implemented online <b>steam trap failure detection</b> for <b>250 HP steam traps</b> across 2 plants, <b>100+ vibration sensors</b> on critical motors and gearboxes to cut unplanned downtime and maintenance costs, and health monitoring of <b>200+ VFD drives</b> and <b>100+ bus bars</b> to extend asset life and reduce breakdowns.",
     "Implemented AI-based solutions to <b>reduce NHR for the 175 MW captive power plant</b> comprising 5 boilers and 5 turbines."
    ]
@@ -461,7 +461,7 @@
    ],
    "points": [
     "Implemented a Platform to balance power between generation — <b>6 captive power plants, Grid (Re-PPA, Discom)</b> — and consumption — <b>8 consuming plants and excess generation on IEX</b>.",
-    "The system automates day-ahead and intra-day 15-minute <b>power mix scheduling</b> to prioritize the lowest-cost mix across 550 MW captive thermal generation, the 180 MWp solar PPA, interplant transfers, and IEX while enforcing NRLDC/regulatory limits, CPP minimum PLF, and transfer constraints."
+    "The system automates day-ahead and intra-day 15-minute <b>power mix scheduling</b> to prioritise the lowest-cost mix across 550 MW captive thermal generation, the 180 MWp solar PPA, interplant transfers, and IEX while enforcing NRLDC/regulatory limits, CPP minimum PLF, and transfer constraints."
    ]
   },
   {
@@ -493,7 +493,7 @@
    ],
    "points": [
     "At Welspun's LSAW unit in Anjar, data from <b>18 data sources</b> — PLCs, SCADA systems, SQL databases, and Excel files — covering <b>~4,000 tags</b> across critical stations such as <b>JCO, UT, Hydrotester, and Welding</b> is consolidated into a central server, creating a unified environment for analysis and reporting.",
-    "Management and plant teams use KPI dashboards covering station-wise cycle time, energy consumption, pipe production, and machine utilization for real-time visibility. Over five months, analysis of 14,777 pipes demonstrated a <b>10.2% reduction in cycle time</b> and a <b>5.0% improvement in energy intensity.</b>"
+    "Management and plant teams use KPI dashboards covering station-wise cycle time, energy consumption, pipe production, and machine utilisation for real-time visibility. Over five months, analysis of 14,777 pipes demonstrated a <b>10.2% reduction in cycle time</b> and a <b>5.0% improvement in energy intensity.</b>"
    ]
   },
   {
@@ -599,7 +599,7 @@
    "logo": "spb",
    "customer": "SPB",
    "site": "RDH batch fibreline, Erode",
-   "title": "RDH Optimization",
+   "title": "RDH Optimisation",
    "domains": [
     "prod",
     "quality"
@@ -607,8 +607,8 @@
    "ongoing": false,
    "metrics": [],
    "points": [
-    "Implemented <b>Heat Recovery Optimization</b> basis accumulator tank temperature & level management during black liquor displacement, and controlled MP steam and recirculation pump parameters — <b>reducing cycle time and steam consumption while maintaining cook uniformity.</b>",
-    "Implementing digester and cooking optimization analytics integrating DCS data, black liquor concentration, fresh alkali charge and strength, and wood species/quality to build live soft sensors that <b>predict kappa number</b> at pump-out and <b>predict post-washer brightness</b> — enabling proactive cook-endpoint control."
+    "Implemented <b>Heat Recovery Optimisation</b> based on accumulator tank temperature & level management during black liquor displacement, and controlled MP steam and recirculation pump parameters — <b>reducing cycle time and steam consumption while maintaining cook uniformity.</b>",
+    "Implementing digester and cooking optimisation analytics integrating DCS data, black liquor concentration, fresh alkali charge and strength, and wood species/quality to build live soft sensors that <b>predict kappa number</b> at pump-out and <b>predict post-washer brightness</b> — enabling proactive cook-endpoint control."
    ]
   },
   {
@@ -685,7 +685,7 @@
    "points": [
     "Implemented a fully automated IoT-based system for <b>chiller plants, AHUs, and packaged units</b> at two locations.",
     "Implemented real-time <b>steam trap failure detection</b> for <b>100 HP and LP steam traps.</b>",
-    "Deployed centralized <b>solar efficiency</b> monitoring across <b>43 sites</b> to track energy performance."
+    "Deployed centralised <b>solar efficiency</b> monitoring across <b>43 sites</b> to track energy performance."
    ]
   },
   {
@@ -743,7 +743,7 @@
    "ongoing": false,
    "metrics": [],
    "points": [
-    "Implemented <b>on-premise centralized monitoring</b> by integrating all machine DCS systems and energy meters across the plant, enabling real-time monitoring, data historian, reporting, and alerting."
+    "Implemented <b>on-premise centralised monitoring</b> by integrating all machine DCS systems and energy meters across the plant, enabling real-time monitoring, data historian, reporting, and alerting."
    ]
   },
   {
@@ -758,7 +758,7 @@
    "metrics": [
     {
      "value": "600+",
-     "label": "assets digitized"
+     "label": "assets digitised"
     },
     {
      "value": "3",
@@ -770,7 +770,7 @@
     }
    ],
    "points": [
-    "Deployed a Utility Management System for ITC at Trichy, Uluberia, and Mysore, <b>digitizing 600+ assets covering energy meters, BTU meters, compressed air flow meters, water meters,</b> and HSD and LPG systems.",
+    "Deployed a Utility Management System for ITC at Trichy, Uluberia, and Mysore, <b>digitising 600+ assets covering energy meters, BTU meters, compressed air flow meters, water meters,</b> and HSD and LPG systems.",
     "Scale-up to seven more plants is underway."
    ]
   },
@@ -801,7 +801,7 @@
    "logo": "adanicsia",
    "customer": "Adani",
    "site": "Mumbai airport, domestic terminal",
-   "title": "Bombay Airport Digitization",
+   "title": "Bombay Airport Digitisation",
    "domains": [
     "energy",
     "maint"
@@ -891,7 +891,7 @@
    "ongoing": false,
    "metrics": [],
    "points": [
-    "<b>Digitized end-to-end boom manufacturing workflow</b> at the Kharagpur plant, replacing manual check sheets with real-time production, quality, downtime, and operator productivity tracking across fabrication operations.",
+    "<b>Digitised end-to-end boom manufacturing workflow</b> at the Kharagpur plant, replacing manual check sheets with real-time production, quality, downtime, and operator productivity tracking across fabrication operations.",
     "Established complete <b>digital traceability</b> with first-pass-yield monitoring, failure analytics, and ISO-compliant document control, enabling <b>faster root-cause analysis</b> and data-driven shop-floor decisions."
    ]
   },
@@ -933,7 +933,7 @@
    ],
    "points": [
     "Integrated <b>14 environmental chamber machines</b> with real-time monitoring of temperature, humidity, and pressure across product testing workflows.",
-    "<b>Digitized end-to-end test planning, execution, and approval workflows</b> with multi-level validation and operator-driven test logging. Enabled energy-optimized test scheduling and ERRC-based recommendations using historical test data to improve utilization and reduce defects."
+    "<b>Digitised end-to-end test planning, execution, and approval workflows</b> with multi-level validation and operator-driven test logging. Enabled energy-optimised test scheduling and ERRC-based recommendations using historical test data to improve utilisation and reduce defects."
    ]
   },
   {
@@ -1023,7 +1023,7 @@
     }
    ],
    "points": [
-    "IT–OT Integration for <b>Color Coating Lines</b> across Khopoli & Rajpura plant, integrating <b>8,000+ tags</b> with real-time monitoring and visualization of critical operational and performance KPIs."
+    "IT–OT Integration for <b>Colour Coating Lines</b> across Khopoli & Rajpura plant, integrating <b>8,000+ tags</b> with real-time monitoring and visualisation of critical operational and performance KPIs."
    ]
   },
   {
@@ -1038,7 +1038,7 @@
    "metrics": [],
    "points": [
     "Digital twin for <b>DRI & Pellet Plant</b>: Deployed a kiln AI model and tag-driven analytics across MSP Steel's sponge iron division — converting DCS, lab, and asset-health data into live stability, efficiency, and quality indices on one common backbone.",
-    "The payoff: A per-kiln decision engine that guides operators (Increase / Maintain / Reduce) plus predictive alerts for <b>accretion risk</b> and <b>asset health</b> → longer campaign life, fewer unplanned stoppages, optimized fuel rate."
+    "The payoff: A per-kiln decision engine that guides operators (Increase / Maintain / Reduce) plus predictive alerts for <b>accretion risk</b> and <b>asset health</b> → longer campaign life, fewer unplanned stoppages, optimised fuel rate."
    ]
   },
   {
@@ -1054,7 +1054,7 @@
    "metrics": [],
    "points": [
     "Thermal camera based real-time <b>cell house temperature profile</b> monitoring during electrolysis to detect early <b>signs of short circuits</b> (\"shots\") by monitoring <b>temperature rise</b> and enable timely intervention.",
-    "Benefits: Higher efficiency, cutting electricity losses, minimizing process disruptions, and sustaining consistent copper deposition efficiency on the cathode."
+    "Benefits: Higher efficiency, cutting electricity losses, minimising process disruptions, and sustaining consistent copper deposition efficiency on the cathode."
    ]
   },
   {
@@ -1077,8 +1077,8 @@
     }
    ],
    "points": [
-    "Implementing <b>Anode Current Distribution (ACD)</b> monitoring pilot for <b>2 pots having 80 anodes</b>. The solution involves customized hardware on every anode to measure current in real time.",
-    "The data enables early detection of localized anode effect (AE), anode level resistance & current imbalance to provide operational insights to <b>stabilize pot voltage and reduce energy waste.</b>"
+    "Implementing <b>Anode Current Distribution (ACD)</b> monitoring pilot for <b>2 pots having 80 anodes</b>. The solution involves customised hardware on every anode to measure current in real time.",
+    "The data enables early detection of localised anode effect (AE), anode level resistance & current imbalance to provide operational insights to <b>stabilise pot voltage and reduce energy waste.</b>"
    ]
   },
   {
@@ -1101,7 +1101,7 @@
     }
    ],
    "points": [
-    "Monitoring and performance optimization of <b>160+ MW across 28 sites including solar, wind, and hybrid</b> renewable energy assets, including plant performance, generation losses, and operational KPIs."
+    "Monitoring and performance optimisation of <b>160+ MW across 28 sites including solar, wind, and hybrid</b> renewable energy assets, including plant performance, generation losses, and operational KPIs."
    ]
   },
   {
@@ -1120,7 +1120,7 @@
     }
    ],
    "points": [
-    "Implementing batch process optimization analytics for the <b>Profenofos manufacturing line</b> at Sumitomo Chemical, Bhavnagar, integrating DCS and lab data to build a <b>predictive quality soft sensor</b> for BCP, DTCL, and triester purity.",
+    "Implementing batch process optimisation analytics for the <b>Profenofos manufacturing line</b> at Sumitomo Chemical, Bhavnagar, integrating DCS and lab data to build a <b>predictive quality soft sensor</b> for BCP, DTCL, and triester purity.",
     "Eliminates the 1–2 hr lab turnaround and enables live cook-extension and reprocessing decisions to <b>cut cycle time and improve yield & quality.</b>"
    ]
   }

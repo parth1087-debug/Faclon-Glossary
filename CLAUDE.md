@@ -26,7 +26,9 @@ This repo holds Faclon Labs customer-facing solution pages, published with GitHu
 ## Visual system (shared by all pages)
 - Navy bands (`#0B1A30`) for hero and CTA; white body; `#F6F8FB` panels.
 - Blue `#3D63F5` = insight, advisory and analytics. Green `#11875F` = control, closed loop and outcomes. Amber = in-progress or DMZ. Muted red = problems or constraints.
-- Inter for all text; numbers in tabular figures; uppercase eyebrows with letter-spacing.
+- Inter for all text; uppercase eyebrows with letter-spacing. Tabular figures only on tables (`table{font-variant-numeric:tabular-nums}`), never on `body`: Inter's tabular hyphen is wide and turns "IT-OT" into "IT - OT".
+- Content width is `.wrap{max-width:1180px}` on every page. Savings/outcome KPI highlights are green (`#7FD9B3` on navy).
+- Copy: British spelling; sentence-case headings, card titles and labels (Title Case only for product and use-case names); closing band = eyebrow "Next step" + sentence-case heading + the shared CTA buttons (`src/shared/cta.py`).
 
 ## Content rules
 - Customer figures must come from approved sources: SPB (100+ RCAs/day, 98.4% accuracy, 20 TPD steam, ₹1 cr/yr), JSW Energy (1,000+ sensors, 15+ failures caught, ₹1.3 cr over 2 yrs), Hindustan Zinc (91 MW, 1 pp APC target), Grasim (175 MW, 5 boilers + 5 turbines), Tata Power Prayagraj. The Faclon Labs Presentation 2026 deck is also an approved source for every customer case it lists (used on /faclon-overview/). The Steam Trap Failure Detection deck is an approved source for its steam trap customer cases: HMEL, Cairn, Grasim, Jubilant Ingrevia (used on /steam-trap-monitoring/). The Condition Based Monitoring deck is an approved source for its vibration-monitoring case studies: JSW Energy, JSW Cements, JSW Steel, Godrej Agrovet, Grasim Pulp and Fibre, Apar Oil, SRF, Marico, DLF (used on /condition-based-monitoring/). The Vision Use Cases (I/O Vision) deck is an approved source for its customer deployments: JSW Energy (lignite particle size analysis), Hindustan Zinc (belt, tray and shuttle conveyor monitoring), Hindalco (200 cameras, 98% accuracy) (used on /io-vision/).

@@ -153,7 +153,8 @@ CSS = """
 --blue:#3D63F5;--blue2:#7C95FF;--blueBg:#EEF2FF;--green:#11875F;--greenBg:#E5F5EE;--amber:#C77A12;--red:#B5452F;--redBg:#FBEEEA;color-scheme:light}
 *{box-sizing:border-box;margin:0;padding:0}
 html{background:#fff;scroll-padding-top:64px}
-body{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:#fff;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+body{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:#fff;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+table{font-variant-numeric:tabular-nums}
 ul,ol{list-style:none}
 img{max-width:100%;display:block}
 .wrap{max-width:1180px;margin:0 auto;padding-left:max(28px,env(safe-area-inset-left,0px));padding-right:max(28px,env(safe-area-inset-right,0px))}
@@ -177,7 +178,7 @@ h1,h2,h3{letter-spacing:-.015em;line-height:1.2;text-wrap:balance}
 .kp{background:var(--navy2);padding:16px 20px}
 .kp b{font-size:26px;display:block}
 .kp span{font-size:12.5px;color:#9FB0CC}
-.kp.g b{color:#7FD6B2}
+.kp.g b{color:#7FD9B3}
 
 .jump{position:sticky;top:0;z-index:5;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .jump .wrap{display:flex;gap:4px;overflow-x:auto;padding-top:10px;padding-bottom:10px;scrollbar-width:none}
@@ -379,7 +380,7 @@ HTML = f"""<!doctype html>
   <p>No wiring to the hot side: the straps are battery powered and talk wirelessly to a receiver in the panel.</p></div>
   {arch}
   <ol class="flow">{flow}</ol>
-  <p class="callout">Online continuous monitoring with critical alerts helps <b>avert major losses, increase safety and improve the upkeep</b> of electrical operations.</p>
+  <p class="callout">Continuous online monitoring with critical alerts helps <b>avert major losses, improve safety and keep electrical systems in good repair</b>.</p>
 </div></section>
 
 <section class="sec" id="hardware"><div class="wrap">

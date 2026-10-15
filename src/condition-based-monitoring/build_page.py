@@ -103,7 +103,8 @@ CSS = """
 --blue:#3D63F5;--blue2:#7C95FF;--blueBg:#EEF2FF;--green:#11875F;--greenBg:#E5F5EE;--amber:#C77A12;--red:#B5452F;--redBg:#FBEEEB;color-scheme:light}
 *{box-sizing:border-box;margin:0;padding:0}
 html{background:#fff;scroll-padding-top:24px}
-body{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:#fff;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+body{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:#fff;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+table{font-variant-numeric:tabular-nums}
 ul{list-style:none}
 img{max-width:100%;display:block}
 .wrap{max-width:1180px;margin:0 auto;padding-left:max(28px,env(safe-area-inset-left,0px));padding-right:max(28px,env(safe-area-inset-right,0px))}
@@ -336,7 +337,7 @@ HTML = f"""<!doctype html>
   <div class="flow">
     <div class="node"><span class="k">Assets</span><b>Rotating equipment</b><p>{E(assets_short)} and more</p></div>
     <div class="arr"><span class="ah">→</span></div>
-    <div class="node"><span class="k">Sensors</span><b>Tri-axial vibration sensors</b><p>Wi-Fi enabled transmission of</p><div class="chips">{transmits}</div></div>
+    <div class="node"><span class="k">Sensors</span><b>Tri-axial vibration sensors</b><p>Wi-Fi-enabled transmission of</p><div class="chips">{transmits}</div></div>
     <div class="arr"><span class="ah">→</span></div>
     <div class="node"><span class="k">Network</span><b>Wi-Fi router</b><p>One router serves a group of sensors</p></div>
     <div class="arr"><span class="ah">→</span><small>4G</small></div>
@@ -360,8 +361,8 @@ HTML = f"""<!doctype html>
   <h2>50+ common problems identified, across a variety of assets</h2>
   <p class="sub">Each fault leaves its own pattern in the vibration, temperature and noise of a machine. The platform recognises these patterns and names the likely fault.</p>
   <div class="fa">
-    <div class="box"><h3>Problems identified</h3><p class="hint">50+ common problems, including</p><ul class="flist">{faults}<li class="more">And a host of others</li></ul></div>
-    <div class="box"><h3>Assets covered</h3><p class="hint">Works across a variety of rotating assets</p><ul class="flist alist">{assets}<li class="more">And a host of others</li></ul></div>
+    <div class="box"><h3>Problems identified</h3><p class="hint">50+ common problems, including</p><ul class="flist">{faults}<li class="more">And many more</li></ul></div>
+    <div class="box"><h3>Assets covered</h3><p class="hint">Works across a variety of rotating assets</p><ul class="flist alist">{assets}<li class="more">And many more</li></ul></div>
   </div>
 </div></section>
 
@@ -378,7 +379,7 @@ HTML = f"""<!doctype html>
   <p class="sub">A compact sensor that measures vibration on three axes, temperature and noise, built for harsh plant conditions.</p>
   <div class="sensor">
     <div class="sph"><img src="{img(C["sensor"]["img"])}" alt="Faclon tri-axial vibration sensor, a small black cube with a cable">
-      <div class="chips"><span>IP67</span><span>78 gms</span><span>0.2Hz to 6kHz</span><span>Stud or magnetic mount</span></div></div>
+      <div class="chips"><span>IP67</span><span>78 g</span><span>0.2 Hz to 6 kHz</span><span>Stud or magnetic mount</span></div></div>
     <table class="spec"><tbody>{specs}</tbody></table>
   </div>
 </div></section>
@@ -417,7 +418,7 @@ HTML = f"""<!doctype html>
 </main>
 
 <div class="cta"><div class="wrap">
-  <div><div class="k">We're here as your</div><h2>Digital Backbone to Drive Operational Efficiency and Decision Intelligence</h2><p>Tell us which machines matter most in your plant. We will show you what condition based monitoring can catch on them.</p></div>
+  <div><div class="k">Next step</div><h2>Your digital backbone for operational efficiency and decision intelligence</h2><p>Tell us which machines matter most in your plant. We will show you what condition-based monitoring can catch on them.</p></div>
   {CTA_BUTTONS}
 </div></div>
 <div class="foot"><div class="wrap"><span><a href="../">← All solutions</a> · Faclon Labs · Condition Based Monitoring</span><span>Predictive maintenance for rotating equipment</span></div></div>

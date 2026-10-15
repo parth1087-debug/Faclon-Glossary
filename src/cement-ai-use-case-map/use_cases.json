@@ -3,7 +3,12 @@
   "s": "Mines",
   "uc": [
    {
-    "t": "Limestone Stockpile Quality Visibility", "k": "ai", "v": [0.3, 0.6],
+    "t": "Limestone Stockpile Quality Visibility",
+    "k": "ai",
+    "v": [
+     0.3,
+     0.6
+    ],
     "d": [
      "Tracks stockpile chemistry (CaO, SiO₂, MgO), material movement, and reclaiming patterns across quarry stockpiles in real time.",
      "Flags likely chemistry deviation (LSF drift) in the reclaimed material before it enters the raw mill.",
@@ -21,7 +26,12 @@
   "s": "Crusher",
   "uc": [
    {
-    "t": "Crusher Energy & Throughput Optimization", "k": "ai", "v": [0.2, 0.5],
+    "t": "Crusher Energy & Throughput Optimisation",
+    "k": "ai",
+    "v": [
+     0.2,
+     0.5
+    ],
     "d": [
      "Monitors crusher load, feed size/hardness, motor current, and operating conditions in real time.",
      "Estimates specific power consumption (SPC) and throughput for the current feed and operating settings.",
@@ -39,7 +49,12 @@
   "s": "Raw Meal",
   "uc": [
    {
-    "t": "Raw Mix Design", "k": "ai", "v": [0.8, 2.5],
+    "t": "Raw Mix Design",
+    "k": "ai",
+    "v": [
+     0.8,
+     2.5
+    ],
     "d": [
      "Analyses raw material chemistry, online process data (PGNAA/XRF), and laboratory measurements across limestone, clay and correctives.",
      "Models the resulting clinker chemistry (LSF, SM, AM) and kiln feed uniformity for a given proportioning combination.",
@@ -52,7 +67,12 @@
     ]
    },
    {
-    "t": "Raw Meal Blaine Prediction & Optimization", "k": "ai", "v": [0.6, 1.8],
+    "t": "Raw Meal Blaine Prediction & Optimisation",
+    "k": "ai",
+    "v": [
+     0.6,
+     1.8
+    ],
     "d": [
      "Tracks raw mill process parameters – throughput, mill DP, roller pressure, separator speed, motor current – in real time.",
      "Predicts raw meal Blaine and residue (fineness), ahead of laboratory results.",
@@ -65,7 +85,12 @@
     ]
    },
    {
-    "t": "Raw Mill Energy & Throughput Optimization", "k": "ai", "v": [0.7, 2.2],
+    "t": "Raw Mill Energy & Throughput Optimisation",
+    "k": "ai",
+    "v": [
+     0.7,
+     2.2
+    ],
     "d": [
      "Continuously monitors mill loading, grinding/hydraulic pressure, separator speed, fan power, vibration, and feed material hardness/moisture.",
      "Identifies the specific power consumption (SPC) and maximum sustainable throughput achievable for the current operating window.",
@@ -83,7 +108,12 @@
   "s": "Pyro",
   "uc": [
    {
-    "t": "Burning Zone Prediction & Optimization", "k": "ai", "v": [1.5, 3.5],
+    "t": "Burning Zone Prediction & Optimisation",
+    "k": "ai",
+    "v": [
+     1.5,
+     3.5
+    ],
     "d": [
      "Continuously monitors kiln operating data – burning zone temperature, torque, feed rate, speed, secondary air temperature, and gas analysis (NOx, O₂, CO).",
      "Predicts the burning zone state (stable/unstable) and emerging risk of free lime excursions or ring formation.",
@@ -96,7 +126,12 @@
     ]
    },
    {
-    "t": "Kiln SHC Optimizer", "k": "ai", "v": [2.5, 6],
+    "t": "Kiln SHC Optimiser",
+    "k": "ai",
+    "v": [
+     2.5,
+     6
+    ],
     "d": [
      "Analyses kiln thermal and combustion data – feed rate, BZT, torque, secondary/calciner temperature, O₂/CO/NOx, and fuel mix including TSR.",
      "Forecasts the Specific Heat Consumption (SHC) trajectory for the current operating configuration.",
@@ -109,7 +144,12 @@
     ]
    },
    {
-    "t": "C₃S Prediction", "k": "ai", "v": [0.8, 2.5],
+    "t": "C₃S Prediction",
+    "k": "ai",
+    "v": [
+     0.8,
+     2.5
+    ],
     "d": [
      "Uses kiln process parameters, raw mix chemistry, fuel properties (incl. AFR feed rate) and operational data as inputs to a soft sensor.",
      "Predicts clinker Tricalcium Silicate (C₃S) in near real time, ahead of laboratory results.",
@@ -122,7 +162,12 @@
     ]
    },
    {
-    "t": "Cyclone Blockage Prediction", "k": "ai", "v": [1.8, 4.5],
+    "t": "Cyclone Blockage Prediction",
+    "k": "ai",
+    "v": [
+     1.8,
+     4.5
+    ],
     "d": [
      "Continuously monitors cyclone differential pressure, preheater draft, stage-wise temperatures, hot meal chemistry (SO₃, Cl, alkalis) and ID fan load.",
      "Predicts the likelihood and location of cyclone build-up/blockage 30-60 minutes ahead of occurrence.",
@@ -135,7 +180,12 @@
     ]
    },
    {
-    "t": "Kiln Coal Optimizer", "k": "ai", "v": [2, 5],
+    "t": "Kiln Coal Optimiser",
+    "k": "ai",
+    "v": [
+     2,
+     5
+    ],
     "d": [
      "Continuously evaluates kiln thermal loading – BZT, torque, filling ratio, feed rate, secondary air temperature, and gas composition.",
      "Identifies the degree of excess/conservative thermal loading relative to the actual heat requirement of the process.",
@@ -148,7 +198,12 @@
     ]
    },
    {
-    "t": "Free Lime Prediction", "k": "ai", "v": [1.2, 3.2],
+    "t": "Free Lime Prediction",
+    "k": "ai",
+    "v": [
+     1.2,
+     3.2
+    ],
     "d": [
      "Uses kiln process parameters, raw mix chemistry (LSF, SM, AM), fuel conditions, and burning zone behaviour as inputs to a soft sensor.",
      "Predicts clinker free lime (f-CaO) in near real time, ahead of laboratory results.",
@@ -161,7 +216,12 @@
     ]
    },
    {
-    "t": "Clinker Cooler Optimization", "k": "ai", "v": [1.5, 3.5],
+    "t": "Clinker Cooler Optimisation",
+    "k": "ai",
+    "v": [
+     1.5,
+     3.5
+    ],
     "d": [
      "Continuously monitors clinker outlet temperature, secondary/tertiary air temperature, cooler fan power, bed depth, grate speed and DP.",
      "Estimates the cooler's heat-recuperation efficiency and the resulting secondary/tertiary air conditions for the kiln and calciner.",
@@ -174,7 +234,12 @@
     ]
    },
    {
-    "t": "Refractory Health Monitoring", "k": "ai", "v": [1.8, 5],
+    "t": "Refractory Health Monitoring",
+    "k": "ai",
+    "v": [
+     1.8,
+     5
+    ],
     "d": [
      "Continuously assesses kiln shell temperature profile, BZT, torque, feed rate, coating stability and thermal cycling at each kiln location/zone.",
      "Detects abnormal wear patterns and estimates the refractory health index and remaining refractory life by kiln zone/location.",
@@ -187,7 +252,12 @@
     ]
    },
    {
-    "t": "Kiln Ring Formation Prediction", "k": "ai", "v": [2.5, 7],
+    "t": "Kiln Ring Formation Prediction",
+    "k": "ai",
+    "v": [
+     2.5,
+     7
+    ],
     "d": [
      "Continuously monitors kiln torque, BZT, filling ratio, volatile cycle chemistry (SO₃, Cl, alkalis), and cyclone DP.",
      "Identifies the risk of ring formation hours to days before it becomes operationally critical.",
@@ -200,7 +270,12 @@
     ]
    },
    {
-    "t": "Vision-Based AFR (Alternative Fuels & Raw Materials) Monitoring", "k": "cv", "v": [0.5, 1.5],
+    "t": "Vision-Based AFR (Alternative Fuels & Raw Materials) Monitoring",
+    "k": "cv",
+    "v": [
+     0.5,
+     1.5
+    ],
     "d": [
      "Deployed at AFR feed belts and dosing stations feeding the kiln main burner and calciner/precalciner.",
      "Continuously monitors AFR feed belts via 24x7 camera feeds – fuel type (plastics, rubber, biomass, RDF), colour, texture, particle size and oversize/foreign objects.",
@@ -219,7 +294,12 @@
   "s": "Cement Mill",
   "uc": [
    {
-    "t": "Cement Fineness Prediction", "k": "ai", "v": [0.6, 1.8],
+    "t": "Cement Fineness Prediction",
+    "k": "ai",
+    "v": [
+     0.6,
+     1.8
+    ],
     "d": [
      "Tracks grinding process parameters – mill DP, separator speed, motor current, reject rate, clinker hardness and gypsum quality.",
      "Predicts cement fineness (Blaine) and residue, ahead of laboratory results.",
@@ -232,7 +312,12 @@
     ]
    },
    {
-    "t": "Cement Mill Energy & Throughput Optimization", "k": "ai", "v": [0.8, 2.4],
+    "t": "Cement Mill Energy & Throughput Optimisation",
+    "k": "ai",
+    "v": [
+     0.8,
+     2.4
+    ],
     "d": [
      "Continuously monitors mill motor power/current, separator speed, grinding pressure (VRM), circulating load, vibration, and clinker/gypsum/additive proportions.",
      "Identifies the specific power consumption (SPC) and maximum achievable throughput (TPH) for the current grinding circuit condition.",
@@ -247,10 +332,12 @@
   ]
  },
  {
-  "s": "Digitization",
+  "s": "Digitisation",
   "uc": [
    {
-    "t": "Model Digital Plant – IT-OT Integration Platform", "k": "fd", "v": null,
+    "t": "Model Digital Plant – IT-OT Integration Platform",
+    "k": "fd",
+    "v": null,
     "d": [
      "Integrates process, quality, maintenance, laboratory, ERP (SAP) and energy data from PLC/DCS, historians, LIMS and EMS into a single contextualised data model.",
      "Powers plant-wide AI/analytics models (SHC, quality, reliability, energy) by giving them a single, reliable source of real-time data.",
@@ -268,7 +355,12 @@
   "s": "Safety",
   "uc": [
    {
-    "t": "Vision-Based Manpower Safety & PPE Detection", "k": "cv", "v": [0.3, 1],
+    "t": "Vision-Based Manpower Safety & PPE Detection",
+    "k": "cv",
+    "v": [
+     0.3,
+     1
+    ],
     "d": [
      "Continuously monitors camera feeds of personnel across plant operational and hazardous areas.",
      "Detects PPE non-compliance (missing helmet, shoes, jacket, gloves) and unauthorised entry into restricted zones, in real time.",
@@ -286,7 +378,12 @@
   "s": "Asset Reliability",
   "uc": [
    {
-    "t": "Condition-Based Maintenance", "k": "ai", "v": [1.5, 4.5],
+    "t": "Condition-Based Maintenance",
+    "k": "ai",
+    "v": [
+     1.5,
+     4.5
+    ],
     "d": [
      "Covers critical rotating assets across raw mill, kiln, cement mill, crusher, fans, conveyors and utilities (CPP/WHRS), replacing line-specific predictive-maintenance use cases.",
      "Continuously monitors vibration, bearing/gearbox temperature, motor current, lubrication health and operating condition of critical rotating and static assets plant-wide.",
@@ -300,7 +397,12 @@
     ]
    },
    {
-    "t": "Vision-Based Belt Health Monitoring", "k": "cv", "v": [0.3, 1],
+    "t": "Vision-Based Belt Health Monitoring",
+    "k": "cv",
+    "v": [
+     0.3,
+     1
+    ],
     "d": [
      "Deployed across limestone/raw material yard conveyors, coal handling conveyors, clinker transport conveyors, and cement/finished-product handling conveyors.",
      "Continuously monitors conveyor belts via industrial camera feeds – surface condition, tracking/alignment, edge wear, tears and spillage.",
@@ -314,7 +416,12 @@
     ]
    },
    {
-    "t": "Vision-Based Particle Size & Moisture Analysis", "k": "cv", "v": [0.3, 0.8],
+    "t": "Vision-Based Particle Size & Moisture Analysis",
+    "k": "cv",
+    "v": [
+     0.3,
+     0.8
+    ],
     "d": [
      "Deployed at crusher discharge, raw material stockpile reclaim conveyors, coal mill feed conveyors, and clinker/cement transfer points.",
      "Continuously analyses material images from conveyor belts and transfer points across the material-handling circuit.",
@@ -328,7 +435,12 @@
     ]
    },
    {
-    "t": "Vision-Based Foreign Object Detection (FOD)", "k": "cv", "v": [0.2, 0.6],
+    "t": "Vision-Based Foreign Object Detection (FOD)",
+    "k": "cv",
+    "v": [
+     0.2,
+     0.6
+    ],
     "d": [
      "Deployed at crusher inlet conveyors, raw material and coal feed conveyors, and transfer points ahead of crushers and mills.",
      "Continuously scans material on conveyor belts using industrial cameras to spot tramp metal, wood, rock chunks, plastic and other foreign objects.",
@@ -342,7 +454,12 @@
     ]
    },
    {
-    "t": "Wireless Bus Bar Temperature Monitoring", "k": "iot", "v": [0.15, 0.4],
+    "t": "Wireless Bus Bar Temperature Monitoring",
+    "k": "iot",
+    "v": [
+     0.15,
+     0.4
+    ],
     "d": [
      "Deployed on bus bars, joints and terminations inside LT/HT switchgear, MCCs, and key electrical panels across the plant.",
      "Continuously monitors bus bar and joint temperature in real time using wireless IoT temperature sensors.",
@@ -361,7 +478,12 @@
   "s": "Utilities",
   "uc": [
    {
-    "t": "Waste Heat Recovery System (WHRS) Optimization", "k": "ai", "v": [0.4, 1],
+    "t": "Waste Heat Recovery System (WHRS) Optimisation",
+    "k": "ai",
+    "v": [
+     0.4,
+     1
+    ],
     "d": [
      "Continuously monitors kiln/cooler exhaust gas temperature, AQC/SP boiler conditions, steam parameters and turbine performance.",
      "Estimates the achievable WHRS power generation for the current kiln load and waste-heat availability.",
@@ -374,7 +496,12 @@
     ]
    },
    {
-    "t": "Net Heat Rate (NHR) Optimization in Captive Power Plant (CPP)", "k": "ai", "v": [0.5, 1.2],
+    "t": "Net Heat Rate (NHR) Optimisation in Captive Power Plant (CPP)",
+    "k": "ai",
+    "v": [
+     0.5,
+     1.2
+    ],
     "d": [
      "Continuously monitors boiler, turbine and auxiliary system data – coal GCV, steam flow/pressure/temperature, turbine load and condenser vacuum.",
      "Identifies the Net Heat Rate (NHR) and root causes of efficiency loss for the current operating configuration.",
@@ -387,7 +514,12 @@
     ]
    },
    {
-    "t": "Energy Management System (EMS)", "k": "ai", "v": [0.6, 1.8],
+    "t": "Energy Management System (EMS)",
+    "k": "ai",
+    "v": [
+     0.6,
+     1.8
+    ],
     "d": [
      "Consolidates plant-wide electrical and thermal energy consumption by section (raw mill, kiln, cement mill, utilities), tariff structure, and captive/grid/WHRS generation mix.",
      "Forecasts section-wise and plant-level energy demand, maximum demand (MD) excursions, and the cost impact of the current generation/consumption mix.",

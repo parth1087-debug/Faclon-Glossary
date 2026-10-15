@@ -63,7 +63,7 @@
     "k": "Fe%, Fe recovery %, Blaine (grind size), moisture, kWh/t",
     "uc": [
      {
-      "t": "Fe Recovery & Grinding Optimization",
+      "t": "Fe Recovery & Grinding Optimisation",
       "v": 22,
       "b": [
        "Analyses feed ore characteristics, grinding mill power draw, classifier cut-points, magnetic separator currents and product assays.",
@@ -89,7 +89,7 @@
     "k": "TI, RI, RDI, basicity (CaO/SiO₂), −5 mm fines%, productivity (t/m²/h)",
     "uc": [
      {
-      "t": "Sinter Quality & Productivity Optimization",
+      "t": "Sinter Quality & Productivity Optimisation",
       "v": 17,
       "b": [
        "Analyses raw-mix composition, moisture, granulation, ignition profile, bed permeability, windbox temperatures and burn-through point.",
@@ -140,7 +140,7 @@
     "k": "CCS, FeO%, porosity, reducibility, productivity (t/d)",
     "uc": [
      {
-      "t": "Pellet Quality & Throughput Optimization",
+      "t": "Pellet Quality & Throughput Optimisation",
       "v": 7,
       "b": [
        "Analyses concentrate fineness, binder ratio, moisture, balling parameters, induration zone temperatures, gas flows and cooling rate.",
@@ -248,7 +248,7 @@
     "k": "Available CaO%, reactivity (t60), LOI, fines%",
     "uc": [
      {
-      "t": "Lime Quality & Fuel Optimization",
+      "t": "Lime Quality & Fuel Optimisation",
       "v": 2,
       "b": [
        "Analyses limestone feed characteristics, kiln temperature profile, fuel mix, residence time and exit gas composition.",
@@ -297,7 +297,7 @@
     "k": "Metallisation%, FeT, FeM, C%, gangue, productivity (t/d), kWh/t",
     "uc": [
      {
-      "t": "DRI Quality & Throughput Optimization",
+      "t": "DRI Quality & Throughput Optimisation",
       "v": 25,
       "b": [
        "Analyses iron ore feed characteristics, coal proximate analysis, kiln temperature profile, air/fuel ratios, retention time and product quality data.",
@@ -346,7 +346,7 @@
     "k": "Metallisation%, C%, gangue, productivity, NG (Gcal/t)",
     "uc": [
      {
-      "t": "DRI Quality & Throughput Optimization",
+      "t": "DRI Quality & Throughput Optimisation",
       "v": 30,
       "b": [
        "Analyses reformer gas composition (H₂/CO ratio), shaft pressure and temperature profiles, burden descent rate, pellet quality and reducing-gas flow.",
@@ -355,7 +355,7 @@
       ]
      },
      {
-      "t": "Reformer Efficiency Optimization",
+      "t": "Reformer Efficiency Optimisation",
       "v": 20,
       "b": [
        "Analyses reformer tube temperatures, catalyst performance, natural gas/steam ratios and exit gas composition.",
@@ -470,7 +470,7 @@
     "k": "Alloy chemistry (Mn / Si / C / P / S%), alloy recovery%, kWh/t, productivity",
     "uc": [
      {
-      "t": "SAF Productivity, Quality & Recovery Optimization",
+      "t": "SAF Productivity, Quality & Recovery Optimisation",
       "v": 45,
       "u": "alloy",
       "b": [
@@ -523,7 +523,7 @@
     "k": "End-blow C/P/S/T, first-hit rate%, metallic yield%, tap-to-tap time",
     "uc": [
      {
-      "t": "Steel Quality, Yield & Slag/Flux Optimization",
+      "t": "Steel Quality, Yield & Slag/Flux Optimisation",
       "v": 15,
       "b": [
        "Analyses hot metal chemistry and temperature, scrap composition, flux additions, oxygen blow profile, sub-lance data and slag chemistry.",
@@ -548,7 +548,7 @@
     "k": "kWh/t, electrode kg/t, tap-to-tap, metallic yield, end-tap C/P/S/T, foamy slag",
     "uc": [
      {
-      "t": "EAF Heat and Energy Optimization",
+      "t": "EAF Heat and Energy Optimisation",
       "v": 20,
       "b": [
        "Analyses scrap mix, DRI/HBI feed, electrical power profile, oxygen and carbon injection, foamy slag practice and off-gas data.",
@@ -636,7 +636,7 @@
     "n": "Continuous Casting",
     "f": [
      "Tundish",
-     "Mold",
+     "Mould",
      "2° Cooling",
      "Straightening",
      "Cutting"
@@ -647,7 +647,7 @@
     "k": "Surface defects, internal cracks, dimensional accuracy, rhomboidity, sticker rate",
     "uc": [
      {
-      "t": "Casting Quality, Mould Powder & Oscillation Optimization",
+      "t": "Casting Quality, Mould Powder & Oscillation Optimisation",
       "v": 12,
       "b": [
        "Analyses tundish temperature/superheat, mould level oscillation, casting speed, mould powder consumption, secondary cooling water flow and historical defect data.",
@@ -707,7 +707,7 @@
     "k": "Discharge temperature uniformity, scale loss%, residence time, fuel rate (Gcal/t)",
     "uc": [
      {
-      "t": "Reheating Fuel & Yield Optimization",
+      "t": "Reheating Fuel & Yield Optimisation",
       "v": 10,
       "b": [
        "Analyses slab/billet stock dimensions and grade, zone temperatures, air/fuel ratios, residence time and discharge temperature profile.",
@@ -784,7 +784,7 @@
     "k": "Thickness tolerance, crown, flatness, surface roughness, mechanical properties post-anneal",
     "uc": [
      {
-      "t": "CRM Thickness, Profile & Flatness Optimization",
+      "t": "CRM Thickness, Profile & Flatness Optimisation",
       "v": 10,
       "b": [
        "Analyses incoming HRC quality, mill stand forces, rolling speed, tension, bending/shifting, gauge meters and flatness sensors.",
@@ -812,7 +812,7 @@
       ]
      },
      {
-      "t": "Annealing Cycle & HNX Gas Optimization",
+      "t": "Annealing Cycle & HNX Gas Optimisation",
       "v": 8,
       "b": [
        "Analyses strip dimensions, grade, furnace zone temperatures, dew point, HNX gas flow, line speed and exit mechanical properties.",
@@ -828,7 +828,7 @@
   "s": "Finishing",
   "procs": [
    {
-    "n": "Color Coating Line (CCL)",
+    "n": "Colour Coating Line (CCL)",
     "f": [
      "Clean",
      "Pretreat",
@@ -839,10 +839,10 @@
     "rm": "GI / GA coil, paint (primer + top coat), pretreatment chemicals",
     "ut": "Power, NG (curing oven), thermal oil",
     "out": "Color-coated coil (PPGI / PPGL)",
-    "k": "Coating thickness (DFT), adhesion, color uniformity, gloss, T-bend, MEK rub",
+    "k": "Coating thickness (DFT), adhesion, colour uniformity, gloss, T-bend, MEK rub",
     "uc": [
      {
-      "t": "Coating Quality & Paint Consumption Optimization",
+      "t": "Coating Quality & Paint Consumption Optimisation",
       "v": 20,
       "b": [
        "Analyses pretreatment chemistry, primer/topcoat film thickness, line speed, oven temperature profile and visual quality data.",
@@ -856,7 +856,7 @@
       "cv": 1,
       "b": [
        "Analyses high-resolution camera feeds of color-coated strip surface.",
-       "Detects and classifies coating defects (streaks, craters, scratches, dents, color non-uniformity) in real time per coil.",
+       "Detects and classifies coating defects (streaks, craters, scratches, dents, colour non-uniformity) in real time per coil.",
        "Maps defect location for trim/repair decisions and customer-claim prevention."
       ]
      }
@@ -878,7 +878,7 @@
     "k": "Coating weight (GSM), surface quality, mechanical properties, spangling, bare spots",
     "uc": [
      {
-      "t": "Coating Weight & Zinc Optimization",
+      "t": "Coating Weight & Zinc Optimisation",
       "v": 50,
       "b": [
        "Analyses zinc bath temperature/chemistry, air-knife pressure/distance, strip speed, line tension and inline GSM gauge readings.",
@@ -926,7 +926,7 @@
     "k": "O₂ / N₂ / Ar purity, production rate (Nm³/h), kWh/Nm³",
     "uc": [
      {
-      "t": "ASU Production, Purity & Energy Optimization",
+      "t": "ASU Production, Purity & Energy Optimisation",
       "v": 5,
       "b": [
        "Analyses ambient conditions, compressor/turbine loads, cold-box temperature profiles, distillation column conditions, plant gas demand and storage levels.",
@@ -951,7 +951,7 @@
     "k": "NHR (kcal/kWh), aux power%, steam parameters, PLF, availability%",
     "uc": [
      {
-      "t": "NHR & Auxiliary Power Optimization",
+      "t": "NHR & Auxiliary Power Optimisation",
       "v": 5,
       "b": [
        "Analyses boiler combustion parameters, steam temperatures/pressures, turbine performance and BoP equipment loads.",
@@ -1000,7 +1000,7 @@
     "k": "Calorific value (kcal/Nm³), holder level%, distribution pressure, flaring loss",
     "uc": [
      {
-      "t": "Fuel Gas Network Optimization & Forecasting",
+      "t": "Fuel Gas Network Optimisation & Forecasting",
       "v": 8,
       "b": [
        "Analyses BFG, COG, LDG generation rates, gasholder levels, calorific values and consumer demand patterns across the plant.",
@@ -1013,7 +1013,7 @@
    {
     "n": "Energy Management System (EMS)",
     "ut": "Real-time data feeds from all consuming units",
-    "out": "Energy KPIs, dashboards, optimization advisory",
+    "out": "Energy KPIs, dashboards, optimisation advisory",
     "k": "Specific energy consumption (kcal/t or kWh/t), benchmark deviation, savings tracked",
     "uc": [
      {
@@ -1083,7 +1083,7 @@
       ]
      },
      {
-      "t": "MRO & Spare-Parts Optimization",
+      "t": "MRO & Spare-Parts Optimisation",
       "v": 3,
       "b": [
        "Analyses historical spare-part consumption, equipment criticality, lead times, CBM-predicted failure signals and inventory data.",

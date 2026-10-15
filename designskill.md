@@ -58,7 +58,7 @@ Text on navy is `#fff` for headings, `#C5D0E3` for paragraphs and `#9FB0CC` for 
 - Font: `font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;`. Load weights 400, 500, 600 and 700:
   `<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">`
 - Body text is 15px with line-height 1.55 and colour `--ink`. Add `-webkit-font-smoothing:antialiased`.
-- Set numbers in tabular figures: `font-variant-numeric: tabular-nums`.
+- Use tabular figures only where numbers line up in columns: `table{font-variant-numeric:tabular-nums}`. **Never set them on `body`**: in Inter they also widen the hyphen, so "IT-OT" renders as "IT - OT".
 - Headings use `letter-spacing:-.015em; line-height:1.2`, weight 700.
 
 | Element | Size |
@@ -75,7 +75,7 @@ Every section opens with an **eyebrow**, then an h2, then a one- or two-line `.s
 
 ## 4. Layout
 
-- Content width: `.wrap{max-width:1080px;margin:0 auto;padding:0 28px}`. On phones the side padding drops to 16px.
+- Content width: `.wrap{max-width:1180px;margin:0 auto;padding:0 28px}`. On phones the side padding drops to 16px.
 - Sections: `section{padding:72px 0}`, or 52px on phones.
 - Corner radius: 14–16px for cards, 12px for panels, 9px for small tiles, 999px for chips and buttons.
 - Prefer borders (`1px solid var(--line)`) over shadows. Use no shadows on content cards.
@@ -89,15 +89,16 @@ Every section opens with an **eyebrow**, then an h2, then a one- or two-line `.s
 4. **Use cases / capabilities**: a grid of cards.
 5. **Results / benefits**: green top-border tiles.
 6. **Customer proof** (on `--bg`): case cards with stat chips. Use approved figures only (see §7).
-7. **CTA band** (navy): one sentence on the next step, plus a button to `https://www.faclon.com`.
+7. **CTA band** (navy): eyebrow "Next step", a sentence-case heading, one sentence on what happens next, then two buttons: **Book a demo** (`https://www.faclon.com/book-a-demo`) and **www.faclon.com**.
 8. **Footer** (navy): "← All solutions · Faclon Labs · Solution name".
 
 ## 5. Components (copy and adapt)
 
 ```css
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:#fff;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
-.wrap{max-width:1080px;margin:0 auto;padding-left:max(28px,env(safe-area-inset-left,0px));padding-right:max(28px,env(safe-area-inset-right,0px))}
+body{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:#fff;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+table{font-variant-numeric:tabular-nums}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(28px,env(safe-area-inset-left,0px));padding-right:max(28px,env(safe-area-inset-right,0px))}
 h1,h2,h3,h4{letter-spacing:-.015em;line-height:1.2}
 section{padding:72px 0}
 h2{font-size:32px;font-weight:700;margin:8px 0 12px}
@@ -118,7 +119,7 @@ h2{font-size:32px;font-weight:700;margin:8px 0 12px}
 .kp{background:var(--navy2);padding:16px 20px}
 .kp b{display:block;font-size:26px}
 .kp span{font-size:12.5px;color:#9FB0CC}
-.kp.ac b{color:#F2B256}          /* highlight one KPI at most */
+.kp.ac b{color:#7FD9B3}          /* highlight one KPI at most: savings or outcome, in green */
 
 /* cards */
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}
@@ -157,8 +158,9 @@ h2{font-size:32px;font-weight:700;margin:8px 0 12px}
 .cta{background:var(--navy);color:#fff}
 .cta .wrap{display:flex;justify-content:space-between;align-items:center;gap:28px;flex-wrap:wrap;padding-top:56px;padding-bottom:56px}
 .cta h2{color:#fff}.cta p{color:#C5D0E3;max-width:560px}
-.btn{background:var(--blue2);color:#fff;font-weight:700;padding:13px 24px;border-radius:30px;text-decoration:none;white-space:nowrap}
-.btn.ghost{background:transparent;border:1.5px solid var(--blue2)}
+.ctabtns{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.btn{display:inline-block;font-weight:600;font-size:15px;line-height:1.2;padding:12px 22px;border-radius:10px;text-decoration:none;white-space:nowrap;color:#fff;background:#3D63F5;border:1.5px solid #3D63F5}
+.btn.ghost{background:transparent;border-color:rgba(255,255,255,.4)}
 .foot{background:var(--navy);color:#6F80A0;font-size:12px;letter-spacing:.12em;text-transform:uppercase;border-top:1px solid rgba(255,255,255,.08)}
 .foot .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:18px;padding-bottom:22px}
 .foot a{color:inherit;text-decoration:none}
@@ -183,7 +185,9 @@ h2{font-size:32px;font-weight:700;margin:8px 0 12px}
 - Show numbers big. Give units and context in the label underneath ("Net heat rate reduction").
 - Write ₹ values as **"up to … per year"** and keep them indicative. Write "₹1.3 cr", "1,000+ sensors", "2–8 weeks".
 - Label example conversations or screens as **illustrative**.
-- Use British/Indian spelling (optimise, analyse) to match the existing pages.
+- Use British/Indian spelling throughout (optimise, analyse, colour, catalogue, mould, fibre) to match the existing pages.
+- Headings, card titles and labels are sentence case ("Lower energy bills", not "Lower Energy Bills"); keep Title Case only for product and use-case names.
+- Give ₹ values as "₹x cr" or "₹x lakh", with the unit and basis (per year, per MTPA, per 100 traps) in the label.
 
 ## 7. Content you may and may not use
 
@@ -264,7 +268,7 @@ Save this as `my-solution.html`, replace the bracketed text, and add the compone
 
 <div class="cta"><div class="wrap">
   <div><div class="eyebrow" style="color:var(--blue2)">Next step</div><h2>[Start with your data]</h2><p>[What the customer shares, what Faclon returns.]</p></div>
-  <a class="btn" href="https://www.faclon.com">www.faclon.com</a>
+  <div class="ctabtns"><a class="btn" href="https://www.faclon.com/book-a-demo">Book a demo</a><a class="btn ghost" href="https://www.faclon.com">www.faclon.com</a></div>
 </div></div>
 <div class="foot"><div class="wrap"><span><a href="../">← All solutions</a> · Faclon Labs · [Solution]</span><span>[Short descriptor]</span></div></div>
 </body></html>
