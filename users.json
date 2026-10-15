@@ -25,6 +25,10 @@
    "title": "Faclon Labs Overview"
   },
   {
+   "slug": "io-vision",
+   "title": "I/O Vision"
+  },
+  {
    "slug": "it-ot-integration",
    "title": "IT-OT Integration"
   },
@@ -95,6 +99,10 @@
   "faclon-overview": {
    "iv": "xSXNUnAUMVKuB9sQ",
    "ct": "HZY2Z7RezCM/GgBuNfCm7wZ4gmmv+AsuZP7RmztK8Gu3dhna1LMp4Y8/EtQclrx8qhTxnctjThqZQMeg"
+  },
+  "io-vision": {
+   "iv": "qEo8UDmRfY0KLEl2",
+   "ct": "D5V2vmHwW3V910GXhBQu3XlniNAJA7dpQjrNaQRcg9ZKg+Bk8u5pFFVPTLXF11wm3E27HcNh6bDfJpQS"
   },
   "it-ot-integration": {
    "iv": "qdL9ZnoF2eV7PKNw",
