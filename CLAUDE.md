@@ -1,10 +1,11 @@
 # Repo conventions
 
-This repo holds the Faclon Labs Power Plant AI customer page, published with GitHub Pages from `main` / root. The page is the site's home page; there is no separate landing page.
+This repo holds Faclon Labs customer-facing solution pages, published with GitHub Pages from `main` / root. The root `index.html` is a landing page listing every solution; each solution lives in its own folder (`/<solution>/`).
 
 ## Rules
-- Generated files (`index.html`, `power-plant-ai-use-case-catalogue.pdf`) are never hand-edited. Change the build scripts in `src/power-plant-ai/` and regenerate.
-- `power-plant-ai/index.html` is only a redirect to the home page, kept so old links work.
+- Generated files (`index.html`, `<solution>/index.html`, `<solution>/*.pdf`) are never hand-edited. Change the build scripts in `src/` and regenerate.
+- The landing page is built by `src/home/build_home.py` from its `SOLUTIONS` list. When a solution page is added, set `live: True` for it there, rebuild, and add a row to the README table.
+- Solution pages link back to the landing page with relative `../` links.
 - Pages are self-contained HTML: inline CSS and SVG, with Google Fonts (Inter) as the only external dependency. They must work at phone width (~390px) with no horizontal scroll.
 - Keep `<meta name="robots" content="noindex">` on every page unless asked otherwise.
 - The repo is public. Do not commit internal pricing, deal data or anything marked confidential.
