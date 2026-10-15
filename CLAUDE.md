@@ -9,7 +9,11 @@ This repo holds Faclon Labs customer-facing solution pages, published with GitHu
 - Pages are self-contained HTML: inline CSS and SVG, with Google Fonts (Inter) as the only external dependency. They must work at phone width (~390px) with no horizontal scroll.
 - Keep `<meta name="robots" content="noindex">` on every page unless asked otherwise.
 - The repo is public. Do not commit internal pricing, deal data or anything marked confidential.
-- The site is password-protected. After ANY build, and before committing, run `GLOSSARY_PASSWORD='<password>' python3 src/shared/protect.py` (ask Parth for the password; never commit it or write it into any file). Then run `python3 src/shared/protect.py --check`, which must pass: never push an unprotected `index.html`. Do not change `src/shared/protect_salt.txt`, or everyone's saved login stops working.
+- The site is password-protected per user. After ANY build, and before committing, run `GLOSSARY_PASSWORD='<admin password>' python3 src/shared/protect.py` (ask Parth for the admin password; never commit it or write it into any file). Then run `python3 src/shared/protect.py --check`, which must pass: never push an unprotected `index.html`.
+- `protect.py` encrypts each page with its own key, refreshes the solution list in `users.json` and builds `admin/index.html` (the User Manager) from `src/admin/index.html` + `src/shared/auth_core.js`. Edit those sources, never `admin/index.html`.
+- `users.json` holds the user list and is written by the User Manager straight to `main`. Never edit or reorder its `users` array by hand. Always pull `main` right before running `protect.py`, and if `users.json` conflicts in a merge, keep `main`'s `users` array.
+- A new solution page is visible only to admin until Parth ticks it for users in the User Manager.
+- Do not change `src/shared/protect_salt.txt` or the admin password: either one changes every page key, which logs everyone out and means every user has to be recreated.
 
 ## Visual system (shared by all pages)
 - Navy bands (`#0B1A30`) for hero and CTA; white body; `#F6F8FB` panels.
