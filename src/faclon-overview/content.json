@@ -362,7 +362,7 @@
    "points": [
     "Digitized <b>2,500+ energy meters</b> across <b>4 plants</b> — Vilayat, Kharach, Harihar, and Indonesia — with deviation analysis at every level of energy distribution. Prevented <b>critical motor failures</b> through motor-load-based alerts. The complete platform is deployed on Grasim's private cloud, catering to all the use cases from a single environment.",
     "Implemented online <b>steam trap failure detection</b> for <b>250 HP steam traps</b> across 2 plants, <b>100+ vibration sensors</b> on critical motors and gearboxes to cut unplanned downtime and maintenance costs, and health monitoring of <b>200+ VFD drives</b> and <b>100+ bus bars</b> to extend asset life and reduce breakdowns.",
-    "Implementing AI-based solutions to <b>reduce NHR for 175 MW captive power plant</b> comprising 5 boilers and 5 turbines."
+    "Implemented AI-based solutions to <b>reduce NHR for the 175 MW captive power plant</b> comprising 5 boilers and 5 turbines."
    ]
   },
   {
@@ -650,7 +650,7 @@
    "ongoing": false,
    "metrics": [
     {
-     "value": "800+",
+     "value": "850",
      "label": "steam traps"
     },
     {
@@ -659,7 +659,7 @@
     }
    ],
    "points": [
-    "Real-time health monitoring of <b>800+ steam traps</b> at the Bathinda site, using a fully wireless, battery powered, temperature-based solution <b>to reduce MTTR to less than day, reduce steam losses & improve reliability.</b>"
+    "Real-time health monitoring of <b>850 steam traps</b> at the Bathinda site, using a fully wireless, battery powered, temperature-based solution <b>to reduce MTTR to less than day, reduce steam losses & improve reliability.</b>"
    ]
   },
   {
