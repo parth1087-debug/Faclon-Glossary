@@ -13,8 +13,16 @@
    "title": "Cement AI Use Case Map"
   },
   {
+   "slug": "coal-mining-ai-use-case-map",
+   "title": "Coal Mining AI Use Case Map"
+  },
+  {
    "slug": "condition-based-monitoring",
    "title": "Condition Based Monitoring"
+  },
+  {
+   "slug": "discrete-manufacturing-use-cases",
+   "title": "Discrete Manufacturing AI"
   },
   {
    "slug": "energy-management",
@@ -47,10 +55,6 @@
   {
    "slug": "steel-ai-use-case-map",
    "title": "Steel AI Use Case Map"
-  },
-  {
-   "slug": "discrete-manufacturing-use-cases",
-   "title": "Discrete Manufacturing Use Cases"
   }
  ],
  "users": [
@@ -92,9 +96,17 @@
    "iv": "uxkJunqPbIqijD0S",
    "ct": "9yirIlR5k04hIW8r8AivC5tJnYFV3TxM7iAyB9mEWAGt770bj0/amYuXKm+a+ueO7lfmDV7e2bIP5vED"
   },
+  "coal-mining-ai-use-case-map": {
+   "iv": "IYwiBlGBqLiEbNW9",
+   "ct": "Dt6V2bVVWHR6r2SNxQmJhFxAcZx4Tb0bxenWFi4jmF4ksVC3/Edd6G4SEVG009izoUsrmX8dGTfJnsex"
+  },
   "condition-based-monitoring": {
    "iv": "GhRYO04MtQZs/ajA",
    "ct": "gw0rStdRmqjCXp05XJpvi1fql7M2PucK8tAMDaaLzhLwkhhw2ZiujjnklkztPfbeLffQeXQC/htXA3Ue"
+  },
+  "discrete-manufacturing-use-cases": {
+   "iv": "AlRXy0PqwgG/ugKI",
+   "ct": "PfPotmzrLBbr7/OIDicmPOqEEIQu6s1z28BI+HECwX9IlkBS0tzZJO7bBbj03uDg3uHD9feKj4vwPRbL"
   },
   "energy-management": {
    "iv": "+XKJA8A65z3AHMU6",
@@ -127,11 +139,6 @@
   "steel-ai-use-case-map": {
    "iv": "8JbuMXUm+O8q80dh",
    "ct": "mrZprKIpVs1NSixbPtYlN9BNiiHQvzRp7kXJtTrC8/bIfz+6rDB8zISDmSGQoSYy+RKOhsw9U2oCXubp"
-  },
-  "discrete-manufacturing-use-cases": {
-   "e": "BArxcHpKTe8wsdrKdEpeU1EiYjgHfnCLUL74VWskPkI9TZf84jePhY1QMa0gjd61OAU7+h8IBiK0XpIuKSCM4C0=",
-   "iv": "j15lfuIK2SlQU0mn",
-   "ct": "tg4m3Bp0nP4hf1BWWW9gP+oiOLFVdamzb2AVmQvVTuW+t69f0JEg/jsUjBRkdh0VrcPZdO+M3ZMQvGv7"
   }
  },
  "dvault": {
@@ -143,9 +150,17 @@
    "iv": "VMhajkrEWR6gz4xA",
    "ct": "RYCAFGILmcEpTrlBIC4FcP1Vc/hODUkdVuQGmtvt+uKaOLsyMm64ZWDMGRValE4fY5n3gvKKpZYllnbf"
   },
+  "coal-mining-ai-use-case-map": {
+   "iv": "ve+NWQQg0HyV6CI1",
+   "ct": "IfvZjn1SWjgJFoG9zKiUWS0W3E7tdU/hviEofwVhgE48BaP6f15dMKg6WoViHaRichqegB6Bz1Y/41Dy"
+  },
   "condition-based-monitoring": {
    "iv": "axSttDBByxRrAaon",
    "ct": "iOVVc0HS/17Mfhw+CvcmWEtQM1ns5Q/mkeZBsT/BY/qAIO4d/SYFTBx0/DcT4CLOsC+nsfDsERffwyNQ"
+  },
+  "discrete-manufacturing-use-cases": {
+   "iv": "lZzrumnvt6tnBH9c",
+   "ct": "3XBKg/hpI7ew9KgqGEBUoRki4/6vf/c3bS5wYy1PJiEYJFFXgtwc+d0IZZf627TL4H2jGw//of+VTeKP"
   },
   "energy-management": {
    "iv": "3qCOMVPo/3FiObZW",
