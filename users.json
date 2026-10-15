@@ -33,14 +33,5 @@
    "title": "Steel AI Use Case Map"
   }
  ],
- "users": [
-  {
-   "id": "f321eb5a1483fdc32646e386098917945669032dcac20dae0e3e834297eb0920",
-   "s": "owKkLqe9U5cq5Hekwh1bKA==",
-   "iv": "d08FVfBwZMfk5yBR",
-   "kr": "q+KpuCcSGtXkma/aKPfSD67lZJv2mHhphNEwdGdaCtlCrfetfHsIj59HINm6fjLsFnJ1hKW9SIwdoZHieGIxRaZ5hvtcd13NKYD5w47PoaaEjE/LfZOgE9oDWIHfsRpe32/7uEZKyhrlbvnjmhaSxfD+HVjtatA+xzcDo0cQEbykhwZEvIgshNf1It6UVUbDWASB1BMxTvKmAzBg8JKRvS3oQITNUdKh9xABbCs9PzVBLhKAM7y7s0zx+K18H507welv573QYJAYZSYSdPLxno2ppidgKbNDLb2H",
-   "miv": "aDV7L9cbFwZBhK2Y",
-   "meta": "VvmYLZRfpCgz2sxnqm+Jt/dkMaLIRvj4hMQi19/RHzJXs0EIAjQ/Lb0AjV8Qcrt03YLSAPcCsuT5gp9Y3dC0H67x2j0/fKcZglAFvroVUSOX/EeUACAiujvqAg/j0H60EsDTq0SvjmGEupsMbhnmI5Y6yloVTtFS6a1tcrUfdmt6Kj0yVlus6G22rK2H2m8eOL2HPNzt/CP2eSwLCdQ8RfGoBgK1QKBtuWHB3DjcPdxNf4WP4SO0qp30tOYYGLcWab95UkFj6lI5ANcRPwRbzOaRNS0+BxyluoN1F7ok6q4="
-  }
- ]
+ "users": []
 }
