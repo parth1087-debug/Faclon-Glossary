@@ -51,6 +51,17 @@ SOLUTIONS = [
         "links": [],
     },
     {
+        "slug": "bus-bar-monitoring",
+        "name": "Bus Bar Monitoring",
+        "sector": "Electrical · All industries",
+        "accent": "blue",
+        "live": True,
+        "blurb": "Wireless temperature straps on every critical bus-bar joint, with live alerts, trends "
+                 "and reports to catch hot joints before they cause fires or trips.",
+        "tags": ["Wireless sensor straps", "Live alerts & trends", "I/O Sense platform"],
+        "links": [],
+    },
+    {
         "slug": "metals-ai",
         "name": "Metals AI",
         "sector": "Metals",
