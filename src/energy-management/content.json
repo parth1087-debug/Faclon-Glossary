@@ -8,10 +8,22 @@
     "AI agents enable decision intelligence at scale"
   ],
   "kpis": [
-    {"v": "10–20%", "l": "Typical consumption reduction in the first year"},
-    {"v": "12", "l": "Enterprise customers live"},
-    {"v": "8", "l": "Platform modules, no code needed"},
-    {"v": "15 min", "l": "Finest drill-down interval, up to monthly"}
+    {
+      "v": "10–20%",
+      "l": "Typical consumption reduction in the first year"
+    },
+    {
+      "v": "12",
+      "l": "Enterprise customers live"
+    },
+    {
+      "v": "8",
+      "l": "Platform modules, no code needed"
+    },
+    {
+      "v": "15 min",
+      "l": "Finest drill-down interval, up to monthly"
+    }
   ],
   "benefit_cats": {
     "cost": "Cost and penalties",
@@ -20,16 +32,56 @@
     "compliance": "Savings and compliance"
   },
   "benefits": [
-    {"t": "Lower energy bills", "c": "cost", "d": "Exposes idle loads, after-hours running and inefficient assets. Typically 10–20% consumption reduction in the first year."},
-    {"t": "Maximum demand control", "c": "cost", "d": "Live MD tracking with alerts before the contracted limit is breached. Avoids demand penalties and allows a lower contract demand at renewal."},
-    {"t": "Power factor management", "c": "cost", "d": "Continuous PF monitoring per feeder, with capacitor bank failure flagged early. Avoids PF penalty and captures incentive."},
-    {"t": "Bill verification", "c": "cost", "d": "Utility invoice reconciled against your own metered data, catching wrong multipliers, slab errors and incorrect demand charges."},
-    {"t": "Load-level visibility", "c": "visibility", "d": "Actual kWh and kVA per feeder, machine and area in real time. Decisions on measured data, not one monthly bill."},
-    {"t": "Specific energy consumption", "c": "visibility", "d": "kWh per tonne or per unit produced, tracked by line and shift. Isolates the inefficient shift, line or product mix."},
-    {"t": "Cost allocation and accountability", "c": "visibility", "d": "Consumption mapped to department, line or cost centre, making energy a controllable line item with a named owner."},
-    {"t": "Power quality monitoring", "c": "reliability", "d": "Harmonics, voltage sags, unbalance and transients logged with timestamps. Explains motor overheating, drive tripping and unexplained line stoppages."},
-    {"t": "Early fault detection", "c": "reliability", "d": "Abnormal consumption or current signatures flag failing equipment, such as choked filters, bearing wear and insulation issues, before breakdown."},
-    {"t": "Savings verification and compliance", "c": "compliance", "d": "Baseline vs post-implementation comparison proves the ROI of every efficiency project, and the same data serves ISO 50001, BEE PAT and Scope 2 reporting."}
+    {
+      "t": "Lower energy bills",
+      "c": "cost",
+      "d": "Exposes idle loads, after-hours running and inefficient assets. Typically 10–20% consumption reduction in the first year."
+    },
+    {
+      "t": "Maximum demand control",
+      "c": "cost",
+      "d": "Live MD tracking with alerts before the contracted limit is breached. Avoids demand penalties and allows a lower contract demand at renewal."
+    },
+    {
+      "t": "Power factor management",
+      "c": "cost",
+      "d": "Continuous PF monitoring per feeder, with capacitor bank failure flagged early. Avoids PF penalty and captures incentive."
+    },
+    {
+      "t": "Bill verification",
+      "c": "cost",
+      "d": "Utility invoice reconciled against your own metered data, catching wrong multipliers, slab errors and incorrect demand charges."
+    },
+    {
+      "t": "Load-level visibility",
+      "c": "visibility",
+      "d": "Actual kWh and kVA per feeder, machine and area in real time. Decisions on measured data, not one monthly bill."
+    },
+    {
+      "t": "Specific energy consumption",
+      "c": "visibility",
+      "d": "kWh per tonne or per unit produced, tracked by line and shift. Isolates the inefficient shift, line or product mix."
+    },
+    {
+      "t": "Cost allocation and accountability",
+      "c": "visibility",
+      "d": "Consumption mapped to department, line or cost centre, making energy a controllable line item with a named owner."
+    },
+    {
+      "t": "Power quality monitoring",
+      "c": "reliability",
+      "d": "Harmonics, voltage sags, unbalance and transients logged with timestamps. Explains motor overheating, drive tripping and unexplained line stoppages."
+    },
+    {
+      "t": "Early fault detection",
+      "c": "reliability",
+      "d": "Abnormal consumption or current signatures flag failing equipment, such as choked filters, bearing wear and insulation issues, before breakdown."
+    },
+    {
+      "t": "Savings verification and compliance",
+      "c": "compliance",
+      "d": "Baseline vs post-implementation comparison proves the ROI of every efficiency project, and the same data serves ISO 50001, BEE PAT and Scope 2 reporting."
+    }
   ],
   "architecture": {
     "example": "Example plant: 3 substations with 50 energy meters each",
@@ -37,75 +89,255 @@
       "label": "Cloud",
       "intro": "Each substation sends its data over 4G, Wi-Fi or the plant network to I/O Sense Cloud.",
       "chain": [
-        {"t": "Energy meters", "d": "Up to 16 meters daisy-chained on each RS485 Modbus loop"},
-        {"t": "Ethernet gateways", "d": "One gateway per Modbus loop, linked by armoured CAT6 cable"},
-        {"t": "Ethernet switch", "d": "Collects all gateways in the substation over CAT6"},
-        {"t": "Industrial 4G/5G router", "d": "Sends data out over 4G, Wi-Fi or the plant network"},
-        {"t": "I/O Sense Cloud", "d": "Stores, computes and serves every meter's data", "hub": true}
+        {
+          "t": "Energy meters",
+          "d": "Up to 16 meters daisy-chained on each RS485 Modbus loop"
+        },
+        {
+          "t": "Ethernet gateways",
+          "d": "One gateway per Modbus loop, linked by armoured CAT6 cable"
+        },
+        {
+          "t": "Ethernet switch",
+          "d": "Collects all gateways in the substation over CAT6"
+        },
+        {
+          "t": "Industrial 4G/5G router",
+          "d": "Sends data out over 4G, Wi-Fi or the plant network"
+        },
+        {
+          "t": "I/O Sense Cloud",
+          "d": "Stores, computes and serves every meter's data",
+          "hub": true
+        }
       ],
       "power": "Panel power from SMPS and a 240 V AC UPS supply",
       "dss_title": "Decision support system",
-      "dss": ["Real-time KPI dashboards", "Reports", "Alerts and events", "Historian", "Analytics", "Real-time process digitization"]
+      "dss": [
+        "Real-time KPI dashboards",
+        "Reports",
+        "Alerts and events",
+        "Historian",
+        "Analytics",
+        "Real-time process digitization"
+      ],
+      "diagram": "arch-cloud",
+      "diagram_cap": "3 substations × 50 energy meters, each sending data over 4G, Wi-Fi or the network to I/O Sense Cloud"
     },
     "onprem": {
       "label": "On-premise",
       "intro": "Substations are linked over fibre to an I/O Sense server inside the plant, so data never leaves site.",
       "chain": [
-        {"t": "Energy meters", "d": "Up to 16 meters daisy-chained on each RS485 Modbus loop"},
-        {"t": "Ethernet gateways", "d": "One gateway per Modbus loop, linked by armoured CAT6 cable"},
-        {"t": "Ethernet switch", "d": "Collects all gateways in the substation over CAT6"},
-        {"t": "LIU (fibre link)", "d": "Carries each substation's data over fibre to the server room"},
-        {"t": "I/O Sense on your server", "d": "The full platform hosted on premise", "hub": true}
+        {
+          "t": "Energy meters",
+          "d": "Up to 16 meters daisy-chained on each RS485 Modbus loop"
+        },
+        {
+          "t": "Ethernet gateways",
+          "d": "One gateway per Modbus loop, linked by armoured CAT6 cable"
+        },
+        {
+          "t": "Ethernet switch",
+          "d": "Collects all gateways in the substation over CAT6"
+        },
+        {
+          "t": "LIU (fibre link)",
+          "d": "Carries each substation's data over fibre to the server room"
+        },
+        {
+          "t": "I/O Sense on your server",
+          "d": "The full platform hosted on premise",
+          "hub": true
+        }
       ],
       "power": "Panel power from SMPS and a 240 V AC UPS supply",
       "dss_title": "Decision support system",
-      "dss": ["Deviation analysis", "Dynamic SLDs", "Drill-down audits", "T&C loss analysers", "Machine COPs", "Real-time alerts", "Specific energies", "Demand control", "Machine automation", "Saving potential", "Energy prediction", "Golden batch"],
-      "outputs": ["Co-Pilot", "Reports", "KPI dashboard", "Alerts", "Analytics", "MIS reporting"]
+      "dss": [
+        "Deviation analysis",
+        "Dynamic SLDs",
+        "Drill-down audits",
+        "T&C loss analysers",
+        "Machine COPs",
+        "Real-time alerts",
+        "Specific energies",
+        "Demand control",
+        "Machine automation",
+        "Saving potential",
+        "Energy prediction",
+        "Golden batch"
+      ],
+      "outputs": [
+        "Co-Pilot",
+        "Reports",
+        "KPI dashboard",
+        "Alerts",
+        "Analytics",
+        "MIS reporting"
+      ],
+      "diagram": "arch-onprem",
+      "diagram_cap": "3 substations × 50 energy meters, linked over fibre (LIU) to I/O Sense hosted on a plant server"
     }
   },
   "modules": [
-    {"id": "admin", "full": true, "n": "Admin Panel", "s": "Asset mapping and user creation",
-     "d": "Manage and create users, assign roles, configure devices and control feature access. The full-stack manager for devices, assets and AI applications.",
-     "p": ["Onboard, configure and control device and asset access across users; categorise sensors, set parameters and calibrate their data", "Create user accounts, assign quotas and allocate devices, reports and permissions", "Allocate features straight to a user account for fast deployment", "Host I/O Sense for multiple domains, each with its assets and features kept isolated"]},
-    {"id": "devices", "n": "Devices", "s": "Individual device analysis",
-     "d": "Explore and visualise real-time data and historical trends of every parameter collected from each asset.",
-     "p": ["Phase-wise current and voltage, live and as trends", "Power factor, active, reactive and apparent power, frequency", "Daily and hourly active energy trends", "Works for any energy meter, flow meter or sensor"],
-     "img": "device-analysis", "cap": "Phase-wise current for one panel meter, live and over time"},
-    {"id": "reports", "n": "Compute Reports", "s": "Excel reports and scheduler",
-     "d": "Create customised Excel reports, schedule them on mail and store them for later access.",
-     "p": ["Drag-and-drop compute reports, generated and downloaded on demand", "Scheduled delivery to designated email IDs", "Change formulas across sheets without any coding", "Hourly consumption and daily in-depth consumption analysis, with a full report log"]},
-    {"id": "triggers", "n": "Triggers", "s": "Events and alerts",
-     "d": "Configure SMS, email and call alerts on conditions or thresholds, sent to multiple stakeholders from a simple interface.",
-     "p": ["Alerts on full-load current, low efficiency, process parameter deviation or high consumption", "Event analytics: which alerts fired, where and for how long", "Every alert message and every configuration change logged"]},
-    {"id": "lens", "n": "I/O Lens", "s": "No-code dashboard builder",
-     "d": "Drag-and-drop dashboard builder for operator, supervisor and management dashboards, on real-time or historical data.",
-     "p": ["Pre-built widgets: data cards, single and multi-line charts, bar, pie and combined charts, tables and more", "Upload plant images and animations and overlay live widgets on them", "Section-wise dashboards: total energy, SEC, production, idle hours and energy wasted while idle, with benchmarking and prediction", "Dynamic SLDs: single-line diagrams overlaid with live data to see power distribution in real time"],
-     "img": "io-lens-plant", "cap": "A plant overview built in I/O Lens, with live widgets on a 3D layout"},
-    {"id": "matrix", "n": "I/O Matrix", "s": "360-degree drill-down analysis",
-     "d": "Drill-down analysis of energy consumption, power usage, specific energy consumption (SEC) and other operational parameters.",
-     "p": ["Trends and benchmarks for plant energy, water, steam, specific power and efficiency", "Section-wise and equipment-wise consumption trends", "Group assets, define hierarchy and formulas", "Compare energy, power and demand, and SEC at monthly, daily, hourly, 30-minute and 15-minute intervals", "Benchmarking and prediction based on production and SEC"],
-     "img": "io-matrix", "cap": "Energy, chilled water, steam and compressed air compared across plants"},
-    {"id": "expr", "n": "Expression Resolver", "s": "Custom formulas and KPIs",
-     "d": "Create and manage custom formulas that calculate and store KPIs and other metrics from raw data, then use them in dashboards and reports.",
-     "p": ["Any formula, applied once and reused across I/O Lens, dashboards, devices, I/O Matrix and reports", "Users manage their own computations and formulas", "Formula creator with built-in operations and a library of saved expressions"]},
-    {"id": "subusers", "n": "Sub-users", "s": "Role-based access control",
-     "d": "Role-based access that controls, feature by feature, what each kind of user can see and do.",
-     "p": ["Give other users limited or read-only access to a main account", "Create roles with view, create, update and delete rights per feature", "One login can be a sub-user of several main accounts and switch between them"]}
+    {
+      "id": "admin",
+      "full": true,
+      "n": "Admin Panel",
+      "s": "Asset mapping and user creation",
+      "d": "Manage and create users, assign roles, configure devices and control feature access. The full-stack manager for devices, assets and AI applications.",
+      "p": [
+        "Onboard, configure and control device and asset access across users; categorise sensors, set parameters and calibrate their data",
+        "Create user accounts, assign quotas and allocate devices, reports and permissions",
+        "Allocate features straight to a user account for fast deployment",
+        "Host I/O Sense for multiple domains, each with its assets and features kept isolated"
+      ]
+    },
+    {
+      "id": "devices",
+      "n": "Devices",
+      "s": "Individual device analysis",
+      "d": "Explore and visualise real-time data and historical trends of every parameter collected from each asset.",
+      "p": [
+        "Phase-wise current and voltage, live and as trends",
+        "Power factor, active, reactive and apparent power, frequency",
+        "Daily and hourly active energy trends",
+        "Works for any energy meter, flow meter or sensor"
+      ],
+      "img": "device-analysis",
+      "cap": "Phase-wise current for one panel meter, live and over time"
+    },
+    {
+      "id": "reports",
+      "n": "Compute Reports",
+      "s": "Excel reports and scheduler",
+      "d": "Create customised Excel reports, schedule them on mail and store them for later access.",
+      "p": [
+        "Drag-and-drop compute reports, generated and downloaded on demand",
+        "Scheduled delivery to designated email IDs",
+        "Change formulas across sheets without any coding",
+        "Hourly consumption and daily in-depth consumption analysis, with a full report log"
+      ]
+    },
+    {
+      "id": "triggers",
+      "n": "Triggers",
+      "s": "Events and alerts",
+      "d": "Configure SMS, email and call alerts on conditions or thresholds, sent to multiple stakeholders from a simple interface.",
+      "p": [
+        "Alerts on full-load current, low efficiency, process parameter deviation or high consumption",
+        "Event analytics: which alerts fired, where and for how long",
+        "Every alert message and every configuration change logged"
+      ]
+    },
+    {
+      "id": "lens",
+      "n": "I/O Lens",
+      "s": "No-code dashboard builder",
+      "d": "Drag-and-drop dashboard builder for operator, supervisor and management dashboards, on real-time or historical data.",
+      "p": [
+        "Pre-built widgets: data cards, single and multi-line charts, bar, pie and combined charts, tables and more",
+        "Upload plant images and animations and overlay live widgets on them",
+        "Section-wise dashboards: total energy, SEC, production, idle hours and energy wasted while idle, with benchmarking and prediction",
+        "Dynamic SLDs: single-line diagrams overlaid with live data to see power distribution in real time"
+      ],
+      "img": "io-lens-plant",
+      "cap": "A plant overview built in I/O Lens, with live widgets on a 3D layout"
+    },
+    {
+      "id": "matrix",
+      "n": "I/O Matrix",
+      "s": "360-degree drill-down analysis",
+      "d": "Drill-down analysis of energy consumption, power usage, specific energy consumption (SEC) and other operational parameters.",
+      "p": [
+        "Trends and benchmarks for plant energy, water, steam, specific power and efficiency",
+        "Section-wise and equipment-wise consumption trends",
+        "Group assets, define hierarchy and formulas",
+        "Compare energy, power and demand, and SEC at monthly, daily, hourly, 30-minute and 15-minute intervals",
+        "Benchmarking and prediction based on production and SEC"
+      ],
+      "img": "io-matrix",
+      "cap": "Energy, chilled water, steam and compressed air compared across plants"
+    },
+    {
+      "id": "expr",
+      "n": "Expression Resolver",
+      "s": "Custom formulas and KPIs",
+      "d": "Create and manage custom formulas that calculate and store KPIs and other metrics from raw data, then use them in dashboards and reports.",
+      "p": [
+        "Any formula, applied once and reused across I/O Lens, dashboards, devices, I/O Matrix and reports",
+        "Users manage their own computations and formulas",
+        "Formula creator with built-in operations and a library of saved expressions"
+      ]
+    },
+    {
+      "id": "subusers",
+      "n": "Sub-users",
+      "s": "Role-based access control",
+      "d": "Role-based access that controls, feature by feature, what each kind of user can see and do.",
+      "p": [
+        "Give other users limited or read-only access to a main account",
+        "Create roles with view, create, update and delete rights per feature",
+        "One login can be a sub-user of several main accounts and switch between them"
+      ]
+    }
   ],
   "drill": [
-    {"t": "Main incomer", "d": "Plant total"},
-    {"t": "Plant sections", "d": "e.g. utilities, spinning, lighting"},
-    {"t": "Plant processes", "d": "Each process within a section"},
-    {"t": "Machine feeders", "d": "Individual machines and feeders"}
+    {
+      "t": "Main incomer",
+      "d": "Plant total"
+    },
+    {
+      "t": "Plant sections",
+      "d": "e.g. utilities, spinning, lighting"
+    },
+    {
+      "t": "Plant processes",
+      "d": "Each process within a section"
+    },
+    {
+      "t": "Machine feeders",
+      "d": "Individual machines and feeders"
+    }
   ],
   "showcase": [
-    {"img": "section-dashboard", "t": "Section-wise energy dashboard", "d": "Total energy, specific energy consumption against target, production, idle hours and the energy wasted while idle, by shift. Built in I/O Lens."},
-    {"img": "dynamic-sld", "t": "Dynamic single-line diagram", "d": "The plant SLD with live kW on every incomer, bus-coupler and feeder, with feeders at zero load flagged in red."}
+    {
+      "img": "section-dashboard",
+      "t": "Section-wise energy dashboard",
+      "d": "Total energy, specific energy consumption against target, production, idle hours and the energy wasted while idle, by shift. Built in I/O Lens."
+    },
+    {
+      "img": "dynamic-sld",
+      "t": "Dynamic single-line diagram",
+      "d": "The plant SLD with live kW on every incomer, bus-coupler and feeder, with feeders at zero load flagged in red."
+    }
   ],
   "customers_note": "Energy management deployed at",
-  "customers": ["Grasim Pulp and Fibre (Aditya Birla Group)", "Escorts Kubota", "Indian Oil Corporation", "Ashirvad Pipes", "Zydus", "ITC", "Kansai Nerolac", "Coromandel", "Hindalco", "BMM Ispat", "Enpro Industries", "PepsiCo"],
+  "customers": [
+    "Grasim Pulp and Fibre (Aditya Birla Group)",
+    "Escorts Kubota",
+    "Indian Oil Corporation",
+    "Ashirvad Pipes",
+    "Zydus",
+    "ITC",
+    "Kansai Nerolac",
+    "Coromandel",
+    "Hindalco",
+    "BMM Ispat",
+    "Enpro Industries",
+    "PepsiCo"
+  ],
   "contacts": [
-    {"n": "Parth Chaudhary (IIT-B)", "ph": "+91 93266 50795", "tel": "+919326650795", "e": "parth@faclon.com"},
-    {"n": "Siddhant Somani", "ph": "+91 84217 27129", "tel": "+918421727129", "e": "siddhant.s@iosense.io"}
+    {
+      "n": "Parth Chaudhary (IIT-B)",
+      "ph": "+91 93266 50795",
+      "tel": "+919326650795",
+      "e": "parth@faclon.com"
+    },
+    {
+      "n": "Siddhant Somani",
+      "ph": "+91 84217 27129",
+      "tel": "+918421727129",
+      "e": "siddhant.s@iosense.io"
+    }
   ]
 }
