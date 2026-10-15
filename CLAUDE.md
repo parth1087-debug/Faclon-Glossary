@@ -16,7 +16,7 @@ This repo holds Faclon Labs customer-facing solution pages, published with GitHu
 - Inter for all text; numbers in tabular figures; uppercase eyebrows with letter-spacing.
 
 ## Content rules
-- Customer figures must come from approved sources: SPB (100+ RCAs/day, 98.4% accuracy, 20 TPD steam, ₹1 cr/yr), JSW Energy (1,000+ sensors, 15+ failures caught, ₹1.3 cr over 2 yrs), Hindustan Zinc (91 MW, 1 pp APC target), Grasim (175 MW, 5 boilers + 5 turbines), Tata Power Prayagraj.
+- Customer figures must come from approved sources: SPB (100+ RCAs/day, 98.4% accuracy, 20 TPD steam, ₹1 cr/yr), JSW Energy (1,000+ sensors, 15+ failures caught, ₹1.3 cr over 2 yrs), Hindustan Zinc (91 MW, 1 pp APC target), Grasim (175 MW, 5 boilers + 5 turbines), Tata Power Prayagraj. The Faclon Labs Presentation 2026 deck is also an approved source for every customer case it lists (used on /faclon-overview/).
 - Example agent conversations are illustrative and must stay labelled as such.
 - ₹ values are "up to, per 100 MW per year" and are indicative.
 - Platform names: Faclon AI platform, Ontology, I/O Connect (gateway, can sit in OT, DMZ or IT).

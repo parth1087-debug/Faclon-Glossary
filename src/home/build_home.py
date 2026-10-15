@@ -18,6 +18,17 @@ E = html.escape
 # links  : extra downloads shown on live cards, as (label, file inside the slug folder)
 SOLUTIONS = [
     {
+        "slug": "faclon-overview",
+        "name": "Faclon Labs Overview",
+        "sector": "Company",
+        "accent": "blue",
+        "live": True,
+        "blurb": "Who we are, the AI-native stack, an example industrial AI architecture, 25+ use cases "
+                 "and 38 customer cases across power, metals, process and manufacturing plants.",
+        "tags": ["8-layer AI-native stack", "25+ use cases", "38 customer cases"],
+        "links": [],
+    },
+    {
         "slug": "power-plant-ai",
         "name": "Power Plant AI",
         "sector": "Power",

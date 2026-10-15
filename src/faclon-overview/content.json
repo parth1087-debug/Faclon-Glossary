@@ -1,0 +1,1143 @@
+{
+ "customers": [
+  {
+   "industry": "Metals",
+   "logos": [
+    {
+     "logo": "vedanta",
+     "name": "Vedanta"
+    },
+    {
+     "logo": "hindalco",
+     "name": "Hindalco"
+    },
+    {
+     "logo": "jswsteel",
+     "name": "JSW Steel"
+    },
+    {
+     "logo": "jindal",
+     "name": "Jindal Steel"
+    },
+    {
+     "logo": "welspun",
+     "name": "Welspun"
+    },
+    {
+     "logo": "hzl",
+     "name": "Hindustan Zinc"
+    },
+    {
+     "logo": "msp",
+     "name": "MSP"
+    },
+    {
+     "logo": "bmm",
+     "name": "BMM"
+    }
+   ]
+  },
+  {
+   "industry": "Energy, Oil & Gas",
+   "logos": [
+    {
+     "logo": "indianoil",
+     "name": "Indian Oil"
+    },
+    {
+     "logo": "cairn",
+     "name": "Cairn"
+    },
+    {
+     "logo": "haldia",
+     "name": "Haldia Petrochemicals"
+    },
+    {
+     "logo": "hmel",
+     "name": "HMEL"
+    },
+    {
+     "logo": "jswenergy",
+     "name": "JSW Energy"
+    },
+    {
+     "logo": "tatapower",
+     "name": "Tata Power"
+    }
+   ]
+  },
+  {
+   "industry": "Automobile & ancillary",
+   "logos": [
+    {
+     "logo": "kubota",
+     "name": "Escorts Kubota"
+    },
+    {
+     "logo": "tatahitachi",
+     "name": "Tata Hitachi"
+    },
+    {
+     "logo": "eicher",
+     "name": "Eicher"
+    },
+    {
+     "logo": "toyoda",
+     "name": "Toyoda Gosei"
+    },
+    {
+     "logo": "unominda",
+     "name": "Uno Minda"
+    },
+    {
+     "logo": "ppap",
+     "name": "PPAP"
+    }
+   ]
+  },
+  {
+   "industry": "Consumer Goods",
+   "logos": [
+    {
+     "logo": "itc",
+     "name": "ITC"
+    },
+    {
+     "logo": "pepsico",
+     "name": "PepsiCo"
+    },
+    {
+     "logo": "dabur",
+     "name": "Dabur"
+    },
+    {
+     "logo": "marico",
+     "name": "Marico"
+    },
+    {
+     "logo": "cocacola",
+     "name": "Coca-Cola"
+    },
+    {
+     "logo": "rspl",
+     "name": "RSPL"
+    },
+    {
+     "logo": "bira",
+     "name": "Bira 91"
+    }
+   ]
+  },
+  {
+   "industry": "Textile & Consumer Durables",
+   "logos": [
+    {
+     "logo": "grasim",
+     "name": "Grasim"
+    },
+    {
+     "logo": "kansai",
+     "name": "Kansai Nerolac"
+    },
+    {
+     "logo": "polyhose",
+     "name": "Polyhose"
+    },
+    {
+     "logo": "lg",
+     "name": "LG"
+    },
+    {
+     "logo": "luminous",
+     "name": "Luminous"
+    },
+    {
+     "logo": "ashirvad",
+     "name": "Ashirvad"
+    },
+    {
+     "logo": "lumino",
+     "name": "Lumino"
+    }
+   ]
+  },
+  {
+   "industry": "Chemicals & Paper",
+   "logos": [
+    {
+     "logo": "godrejagro",
+     "name": "Godrej Agrovet"
+    },
+    {
+     "logo": "basf",
+     "name": "BASF"
+    },
+    {
+     "logo": "sumitomo",
+     "name": "Sumitomo Chemical"
+    },
+    {
+     "logo": "spb",
+     "name": "SPB"
+    },
+    {
+     "logo": "srf",
+     "name": "SRF"
+    }
+   ]
+  },
+  {
+   "industry": "Cement",
+   "logos": [
+    {
+     "logo": "ultratech",
+     "name": "UltraTech Cement"
+    },
+    {
+     "logo": "jswcement",
+     "name": "JSW Cement"
+    }
+   ]
+  },
+  {
+   "industry": "Pharma",
+   "logos": [
+    {
+     "logo": "sun",
+     "name": "Sun Pharma"
+    },
+    {
+     "logo": "zydus",
+     "name": "Zydus"
+    },
+    {
+     "logo": "jubilant",
+     "name": "Jubilant Ingrevia"
+    },
+    {
+     "logo": "mankind",
+     "name": "Mankind"
+    }
+   ]
+  },
+  {
+   "industry": "Commercial Infra",
+   "logos": [
+    {
+     "logo": "kempegowda",
+     "name": "Kempegowda International Airport"
+    },
+    {
+     "logo": "csia",
+     "name": "Chhatrapati Shivaji International Airport"
+    },
+    {
+     "logo": "flipkart",
+     "name": "Flipkart"
+    },
+    {
+     "logo": "adaniports",
+     "name": "Adani Ports"
+    },
+    {
+     "logo": "qatar",
+     "name": "Qatar Shipyard"
+    },
+    {
+     "logo": "idemia",
+     "name": "Idemia"
+    },
+    {
+     "logo": "embassy",
+     "name": "Embassy"
+    },
+    {
+     "logo": "iitb",
+     "name": "IIT Bombay"
+    },
+    {
+     "logo": "icici",
+     "name": "ICICI Lombard"
+    }
+   ]
+  },
+  {
+   "industry": "OEM tie-ups & Partners",
+   "logos": [
+    {
+     "logo": "idex",
+     "name": "IDEX"
+    },
+    {
+     "logo": "ksb",
+     "name": "KSB"
+    },
+    {
+     "logo": "am",
+     "name": "A&M"
+    },
+    {
+     "logo": "aws",
+     "name": "AWS"
+    },
+    {
+     "logo": "pwc",
+     "name": "PwC"
+    }
+   ]
+  }
+ ],
+ "case_groups": [
+  {
+   "id": "prod",
+   "name": "Production & IT-OT"
+  },
+  {
+   "id": "energy",
+   "name": "Energy & Power"
+  },
+  {
+   "id": "maint",
+   "name": "Maintenance"
+  },
+  {
+   "id": "quality",
+   "name": "Quality & Safety"
+  },
+  {
+   "id": "on",
+   "name": "Ongoing"
+  }
+ ],
+ "domains": {
+  "prod": "Production & IT-OT",
+  "energy": "Energy & Power",
+  "maint": "Maintenance",
+  "quality": "Quality & Safety"
+ },
+ "cases": [
+  {
+   "logo": "jswcement",
+   "customer": "JSW Cement",
+   "site": "Integrated plant, Nandyal",
+   "title": "Model Digital Plant",
+   "domains": [
+    "prod"
+   ],
+   "ongoing": false,
+   "metrics": [],
+   "points": [
+    "Deployed a flagship Model Digital Plant for JSW Cement's integrated plant at Nandyal, <b>integrating DCS systems, energy meters, vibration sensors, solar inverters, ERP, and lab equipment</b> to create a single source of truth — a unified data lake with tailor-made dashboards for every department.",
+    "Implemented <b>AI use cases</b> including <b>cement strength prediction</b>, <b>C3S prediction</b>, <b>cyclone health prediction</b>, and <b>kiln fuel-ratio optimization to increase AFR</b>, along with <b>root-cause analysis and recommendations</b> for high specific energy consumption in mills and kilns."
+   ]
+  },
+  {
+   "logo": "grasim",
+   "customer": "Aditya Birla Grasim",
+   "site": "Vilayat, Kharach, Harihar, Indonesia",
+   "title": "Energy Management, Power Plant AI and Reliability",
+   "domains": [
+    "energy",
+    "maint"
+   ],
+   "ongoing": false,
+   "metrics": [
+    {
+     "value": "2,500+",
+     "label": "energy meters"
+    },
+    {
+     "value": "4",
+     "label": "plants"
+    },
+    {
+     "value": "250",
+     "label": "HP steam traps"
+    },
+    {
+     "value": "175 MW",
+     "label": "captive power plant"
+    }
+   ],
+   "points": [
+    "Digitized <b>2,500+ energy meters</b> across <b>4 plants</b> — Vilayat, Kharach, Harihar, and Indonesia — with deviation analysis at every level of energy distribution. Prevented <b>critical motor failures</b> through motor-load-based alerts. The complete platform is deployed on Grasim's private cloud, catering to all the use cases from a single environment.",
+    "Implemented online <b>steam trap failure detection</b> for <b>250 HP steam traps</b> across 2 plants, <b>100+ vibration sensors</b> on critical motors and gearboxes to cut unplanned downtime and maintenance costs, and health monitoring of <b>200+ VFD drives</b> and <b>100+ bus bars</b> to extend asset life and reduce breakdowns.",
+    "Implementing AI-based solutions to <b>reduce NHR for 175 MW captive power plant</b> comprising 5 boilers and 5 turbines."
+   ]
+  },
+  {
+   "logo": "hzlfull",
+   "customer": "Hindustan Zinc",
+   "site": "Zinc & silver",
+   "title": "Cell House Performance",
+   "domains": [
+    "prod"
+   ],
+   "ongoing": false,
+   "metrics": [
+    {
+     "value": "66",
+     "label": "cells live"
+    },
+    {
+     "value": "330",
+     "label": "cells in scale-up"
+    },
+    {
+     "value": "3",
+     "label": "plants"
+    }
+   ],
+   "points": [
+    "Implemented an integrated <b>cell house monitoring system</b> across <b>66 cells</b>, by implementing <b>load cell sensors, wireless cell temperature sensors and integrating existing crane PLC and cell current</b> data to map stripping activity, proactively manage cell temperature and monitor <b>cell efficiency</b> in real time.",
+    "Scale up underway for <b>330 cells across 3 plants.</b>"
+   ]
+  },
+  {
+   "logo": "hzlfull",
+   "customer": "Hindustan Zinc",
+   "site": "Zinc & silver",
+   "title": "Vision AI for Conveyor Health",
+   "domains": [
+    "maint"
+   ],
+   "ongoing": false,
+   "metrics": [
+    {
+     "value": "3",
+     "label": "conveyor systems"
+    }
+   ],
+   "points": [
+    "Monitoring the health of three conveyor systems using vision cameras — <b>shuttle conveyor</b> (proximity switch fault detection), <b>tray conveyor</b> (alignment, wheel wobbling, and misalignment), and <b>belt conveyor</b> (spillage, wear and tear)."
+   ]
+  },
+  {
+   "logo": "hzlfull",
+   "customer": "Hindustan Zinc",
+   "site": "Zawar Plant",
+   "title": "Power Plant AI",
+   "domains": [
+    "energy"
+   ],
+   "ongoing": false,
+   "metrics": [
+    {
+     "value": "91 MW",
+     "label": "power plant"
+    },
+    {
+     "value": "1 pp",
+     "label": "APC reduction target"
+    }
+   ],
+   "points": [
+    "Implementing an AI-based solution for a <b>91 MW</b> power plant to <b>reduce auxiliary power consumption and net heat rate (NHR)</b> at Zawar Plant.",
+    "Integrating with their historian (DCS), EMS, Lab data. Project aimed for 1-percentage point reduction in APC."
+   ]
+  },
+  {
+   "logo": "hzlfull",
+   "customer": "Hindustan Zinc",
+   "site": "Group-wide",
+   "title": "Power Balance",
+   "domains": [
+    "energy"
+   ],
+   "ongoing": false,
+   "metrics": [
+    {
+     "value": "550 MW",
+     "label": "captive thermal"
+    },
+    {
+     "value": "180 MWp",
+     "label": "solar PPA"
+    },
+    {
+     "value": "15-min",
+     "label": "scheduling blocks"
+    }
+   ],
+   "points": [
+    "Implemented a Platform to balance power between generation — <b>6 captive power plants, Grid (Re-PPA, Discom)</b> — and consumption — <b>8 consuming plants and excess generation on IEX</b>.",
+    "The system automates day-ahead and intra-day 15-minute <b>power mix scheduling</b> to prioritize the lowest-cost mix across 550 MW captive thermal generation, the 180 MWp solar PPA, interplant transfers, and IEX while enforcing NRLDC/regulatory limits, CPP minimum PLF, and transfer constraints."
+   ]
+  },
+  {
+   "logo": "welspun",
+   "customer": "Welspun",
+   "site": "LSAW unit, Anjar",
+   "title": "IT-OT Integration",
+   "domains": [
+    "prod"
+   ],
+   "ongoing": false,
+   "metrics": [
+    {
+     "value": "10.2%",
+     "label": "cycle time reduction"
+    },
+    {
+     "value": "5.0%",
+     "label": "energy intensity improvement"
+    },
+    {
+     "value": "~4,000",
+     "label": "tags"
+    },
+    {
+     "value": "18",
+     "label": "data sources"
+    }
+   ],
+   "points": [
+    "At Welspun's LSAW unit in Anjar, data from <b>18 data sources</b> — PLCs, SCADA systems, SQL databases, and Excel files — covering <b>~4,000 tags</b> across critical stations such as <b>JCO, UT, Hydrotester, and Welding</b> is consolidated into a central server, creating a unified environment for analysis and reporting.",
+    "Management and plant teams use KPI dashboards covering station-wise cycle time, energy consumption, pipe production, and machine utilization for real-time visibility. Over five months, analysis of 14,777 pipes demonstrated a <b>10.2% reduction in cycle time</b> and a <b>5.0% improvement in energy intensity.</b>"
+   ]
+  },
+  {
+   "logo": "polyhose",
+   "customer": "Polyhose",
+   "site": "Four units, Chennai",
+   "title": "OEE and Traceability",
+   "domains": [
+    "prod"
+   ],
+   "ongoing": false,
+   "metrics": [
+    {
+     "value": "400+",
+     "label": "machine PLCs"
+    },
+    {
+     "value": "4",
+     "label": "units"
+    }
+   ],
+   "points": [
+    "Integrating <b>400+ machine PLCs — including CNCs, extruders, braiders, and testing machines</b> — across four units in Chennai, with real-time tracking of key KPIs such as OEE, availability, performance, quality, production, downtime reasons, line speed, thickness, Cpk/Ppk, and process parameters.",
+    "Also enabled end-to-end traceability by mapping every shop floor machine run to its order code."
+   ]
+  },
+  {
+   "logo": "spb",
+   "customer": "SPB",
+   "site": "Erode",
+   "title": "Power Plant Automated RCA",
+   "domains": [
+    "energy"
+   ],
+   "ongoing": false,
+   "metrics": [
+    {
+     "value": "21 MW",
+     "label": "cogeneration plant"
+    },
+    {
+     "value": "40+ yrs",
+     "label": "SME experience built in"
+    }
+   ],
+   "points": [
+    "Developed <b>AI-agents for a 21 MW cogeneration plant</b> that leverages plant <b>DCS and Lab data</b> to identify problems / deviations and provide root cause and recommendations.",
+    "It covers all possible <b>problems related to maintenance and process control for boiler, turbine, generator and aux equipments.</b> The solution is developed in collaboration with a <b>domain SME with 40+ years of experience.</b>"
+   ]
+  },
+  {
+   "logo": "spb",
+   "customer": "SPB",
+   "site": "Erode",
+   "title": "APC for Coal Feeding",
+   "domains": [
+    "energy"
+   ],
+   "ongoing": false,
+   "metrics": [
+    {
+     "value": "7",
+     "label": "coal feeders"
+    },
+    {
+     "value": "21 MW",
+     "label": "AFBC boiler plant"
+    }
+   ],
+   "points": [
+    "Implementing <b>automated process control for 7 coal feeders of 21 MW power plant with AFBC boiler</b> to reduce process variability and maintain bed stability."
+   ]
+  },
+  {
+   "logo": "spb",
+   "customer": "SPB",
+   "site": "Erode",
+   "title": "AI based Soot Blower Automation",
+   "domains": [
+    "energy"
+   ],
+   "ongoing": false,
+   "metrics": [
+    {
+     "value": "₹1 Cr",
+     "label": "annual savings"
+    },
+    {
+     "value": "20 TPD",
+     "label": "aux steam saved"
+    },
+    {
+     "value": "29",
+     "label": "soot blowers"
+    }
+   ],
+   "points": [
+    "Delivered <b>closed loop AI based sootblower automation</b> for <b>16 MW recovery boiler</b> having <b>29 soot blowers</b>. Saved <b>20 TPD</b> aux steam worth <b>₹1 cr in annual savings</b>.",
+    "The solution helps reduce <b>wash cycle, reduce tube erosion, improve flue gas heat recovery.</b>"
+   ]
+  },
+  {
+   "logo": "spb",
+   "customer": "SPB",
+   "site": "RDH batch fibreline, Erode",
+   "title": "RDH Optimization",
+   "domains": [
+    "prod",
+    "quality"
+   ],
+   "ongoing": false,
+   "metrics": [],
+   "points": [
+    "Implemented <b>Heat Recovery Optimization</b> basis accumulator tank temperature & level management during black liquor displacement, and controlled MP steam and recirculation pump parameters — <b>reducing cycle time and steam consumption while maintaining cook uniformity.</b>",
+    "Implementing digester and cooking optimization analytics integrating DCS data, black liquor concentration, fresh alkali charge and strength, and wood species/quality to build live soft sensors that <b>predict kappa number</b> at pump-out and <b>predict post-washer brightness</b> — enabling proactive cook-endpoint control."
+   ]
+  },
+  {
+   "logo": "jswenergy",
+   "customer": "JSW Energy",
+   "site": "Five plants",
+   "title": "Predictive Maintenance",
+   "domains": [
+    "maint"
+   ],
+   "ongoing": false,
+   "metrics": [
+    {
+     "value": "₹1.3 Cr",
+     "label": "savings in 2 years"
+    },
+    {
+     "value": "1,000+",
+     "label": "vibration sensors"
+    },
+    {
+     "value": "15+",
+     "label": "critical failures caught"
+    }
+   ],
+   "points": [
+    "Deployed <b>1,000+ vibration sensors</b> across five JSW Energy plants, detecting <b>15+ critical failures</b> at an early stage.",
+    "Reduced unplanned downtime, revenue loss, and maintenance costs — <b>delivering ₹1.3 Cr in savings</b> over the last two years, validated by their finance team."
+   ]
+  },
+  {
+   "logo": "hmel",
+   "customer": "HMEL",
+   "site": "Bathinda site",
+   "title": "Steam Trap Monitoring",
+   "domains": [
+    "maint"
+   ],
+   "ongoing": false,
+   "metrics": [
+    {
+     "value": "800+",
+     "label": "steam traps"
+    },
+    {
+     "value": "< 1 day",
+     "label": "MTTR"
+    }
+   ],
+   "points": [
+    "Real-time health monitoring of <b>800+ steam traps</b> at the Bathinda site, using a fully wireless, battery powered, temperature-based solution <b>to reduce MTTR to less than day, reduce steam losses & improve reliability.</b>"
+   ]
+  },
+  {
+   "logo": "cairnefi",
+   "customer": "Cairn",
+   "site": "Two locations",
+   "title": "HVAC, Steam trap & Solar Monitoring",
+   "domains": [
+    "energy",
+    "maint"
+   ],
+   "ongoing": false,
+   "metrics": [
+    {
+     "value": "100",
+     "label": "HP & LP steam traps"
+    },
+    {
+     "value": "43",
+     "label": "solar sites"
+    }
+   ],
+   "points": [
+    "Implemented a fully automated IoT-based system for <b>chiller plants, AHUs, and packaged units</b> at two locations.",
+    "Implemented real-time <b>steam trap failure detection</b> for <b>100 HP and LP steam traps.</b>",
+    "Deployed centralized <b>solar efficiency</b> monitoring across <b>43 sites</b> to track energy performance."
+   ]
+  },
+  {
+   "logo": "jindal",
+   "customer": "Jindal Steel",
+   "site": "",
+   "title": "LIMS Platform",
+   "domains": [
+    "quality"
+   ],
+   "ongoing": false,
+   "metrics": [
+    {
+     "value": "10+",
+     "label": "plant sections"
+    }
+   ],
+   "points": [
+    "Implemented a comprehensive, integrated <b>LIMS platform spanning 10+ plant sections</b> — RMH yards, Coke Oven, Blast Furnace, and Steel Melting Shop (SMS) — enabling real-time monitoring, process adjustments, capability analytics, traceability, faster root-cause analysis, and automated reporting and alerts.",
+    "The system is integrated with lab machines, ERP, and MES."
+   ]
+  },
+  {
+   "logo": "hindalco",
+   "customer": "Aditya Birla Hindalco",
+   "site": "",
+   "title": "Vision AI for Safety",
+   "domains": [
+    "quality"
+   ],
+   "ongoing": false,
+   "metrics": [
+    {
+     "value": "196",
+     "label": "cameras"
+    },
+    {
+     "value": "5",
+     "label": "safety use cases"
+    }
+   ],
+   "points": [
+    "Implemented IO Vision across <b>196 cameras</b> to enforce plant safety compliance with ISO 39001:2012 (Road Traffic Safety Management) and ISO 45001 (Occupational Health & Safety Management) standards.",
+    "Covers 5 use cases including <b>PPE and hard hat detection, fall and loitering detection, entry–exit monitoring, intrusion detection, and speed monitoring.</b>"
+   ]
+  },
+  {
+   "logo": "basf",
+   "customer": "BASF",
+   "site": "",
+   "title": "IT-OT Integration",
+   "domains": [
+    "prod"
+   ],
+   "ongoing": false,
+   "metrics": [],
+   "points": [
+    "Implemented <b>on-premise centralized monitoring</b> by integrating all machine DCS systems and energy meters across the plant, enabling real-time monitoring, data historian, reporting, and alerting."
+   ]
+  },
+  {
+   "logo": "itc",
+   "customer": "ITC",
+   "site": "Trichy, Uluberia, Mysore",
+   "title": "Energy and Utilities Management",
+   "domains": [
+    "energy"
+   ],
+   "ongoing": false,
+   "metrics": [
+    {
+     "value": "600+",
+     "label": "assets digitized"
+    },
+    {
+     "value": "3",
+     "label": "plants live"
+    },
+    {
+     "value": "+7",
+     "label": "plants in scale-up"
+    }
+   ],
+   "points": [
+    "Deployed a Utility Management System for ITC at Trichy, Uluberia, and Mysore, <b>digitizing 600+ assets covering energy meters, BTU meters, compressed air flow meters, water meters,</b> and HSD and LPG systems.",
+    "Scale-up to seven more plants is underway."
+   ]
+  },
+  {
+   "logo": "kansai",
+   "customer": "Kansai Nerolac",
+   "site": "",
+   "title": "Energy Management",
+   "domains": [
+    "energy"
+   ],
+   "ongoing": false,
+   "metrics": [
+    {
+     "value": "700+",
+     "label": "energy meters"
+    },
+    {
+     "value": "3",
+     "label": "plants"
+    }
+   ],
+   "points": [
+    "Deployed power analytics and energy management covering <b>700+ energy meters</b> across <b>3 plants.</b>"
+   ]
+  },
+  {
+   "logo": "adanicsia",
+   "customer": "Adani",
+   "site": "Mumbai airport, domestic terminal",
+   "title": "Bombay Airport Digitization",
+   "domains": [
+    "energy",
+    "maint"
+   ],
+   "ongoing": false,
+   "metrics": [
+    {
+     "value": "75",
+     "label": "AHUs"
+    },
+    {
+     "value": "300",
+     "label": "sensor locations"
+    },
+    {
+     "value": "200",
+     "label": "UPS units"
+    },
+    {
+     "value": "70",
+     "label": "bus bars"
+    }
+   ],
+   "points": [
+    "Monitoring and controlling <b>75 AHUs at the domestic terminal</b> to maintain temperature and improve energy efficiency.",
+    "Deployed <b>wireless, battery-powered ambient temperature and humidity sensors</b> across <b>300 locations</b> to ensure consistent, comfortable cooling throughout the terminal.",
+    "Installed health monitoring for <b>200 UPS units</b> and temperature monitoring for <b>70 bus bars</b> to ensure power backup reliability and proactive issue detection."
+   ]
+  },
+  {
+   "logo": "adaniports",
+   "customer": "Adani Natural Resources",
+   "site": "",
+   "title": "Drill Rig Monitoring",
+   "domains": [
+    "prod"
+   ],
+   "ongoing": false,
+   "metrics": [],
+   "points": [
+    "Implemented a pilot for real-time monitoring of exploration <b>drill rig performance</b> for Adani Natural Resources."
+   ]
+  },
+  {
+   "logo": "flipkart",
+   "customer": "Flipkart",
+   "site": "India",
+   "title": "Cold Storage Monitoring",
+   "domains": [
+    "quality"
+   ],
+   "ongoing": false,
+   "metrics": [
+    {
+     "value": "1,000",
+     "label": "dark store locations"
+    }
+   ],
+   "points": [
+    "Implemented cold storage temperature monitoring across Flipkart's <b>1,000 dark store locations</b> in India."
+   ]
+  },
+  {
+   "logo": "qatar",
+   "customer": "Qatar Shipyard",
+   "site": "",
+   "title": "Smart Maintenance",
+   "domains": [
+    "maint"
+   ],
+   "ongoing": false,
+   "metrics": [],
+   "points": [
+    "Delivered <b>CMMS–SAP integrated maintenance workflows</b> & installed <b>partial discharge & vibration sensors</b>.",
+    "Enables automated work orders, technician assignment, material planning, PR and reservation creation, PO lifecycle tracking, man-hour logging, and real-time closure for both preventive and corrective maintenance."
+   ]
+  },
+  {
+   "logo": "tatahitachi",
+   "customer": "Tata Hitachi",
+   "site": "Kharagpur plant",
+   "title": "Process Excellence",
+   "domains": [
+    "prod",
+    "quality"
+   ],
+   "ongoing": false,
+   "metrics": [],
+   "points": [
+    "<b>Digitized end-to-end boom manufacturing workflow</b> at the Kharagpur plant, replacing manual check sheets with real-time production, quality, downtime, and operator productivity tracking across fabrication operations.",
+    "Established complete <b>digital traceability</b> with first-pass-yield monitoring, failure analytics, and ISO-compliant document control, enabling <b>faster root-cause analysis</b> and data-driven shop-floor decisions."
+   ]
+  },
+  {
+   "logo": "hamilton",
+   "customer": "Hamilton",
+   "site": "Bottle manufacturing line",
+   "title": "Discrete OEE",
+   "domains": [
+    "prod",
+    "energy"
+   ],
+   "ongoing": false,
+   "metrics": [
+    {
+     "value": "7",
+     "label": "stations"
+    }
+   ],
+   "points": [
+    "Deployed <b>OEE & Production Planning</b> module across the bottle manufacturing line (7 Stations), integrating <b>relay-based production</b> signals, buzzer alerts for production stoppages, <b>Andon-based downtime classification</b> into Production/Maintenance/Quality losses.",
+    "Enabled <b>SKU-wise production and energy analytics</b> through direct integration with energy meters, covering production, energy consumption, SEC, and historical performance-based ideal cycle time recommendations."
+   ]
+  },
+  {
+   "logo": "lg",
+   "customer": "LG",
+   "site": "",
+   "title": "Process Excellence",
+   "domains": [
+    "quality"
+   ],
+   "ongoing": false,
+   "metrics": [
+    {
+     "value": "14",
+     "label": "environmental chambers"
+    }
+   ],
+   "points": [
+    "Integrated <b>14 environmental chamber machines</b> with real-time monitoring of temperature, humidity, and pressure across product testing workflows.",
+    "<b>Digitized end-to-end test planning, execution, and approval workflows</b> with multi-level validation and operator-driven test logging. Enabled energy-optimized test scheduling and ERRC-based recommendations using historical test data to improve utilization and reduce defects."
+   ]
+  },
+  {
+   "logo": "mahle",
+   "customer": "Mahle",
+   "site": "Carburetor assembly line",
+   "title": "SOP Adherence",
+   "domains": [
+    "quality"
+   ],
+   "ongoing": false,
+   "metrics": [
+    {
+     "value": "~50%",
+     "label": "fewer rejections"
+    },
+    {
+     "value": "15",
+     "label": "validated steps"
+    }
+   ],
+   "points": [
+    "Enforced <b>computer-vision-based</b> SOP adherence with PLC interlocks on a <b>15-step carburetor assembly line</b> — enabling real-time step validation, preventing sequence deviations, and reducing rejections by ~50%."
+   ]
+  },
+  {
+   "logo": "godrej",
+   "customer": "Godrej",
+   "site": "Vendor sites",
+   "title": "OEE and Cycle time Tracking",
+   "domains": [
+    "prod"
+   ],
+   "ongoing": false,
+   "metrics": [
+    {
+     "value": "40+",
+     "label": "injection moulding machines"
+    }
+   ],
+   "points": [
+    "Transformed <b>40+ injection moulding machines</b> at Godrej's vendor sites with real-time OEE, downtime, and cycle time analytics, plus a mould recommendation engine."
+   ]
+  },
+  {
+   "logo": "luminous",
+   "customer": "Luminous",
+   "site": "",
+   "title": "Process Excellence",
+   "domains": [
+    "prod",
+    "quality"
+   ],
+   "ongoing": false,
+   "metrics": [],
+   "points": [
+    "Integrated with <b>Paste Mixer</b> PLCs to capture key process parameters and batch cycle times, along with a batch quality input module for golden batch analytics, enabling comparison of batches to identify deviations, bottlenecks, and drivers of process quality."
+   ]
+  },
+  {
+   "logo": "luminous",
+   "customer": "Luminous",
+   "site": "",
+   "title": "Quality Traceability",
+   "domains": [
+    "quality"
+   ],
+   "ongoing": false,
+   "metrics": [],
+   "points": [
+    "Implemented an <b>end-to-end digital thread for battery testing</b> — mapping QR-scanned SKUs to HRD recipes and SQL databases to ensure fail-safe label printing only for quality-passed units."
+   ]
+  },
+  {
+   "logo": "jswsteel",
+   "customer": "JSW Steel",
+   "site": "Khopoli & Rajpura",
+   "title": "IT-OT Integration",
+   "domains": [
+    "prod"
+   ],
+   "ongoing": true,
+   "metrics": [
+    {
+     "value": "8,000+",
+     "label": "tags"
+    }
+   ],
+   "points": [
+    "IT–OT Integration for <b>Color Coating Lines</b> across Khopoli & Rajpura plant, integrating <b>8,000+ tags</b> with real-time monitoring and visualization of critical operational and performance KPIs."
+   ]
+  },
+  {
+   "logo": "msp",
+   "customer": "MSP Steel",
+   "site": "Sponge iron division",
+   "title": "Digital Twin",
+   "domains": [
+    "prod"
+   ],
+   "ongoing": true,
+   "metrics": [],
+   "points": [
+    "Digital twin for <b>DRI & Pellet Plant</b>: Deployed a kiln AI model and tag-driven analytics across MSP Steel's sponge iron division — converting DCS, lab, and asset-health data into live stability, efficiency, and quality indices on one common backbone.",
+    "The payoff: A per-kiln decision engine that guides operators (Increase / Maintain / Reduce) plus predictive alerts for <b>accretion risk</b> and <b>asset health</b> → longer campaign life, fewer unplanned stoppages, optimized fuel rate."
+   ]
+  },
+  {
+   "logo": "sterlite",
+   "customer": "Vedanta Sterlite Copper",
+   "site": "Copper cell house",
+   "title": "Thermal Profiling for Copper Cell House",
+   "domains": [
+    "energy",
+    "quality"
+   ],
+   "ongoing": true,
+   "metrics": [],
+   "points": [
+    "Thermal camera based real-time <b>cell house temperature profile</b> monitoring during electrolysis to detect early <b>signs of short circuits</b> (\"shots\") by monitoring <b>temperature rise</b> and enable timely intervention.",
+    "Benefits: Higher efficiency, cutting electricity losses, minimizing process disruptions, and sustaining consistent copper deposition efficiency on the cathode."
+   ]
+  },
+  {
+   "logo": "valu",
+   "customer": "Vedanta Aluminium",
+   "site": "Potline pilot",
+   "title": "Anode Current Distribution",
+   "domains": [
+    "energy"
+   ],
+   "ongoing": true,
+   "metrics": [
+    {
+     "value": "80",
+     "label": "anodes"
+    },
+    {
+     "value": "2",
+     "label": "pots"
+    }
+   ],
+   "points": [
+    "Implementing <b>Anode Current Distribution (ACD)</b> monitoring pilot for <b>2 pots having 80 anodes</b>. The solution involves customized hardware on every anode to measure current in real time.",
+    "The data enables early detection of localized anode effect (AE), anode level resistance & current imbalance to provide operational insights to <b>stabilize pot voltage and reduce energy waste.</b>"
+   ]
+  },
+  {
+   "logo": "pidilite",
+   "customer": "Pidilite",
+   "site": "Polymerization",
+   "title": "Quality Prediction",
+   "domains": [
+    "quality"
+   ],
+   "ongoing": true,
+   "metrics": [],
+   "points": [
+    "Implementing AI model that analyses polymerization process batch data, DCS data, MES data, Lab data to provide realtime diagnosis into batch cycle time, and predicting in-process <b>Viscosity</b> and <b>% Solid</b>.",
+    "Objective to cut cycle time, improve yield and quality, reduce rework."
+   ]
+  },
+  {
+   "logo": "sun",
+   "customer": "Sun Pharma",
+   "site": "28 sites",
+   "title": "Renewable Monitoring",
+   "domains": [
+    "energy"
+   ],
+   "ongoing": true,
+   "metrics": [
+    {
+     "value": "160+ MW",
+     "label": "renewable assets"
+    },
+    {
+     "value": "28",
+     "label": "sites"
+    }
+   ],
+   "points": [
+    "Monitoring and performance optimization of <b>160+ MW across 28 sites including solar, wind, and hybrid</b> renewable energy assets, including plant performance, generation losses, and operational KPIs."
+   ]
+  },
+  {
+   "logo": "sumitomo",
+   "customer": "Sumitomo Chemical",
+   "site": "Bhavnagar",
+   "title": "Quality Prediction",
+   "domains": [
+    "quality"
+   ],
+   "ongoing": true,
+   "metrics": [
+    {
+     "value": "1–2 hr",
+     "label": "lab wait removed"
+    }
+   ],
+   "points": [
+    "Implementing batch process optimization analytics for the <b>Profenofos manufacturing line</b> at Sumitomo Chemical, Bhavnagar, integrating DCS and lab data to build a <b>predictive quality soft sensor</b> for BCP, DTCL, and triester purity.",
+    "Eliminates the 1–2 hr lab turnaround and enables live cook-extension and reprocessing decisions to <b>cut cycle time and improve yield & quality.</b>"
+   ]
+  }
+ ]
+}
