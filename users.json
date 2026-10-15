@@ -47,6 +47,10 @@
   {
    "slug": "steel-ai-use-case-map",
    "title": "Steel AI Use Case Map"
+  },
+  {
+   "slug": "discrete-manufacturing-use-cases",
+   "title": "Discrete Manufacturing Use Cases"
   }
  ],
  "users": [
@@ -123,6 +127,11 @@
   "steel-ai-use-case-map": {
    "iv": "8JbuMXUm+O8q80dh",
    "ct": "mrZprKIpVs1NSixbPtYlN9BNiiHQvzRp7kXJtTrC8/bIfz+6rDB8zISDmSGQoSYy+RKOhsw9U2oCXubp"
+  },
+  "discrete-manufacturing-use-cases": {
+   "e": "BArxcHpKTe8wsdrKdEpeU1EiYjgHfnCLUL74VWskPkI9TZf84jePhY1QMa0gjd61OAU7+h8IBiK0XpIuKSCM4C0=",
+   "iv": "j15lfuIK2SlQU0mn",
+   "ct": "tg4m3Bp0nP4hf1BWWW9gP+oiOLFVdamzb2AVmQvVTuW+t69f0JEg/jsUjBRkdh0VrcPZdO+M3ZMQvGv7"
   }
  },
  "dvault": {
@@ -176,7 +185,15 @@
   "iv": "2w+z8DpWhBO30DDD",
   "ct": "iAtLeyx9rM+I/iQj0K+0/j28JWup3h+OAyGcGeD3LZf1FmRuEAMI2Gc5OTb3g4kPImHZji0m/0r6rFTe2JAUCh3sOMV3bh9xm8W6BJ/LrnTVXdF5iMsJgjZCatr8P8EnxDZmXHRtvtr/X5MHy1DRdpdzoMvk8RtAF6DR+cbIyIwz0q2VjZkzixSgtr6vsAtAWeveeQBxw7ZeRSt5IWmo5YAoBNEJav0iTSCqL2BTl0QJ5mDEVRNljgpt4vBHo2JnFfHdbLVR3hw="
  },
- "uploads": {},
+ "uploads": {
+  "discrete-manufacturing-use-cases": {
+   "meta": {
+    "iv": "N7RSkMake99W0CEK",
+    "ct": "Z3MUhZ7Rv68j/lYUvHz5usY+9xtFZ+5lI04Q8KDBES0tbydZFkJCK7WmuWeo2fACorDWrIyOHU1IHJ3vd4LX+iqW/cOMll3oefn20RVbvl4PPzMXxAE+z6jVtupbed1lPGJG2gL+z+3IBydi8eYpi8lLQtQIlGtHdA3JiCV8UryzLZ9A7M1Rq5AXDpkYwFoGDU0L7kmMG/6pERzw+g=="
+   },
+   "at": "2026-10-15T20:01:56.841Z"
+  }
+ },
  "policy": {},
  "contrib": {
   "tok": {
