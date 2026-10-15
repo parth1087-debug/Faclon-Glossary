@@ -1,6 +1,7 @@
 /* Runs inside every unlocked page (injected by the password gate; protect.py inlines this file).
    - hides links/cards for solutions the signed-in user can't open
    - adds the signed-in bar: name, Download, Manage users (admin), Sign out
+   - site-wide full screen: the site runs inside one full-screen frame, so moving between pages stays full screen
    - Download dialog: this page as one continuous PDF, or an offline HTML file of chosen solutions
    Args: A = allowed slugs (null = all), N = display name, ADM = admin?, B = relative path to site root,
          SOL = [{slug,title}] every solution, SLUG = this page's slug ("home" for the landing page),
@@ -68,8 +69,9 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
     '.st a{color:#3D63F5;font-weight:600}' +
     '.dlink{display:inline-block;text-decoration:none;font:600 14px Inter,system-ui,sans-serif;padding:10px 16px;border-radius:9px;background:#3D63F5;color:#fff}' +
     '[hidden]{display:none!important}' +
+    '@media (max-width:560px){.bar{flex-wrap:wrap;justify-content:flex-end;row-gap:6px;border-radius:18px}}' +
     '</style>' +
-    '<div class="bar"><span class="who"></span><button class="pri" id="dl" type="button">Download</button><button id="upb" type="button" hidden>Upload</button>' +
+    '<div class="bar"><span class="who"></span><button id="fsb" type="button" hidden>Full screen</button><button class="pri" id="dl" type="button">Download</button><button id="upb" type="button" hidden>Upload</button>' +
     (ADM ? '<button id="mu" type="button">Manage users</button>' : '') +
     '<button id="so" type="button">Sign out</button></div>' +
     '<div class="scrim" id="scrim" hidden><div class="dlg" role="dialog" aria-modal="true" aria-labelledby="dh">' +
@@ -97,7 +99,61 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
     '</div></div>';
   var $ = function (id) { return root.querySelector("#" + id); };
   root.querySelector(".who").textContent = N;
-  function signOut() { try { FA.clearSession(); } catch (e) {} location.href = B || "./"; }
+  // 3. site-wide full screen. Browsers leave full screen whenever a page changes, so full screen
+  //    shows the site inside one frame (#fa-fs) and pages change inside that frame instead.
+  var shell = null;
+  try { if (window.parent !== window && window.parent.document.getElementById("fa-fs")) shell = window.parent; } catch (e) {}
+  var topWin = shell || window;
+  function fsEnter() {
+    if (document.getElementById("fa-fs")) return;
+    var box = document.createElement("div"), f = document.createElement("iframe");
+    box.id = "fa-fs";
+    box.setAttribute("style", "position:fixed;inset:0;z-index:2147483647;background:#0B1A30");
+    f.setAttribute("allow", "fullscreen");
+    f.setAttribute("title", document.title);
+    f.setAttribute("style", "border:0;width:100%;height:100%;display:block;background:#fff");
+    f.src = location.href;
+    f.onload = function () { try { f.contentWindow.focus(); } catch (e) {} };
+    box.appendChild(f); document.body.appendChild(box);
+    function done() {
+      if (document.fullscreenElement === box) return;
+      document.removeEventListener("fullscreenchange", done);
+      var href = null; try { href = f.contentWindow.location.href; } catch (e) {}
+      box.remove();
+      // leaving full screen: stay on the page that was open in it
+      if (href && href !== "about:blank" && href.split("#")[0] !== location.href.split("#")[0]) location.href = href;
+    }
+    document.addEventListener("fullscreenchange", done);
+    try {
+      var p = box.requestFullscreen();
+      if (p && p.catch) p.catch(function () { document.removeEventListener("fullscreenchange", done); box.remove(); });
+    } catch (e) { document.removeEventListener("fullscreenchange", done); box.remove(); }
+  }
+  function fsToggle() {
+    if (shell) { try { shell.document.exitFullscreen(); } catch (e) {} return; }
+    if (document.fullscreenElement) { document.exitFullscreen().catch(function () {}); return; }
+    fsEnter();
+  }
+  if (shell || document.fullscreenEnabled) {
+    $("fsb").hidden = false;
+    if (shell) $("fsb").textContent = "Exit full screen";
+    $("fsb").onclick = fsToggle;
+    // pages with their own full-screen button (#fs, e.g. the Overview) use the site-wide one
+    document.addEventListener("click", function (e) {
+      var b = e.target && e.target.closest && e.target.closest("#fs");
+      if (!b) return;
+      e.preventDefault(); e.stopImmediatePropagation(); fsToggle();
+    }, true);
+  }
+  // inside the full-screen frame, links to other websites open in a new tab (many sites refuse to load in a frame)
+  if (shell) document.addEventListener("click", function (e) {
+    var a = e.target && e.target.closest && e.target.closest("a[href]");
+    if (!a || a.target || a.hasAttribute("download")) return;
+    var u; try { u = new URL(a.getAttribute("href"), location.href); } catch (x) { return; }
+    if ((u.protocol === "http:" || u.protocol === "https:") && u.origin !== location.origin) a.target = "_blank";
+  }, true);
+
+  function signOut() { try { FA.clearSession(); } catch (e) {} topWin.location.href = new URL(B || "./", location.href).href; }
   $("so").onclick = signOut;
   if (ADM) $("mu").onclick = function () { location.href = B + "admin/"; };
 
