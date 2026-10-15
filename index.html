@@ -29,7 +29,7 @@ h1,h2,h3{letter-spacing:-.015em;line-height:1.2}
 main .wrap{padding-top:64px;padding-bottom:80px}
 h2{font-size:32px;font-weight:700;margin:8px 0 10px}
 .sub{color:var(--ink2);font-size:17px;max-width:640px;margin-bottom:32px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-flow:dense;gap:18px}
 .card{border:1px solid var(--line);border-radius:16px;background:#fff;display:flex;flex-direction:column;overflow:hidden;position:relative}
 .card:before{content:"";position:absolute;left:0;top:0;right:0;height:4px;background:var(--line)}
 .card.live.g:before{background:var(--green)} .card.live.b:before{background:var(--blue)}
@@ -93,6 +93,16 @@ h2{font-size:32px;font-weight:700;margin:8px 0 10px}
       <span class="open">Open solution →</span>
     </a>
     <div class="extra"><a class="dl" href="power-plant-ai/power-plant-ai-use-case-catalogue.pdf">Use-case catalogue (PDF) ↓</a></div>
+  </article>
+  <article class="card live b">
+    <a class="main" href="steel-ai-use-case-map/">
+      <div class="top"><span class="sec">Metals</span><span class="pill on">Live</span></div>
+      <h3>Steel AI Use Case Map</h3>
+      <p>70 AI use cases across every section of a steel plant, from mining and iron making to rolling, finishing and utilities, with indicative value per MTPA.</p>
+      <div class="tags"><span>10 plant sections</span><span>70 use cases</span><span>28 Computer Vision</span></div>
+      <span class="open">Open solution →</span>
+    </a>
+    
   </article>
   <article class="card soon g" aria-disabled="true">
     <div class="main">

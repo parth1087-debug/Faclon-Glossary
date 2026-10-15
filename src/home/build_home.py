@@ -29,6 +29,17 @@ SOLUTIONS = [
         "links": [("Use-case catalogue (PDF)", "power-plant-ai-use-case-catalogue.pdf")],
     },
     {
+        "slug": "steel-ai-use-case-map",
+        "name": "Steel AI Use Case Map",
+        "sector": "Metals",
+        "accent": "blue",
+        "live": True,
+        "blurb": "70 AI use cases across every section of a steel plant, from mining and iron making to "
+                 "rolling, finishing and utilities, with indicative value per MTPA.",
+        "tags": ["10 plant sections", "70 use cases", "28 Computer Vision"],
+        "links": [],
+    },
+    {
         "slug": "metals-ai",
         "name": "Metals AI",
         "sector": "Metals",
@@ -150,7 +161,7 @@ h1,h2,h3{{letter-spacing:-.015em;line-height:1.2}}
 main .wrap{{padding-top:64px;padding-bottom:80px}}
 h2{{font-size:32px;font-weight:700;margin:8px 0 10px}}
 .sub{{color:var(--ink2);font-size:17px;max-width:640px;margin-bottom:32px}}
-.grid{{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}}
+.grid{{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-flow:dense;gap:18px}}
 .card{{border:1px solid var(--line);border-radius:16px;background:#fff;display:flex;flex-direction:column;overflow:hidden;position:relative}}
 .card:before{{content:"";position:absolute;left:0;top:0;right:0;height:4px;background:var(--line)}}
 .card.live.g:before{{background:var(--green)}} .card.live.b:before{{background:var(--blue)}}
