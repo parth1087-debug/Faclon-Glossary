@@ -62,6 +62,23 @@ main{padding:24px 0 80px}
 .superrow.on{border-color:#BFE3D2;background:var(--greenBg)}
 .sols.off{opacity:.45;pointer-events:none}
 .user .acts{display:flex;gap:6px;flex:none}
+.chip.off{background:var(--bg);color:var(--mute);text-decoration:line-through}
+.polbox{margin-bottom:30px}
+.pol{border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.pol.busy{opacity:.6;pointer-events:none}
+.prow{display:flex;align-items:center;gap:18px;padding:11px 16px;border-top:1px solid var(--line)}
+.prow:first-child{border-top:0}
+.prow .pt{flex:1;font-size:14px;font-weight:500;min-width:0}
+.prow.dim .pt{color:var(--mute)}
+.sw{display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;font-weight:600;color:var(--ink2);flex:none}
+.sw input{position:absolute;opacity:0;width:1px;height:1px}
+.sw .tr{width:34px;height:20px;border-radius:999px;background:#C9D2DF;position:relative;transition:background .15s}
+.sw .tr:after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.2);transition:transform .15s}
+.sw input:checked+.tr{background:var(--green)}
+.sw input:checked+.tr:after{transform:translateX(14px)}
+.sw input:focus-visible+.tr{outline:2px solid var(--blue);outline-offset:2px}
+.sw input:disabled+.tr{opacity:.45}
+.sw input:disabled~.sl{color:var(--mute)}
 .empty{border:1px dashed #C9D2DF;border-radius:12px;padding:28px;text-align:center;color:var(--mute);font-size:14px}
 
 /* editor */
@@ -91,6 +108,8 @@ main{padding:24px 0 80px}
 .toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--navy);color:#fff;font-size:14px;padding:10px 16px;border-radius:10px;z-index:30;max-width:calc(100vw - 32px)}
 
 @media (max-width:640px){
+  .prow{flex-wrap:wrap;gap:10px 18px}
+  .prow .pt{flex-basis:100%}
   .grid,.sols{grid-template-columns:1fr}
   .user{flex-direction:column}
   .top .wrap{flex-direction:column;align-items:flex-start}
@@ -145,6 +164,11 @@ main{padding:24px 0 80px}
         <div class="err" id="eerr" role="alert" style="margin-top:10px"></div>
         <div class="formacts"><button id="esave" type="submit">Save user</button><button class="sec" id="ecancel" type="button">Cancel</button></div>
       </form>
+    </section>
+
+    <section class="polbox">
+      <div class="head" style="margin-bottom:8px"><div><h2>Solution access</h2><p class="hint">Global switches that apply to every user. <b>Read</b> off: nobody can open or download that solution. <b>Download</b> off: people can still view it but can't download it as PDF or HTML. Users keep their assignments, so switching back on restores access. Admin always sees everything.</p></div></div>
+      <div class="pol" id="pol"></div>
     </section>
 
     <div class="head">
@@ -210,13 +234,36 @@ async function unlock(m){
   render();
 }
 
+function allSlugs(){return ["home"].concat((U.solutions||[]).map(function(x){return x.slug}))}
+function pol(slug){var p=(U.policy||{})[slug]||{};return {read:p.read!==false,download:p.download!==false}}
+function renderPolicy(){
+  var rows=(U.solutions||[]).slice().sort(function(a,b){return a.title.localeCompare(b.title)});
+  $("pol").innerHTML=rows.map(function(x){var p=pol(x.slug);
+    return '<div class="prow'+(p.read?'':' dim')+'"><span class="pt">'+esc(x.title)+'</span>'+
+      '<label class="sw"><input type="checkbox" data-pol="read" data-slug="'+esc(x.slug)+'"'+(p.read?' checked':'')+'><span class="tr"></span><span class="sl">Read</span></label>'+
+      '<label class="sw"><input type="checkbox" data-pol="download" data-slug="'+esc(x.slug)+'"'+(p.read&&p.download?' checked':'')+(p.read?'':' disabled')+'><span class="tr"></span><span class="sl">Download</span></label></div>'}).join("");
+}
+async function setPolicy(slug,field,on){
+  U.policy=U.policy||{};var p=pol(slug);p[field]=on;
+  if(p.read&&p.download)delete U.policy[slug];else U.policy[slug]={read:p.read,download:p.download};
+  $("pol").classList.add("busy");
+  try{
+    await FA.syncVault(U,master,allSlugs());
+    for(var i=0;i<U.users.length;i++){var e=U.users[i],m=metas[e.id];if(!m||!m.uk)continue;
+      var kr=await FA.encrypt(FA.u8(m.uk),JSON.stringify(await FA.buildRing(U,master,m)));e.iv=kr.iv;e.kr=kr.ct}
+    dirty++;render();
+    toast((field==="read"?"Read":"Download")+" switched "+(on?"on":"off")+" for "+title(slug)+". Publish to apply it.");
+  }catch(x){toast("Couldn't update access: "+x.message,6000)}
+  finally{$("pol").classList.remove("busy")}
+}
 function title(slug){var s=(U.solutions||[]).filter(function(x){return x.slug===slug})[0];return s?s.title:slug}
 function render(){
+  renderPolicy();
   var l=$("list");
   var rows=U.users.slice().sort(function(a,b){return (metas[a.id].name||"").localeCompare(metas[b.id].name||"")});
   if(!rows.length){l.innerHTML='<div class="empty">No users yet. Add one to share selected solutions with a customer or partner.</div>'}
   else l.innerHTML=rows.map(function(e){var m=metas[e.id];
-    var chips=m.all?'<span class="chip super">Super user · all solutions, incl. future</span>':(m.pages||[]).filter(function(p){return p!=="home"}).map(function(p){return '<span class="chip">'+esc(title(p))+'</span>'}).join("")||'<span class="chip none">Landing page only</span>';
+    var chips=m.all?'<span class="chip super">Super user · all solutions, incl. future</span>':(m.pages||[]).filter(function(p){return p!=="home"}).map(function(p){var off=!FA.canRead(U,p);return '<span class="chip'+(off?' off':'')+'"'+(off?' title="Read is switched off for this solution"':'')+'>'+esc(title(p))+(off?' · off':'')+'</span>'}).join("")||'<span class="chip none">Landing page only</span>';
     return '<div class="user"><div class="who"><b>'+esc(m.name)+'</b><span>'+esc(m.username)+'</span><div class="chips">'+chips+'</div></div>'+
       '<div class="acts"><button class="sec small" data-edit="'+e.id+'" type="button">Edit</button><button class="danger small" data-del="'+e.id+'" type="button">Remove</button></div></div>'}).join("");
   var b=$("bar");b.classList.toggle("dirty",dirty>0);
@@ -257,15 +304,10 @@ async function saveUser(ev){
     var s,uk;
     if(pw){s=crypto.getRandomValues(new Uint8Array(16));uk=await FA.pbkdf2(pw,s,U.iter);s=FA.b64(s)}
     else{s=old.s;uk=FA.u8(m.uk)}
-    var ring={n:name,p:{}},all=["home"].concat(pages);
-    for(var i=0;i<all.length;i++)ring.p[all[i]]=FA.b64(await FA.pageKey(master,all[i]));
-    if(isSuper){
-      ring.all=1;ring.a=FA.b64(await FA.allKey(master));
-      await FA.fillVault(U,master,["home"].concat((U.solutions||[]).map(function(x){return x.slug})));
-    }
-    var kr=await FA.encrypt(uk,JSON.stringify(ring));
     var now=new Date().toISOString();
     var meta={name:name,username:username,pages:pages,all:isSuper,uk:FA.b64(uk),created:m?m.created:now,updated:now};
+    if(isSuper)await FA.syncVault(U,master,allSlugs());
+    var kr=await FA.encrypt(uk,JSON.stringify(await FA.buildRing(U,master,meta)));
     var me=await FA.encrypt(adminKey,JSON.stringify(meta));
     var entry={id:id,s:s,iv:kr.iv,kr:kr.ct,miv:me.iv,meta:me.ct};
     if(old)U.users[U.users.indexOf(old)]=entry;else U.users.push(entry);
@@ -328,6 +370,7 @@ $("ecancel").onclick=closeEditor;
 $("gen").onclick=function(){$("ePw").value=genPw()};
 $("all").onclick=function(){var b=$("sols").querySelectorAll("input"),on=Array.prototype.some.call(b,function(i){return !i.checked});b.forEach(function(i){i.checked=on})};
 $("ef").addEventListener("submit",saveUser);
+$("pol").addEventListener("change",function(e){var t=e.target;if(t.dataset.pol)setPolicy(t.dataset.slug,t.dataset.pol,t.checked)});
 $("eSuper").onchange=function(){setSuper(this.checked)};
 $("list").addEventListener("click",function(e){var t=e.target;if(t.dataset.edit)openEditor(t.dataset.edit);if(t.dataset.del)removeUser(t.dataset.del)});
 $("publish").onclick=publish;

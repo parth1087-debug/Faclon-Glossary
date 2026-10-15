@@ -3,12 +3,26 @@
    - adds the signed-in bar: name, Download, Manage users (admin), Sign out
    - Download dialog: this page as one continuous PDF, or an offline HTML file of chosen solutions
    Args: A = allowed slugs (null = all), N = display name, ADM = admin?, B = relative path to site root,
-         SOL = [{slug,title}] every solution, SLUG = this page's slug ("home" for the landing page). */
-function FTOOLS(A, N, ADM, B, SOL, SLUG) {
+         SOL = [{slug,title}] every solution, SLUG = this page's slug ("home" for the landing page),
+         DL = slugs this user may download (null = all), POL = global {slug:{read,download}} switches. */
+function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
   var slugs = SOL.map(function (s) { return s.slug; });
   var base = new URL(B, location.href).pathname;
   var siteURL = new URL(B || "./", location.href).href;
-  var mine = SOL.filter(function (s) { return !A || A.indexOf(s.slug) >= 0; });
+  POL = POL || {};
+  var mine = SOL.filter(function (s) { return (!A || A.indexOf(s.slug) >= 0) && (!DL || DL.indexOf(s.slug) >= 0); });
+
+  // admin preview: label solutions whose global switches are off
+  if (ADM) document.querySelectorAll("article.card a.main[href]").forEach(function (a) {
+    var u; try { u = new URL(a.getAttribute("href"), location.href); } catch (e) { return; }
+    var seg = u.pathname.slice(base.length).split("/")[0], p = POL[seg];
+    if (!p || (p.read !== false && p.download !== false)) return;
+    var t = document.createElement("span");
+    t.textContent = p.read === false ? "Hidden from users" : "Download off";
+    t.setAttribute("style", "display:inline-block;margin:0 0 8px;font:600 11px Inter,system-ui,sans-serif;letter-spacing:.04em;padding:3px 8px;border-radius:999px;" +
+      (p.read === false ? "background:#FCECEA;color:#C0392B" : "background:#FDF3E1;color:#B7791F"));
+    a.insertBefore(t, a.firstChild);
+  });
 
   // 1. hide what this user can't open
   if (A) document.querySelectorAll("a[href]").forEach(function (a) {
@@ -70,7 +84,7 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG) {
   $("sols").innerHTML = mine.map(function (s) {
     return '<label><input type="checkbox" value="' + esc(s.slug) + '"' + (s.slug === SLUG ? " checked" : "") + '>' + esc(s.title) + '</label>';
   }).join("") || '<p>No solutions are shared with you yet.</p>';
-  if (!mine.length) $("html").disabled = true;
+  if (!mine.length) $("dl").hidden = true;
   $("pdfSec").hidden = SLUG === "home" || mine.every(function (s) { return s.slug !== SLUG; });
   $("dl").onclick = function () { $("scrim").hidden = false; $("pst").textContent = ""; $("hst").textContent = ""; };
   $("close").onclick = function () { $("scrim").hidden = true; };
@@ -103,7 +117,8 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG) {
   $("pdf").onclick = async function () {
     var b = this, st = $("pst"); b.disabled = true; st.className = "st"; st.textContent = "Preparing PDF…";
     try {
-      var acc = await access(), k = await acc.key(SLUG);
+      var acc = await access(), k = await acc.dkey(SLUG);
+      if (!k) throw new Error("downloads are switched off for this solution");
       var r = await fetch(B + SLUG + "/page-pdf.bin?t=" + Date.now(), { cache: "no-store" });
       if (!r.ok) throw new Error("the PDF isn't available yet");
       var all = new Uint8Array(await r.arrayBuffer());
