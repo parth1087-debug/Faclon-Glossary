@@ -83,7 +83,7 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
     '<div class="row" style="justify-content:flex-end"><button id="close" type="button">Close</button></div>' +
     '</div></div>' +
     '<div class="scrim" id="uscrim" hidden><div class="dlg" role="dialog" aria-modal="true" aria-labelledby="uh">' +
-    '<h2 id="uh">Upload a solution page</h2><p>Add a self-contained HTML page (styles and images inside the file). It goes live straight away for admin, super users and contributors; the admin can share it with other users.</p>' +
+    '<h2 id="uh">Upload a solution page</h2><p>Add a self-contained HTML page (styles and images inside the file). It goes live straight away for admin, super users and contributors; the admin can share it with other users. Building one? Follow the <a href="' + B + 'designskill.md" download="designskill.md" style="color:#3D63F5;font-weight:600">design guide</a> so it matches the site.</p>' +
     '<label class="drop" id="drop"><input type="file" id="uf" accept=".html,.htm,text/html"><span id="ufl"><b>Choose an HTML file</b> or drop it here</span></label>' +
     '<span class="fl">Title</span><input class="in" id="ut" maxlength="80" placeholder="e.g. Cooling Tower Optimisation">' +
     '<span class="fl">Category <em>(optional)</em></span><input class="in" id="uc" maxlength="40" placeholder="e.g. Power, Metals, Utilities">' +
