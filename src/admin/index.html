@@ -61,6 +61,15 @@ main{padding:24px 0 80px}
 .superrow b{font-size:14px;display:block}
 .superrow.on{border-color:#BFE3D2;background:var(--greenBg)}
 .sols.off{opacity:.45;pointer-events:none}
+.rights{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+.right{display:flex;align-items:flex-start;gap:12px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 14px;cursor:pointer}
+.right input{width:16px;height:16px;accent-color:var(--blue);flex:none;margin-top:3px}
+.right b{font-size:14px;display:block}
+.chip.role{background:#FDF3E1;color:var(--amber);font-weight:600}
+.chip.nodl{background:var(--bg);color:var(--mute)}
+.cbox{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-top:12px}
+.cbox .ok{color:var(--green);font-weight:600}.cbox .no{color:var(--amber);font-weight:600}
+.upl{font-size:12px;color:var(--mute);font-weight:500;margin-left:6px}
 .user .acts{display:flex;gap:6px;flex:none}
 .chip.off{background:var(--bg);color:var(--mute);text-decoration:line-through}
 .polbox{margin-bottom:30px}
@@ -108,6 +117,7 @@ main{padding:24px 0 80px}
 .toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--navy);color:#fff;font-size:14px;padding:10px 16px;border-radius:10px;z-index:30;max-width:calc(100vw - 32px)}
 
 @media (max-width:640px){
+  .rights{grid-template-columns:1fr}
   .prow{flex-wrap:wrap;gap:10px 18px}
   .prow .pt{flex-basis:100%}
   .grid,.sols{grid-template-columns:1fr}
@@ -158,6 +168,10 @@ main{padding:24px 0 80px}
           <div class="pwrow"><input id="ePw" type="text" spellcheck="false" autocapitalize="none"><button class="sec" id="gen" type="button">Generate</button></div>
           <div class="hint" id="ePwHint" hidden>Leave blank to keep their current password.</div>
         </div>
+        <div class="rights">
+          <label class="right"><input type="checkbox" id="eDl" checked><span><b>Can download</b><span class="hint">Can save solutions as PDF or an offline HTML file.</span></span></label>
+          <label class="right"><input type="checkbox" id="eContrib"><span><b>Contributor</b><span class="hint">Can upload their own HTML as a new solution page. It goes live right away for admin, super users and contributors.</span></span></label>
+        </div>
         <label class="superrow" id="superRow"><input type="checkbox" id="eSuper"><span><b>Super user</b><span class="hint">Sees every solution page, including any added in future. No need to tick pages one by one.</span></span></label>
         <div class="solhead"><label class="f" style="margin:0">Solutions they can see</label><button type="button" id="all">Select all</button></div>
         <div class="sols" id="sols"></div>
@@ -169,6 +183,7 @@ main{padding:24px 0 80px}
     <section class="polbox">
       <div class="head" style="margin-bottom:8px"><div><h2>Solution access</h2><p class="hint">Global switches that apply to every user. <b>Read</b> off: nobody can open or download that solution. <b>Download</b> off: people can still view it but can't download it as PDF or HTML. Users keep their assignments, so switching back on restores access. Admin always sees everything.</p></div></div>
       <div class="pol" id="pol"></div>
+      <div class="cbox"><div><b>Contributor GitHub access</b><p class="hint" id="cstat"></p></div><button class="sec small" id="cset" type="button">Set access token</button></div>
     </section>
 
     <div class="head">
@@ -236,10 +251,16 @@ async function unlock(m){
 
 function allSlugs(){return ["home"].concat((U.solutions||[]).map(function(x){return x.slug}))}
 function pol(slug){var p=(U.policy||{})[slug]||{};return {read:p.read!==false,download:p.download!==false}}
+function renderContrib(){
+  var c=U.contrib&&U.contrib.tok;
+  $("cstat").innerHTML=c?'<span class="ok">Set</span> · contributors publish uploads with this token'+(U.contrib.set?' (since '+esc(U.contrib.set.slice(0,10))+')':'')+'.':'<span class="no">Not set</span> · contributors can\'t upload until you add a token (same steps as the GitHub connection: Contents read and write on Faclon-Glossary). Anyone with contributor rights can use it.';
+  $("cset").textContent=c?"Replace token":"Set access token";
+}
 function renderPolicy(){
+  renderContrib();
   var rows=(U.solutions||[]).slice().sort(function(a,b){return a.title.localeCompare(b.title)});
   $("pol").innerHTML=rows.map(function(x){var p=pol(x.slug);
-    return '<div class="prow'+(p.read?'':' dim')+'"><span class="pt">'+esc(x.title)+'</span>'+
+    return '<div class="prow'+(p.read?'':' dim')+'"><span class="pt">'+esc(x.title)+((U.uploads||{})[x.slug]?'<span class="upl">Uploaded</span>':'')+'</span>'+
       '<label class="sw"><input type="checkbox" data-pol="read" data-slug="'+esc(x.slug)+'"'+(p.read?' checked':'')+'><span class="tr"></span><span class="sl">Read</span></label>'+
       '<label class="sw"><input type="checkbox" data-pol="download" data-slug="'+esc(x.slug)+'"'+(p.read&&p.download?' checked':'')+(p.read?'':' disabled')+'><span class="tr"></span><span class="sl">Download</span></label></div>'}).join("");
 }
@@ -263,7 +284,8 @@ function render(){
   var rows=U.users.slice().sort(function(a,b){return (metas[a.id].name||"").localeCompare(metas[b.id].name||"")});
   if(!rows.length){l.innerHTML='<div class="empty">No users yet. Add one to share selected solutions with a customer or partner.</div>'}
   else l.innerHTML=rows.map(function(e){var m=metas[e.id];
-    var chips=m.all?'<span class="chip super">Super user · all solutions, incl. future</span>':(m.pages||[]).filter(function(p){return p!=="home"}).map(function(p){var off=!FA.canRead(U,p);return '<span class="chip'+(off?' off':'')+'"'+(off?' title="Read is switched off for this solution"':'')+'>'+esc(title(p))+(off?' · off':'')+'</span>'}).join("")||'<span class="chip none">Landing page only</span>';
+    var roles=(m.contrib?'<span class="chip role">Contributor</span>':'')+(m.download===false?'<span class="chip nodl">No downloads</span>':'');
+    var chips=roles+(m.all?'<span class="chip super">Super user · all solutions, incl. future</span>':(m.pages||[]).filter(function(p){return p!=="home"}).map(function(p){var off=!FA.canRead(U,p);return '<span class="chip'+(off?' off':'')+'"'+(off?' title="Read is switched off for this solution"':'')+'>'+esc(title(p))+(off?' · off':'')+'</span>'}).join("")||'<span class="chip none">Landing page only</span>');
     return '<div class="user"><div class="who"><b>'+esc(m.name)+'</b><span>'+esc(m.username)+'</span><div class="chips">'+chips+'</div></div>'+
       '<div class="acts"><button class="sec small" data-edit="'+e.id+'" type="button">Edit</button><button class="danger small" data-del="'+e.id+'" type="button">Remove</button></div></div>'}).join("");
   var b=$("bar");b.classList.toggle("dirty",dirty>0);
@@ -280,7 +302,7 @@ function openEditor(id){
   $("edTitle").textContent=m?"Edit "+m.name:"Add user";
   $("eName").value=m?m.name:"";$("eUser").value=m?m.username:"";$("eUser").readOnly=!!m;
   $("ePw").value=m?"":genPw();$("ePw").required=!m;$("ePwHint").hidden=!m;$("ePwLabel").textContent=m?"New password (optional)":"Password";
-  solChecklist(m?m.pages:[]);setSuper(!!(m&&m.all));$("eerr").textContent="";$("share").hidden=true;
+  solChecklist(m?m.pages:[]);setSuper(!!(m&&m.all));$("eDl").checked=!m||m.download!==false;$("eContrib").checked=!!(m&&m.contrib);$("eerr").textContent="";$("share").hidden=true;
   $("editor").hidden=false;$("eName").focus();$("editor").scrollIntoView({behavior:"smooth",block:"start"});
 }
 function setSuper(on){$("eSuper").checked=on;$("superRow").classList.toggle("on",on);$("sols").classList.toggle("off",on);$("all").hidden=on}
@@ -305,7 +327,7 @@ async function saveUser(ev){
     if(pw){s=crypto.getRandomValues(new Uint8Array(16));uk=await FA.pbkdf2(pw,s,U.iter);s=FA.b64(s)}
     else{s=old.s;uk=FA.u8(m.uk)}
     var now=new Date().toISOString();
-    var meta={name:name,username:username,pages:pages,all:isSuper,uk:FA.b64(uk),created:m?m.created:now,updated:now};
+    var meta={name:name,username:username,pages:pages,all:isSuper,download:$("eDl").checked,contrib:$("eContrib").checked,uk:FA.b64(uk),created:m?m.created:now,updated:now};
     if(isSuper)await FA.syncVault(U,master,allSlugs());
     var kr=await FA.encrypt(uk,JSON.stringify(await FA.buildRing(U,master,meta)));
     var me=await FA.encrypt(adminKey,JSON.stringify(meta));
@@ -327,6 +349,16 @@ function removeUser(id){
   U.users=U.users.filter(function(e){return e.id!==id});delete metas[id];dirty++;render();
 }
 
+async function mergeFresh(F){
+  var fu=F.uploads||{},added=[];U.uploads=U.uploads||{};
+  for(var slug in fu){if(U.uploads[slug])continue;
+    U.uploads[slug]=fu[slug];added.push(slug);
+    var sol=(F.solutions||[]).filter(function(x){return x.slug===slug})[0];
+    if(sol&&!(U.solutions||[]).some(function(x){return x.slug===slug}))(U.solutions=U.solutions||[]).push(sol);
+    if(F.vault&&F.vault[slug]&&FA.canRead(U,slug)){U.vault=U.vault||{};U.vault[slug]=F.vault[slug]}
+  }
+  if(added.length)render();
+}
 function serialized(){return JSON.stringify(U,null,1)+"\n"}
 function download(){var a=document.createElement("a");a.href=URL.createObjectURL(new Blob([serialized()],{type:"application/json"}));a.download="users.json";a.click();
   toast("Downloaded. Upload it to the root of the Faclon-Glossary repo on GitHub, replacing users.json.",6000)}
@@ -335,7 +367,10 @@ async function publish(){
   if(!token()){openTok();return}
   var b=$("publish");b.disabled=true;b.textContent="Publishing…";
   try{
-    if(!sha){var g=await api("/contents/"+PATH+"?ref="+BRANCH+"&t="+Date.now(),{cache:"no-store"});if(g.status===401||g.status===403)throw new Error("auth");if(g.ok)sha=(await g.json()).sha}
+    // merge in anything contributors published since this page loaded, so their uploads aren't lost
+    var g=await api("/contents/"+PATH+"?ref="+BRANCH+"&t="+Date.now(),{cache:"no-store"});
+    if(g.status===401||g.status===403)throw new Error("auth");
+    if(g.ok){var gj=await g.json();sha=gj.sha;await mergeFresh(JSON.parse(decodeB64Utf8(gj.content)))}
     var body={message:"Update users ("+dirty+" change"+(dirty>1?"s":"")+") via User Manager",content:FA.b64(new TextEncoder().encode(serialized())),branch:BRANCH};
     if(sha)body.sha=sha;
     var r=await api("/contents/"+PATH,{method:"PUT",body:JSON.stringify(body),headers:{"Content-Type":"application/json"}});
@@ -372,6 +407,13 @@ $("all").onclick=function(){var b=$("sols").querySelectorAll("input"),on=Array.p
 $("ef").addEventListener("submit",saveUser);
 $("pol").addEventListener("change",function(e){var t=e.target;if(t.dataset.pol)setPolicy(t.dataset.slug,t.dataset.pol,t.checked)});
 $("eSuper").onchange=function(){setSuper(this.checked)};
+$("cset").onclick=async function(){
+  var v=prompt("Paste a fine-grained GitHub token for contributors (Contents: Read and write on Faclon-Glossary only). It is stored encrypted so only contributors and admin can use it. Leave empty to remove it.");
+  if(v===null)return;v=v.trim();
+  if(!v){if(U.contrib){delete U.contrib;dirty++;render();toast("Contributor access removed. Publish to apply it.")}return}
+  var C=await FA.contribKey(master);U.contrib={tok:await FA.encrypt(C,v),set:new Date().toISOString()};dirty++;render();
+  toast("Contributor access set. Publish to apply it.");
+};
 $("list").addEventListener("click",function(e){var t=e.target;if(t.dataset.edit)openEditor(t.dataset.edit);if(t.dataset.del)removeUser(t.dataset.del)});
 $("publish").onclick=publish;
 $("discard").onclick=function(){if(confirm("Discard your unpublished changes?"))location.reload()};

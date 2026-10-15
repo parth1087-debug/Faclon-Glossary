@@ -96,10 +96,17 @@ def field(html, name):
     return m.group(1) if m else None
 
 
-def plaintext(html, slug, master):
+def key_for(users, master, slug):
+    """Page key: contributor uploads derive from the contrib key, everything else from the master key."""
+    if slug in (users.get("uploads") or {}):
+        return mac(mac(master, "contrib"), "page:" + slug)
+    return mac(master, "page:" + slug)
+
+
+def plaintext(html, slug, master, users=None):
     """Returns the page's readable HTML, decrypting older protected versions."""
     if MARKER in html:
-        key = mac(master, "page:" + slug)
+        key = key_for(users or {}, master, slug)
     elif MARKER_V1 in html:
         key = master  # first version used one site-wide key
     else:
@@ -180,7 +187,20 @@ function show(html){function go(){document.open();document.write(html);document.
 async function open(U,acc){
   var k=await acc.key(D.slug);
   if(!k){gate.hidden=true;$("who").textContent=acc.name;if(!FA.canRead(U,D.slug)){$("nah").textContent="This solution isn't available right now";$("nap").textContent="It has been switched off for all users. Ask your Faclon contact if you need it."}$("home").href=D.base||"./";noacc.hidden=false;return}
-  show(after(await FA.decrypt(k,D.iv,D.ct),acc,U));
+  var html=await FA.decrypt(k,D.iv,D.ct);
+  show(after(D.up?sandboxed(html):html,acc,U));
+}
+/* Contributor uploads run in a sandboxed frame: their scripts can't reach the site's storage or logins. */
+function sandboxed(html){
+  var dir=location.href.split("#")[0].split("?")[0].replace(/[^\/]*$/,"");
+  var baseTag='<base href="'+dir+'" target="_top">';
+  var src=/<head[^>]*>/i.test(html)?html.replace(/<head[^>]*>/i,function(m){return m+baseTag}):baseTag+html;
+  var t=(html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)||[])[1]||"Faclon Labs";
+  var attr=function(x){return String(x).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;")};
+  return '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex"><title>'+t+'</title>'+
+    '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">'+
+    '<style>html,body{margin:0;height:100%;overflow:hidden;background:#fff}iframe{border:0;width:100%;height:100%;display:block}</style></head><body>'+
+    '<iframe title="'+attr(t)+'" sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation allow-forms allow-modals allow-downloads" srcdoc="'+attr(src)+'"></iframe></body></html>';
 }
 $("out").onclick=function(){FA.clearSession();noacc.hidden=true;gate.hidden=false;gate.style.visibility="visible";$("u").focus()};
 var U;
@@ -199,9 +219,10 @@ $("f").addEventListener("submit",async function(e){
 """
 
 
-def gate_html(slug, base, iv, ct, core, gate_ver, content):
+def gate_html(slug, base, iv, ct, core, gate_ver, content, up=False):
     tools = json.dumps(TOOLS_JS.read_text(encoding="utf-8")).replace("</", "<\\/")
-    return (GATE.replace("__MARKER__", MARKER + f'\n<meta name="faclon-gate" content="{gate_ver}"><meta name="faclon-content" content="{content}">')
+    gate = GATE.replace('var D={slug:"__SLUG__"', 'var D={up:1,slug:"__SLUG__"') if up else GATE
+    return (gate.replace("__MARKER__", MARKER + f'\n<meta name="faclon-gate" content="{gate_ver}"><meta name="faclon-content" content="{content}">')
                 .replace("__TOOLS__", tools)
                 .replace("__AUTH_CORE__", core)
                 .replace("__SLUG__", slug)
@@ -243,7 +264,7 @@ def sync_box(old, all_key, wanted):
     return out
 
 
-def migrate_pdfs(targets, master, fresh):
+def migrate_pdfs(targets, master, fresh, users):
     """PDFs used to share the page key; re-lock older ones with their own pdf key."""
     for slug, path in targets:
         f = path.parent / PDF_NAME
@@ -254,7 +275,7 @@ def migrate_pdfs(targets, master, fresh):
             AESGCM(mac(master, "pdf:" + slug)).decrypt(data[:12], data[12:], None)
             continue
         except Exception:
-            pdf = AESGCM(mac(master, "page:" + slug)).decrypt(data[:12], data[12:], None)
+            pdf = AESGCM(key_for(users, master, slug)).decrypt(data[:12], data[12:], None)
         iv = secrets.token_bytes(12)
         f.write_bytes(iv + AESGCM(mac(master, "pdf:" + slug)).encrypt(iv, pdf, None))
         print("re-locked pdf", slug)
@@ -263,16 +284,36 @@ def migrate_pdfs(targets, master, fresh):
 def build_ring(users, master, m):
     """Mirror of FA.buildRing in auth_core.js."""
     ring = {"n": m["name"], "p": {"home": b64(mac(master, "page:home"))}, "d": {}}
+    dl = m.get("download", True) is not False
+    if m.get("contrib"):
+        ring["c"] = b64(mac(master, "contrib"))
     if m.get("all"):
         ring["all"] = 1
         ring["a"] = b64(mac(master, "all"))
+        if dl:
+            ring["da"] = b64(mac(master, "dall"))
         return ring
     for slug in m.get("pages") or []:
         if can_read(users, slug):
-            ring["p"][slug] = b64(mac(master, "page:" + slug))
-        if can_download(users, slug):
+            ring["p"][slug] = b64(key_for(users, master, slug))
+        if dl and can_download(users, slug):
             ring["d"][slug] = b64(mac(master, "pdf:" + slug))
     return ring
+
+
+def ensure_super_keypair(users, master):
+    """ECDH key pair contributors use to hand new uploads to super users (private half locked with the all key)."""
+    if users.get("spub") and users.get("spriv"):
+        return
+    from cryptography.hazmat.primitives.asymmetric import ec
+    from cryptography.hazmat.primitives import serialization as ser
+    priv = ec.generate_private_key(ec.SECP256R1())
+    der = priv.private_bytes(ser.Encoding.DER, ser.PrivateFormat.PKCS8, ser.NoEncryption())
+    pub = priv.public_key().public_bytes(ser.Encoding.X962, ser.PublicFormat.UncompressedPoint)
+    iv = secrets.token_bytes(12)
+    users["spub"] = b64(pub)
+    users["spriv"] = {"iv": b64(iv), "ct": b64(AESGCM(mac(master, "all")).encrypt(iv, b64(der).encode(), None))}
+    print("created the super-user key pair for contributor uploads")
 
 
 def upgrade_rings(users, master):
@@ -337,7 +378,7 @@ def main():
     solutions, need_pdf = [], []
     for slug, path in targets:
         raw = path.read_text(encoding="utf-8")
-        plain = plaintext(raw, slug, master)
+        plain = plaintext(raw, slug, master, users)
         content = hashlib.sha256(plain.encode("utf-8")).hexdigest()[:16]
         if slug != "home":
             solutions.append({"slug": slug, "title": title_of(plain)})
@@ -347,9 +388,9 @@ def main():
             print("already protected", path.relative_to(ROOT))
             continue
         iv = secrets.token_bytes(12)
-        ct = AESGCM(mac(master, "page:" + slug)).encrypt(iv, plain.encode("utf-8"), None)
+        ct = AESGCM(key_for(users, master, slug)).encrypt(iv, plain.encode("utf-8"), None)
         base = "" if slug == "home" else "../"
-        path.write_text(gate_html(slug, base, iv, ct, core, gate_ver, content), encoding="utf-8")
+        path.write_text(gate_html(slug, base, iv, ct, core, gate_ver, content, slug in (users.get("uploads") or {})), encoding="utf-8")
         print("protected", path.relative_to(ROOT))
 
     if need_pdf:
@@ -369,16 +410,17 @@ def main():
             r.close()
 
     users["solutions"] = solutions
-    migrate_pdfs(targets, master, [x[0] for x in need_pdf])
+    migrate_pdfs(targets, master, [x[0] for x in need_pdf], users)
     all_key = mac(master, "all")
     users["vault"] = sync_box(users.get("vault") or {}, all_key,
-                              {slug: mac(master, "page:" + slug) for slug, _ in targets if can_read(users, slug)})
-    users["dvault"] = sync_box(users.get("dvault") or {}, all_key,
+                              {slug: key_for(users, master, slug) for slug, _ in targets if can_read(users, slug)})
+    users["dvault"] = sync_box(users.get("dvault") or {}, mac(master, "dall"),
                                {slug: mac(master, "pdf:" + slug) for slug, _ in targets if can_download(users, slug)})
-    if users.get("version", 2) < 3:
+    ensure_super_keypair(users, master)
+    if users.get("version", 2) < 4:
         n = upgrade_rings(users, master)
-        users["version"] = 3
-        print(f"upgraded {n} user keyrings to separate read and download keys")
+        users["version"] = 4
+        print(f"upgraded {n} user keyrings (download and contributor rights)")
     USERS.write_text(json.dumps(users, indent=1) + "\n", encoding="utf-8")
     print("updated users.json solutions:", ", ".join(x["slug"] for x in solutions))
 
