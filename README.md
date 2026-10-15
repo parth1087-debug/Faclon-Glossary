@@ -33,7 +33,7 @@ python3 src/home/build_home.py                     # writes index.html
 python3 src/power-plant-ai/build_page.py           # writes power-plant-ai/index.html
 python3 src/steel-ai-use-case-map/build_page.py    # writes steel-ai-use-case-map/index.html (content in use_cases.json)
 python3 src/faclon-overview/build_page.py         # writes faclon-overview/index.html (content in content.json)
-python3 src/steam-trap-monitoring/build_page.py   # writes steam-trap-monitoring/index.html (content in content.json)
+python3 src/steam-trap-monitoring/build_page.py   # writes steam-trap-monitoring/index.html (content in content.json, diagrams in diagrams.py)
 python3 src/bus-bar-monitoring/build_page.py      # writes bus-bar-monitoring/index.html (content in content.json, photos in assets/)
 python3 src/energy-management/build_page.py       # writes energy-management/index.html (content in content.json, screenshots in assets/)
 python3 src/condition-based-monitoring/build_page.py  # writes condition-based-monitoring/index.html (content in content.json)
