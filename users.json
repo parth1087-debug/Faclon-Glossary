@@ -46,5 +46,43 @@
    "miv": "0s3opOSe0vLVae1n",
    "meta": "yLhz4YpzJdjAAjl6p0+MoOoyTddI8Ik3AscsJK7gtSyCXyRra4eBd6Jx7VUJGYrI5xEp7mJMFpaVGyBF6CrBplVMRGMV9PVKrz+BITNl7gtLzyrxt5F9069lT5O9QKo3NF64SCC35Pgf4/0gwO5Bz79ry+woxbE1Rq5/93xPeittX4oz4ml9YZStYq53Hcs9xcQ2ka6OzK51fIKHNXE5Na02wVPypLfWL/v9e7VNUNMbvRFqfAuQF6xUw9+OdPHxv+ismF7uXuD7UfQlJkC2ZQuReGuXoWAl6F4mafdGTjlVzMn8Mn3uZ7ZsyQ2XsKOCAo2S9Pcgm/bhyE/fbMZi78N7F6fVbV07LRnhnTzY/K28XbbUg9I6skw7spoimihbLWtSpgke1XomEi7+Vx591lF7Hy7YsPP9t1zlB4kSxWO9Y2Jekk2VXbqI9Jrs3rwF6qNubA=="
   }
- ]
+ ],
+ "vault": {
+  "home": {
+   "iv": "t9ZfQ7YU2Vokx7zt",
+   "ct": "ulBanmeGxUpbnU7PlIOIm/ryaBLiK51o/gMhMeAbBU37mlnRplr5Rr/6R546JrwEdo9R5g2qSwNPkbqy"
+  },
+  "bus-bar-monitoring": {
+   "iv": "iOcp0oiVoSa9BgOU",
+   "ct": "EFBA4QTz9RVLNRd92xeP597eY9eOVetfcETM5MYtfY/Miapw//n30/eV4HT9Q2RtSdlUdMvSyaV1UyNj"
+  },
+  "condition-based-monitoring": {
+   "iv": "GhRYO04MtQZs/ajA",
+   "ct": "gw0rStdRmqjCXp05XJpvi1fql7M2PucK8tAMDaaLzhLwkhhw2ZiujjnklkztPfbeLffQeXQC/htXA3Ue"
+  },
+  "energy-management": {
+   "iv": "+XKJA8A65z3AHMU6",
+   "ct": "k+WOCH4p9J7CVfol6bCWOKRa1ml6lTJ2/AENHsqWZflvhVRs6X22pP+hX6iSRIuNHfUuaIsUAq/bDJzI"
+  },
+  "faclon-overview": {
+   "iv": "xSXNUnAUMVKuB9sQ",
+   "ct": "HZY2Z7RezCM/GgBuNfCm7wZ4gmmv+AsuZP7RmztK8Gu3dhna1LMp4Y8/EtQclrx8qhTxnctjThqZQMeg"
+  },
+  "it-ot-integration": {
+   "iv": "qdL9ZnoF2eV7PKNw",
+   "ct": "oZJLq9vfWXtwUREX2LtK9uWE8QWDKOsySbjT+3aS3S12l5ClKYFTeWuG5g1IUcqy0fqLajUBvs5dfYo3"
+  },
+  "power-plant-ai": {
+   "iv": "87Qsj114xMeyVg9p",
+   "ct": "NPJ7x0nzOc1so/RRMboYpYtsc+wYuoFlX99zamoiwUvpbSVHJ1SYj7jmOa4mD8Gy0yiCGFppsYImRs5q"
+  },
+  "steam-trap-monitoring": {
+   "iv": "jzPX3sC3K52ymyoA",
+   "ct": "Uro/Q+uLaOidLNl4OccWo3OPBtO/VmLUN2rb/w1ltPFEqu2CdGlvqaYsnrG1mj2XCscxSpuxy0wCL8R2"
+  },
+  "steel-ai-use-case-map": {
+   "iv": "k4hKWN5Qm1/RHLfF",
+   "ct": "uHhNm0JOTiqm0ae8P+p93N2q62mHwz6rvn+NXC3sD0vde7EQYXvF5qsVSD+TCrr06P8UpxiMycp9xWED"
+  }
+ }
 }
