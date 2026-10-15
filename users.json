@@ -1,0 +1,37 @@
+{
+ "version": 2,
+ "salt": "dq0Q5yDZtalFOB8+eLYIgg==",
+ "iter": 250000,
+ "check": "ztJYwo06SigOUqQtz1NfOdNDwhOJ4YeYkLP2HV5Xo7E=",
+ "solutions": [
+  {
+   "slug": "bus-bar-monitoring",
+   "title": "Bus Bar Monitoring"
+  },
+  {
+   "slug": "condition-based-monitoring",
+   "title": "Condition Based Monitoring"
+  },
+  {
+   "slug": "energy-management",
+   "title": "Energy Management"
+  },
+  {
+   "slug": "faclon-overview",
+   "title": "Faclon Labs Overview"
+  },
+  {
+   "slug": "power-plant-ai",
+   "title": "Power Plant AI"
+  },
+  {
+   "slug": "steam-trap-monitoring",
+   "title": "Steam Trap Failure Detection"
+  },
+  {
+   "slug": "steel-ai-use-case-map",
+   "title": "Steel AI Use Case Map"
+  }
+ ],
+ "users": []
+}

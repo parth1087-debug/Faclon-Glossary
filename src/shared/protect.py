@@ -1,21 +1,34 @@
-"""Password-protects every generated page on the site.
+"""Password-protects every generated page and builds the User Manager.
 
 Run this after any build, before committing:
 
-    GLOSSARY_PASSWORD='...' python3 src/shared/protect.py
+    GLOSSARY_PASSWORD='<admin password>' python3 src/shared/protect.py
 
-Each page (index.html and <solution>/index.html) is encrypted with AES-256-GCM
-using a key derived from the password (PBKDF2-SHA256). The committed file is a
-small login screen plus the ciphertext; the browser decrypts it locally once the
-right password is entered. The derived key is remembered in the visitor's
-browser, so one login unlocks every page.
+How access works
+- Each page is encrypted (AES-256-GCM) with its own key. Page keys are derived
+  from the admin password, so only someone with that password can make them.
+- users.json (repo root, public) holds one entry per user: an encrypted
+  "keyring" with the keys for just the solutions that user may open, locked with
+  the user's own password. Visitors sign in with a username and password; the
+  landing page then shows only their solutions. Signing in as "admin" with the
+  admin password opens everything.
+- Users are created, edited and removed on /admin/ (the User Manager), which
+  writes users.json back to GitHub. This script never touches the user list; it
+  only refreshes the list of solutions the User Manager offers.
 
-The password is never written to the repo. Pages already protected are skipped,
-so it is safe to run repeatedly. Use --check to fail if any page is unprotected.
+The admin password is never written to the repo. Changing it changes every
+page key, so every user would have to be recreated.
+
+    python3 src/shared/protect.py --check   # fails if any page is unprotected
 """
 import base64
 import getpass
+import hashlib
+import hmac
+import html as htmllib
+import json
 import os
+import re
 import secrets
 import sys
 from pathlib import Path
@@ -25,16 +38,33 @@ from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 
 ROOT = Path(__file__).resolve().parents[2]
-SALT_FILE = Path(__file__).with_name("protect_salt.txt")
+HERE = Path(__file__).resolve().parent
+SALT_FILE = HERE / "protect_salt.txt"
+AUTH_CORE = HERE / "auth_core.js"
+ADMIN_SRC = ROOT / "src" / "admin" / "index.html"
+ADMIN_OUT = ROOT / "admin" / "index.html"
+USERS = ROOT / "users.json"
 ITERATIONS = 250_000
-MARKER = '<meta name="faclon-protected" content="1">'
-STORAGE_KEY = "faclon-glossary-key"
+MARKER = '<meta name="faclon-protected" content="2">'
+MARKER_V1 = '<meta name="faclon-protected" content="1">'
+SKIP_DIRS = {"src", "admin", ".git", ".github"}
+
+
+def b64(b):
+    return base64.b64encode(b).decode("ascii")
+
+
+def unb64(s):
+    return base64.b64decode(s)
 
 
 def pages():
-    out = [ROOT / "index.html"]
-    out += sorted(p for p in ROOT.glob("*/index.html") if p.parent.name not in ("src", ".git"))
-    return [p for p in out if p.exists()]
+    """(slug, path) for the landing page and every solution page."""
+    out = [("home", ROOT / "index.html")]
+    for p in sorted(ROOT.glob("*/index.html")):
+        if p.parent.name not in SKIP_DIRS:
+            out.append((p.parent.name, p))
+    return [(s, p) for s, p in out if p.exists()]
 
 
 def salt():
@@ -43,16 +73,38 @@ def salt():
     return bytes.fromhex(SALT_FILE.read_text().strip())
 
 
-def derive(password, s):
+def derive_master(password, s):
     kdf = PBKDF2HMAC(algorithm=hashes.SHA256(), length=32, salt=s, iterations=ITERATIONS)
     return kdf.derive(password.encode("utf-8"))
 
 
-def b64(b):
-    return base64.b64encode(b).decode("ascii")
+def mac(key, msg):
+    return hmac.new(key, msg.encode("utf-8"), hashlib.sha256).digest()
 
 
-GATE = """<!doctype html>
+def field(html, name):
+    m = re.search(name + r'\s*:\s*"([^"]*)"', html)
+    return m.group(1) if m else None
+
+
+def plaintext(html, slug, master):
+    """Returns the page's readable HTML, decrypting older protected versions."""
+    if MARKER in html:
+        key = mac(master, "page:" + slug)
+    elif MARKER_V1 in html:
+        key = master  # first version used one site-wide key
+    else:
+        return html
+    return AESGCM(key).decrypt(unb64(field(html, "iv")), unb64(field(html, "ct")), None).decode("utf-8")
+
+
+def title_of(html):
+    m = re.search(r"<title>(.*?)</title>", html, re.S)
+    t = htmllib.unescape(m.group(1).strip()) if m else ""
+    return re.sub(r"\s*·\s*Faclon Labs$", "", t) or "Faclon Labs"
+
+
+GATE = r"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 __MARKER__
 <meta name="robots" content="noindex">
@@ -70,54 +122,79 @@ p{font-size:14px;color:#B6C2D6;line-height:1.5}
 form{margin-top:22px;display:flex;flex-direction:column;gap:10px}
 input{font:inherit;font-size:15px;padding:12px 14px;border-radius:9px;border:1px solid rgba(255,255,255,.18);background:#0B1A30;color:#fff;outline:none;width:100%}
 input:focus{border-color:#3D63F5}
-button{font:inherit;font-size:15px;font-weight:600;padding:12px 14px;border-radius:9px;border:0;background:#3D63F5;color:#fff;cursor:pointer}
+button,.btn{font:inherit;font-size:15px;font-weight:600;padding:12px 14px;border-radius:9px;border:0;background:#3D63F5;color:#fff;cursor:pointer;text-align:center;text-decoration:none;display:block}
+.ghost{background:transparent;border:1px solid rgba(255,255,255,.2)}
 button:disabled{opacity:.6;cursor:default}
 .err{min-height:18px;font-size:13px;color:#FF9B9B}
-#app{display:none}
+.acts{margin-top:22px;display:flex;flex-direction:column;gap:10px}
+[hidden]{display:none!important}
 </style></head>
 <body>
-<div class="card" id="gate">
+<div class="card" id="gate" style="visibility:hidden">
   <div class="eyebrow">Faclon Labs</div>
-  <h1>Enter password</h1>
-  <p>These solution pages are shared privately. Enter the password you were given to continue.</p>
-  <form id="f" autocomplete="off">
-    <input id="pw" type="password" placeholder="Password" aria-label="Password" autofocus required>
+  <h1>Sign in</h1>
+  <p id="lead">These solution pages are shared privately. Sign in with the username and password you were given.</p>
+  <form id="f" autocomplete="on">
+    <input id="u" type="text" placeholder="Username" aria-label="Username" autocomplete="username" autocapitalize="none" spellcheck="false" required>
+    <input id="pw" type="password" placeholder="Password" aria-label="Password" autocomplete="current-password" required>
     <div class="err" id="err" role="alert"></div>
-    <button id="go" type="submit">Unlock</button>
+    <button id="go" type="submit">Sign in</button>
   </form>
 </div>
+<div class="card" id="noacc" hidden>
+  <div class="eyebrow">Faclon Labs</div>
+  <h1>No access to this page</h1>
+  <p>You're signed in as <b id="who"></b>, but this solution hasn't been shared with you. Ask your Faclon contact if you need it.</p>
+  <div class="acts"><a class="btn" id="home" href="#">See your solutions</a><button class="ghost" id="out" type="button">Sign in as someone else</button></div>
+</div>
 <script>
-(function(){
-var D={salt:"__SALT__",iter:__ITER__,iv:"__IV__",ct:"__CT__"},K="__STORAGE_KEY__";
-function u8(s){var b=atob(s),a=new Uint8Array(b.length);for(var i=0;i<b.length;i++)a[i]=b.charCodeAt(i);return a}
-function b64(buf){var a=new Uint8Array(buf),s="";for(var i=0;i<a.length;i+=8192)s+=String.fromCharCode.apply(null,a.subarray(i,i+8192));return btoa(s)}
-function get(){try{return localStorage.getItem(K)||sessionStorage.getItem(K)}catch(e){return null}}
-function put(v){try{localStorage.setItem(K,v)}catch(e){try{sessionStorage.setItem(K,v)}catch(e2){}}}
-function drop(){try{localStorage.removeItem(K);sessionStorage.removeItem(K)}catch(e){}}
-function open(raw){
-  return crypto.subtle.importKey("raw",raw,"AES-GCM",false,["decrypt"])
-    .then(function(k){return crypto.subtle.decrypt({name:"AES-GCM",iv:u8(D.iv)},k,u8(D.ct))})
-    .then(function(pt){return new TextDecoder().decode(pt)});
+__AUTH_CORE__
+</script>
+<script>
+(async function(){
+var D={slug:"__SLUG__",base:"__BASE__",iv:"__IV__",ct:"__CT__"};
+var $=function(i){return document.getElementById(i)};
+var gate=$("gate"),noacc=$("noacc"),err=$("err");
+function after(html,acc,U){
+  var sol=(U.solutions||[]).map(function(s){return s.slug});
+  var args=[acc.allowed,acc.name,acc.admin,D.base,sol].map(function(v){return JSON.stringify(v).replace(/</g,"\\u003c")}).join(",");
+  var js='<script>('+FILTER.toString()+')('+args+')<\/script>';
+  var i=html.toLowerCase().lastIndexOf("</body>");
+  return i<0?html+js:html.slice(0,i)+js+html.slice(i);
+}
+function FILTER(A,N,ADM,B,SOL){
+  var base=new URL(B,location.href).pathname;
+  if(A){document.querySelectorAll("a[href]").forEach(function(a){
+    var u;try{u=new URL(a.getAttribute("href"),location.href)}catch(e){return}
+    if(u.origin!==location.origin||u.pathname.indexOf(base)!==0)return;
+    var seg=u.pathname.slice(base.length).split("/")[0];
+    if(SOL.indexOf(seg)<0||A.indexOf(seg)>=0)return;
+    var c=a.closest("article.card");(c||a).style.display="none";
+  });}
+  var bar=document.createElement("div");
+  bar.setAttribute("style","position:fixed;right:12px;bottom:12px;z-index:9999;display:flex;align-items:center;gap:10px;max-width:calc(100vw - 24px);background:#fff;color:#0F1B2D;border:1px solid #E3E8EF;border-radius:999px;padding:7px 8px 7px 14px;font:500 13px Inter,system-ui,sans-serif;box-shadow:0 6px 24px rgba(11,26,48,.14)");
+  var who=document.createElement("span");who.textContent=N;who.setAttribute("style","white-space:nowrap;overflow:hidden;text-overflow:ellipsis");bar.appendChild(who);
+  function btn(t,f){var b=document.createElement("button");b.type="button";b.textContent=t;b.setAttribute("style","font:600 12px Inter,system-ui,sans-serif;border:0;border-radius:999px;padding:6px 10px;cursor:pointer;white-space:nowrap;background:#EEF2FF;color:#3D63F5");b.onclick=f;bar.appendChild(b)}
+  if(ADM)btn("Manage users",function(){location.href=B+"admin/"});
+  btn("Sign out",function(){try{localStorage.removeItem("faclon-glossary-session");sessionStorage.removeItem("faclon-glossary-session")}catch(e){}location.href=B||"./"});
+  document.body.appendChild(bar);
 }
 function show(html){function go(){document.open();document.write(html);document.close()}if(document.readyState==="complete")go();else window.addEventListener("load",go)}
-function derive(pw){
-  var enc=new TextEncoder();
-  return crypto.subtle.importKey("raw",enc.encode(pw),"PBKDF2",false,["deriveBits"])
-    .then(function(k){return crypto.subtle.deriveBits({name:"PBKDF2",hash:"SHA-256",salt:u8(D.salt),iterations:D.iter},k,256)});
+async function open(U,acc){
+  var k=await acc.key(D.slug);
+  if(!k){gate.hidden=true;$("who").textContent=acc.name;$("home").href=D.base||"./";noacc.hidden=false;return}
+  show(after(await FA.decrypt(k,D.iv,D.ct),acc,U));
 }
-var saved=get();
-var gate=document.getElementById("gate");
-if(saved){gate.style.visibility="hidden";open(u8(saved)).then(show,function(){drop();gate.style.visibility="visible"});}
-document.getElementById("f").addEventListener("submit",function(e){
-  e.preventDefault();
-  var btn=document.getElementById("go"),err=document.getElementById("err");
-  btn.disabled=true;btn.textContent="Checking…";err.textContent="";
-  derive(document.getElementById("pw").value).then(function(raw){
-    return open(raw).then(function(html){put(b64(raw));show(html)});
-  }).catch(function(){
-    err.textContent="That password didn't work. Try again.";
-    btn.disabled=false;btn.textContent="Unlock";
-  });
+$("out").onclick=function(){FA.clearSession();noacc.hidden=true;gate.hidden=false;gate.style.visibility="visible";$("u").focus()};
+var U;
+try{U=await FA.loadUsers(D.base)}catch(e){gate.style.visibility="visible";err.textContent="Couldn't reach the site. Check your connection and reload.";$("go").disabled=true;return}
+var s=FA.getSession();
+if(s){try{await open(U,await FA.access(U,s));return}catch(e){FA.clearSession();if(e.message==="removed")$("lead").textContent="Your access has changed. Please sign in again."}}
+gate.style.visibility="visible";$("u").focus();
+$("f").addEventListener("submit",async function(e){
+  e.preventDefault();var b=$("go");b.disabled=true;b.textContent="Checking…";err.textContent="";
+  try{var s=await FA.login(U,$("u").value,$("pw").value);var acc=await FA.access(U,s);FA.setSession(s);await open(U,acc)}
+  catch(x){err.textContent="That username and password didn't match. Try again.";b.disabled=false;b.textContent="Sign in"}
 });
 })();
 </script>
@@ -125,36 +202,74 @@ document.getElementById("f").addEventListener("submit",function(e){
 """
 
 
-def protect(path, key, s):
-    html = path.read_text(encoding="utf-8")
-    if MARKER in html:
-        return False
-    iv = secrets.token_bytes(12)
-    ct = AESGCM(key).encrypt(iv, html.encode("utf-8"), None)
-    out = (GATE.replace("__MARKER__", MARKER)
-               .replace("__SALT__", b64(s))
-               .replace("__ITER__", str(ITERATIONS))
-               .replace("__IV__", b64(iv))
-               .replace("__STORAGE_KEY__", STORAGE_KEY)
-               .replace("__CT__", b64(ct)))
-    path.write_text(out, encoding="utf-8")
-    return True
+def gate_html(slug, base, iv, ct, core):
+    return (GATE.replace("__MARKER__", MARKER)
+                .replace("__AUTH_CORE__", core)
+                .replace("__SLUG__", slug)
+                .replace("__BASE__", base)
+                .replace("__IV__", b64(iv))
+                .replace("__CT__", b64(ct)))
+
+
+def build_admin(core):
+    if not ADMIN_SRC.exists():
+        return None
+    out = ADMIN_SRC.read_text(encoding="utf-8").replace("/*__AUTH_CORE__*/", core)
+    return out
 
 
 def main():
     targets = pages()
+    core = AUTH_CORE.read_text(encoding="utf-8")
     if "--check" in sys.argv:
-        bad = [p for p in targets if MARKER not in p.read_text(encoding="utf-8")]
+        bad = [p for _, p in targets if MARKER not in p.read_text(encoding="utf-8")]
         for p in bad:
             print("UNPROTECTED:", p.relative_to(ROOT))
+        admin = build_admin(core)
+        if admin is not None and (not ADMIN_OUT.exists() or ADMIN_OUT.read_text(encoding="utf-8") != admin):
+            print("STALE: admin/index.html (re-run protect.py)")
+            bad.append(ADMIN_OUT)
+        if not USERS.exists():
+            print("MISSING: users.json")
+            bad.append(USERS)
         sys.exit(1 if bad else 0)
-    password = os.environ.get("GLOSSARY_PASSWORD") or getpass.getpass("Site password: ")
+
+    password = os.environ.get("GLOSSARY_PASSWORD") or getpass.getpass("Admin password: ")
     if not password:
         sys.exit("No password given (set GLOSSARY_PASSWORD).")
     s = salt()
-    key = derive(password, s)
-    for p in targets:
-        print("protected" if protect(p, key, s) else "already protected", p.relative_to(ROOT))
+    master = derive_master(password, s)
+    check = b64(mac(master, "check"))
+
+    users = json.loads(USERS.read_text(encoding="utf-8")) if USERS.exists() else {
+        "version": 2, "salt": b64(s), "iter": ITERATIONS, "check": check, "solutions": [], "users": []}
+    if users.get("check") != check or users.get("salt") != b64(s):
+        sys.exit("That password doesn't match this site's admin password (users.json check failed).")
+
+    solutions = []
+    for slug, path in targets:
+        raw = path.read_text(encoding="utf-8")
+        plain = plaintext(raw, slug, master)
+        if slug != "home":
+            solutions.append({"slug": slug, "title": title_of(plain)})
+        if MARKER in raw:
+            print("already protected", path.relative_to(ROOT))
+            continue
+        iv = secrets.token_bytes(12)
+        ct = AESGCM(mac(master, "page:" + slug)).encrypt(iv, plain.encode("utf-8"), None)
+        base = "" if slug == "home" else "../"
+        path.write_text(gate_html(slug, base, iv, ct, core), encoding="utf-8")
+        print("protected", path.relative_to(ROOT))
+
+    users["solutions"] = solutions
+    USERS.write_text(json.dumps(users, indent=1) + "\n", encoding="utf-8")
+    print("updated users.json solutions:", ", ".join(x["slug"] for x in solutions))
+
+    admin = build_admin(core)
+    if admin is not None:
+        ADMIN_OUT.parent.mkdir(exist_ok=True)
+        ADMIN_OUT.write_text(admin, encoding="utf-8")
+        print("wrote", ADMIN_OUT.relative_to(ROOT))
 
 
 if __name__ == "__main__":

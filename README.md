@@ -22,6 +22,9 @@ index.html                     Landing page listing every solution (generated)
 <solution>/*.pdf               Generated downloads
 src/home/build_home.py         Source of truth for the landing page: edit the SOLUTIONS list
 src/<solution>/build_*.py      Source of truth for each solution page
+src/admin/index.html           Source of the User Manager (built into admin/index.html by protect.py)
+src/shared/protect.py          Encrypts pages and builds the User Manager
+users.json                     User list (written by the User Manager; encrypted keyrings)
 src/shared/                    Shared assets
 CLAUDE.md                      Conventions for anyone (or any AI assistant) editing this repo
 ```
@@ -40,11 +43,12 @@ python3 src/condition-based-monitoring/build_page.py  # writes condition-based-m
 python3 src/power-plant-ai/build_catalogue_pdf.py  # writes the PDF (needs: pip install playwright && playwright install chromium)
 ```
 
-Then password-protect the regenerated pages (the password is not stored in this repo):
+Then pull `main` and password-protect the regenerated pages (the admin password is not stored in this repo):
 
 ```
-GLOSSARY_PASSWORD='<password>' python3 src/shared/protect.py   # encrypts every unprotected index.html
-python3 src/shared/protect.py --check                          # must pass before you commit
+git pull origin main
+GLOSSARY_PASSWORD='<admin password>' python3 src/shared/protect.py   # encrypts pages, refreshes users.json, builds admin/
+python3 src/shared/protect.py --check                                # must pass before you commit
 ```
 
 Commit and push. GitHub Pages republishes within a minute or two.
@@ -58,8 +62,10 @@ Commit and push. GitHub Pages republishes within a minute or two.
 
 ## Notes
 
-- Every page is behind a password screen: the page is AES-encrypted and decrypted in the visitor's browser. One login is remembered and unlocks every page. To change the password, rebuild all pages and protect them with the new one.
-- The password screen protects the published site only. The sources in `src/` and the PDFs are still readable by anyone with the link to this public repo or file.
+- **Access control.** Visitors sign in with a username and password and see only the solutions shared with them; other pages show a "No access" screen. Sign in as `admin` with the admin password to see everything.
+- **User Manager** at [`/admin/`](admin/index.html): add, edit and remove users, pick their solutions, then **Publish**, which commits `users.json` to `main` (needs a fine-grained GitHub token with Contents: Read and write on this repo, saved once per browser; without one it offers a download to upload by hand). Changes are live in about a minute.
+- How it works: each page is AES-encrypted with its own key, derived from the admin password. Each user's entry in `users.json` is a keyring holding only their pages' keys, locked with their own password. Removing a user or a solution takes effect on their next page load.
+- Limits: this protects the published pages only. The sources in `src/` and the PDFs are readable by anyone with the link to this public repo or file. Someone who deliberately copied their page keys before being removed could still read those pages; to cut that off completely, change the admin password and recreate users.
 - Every page carries `<meta name="robots" content="noindex">`, so it is reachable by link but not listed by search engines.
 - The repository is public, so everything committed here (including customer names and figures) can be read by anyone. Keep internal-only material out of it.
 - Indicative ₹ values are "up to, per 100 MW per year" and must be re-baselined against each plant's data.
