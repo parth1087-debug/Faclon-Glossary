@@ -139,7 +139,9 @@ def card(s):
 
 live = [s for s in SOLUTIONS if s["live"]]
 soon = [s for s in SOLUTIONS if not s["live"]]
-cards = "".join(card(s) for s in live + soon)
+# "Coming soon" cards are hidden for now; set SHOW_COMING_SOON = True to list them again.
+SHOW_COMING_SOON = False
+cards = "".join(card(s) for s in live + (soon if SHOW_COMING_SOON else []))
 
 HTML = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -183,7 +185,7 @@ h2{{font-size:32px;font-weight:700;margin:8px 0 10px}}
 .card:before{{content:"";position:absolute;left:0;top:0;right:0;height:4px;background:var(--line)}}
 .card.live.g:before{{background:var(--green)}} .card.live.b:before{{background:var(--blue)}}
 .card .main{{display:flex;flex-direction:column;padding:24px 22px 22px;flex:1;color:inherit;text-decoration:none}}
-.card.live{{grid-column:span 2;transition:border-color .15s,box-shadow .15s}}
+.card.live{{grid-column:{"span 2" if SHOW_COMING_SOON else "auto"};transition:border-color .15s,box-shadow .15s}}
 .card.live:hover,.card.live:focus-within{{border-color:#C9D3E3;box-shadow:0 10px 28px rgba(15,27,45,.08)}}
 .card .main:focus-visible{{outline:2px solid var(--blue);outline-offset:-4px;border-radius:14px}}
 .top{{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}}
