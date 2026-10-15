@@ -1,4 +1,4 @@
-"""Builds index.html (the site home page) (Advisory Agents + Automated Process Control page).
+"""Builds power-plant-ai/index.html (Advisory Agents + Automated Process Control page).
 
 Run from anywhere:  python3 src/power-plant-ai/build_page.py
 Edit the AGENTS and APC lists below to change content; the page is regenerated in full.
@@ -7,7 +7,7 @@ import math
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-OUT = ROOT / "index.html"
+OUT = ROOT / "power-plant-ai" / "index.html"
 
 # ======================= ADVISORY AGENTS =======================
 AGENTS = [
@@ -489,7 +489,8 @@ ul{{list-style:none}}
 <body>
 
 <div class="hero"><div class="wrap">
-  <div class="brand"><b>Faclon Labs</b><span>Power Plant AI · Boiler · Turbine · Auxiliaries</span></div>
+  <div class="brand"><a href="../" style="color:#fff;text-decoration:none"><b>Faclon Labs</b></a><span>Power Plant AI · Boiler · Turbine · Auxiliaries</span></div>
+  <a href="../" style="display:inline-block;margin-top:18px;color:#9FB0CC;font-size:13px;text-decoration:none">← All solutions</a>
   <h1>AI that advises your people <em>and</em> controls your process</h1>
   <p class="lede">Two complementary offerings for captive and utility power plants. Advisory Agents turn plant data into decisions for every team. Automated Process Control writes optimal setpoints back to the DCS, around the clock.</p>
   <div class="split">
@@ -690,7 +691,7 @@ ul{{list-style:none}}
   <div><div class="eyebrow" style="color:var(--blue2)">Next step</div><h2>Start with your data</h2><p>Share a sample of DCS, lab and design data. We will return a shortlist of agents and APC applications sized against your plant’s own loss profile, then confirm it on a plant visit.</p></div>
   <div style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn" href="https://www.faclonlabs.com">www.faclonlabs.com</a><a class="btn" style="background:transparent;border:1.5px solid #7C95FF" href="power-plant-ai-use-case-catalogue.pdf">Use-case catalogue (PDF)</a></div>
 </div></div>
-<div class="foot"><div class="wrap"><span>Faclon Labs · Power Plant AI</span><span>Advisory Agents · Automated Process Control</span></div></div>
+<div class="foot"><div class="wrap"><span><a href="../" style="color:inherit;text-decoration:none">← All solutions</a> · Faclon Labs · Power Plant AI</span><span>Advisory Agents · Automated Process Control</span></div></div>
 </body></html>"""
 
 OUT.write_text(HTML, encoding="utf-8")
