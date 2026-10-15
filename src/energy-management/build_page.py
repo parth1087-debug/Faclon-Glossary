@@ -6,7 +6,8 @@ Content lives in content.json next to this script; edit it and re-run, the page 
   kpis        : [{v: value, l: label}] shown in the hero strip
   benefit_cats: {key: label} filter chips      benefits : [{t: title, c: category key, d: description}]
   architecture: {example, cloud, onprem}; each option has label, intro, chain [{t, d, hub?}],
-                power, dss_title, dss [items], optional outputs [items]
+                power, dss_title, dss [items], optional outputs [items],
+                diagram (asset name of the full drawing) and diagram_cap
   modules     : [{id, n: name, s: subtitle, d: description, p: [points], img?: asset name, cap?: caption,
                  full?: true to span the full width when there is no screenshot}]
   drill       : [{t, d}] the I/O Matrix drill-down levels, in order
@@ -27,9 +28,9 @@ D = json.loads((HERE / "content.json").read_text(encoding="utf-8"))
 E = html.escape
 
 
-def img(name, alt, cls=""):
+def img(name, alt, cls="", lazy=True):
     data = base64.b64encode((HERE / "assets" / f"{name}.jpg").read_bytes()).decode()
-    return f'<img class="{cls}" src="data:image/jpeg;base64,{data}" alt="{E(alt)}" loading="lazy" decoding="async">'
+    return f'<img class="{cls}" src="data:image/jpeg;base64,{data}" alt="{E(alt)}"{' loading="lazy"' if lazy else ''} decoding="async">'
 
 
 # ---------- benefits ----------
@@ -68,7 +69,17 @@ def arch_panel(key, a):
             f'<h3 class="arch-h">{E(a["label"])} deployment</h3><p class="arch-intro">{E(a["intro"])}</p>'
             f'<div class="chain">{"".join(nodes)}</div>'
             f'<div class="arch-foot"><div class="dss"><b>{E(a["dss_title"])}</b><ul>{dss}</ul>{outs}</div>'
-            f'<p class="power">{E(a["power"])}. {E(D["architecture"]["example"])}; the same pattern repeats for every substation.</p></div></div>')
+            f'<p class="power">{E(a["power"])}. {E(D["architecture"]["example"])}; the same pattern repeats for every substation.</p></div>'
+            + diagram(a) + '</div>')
+
+
+def diagram(a):
+    if not a.get("diagram"):
+        return ""
+    return (f'<figure class="diagram"><figcaption><b>{E(a["label"])} architecture</b><span>{E(a["diagram_cap"])}</span></figcaption>'
+            f'<div class="dg-scroll" tabindex="0" role="region" aria-label="{E(a["label"])} architecture diagram">'
+            f'{img(a["diagram"], a["label"] + " architecture: " + a["diagram_cap"], lazy=False)}</div>'
+            f'<p class="dg-hint">Swipe sideways to see the full diagram</p></figure>')
 
 
 A = D["architecture"]
@@ -191,6 +202,13 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--blue);outline-offse
 .dss li:before{content:"";position:absolute;left:0;top:9px;width:6px;height:6px;border-radius:2px;background:var(--blue2)}
 .outs{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.12)}
 .outs span{font-size:12.5px;padding:4px 10px;border-radius:20px;background:rgba(124,149,255,.18);color:#fff}
+.diagram{margin-top:22px;border:1px solid var(--line);border-radius:14px;background:#fff;overflow:hidden}
+.diagram figcaption{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;padding:14px 18px;border-bottom:1px solid var(--line);background:var(--bg)}
+.diagram figcaption b{font-size:15px}
+.diagram figcaption span{font-size:13px;color:var(--mute)}
+.dg-scroll{overflow-x:auto;padding:14px}
+.dg-scroll img{width:100%;min-width:0}
+.dg-hint{display:none;font-size:12px;color:var(--mute);padding:0 18px 12px}
 .power{font-size:13.5px;color:var(--ink2);background:var(--amberBg);border-left:3px solid var(--amber);border-radius:8px;padding:12px 14px}
 
 .modnav{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
@@ -248,6 +266,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--blue);outline-offse
   .drill ol{grid-template-columns:1fr 1fr}
 }
 @media (max-width:640px){
+  .dg-scroll img{width:880px;max-width:none}.dg-hint{display:block}
   .wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
   section.band{padding:44px 0}.hero .eyebrow{margin-top:36px}
   .bens{grid-template-columns:1fr}.drill ol{grid-template-columns:1fr}
