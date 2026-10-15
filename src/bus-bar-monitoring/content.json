@@ -1,8 +1,17 @@
 {
   "problems": [
-    {"name": "Overheating", "desc": "Joints run hot under load, often with no visible sign until insulation or copper is damaged."},
-    {"name": "Corrosion", "desc": "Oxidised contact surfaces raise joint resistance, which raises temperature over time."},
-    {"name": "Loose connections", "desc": "Bolts loosen with vibration and thermal cycling, creating hot spots at the joint."}
+    {
+      "name": "Overheating",
+      "desc": "Joints run hot under load, often with no visible sign until insulation or copper is damaged."
+    },
+    {
+      "name": "Corrosion",
+      "desc": "Oxidised contact surfaces raise joint resistance, which raises temperature over time."
+    },
+    {
+      "name": "Loose connections",
+      "desc": "Bolts loosen with vibration and thermal cycling, creating hot spots at the joint."
+    }
   ],
   "consequences": [
     "Difficult manual thermal inspection",
@@ -11,78 +20,248 @@
     "Greater energy losses"
   ],
   "flow": [
-    {"name": "Sensor straps", "sub": "One per phase (R · Y · B), strapped on each critical joint", "link": "RF signal · 10 m range"},
-    {"name": "Receiver", "sub": "Collects readings from up to 60 sensors in the panel", "link": "Modbus RS-485"},
-    {"name": "IoT gateway", "sub": "ST-52 C on 4G, Ethernet or Wi-Fi, with local backup storage", "link": "Secure upload"},
-    {"name": "Cloud platform", "sub": "I/O Sense stores data, checks limits and raises critical alerts", "link": "Dashboards & alerts"},
-    {"name": "Laptop / mobile", "sub": "Live view, alerts, trends and reports for the maintenance team", "link": null}
+    {
+      "name": "Sensor straps",
+      "sub": "One per phase (R · Y · B), strapped on each critical joint",
+      "link": "RF signal · 10 m range"
+    },
+    {
+      "name": "Receiver",
+      "sub": "Collects readings from up to 60 sensors in the panel",
+      "link": "Modbus RS-485"
+    },
+    {
+      "name": "IoT gateway",
+      "sub": "ST-52 C on 4G, Ethernet or Wi-Fi, with local backup storage",
+      "link": "Secure upload"
+    },
+    {
+      "name": "Cloud platform",
+      "sub": "I/O Sense stores data, checks limits and raises critical alerts",
+      "link": "Dashboards & alerts"
+    },
+    {
+      "name": "Laptop / mobile",
+      "sub": "Live view, alerts, trends and reports for the maintenance team",
+      "link": null
+    }
   ],
   "hardware": [
     {
-      "id": "strap", "name": "Wireless bus-bar sensor strap", "img": "strap", "short": "Sensor strap",
+      "id": "strap",
+      "name": "Wireless bus-bar sensor strap",
+      "img": "strap",
+      "short": "Sensor strap",
       "role": "A battery-powered digital temperature sensor on a heat-proof strap, fitted directly on the bus-bar joint. Colour coded by phase.",
       "specs": [
-        ["RF data communications", "865–926 MHz"],
-        ["Strap", "Non-conducting silicone strap, withstands up to 350 °C"],
-        ["Operating temperature", "−45 to 150 °C"],
-        ["Accuracy", "±1 °C"],
-        ["Calibration", "Digital sensor, no calibration required"],
-        ["Transmission interval", "1 min default (temperature sensed every 20 s; event record)"],
-        ["Range", "10 m / 35 ft (panel installation), 50 m / 165 ft line of sight"],
-        ["Dimensions", "35 mm × 35 mm × 25 mm (390 mm strap length)"],
-        ["Weight", "50 g"],
-        ["Battery", "8 to 10 years, non-explosive lithium magnesium, replaceable"],
-        ["Mounting location", "On a flat, clean surface of the bus bar"],
-        ["Material", "Enclosure PA66 nylon; strap silicone"]
+        [
+          "RF data communications",
+          "865–926 MHz"
+        ],
+        [
+          "Strap",
+          "Non-conducting silicone strap, withstands up to 350 °C"
+        ],
+        [
+          "Operating temperature",
+          "−45 to 150 °C"
+        ],
+        [
+          "Accuracy",
+          "±1 °C"
+        ],
+        [
+          "Calibration",
+          "Digital sensor, no calibration required"
+        ],
+        [
+          "Transmission interval",
+          "1 min default (temperature sensed every 20 s; event record)"
+        ],
+        [
+          "Range",
+          "10 m / 35 ft (panel installation), 50 m / 165 ft line of sight"
+        ],
+        [
+          "Dimensions",
+          "35 mm × 35 mm × 25 mm (390 mm strap length)"
+        ],
+        [
+          "Weight",
+          "50 g"
+        ],
+        [
+          "Battery",
+          "8 to 10 years, non-explosive lithium magnesium, replaceable"
+        ],
+        [
+          "Mounting location",
+          "On a flat, clean surface of the bus bar"
+        ],
+        [
+          "Material",
+          "Enclosure PA66 nylon; strap silicone"
+        ]
       ]
     },
     {
-      "id": "receiver", "name": "Receiver", "img": "receiver", "short": "Receiver",
+      "id": "receiver",
+      "name": "Receiver",
+      "img": "receiver",
+      "short": "Receiver",
       "role": "Mounted in or near the panel. Listens to the sensor straps over RF and passes their readings to the gateway on Modbus.",
       "specs": [
-        ["Type", "Spread spectrum technology, communicates with 60 sensors"],
-        ["Frequency", "865–867 MHz, 920–923 MHz, 923–926 MHz"],
-        ["Output", "Modbus RS-485"],
-        ["Wi-Fi output", "Omni-directional, 300 ft line of sight"],
-        ["Power", "12–24 V DC"],
-        ["Dimensions", "100 mm × 55 mm × 32 mm"],
-        ["Mounting", "Panel mount, DIN rail mount"],
-        ["Weight", "100 g"],
-        ["Operating temperature", "−28 to 85 °C"]
+        [
+          "Type",
+          "Spread spectrum technology, communicates with 60 sensors"
+        ],
+        [
+          "Frequency",
+          "865–867 MHz, 920–923 MHz, 923–926 MHz"
+        ],
+        [
+          "Output",
+          "Modbus RS-485"
+        ],
+        [
+          "Wi-Fi output",
+          "Omni-directional, 300 ft line of sight"
+        ],
+        [
+          "Power",
+          "12–24 V DC"
+        ],
+        [
+          "Dimensions",
+          "100 mm × 55 mm × 32 mm"
+        ],
+        [
+          "Mounting",
+          "Panel mount, DIN rail mount"
+        ],
+        [
+          "Weight",
+          "100 g"
+        ],
+        [
+          "Operating temperature",
+          "−28 to 85 °C"
+        ]
       ]
     },
     {
-      "id": "gateway", "name": "ST-52 C IoT gateway", "img": "gateway", "short": "Gateway",
+      "id": "gateway",
+      "name": "ST-52 C IoT gateway",
+      "img": "gateway",
+      "short": "Gateway",
       "role": "Reads every receiver on the Modbus line and sends the data to the cloud, keeping a local backup if the network drops.",
       "specs": [
-        ["Integration", "Up to 16–20 bus-bar controllers on Modbus RS-485"],
-        ["Connectivity", "4G, GPRS, Wi-Fi, Ethernet"],
-        ["Data storage", "Local backup data storage"],
-        ["Enclosure", "ABS / flameproof"],
-        ["Updates", "Over the air"],
-        ["Warranty", "1 year"],
-        ["Power supply", "230 V AC / 12–24 V DC"]
+        [
+          "Integration",
+          "Up to 16–20 bus-bar controllers on Modbus RS-485"
+        ],
+        [
+          "Connectivity",
+          "4G, GPRS, Wi-Fi, Ethernet"
+        ],
+        [
+          "Data storage",
+          "Local backup data storage"
+        ],
+        [
+          "Enclosure",
+          "ABS / flameproof"
+        ],
+        [
+          "Updates",
+          "Over the air"
+        ],
+        [
+          "Warranty",
+          "1 year"
+        ],
+        [
+          "Power supply",
+          "230 V AC / 12–24 V DC"
+        ]
       ]
     }
   ],
   "screens": [
-    {"name": "Overview", "img": "screen-overview", "desc": "How many joints are at normal, warning or critical temperature, and how many sensor batteries need attention. A live table shows incomer and outgoing temperatures for each phase of every feeder."},
-    {"name": "Alerts & events", "img": "screen-alerts", "desc": "Every high-temperature and above-ambient event, with the device, start and stop time and how long it lasted. Exportable for maintenance records."},
-    {"name": "Temperature trends", "img": "screen-trends", "desc": "Each feeder’s R, Y and B phase temperatures over any date range, so a joint that is slowly heating up stands out before it fails."},
-    {"name": "Reports", "img": "screen-reports", "desc": "Scheduled reports of average phase temperatures per feeder, ready to share with the electrical and maintenance teams."}
+    {
+      "name": "Overview",
+      "img": "screen-overview",
+      "desc": "How many joints are at normal, warning or critical temperature, and how many sensor batteries need attention. A live table shows incomer and outgoing temperatures for each phase of every feeder."
+    },
+    {
+      "name": "Alerts & events",
+      "img": "screen-alerts",
+      "desc": "Every high-temperature and above-ambient event, with the device, start and stop time and how long it lasted. Exportable for maintenance records."
+    },
+    {
+      "name": "Temperature trends",
+      "img": "screen-trends",
+      "desc": "Each feeder’s R, Y and B phase temperatures over any date range, so a joint that is slowly heating up stands out before it fails."
+    },
+    {
+      "name": "Reports",
+      "img": "screen-reports",
+      "desc": "Scheduled reports of average phase temperatures per feeder, ready to share with the electrical and maintenance teams."
+    }
   ],
   "roi": {
     "basis": "Calculations for ROI justification for 30 critical bus-bar joints",
     "rows": [
-      {"metric": "2 major", "label": "Incidents averted as a result of online monitoring", "value": "₹50 Lakh"},
-      {"metric": "15%", "label": "Reduction in downtimes", "value": "₹7.5 Lakh"},
-      {"metric": "20%", "label": "Reduction in insurance costs", "value": "₹4 Lakh"}
+      {
+        "metric": "2 major",
+        "label": "Incidents averted as a result of online monitoring",
+        "value": "₹50 Lakh"
+      },
+      {
+        "metric": "15%",
+        "label": "Reduction in downtimes",
+        "value": "₹7.5 Lakh"
+      },
+      {
+        "metric": "20%",
+        "label": "Reduction in insurance costs",
+        "value": "₹4 Lakh"
+      }
     ],
-    "net": {"label": "Net annual return", "value": "₹60 Lakh"}
+    "net": {
+      "label": "Net annual return",
+      "value": "₹60 Lakh"
+    }
   },
   "install": [
-    {"img": "install-1", "cap": "Sensor straps on cable lugs at a feeder panel"},
-    {"img": "install-2", "cap": "R, Y and B phase straps on bus-bar joints"},
-    {"img": "install-3", "cap": "Straps across several feeders in one panel"}
-  ]
+    {
+      "img": "install-1",
+      "cap": "Sensor straps on cable lugs at a feeder panel"
+    },
+    {
+      "img": "install-2",
+      "cap": "R, Y and B phase straps on bus-bar joints"
+    },
+    {
+      "img": "install-3",
+      "cap": "Straps across several feeders in one panel"
+    }
+  ],
+  "architecture": {
+    "title": "Online bus-bar health monitoring architecture",
+    "straps": "R · Y · B straps",
+    "straps_sub": "on each critical joint",
+    "rf": "RF · 10 m range",
+    "receiver": "Receiver",
+    "receiver_sub": "Up to 60 sensors",
+    "bus": "Modbus RS-485",
+    "gateway": "ST-52 C gateway",
+    "gateway_sub": "4G · Ethernet · Wi-Fi",
+    "gateway_cap": "16–20 controllers on RS-485",
+    "uplink": "Secure upload",
+    "cloud": "I/O Sense cloud",
+    "cloud_sub": "Storage, limits, alerts",
+    "users": "Laptop / mobile",
+    "users_sub": "Live view, alerts, reports"
+  }
 }
