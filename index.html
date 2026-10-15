@@ -40,7 +40,7 @@ h2{font-size:32px;font-weight:700;margin:8px 0 10px}
 .card:before{content:"";position:absolute;left:0;top:0;right:0;height:4px;background:var(--line)}
 .card.live.g:before{background:var(--green)} .card.live.b:before{background:var(--blue)}
 .card .main{display:flex;flex-direction:column;padding:24px 22px 22px;flex:1;color:inherit;text-decoration:none}
-.card.live{grid-column:span 2;transition:border-color .15s,box-shadow .15s}
+.card.live{grid-column:auto;transition:border-color .15s,box-shadow .15s}
 .card.live:hover,.card.live:focus-within{border-color:#C9D3E3;box-shadow:0 10px 28px rgba(15,27,45,.08)}
 .card .main:focus-visible{outline:2px solid var(--blue);outline-offset:-4px;border-radius:14px}
 .top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
@@ -120,46 +120,6 @@ h2{font-size:32px;font-weight:700;margin:8px 0 10px}
       <span class="open">Open solution →</span>
     </a>
     
-  </article>
-  <article class="card soon g" aria-disabled="true">
-    <div class="main">
-      <div class="top"><span class="sec">Metals</span><span class="pill">Coming soon</span></div>
-      <h3>Metals AI</h3>
-      <p>Process intelligence and control for steel and metals plants, from kilns and furnaces to quality and lab data.</p>
-      
-    </div>
-  </article>
-  <article class="card soon b" aria-disabled="true">
-    <div class="main">
-      <div class="top"><span class="sec">All industries</span><span class="pill">Coming soon</span></div>
-      <h3>Energy Management</h3>
-      <p>Plant-wide visibility of electricity, fuel, steam and utilities, with consumption tracked against production.</p>
-      
-    </div>
-  </article>
-  <article class="card soon b" aria-disabled="true">
-    <div class="main">
-      <div class="top"><span class="sec">Process industries</span><span class="pill">Coming soon</span></div>
-      <h3>Steam Trap Monitoring</h3>
-      <p>Continuous monitoring of steam traps to catch failed or leaking traps early and cut steam losses.</p>
-      
-    </div>
-  </article>
-  <article class="card soon b" aria-disabled="true">
-    <div class="main">
-      <div class="top"><span class="sec">Manufacturing</span><span class="pill">Coming soon</span></div>
-      <h3>OEE Monitoring</h3>
-      <p>Availability, performance and quality tracked live for every machine and line, with downtime reasons captured.</p>
-      
-    </div>
-  </article>
-  <article class="card soon b" aria-disabled="true">
-    <div class="main">
-      <div class="top"><span class="sec">Infrastructure</span><span class="pill">Coming soon</span></div>
-      <h3>Airports</h3>
-      <p>Connected monitoring of airport utilities and building systems in one view.</p>
-      
-    </div>
   </article>
   </div>
 </div></main>
