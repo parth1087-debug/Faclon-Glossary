@@ -1,0 +1,107 @@
+{
+  "hero": {
+    "title": "Condition Based Monitoring",
+    "tagline": "Decision Intelligence at scale to unlock Latent Potential of each Plant",
+    "pillars": [
+      "Improve Production Throughput and Yield",
+      "Reduce Operational Cost and Wastage",
+      "AI Agents Enable Decision Intelligence at Scale"
+    ]
+  },
+  "architecture": {
+    "transmits": ["Vibration velocity", "Acceleration", "FFT", "Temperature", "Noise"],
+    "analytics": [
+      {"t": "Data Quality Validation", "d": "Checks every reading before it is analysed, so alerts are not raised on bad data."},
+      {"t": "FFT Algorithms", "d": "Breaks each vibration signal into its frequencies, where specific faults leave a recognisable signature."},
+      {"t": "ML for Anomaly Detection", "d": "Learns each machine's normal behaviour and flags when it starts to drift."},
+      {"t": "Remaining Useful Life", "d": "Estimates how long a component can keep running, so work can be planned around production."}
+    ],
+    "outputs": ["Fault Analysis", "Critical Alerts/Notifications", "Real-time Data Visualization", "Automated Diagnostic Reports", "Plant Health KPI Dashboards"]
+  },
+  "benefits": [
+    {"v": "20%", "t": "Enhanced Capacity Utilization", "d": "Higher availability of machines resulting in increased capacity for production."},
+    {"v": "15%", "t": "Reduced Unplanned Downtime", "d": "Early detection cuts downtime, maintenance expenses, and production losses."},
+    {"v": "10%", "t": "Maintenance Cost Savings", "d": "Significant cost savings by avoiding expensive repairs and minimizing production losses."},
+    {"v": "", "t": "Reduced Safety Risk", "d": "Proactive hazard identification using remote means eliminates on-site data collection."},
+    {"v": "", "t": "Improved Manpower Utilization", "d": "Automated data collection and AI analysis reduce the need for manual labor, saving costs."}
+  ],
+  "faults": [
+    "Unbalanced", "Coupling Misalignment", "Structural Looseness", "Rotating looseness", "Defective bearings",
+    "High noise", "Gear Tooth Wear", "Backlash, Broken tooth", "Bearing lubrication, faults", "Cavitation",
+    "Soft foot", "Eccentric Rotor", "Frequent burning and heating of drive motors", "Leakage", "High power consumption"
+  ],
+  "assets": [
+    "Pumps", "Motors", "Blowers", "Machine tools", "Gearbox", "Chiller",
+    "Fans", "Extruder", "Mixer", "Compressors", "Conveyors", "Roller"
+  ],
+  "features": [
+    {
+      "img": "diagnostics",
+      "t": "Automated diagnostics & maintenance recommendations",
+      "d": "Detected anomalies are automatically analyzed, generating issue descriptions, severity classification, and recommended corrective actions (e.g., alignment check, bearing inspection, lubrication, balancing). This helps maintenance teams quickly identify root causes and take targeted action.",
+      "alt": "I/O Sense Monitoring Locations screen listing assets by risk level, with faults found and recommended solutions for a crusher drive end and a gearbox input stage"
+    },
+    {
+      "img": "fft",
+      "t": "Advanced signal processing & fault detection",
+      "d": "The system performs continuous FFT spectrum analysis, harmonic detection, envelope analysis, and trend monitoring to identify vibration signatures associated with imbalance, misalignment, looseness, bearing defects, gear wear, cavitation, resonance, and other mechanical faults.",
+      "alt": "I/O Sense asset timeline showing idle, normal and critical states through the day with FFT captures, and an axial acceleration FFT spectrum"
+    }
+  ],
+  "sensor": {
+    "img": "sensor",
+    "specs": [
+      ["Vibration", "3-axis MEMS Sensor"],
+      ["Temperature", "-40°C to +100°C, 0.2°C accuracy"],
+      ["Noise", "Noise Sensor"],
+      ["Connectivity", "Wifi (upto 80 meters), Bluetooth, Modbus RS 485"],
+      ["Power supply", "External 24VDC/-10%"],
+      ["Operating temperature", "-40°C to +100°C"],
+      ["Size", "40mm (L) X 40mm (W) X 33mm (H)"],
+      ["Weight", "78 gms"],
+      ["Frequency range", "0.2Hz to 6kHz"],
+      ["Shock tolerance", "10,000g for 0.2ms"],
+      ["Linear acceleration sensitivity", "0.122mg/LSB (Max 2%)"],
+      ["Low noise", "75 ug/sqrt(Hz)"],
+      ["Enclosure", "Polycarbonate, IP67"],
+      ["LED indication", "Red, Green, Blue, Orange"],
+      ["Mounting", "Stud is provided for mounting, Magnetic mounting also possible"]
+    ]
+  },
+  "gallery": [
+    {"img": "install-pump", "c": "Sensors on a pump and its drive motor"},
+    {"img": "install-gearbox", "c": "Sensors on a gearbox casing"},
+    {"img": "install-compressor", "c": "Sensor on a compressor"},
+    {"img": "install-blower", "c": "Faclon unit mounted on a blower drive"},
+    {"img": "install-fan", "c": "Sensor on a fan bearing housing"}
+  ],
+  "cases": [
+    {"c": "JSW Energy", "p": "4 Plants - Vijaynagar, Barmer, Ratnagiri, Nandyal", "np": 4, "a": 487, "s": 1485,
+     "d": "BFPs, FD Fans, ID Fans, Cooling Tower Fans, Seal Oil Pumps, Coal Mills, Coal Crushers, Fire Hydrant Pumps, Raw Water Pump, CW Pumps",
+     "n": "130+", "i": "Soft Foot, Bearing fault, coupling issue, Alignment, Voith coupling fault"},
+    {"c": "JSW Cements", "p": "Nandyal", "np": 1, "a": 70, "s": 296,
+     "d": "Cooler Fans, Bucket Elevators, Roller Presses, Kiln Drives, Crusher, DPC Machine",
+     "n": "30+", "i": "Input bearing defect, Fan bearing defect, Fan Unbalance, Gear Teeth issue"},
+    {"c": "JSW Steel", "p": "Anjar", "np": 1, "a": 17, "s": 60,
+     "d": "RHF Blowers, Screw Down Blowers, Primary Pumps",
+     "n": "5", "i": "blower fan Unbalance, Structural issues, Pump bearing faults"},
+    {"c": "Godrej Agrovet", "p": "3 Plants - Baramati B2&B3, Raipur", "np": 3, "a": 19, "s": 80,
+     "d": "Blower, Pellet Mill, Hammer Mill, Screw Compressor, ID fan",
+     "n": "10+", "i": "Structural looseness, Parallel offset"},
+    {"c": "Grasim Pulp and Fibre", "p": "2 Plants - Kharach, Harihar", "np": 2, "a": 56, "s": 130,
+     "d": "Blowers, Recovery Pump, Boiler Feed Pump, Agitators, Shredders, Transport Fan, Filter feed Pumps, WFE Bottom Screw",
+     "n": "8", "i": "Fan Unbalance, Soft Foot, Bearing Faults"},
+    {"c": "Apar Oil", "p": "2 Plants - Rabale, Silvassa", "np": 2, "a": 46, "s": 98,
+     "d": "AVF Pumps, Percolator Pump, Vacuum pump, VI Mixer, VI Grinder",
+     "n": "10+", "i": "Structural Issue, BPFI, BPFO, Soft Foot, Misalignment"},
+    {"c": "SRF", "p": "Indore", "np": 1, "a": 14, "s": 30,
+     "d": "Extruder, Recycler Fan, MDO Machines",
+     "n": "4", "i": "Gear Input bearing fault, Roller bearing fault, Angular Misalignment, Unbalance"},
+    {"c": "Marico", "p": "Perundurai", "np": 1, "a": 15, "s": 73,
+     "d": "Extruders, Cooker, Grinder, Pre-Breaker, ID Fan",
+     "n": "7", "i": "Structural looseness, Soft foot"},
+    {"c": "DLF", "p": "Chennai", "np": 1, "a": 28, "s": 56,
+     "d": "CDW & CHW Motors",
+     "n": "5", "i": "Structural looseness, bearing fault"}
+  ]
+}

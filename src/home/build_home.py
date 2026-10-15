@@ -62,6 +62,17 @@ SOLUTIONS = [
         "links": [],
     },
     {
+        "slug": "condition-based-monitoring",
+        "name": "Condition Based Monitoring",
+        "sector": "All industries",
+        "accent": "blue",
+        "live": True,
+        "blurb": "Wireless tri-axial vibration sensors and the I/O Sense platform catch faults in pumps, "
+                 "motors, fans and gearboxes early, with automated diagnostics and recommended actions.",
+        "tags": ["50+ faults detected", "Tri-axial vibration sensors", "9 customer deployments"],
+        "links": [],
+    },
+    {
         "slug": "metals-ai",
         "name": "Metals AI",
         "sector": "Metals",
