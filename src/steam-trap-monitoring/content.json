@@ -1,0 +1,262 @@
+{
+  "hero": {
+    "title": "Steam Trap Failure Detection",
+    "lede": "Wireless, temperature-based monitoring that catches leaking, flooding, choked and isolated steam traps in real time, so the maintenance team fixes them in a day instead of waiting for the next manual audit.",
+    "kpis": [
+      {
+        "value": "< 1 year",
+        "label": "Return on investment"
+      },
+      {
+        "value": "45 days → 1 day",
+        "label": "Time to catch and correct a failed trap"
+      },
+      {
+        "value": "₹33.92 L",
+        "label": "Steam savings per year, per 100 traps (indicative)"
+      },
+      {
+        "value": "Zero cabling",
+        "label": "Battery nodes, LoRa radio, 4G gateway"
+      }
+    ]
+  },
+  "why": [
+    {
+      "t": "ROI < 1 year",
+      "o": true,
+      "d": "With real-time detection, the time to repair or correct a failed trap drops to a single day, against much longer with manual or third-party audits. With a 10–20% steam trap failure rate, and maintenance made difficult by manpower shortage, dependence on manual or third-party skills, infrequent audits, large numbers of traps and safety concerns, the solution is an ideal fit for the maintenance team."
+    },
+    {
+      "t": "Temperature-based detection",
+      "d": "Inlet and outlet temperatures are monitored to detect leaking, flooding, non-operational and choked traps. A high outlet indicates leaking; a low inlet indicates flooding, a non-operational trap or choking. Saturated steam temperature is used as the baseline. On heat exchangers, control valve position is used to baseline the inlet temperature dynamically."
+    },
+    {
+      "t": "Lower cost and complexity",
+      "d": "Traditional and imported acoustic-plus-temperature solutions bring more complexity and cost than temperature alone to reach a similar outcome, and have largely failed because of surrounding noise, installation requirements and higher cost of ownership."
+    },
+    {
+      "t": "Standalone and wireless",
+      "d": "No cabling. Each node carries two temperature sensors, rated up to 550 °C, mounted on the trap inlet and outlet. The node is battery powered and sends its readings to a gateway over LoRa. The gateway has a SIM card and sends data to the cloud, so the system needs zero cabling for power or communication and zero interfacing with the existing IT/OT network."
+    },
+    {
+      "t": "DCS / Historian / API integration",
+      "d": "Without DCS integration the algorithm uses static baselines, since header pressure and condensate recovery do not vary much. With integration, it runs on real-time process data: header temperature and pressure, control valve position, steam flow, condensate flow and temperature, and heat exchanger process temperature."
+    },
+    {
+      "t": "Proven and long term",
+      "o": true,
+      "d": "The hardware is designed and field tested to last for many years in corrosive areas, hydrocarbon Zone 1 and all weather, with large-scale implementations in upstream and downstream refineries, pulp and fibre, and pharma. The oldest implementations have been running for more than 4 years."
+    }
+  ],
+  "failures": [
+    {
+      "n": 1,
+      "t": "Non operational",
+      "sig": "Low inlet temperature",
+      "d": "The trap has been manually isolated using its valve. Once isolated it is either choked or bypassed.",
+      "impact": "If choked: waterlogging that affects steam quality and may lead to water hammering. If bypassed: steam losses."
+    },
+    {
+      "n": 2,
+      "t": "Leaking",
+      "sig": "High outlet temperature",
+      "d": "The trap is leaking steam along with the condensate. The leak rate depends on differential pressure and orifice size.",
+      "impact": "Loss of expensive steam. Leak rates are very high in high-pressure header traps and in large-orifice heat exchanger traps."
+    },
+    {
+      "n": 3,
+      "t": "Choking",
+      "sig": "Low inlet temperature",
+      "d": "The trap cannot release the condensate. Condensate collects at the inlet and the outlet is not releasing it.",
+      "impact": "Affects main steam quality and process temperature, and may lead to hazardous water hammering."
+    },
+    {
+      "n": 4,
+      "t": "Flooding",
+      "sig": "Low inlet temperature",
+      "d": "The trap cannot handle the condensate load, although it is still able to release condensate.",
+      "impact": "Affects header steam quality and process temperature, and may lead on to choking."
+    }
+  ],
+  "business_case": {
+    "note": "Assumes 100 steam traps evenly distributed across 40 bar, 24 bar, 7.5 bar and 3.5 bar pressure lines. Traps are thermodynamic (TD) type, connected to the header, with an assumed ⅛ inch orifice.",
+    "lines": [
+      {
+        "line": "MP 40 bar",
+        "traps": 25,
+        "leaking": 2.5,
+        "loss": "180 kg/hr",
+        "steam": 486,
+        "save": 13.12
+      },
+      {
+        "line": "LMP 24 bar",
+        "traps": 25,
+        "leaking": 2.5,
+        "loss": "150 kg/hr",
+        "steam": 405,
+        "save": 10.94
+      },
+      {
+        "line": "IP 7.5 bar",
+        "traps": 25,
+        "leaking": 2.5,
+        "loss": "85 kg/hr",
+        "steam": 230,
+        "save": 6.21
+      },
+      {
+        "line": "LP 3.5 bar",
+        "traps": 25,
+        "leaking": 2.5,
+        "loss": "50 kg/hr",
+        "steam": 135,
+        "save": 3.65
+      }
+    ],
+    "total": 33.92,
+    "assumptions": [
+      [
+        "Average failure rate",
+        "10–12% per year, industry standard (ranges from 5% to as much as 20%)"
+      ],
+      [
+        "Leaking traps",
+        "2.5 per pressure line, at a 10% annual failure rate"
+      ],
+      [
+        "Current time to catch and correct",
+        "45 days: half of a 90-day manual audit cycle. Reduced to near zero with online detection."
+      ],
+      [
+        "Cost of steam",
+        "INR 2,700 per ton"
+      ]
+    ],
+    "plus": [
+      "Manual check-up man-hour savings",
+      "Better steam quality from less choking",
+      "Avoided steam bypass losses due to choking",
+      "Reduced water hammering safety hazard"
+    ]
+  },
+  "install": [
+    {
+      "t": "Header trap installation",
+      "points": [
+        "Inlet and outlet RTDs are mounted on the pipe either side of the trap.",
+        "The steam trap monitoring LoRa node mounts on the nearby support pillar.",
+        "The trap discharges to the environment or to a condensate recovery line as before.",
+        "A 4G LoRa gateway is installed at height in an open location and sends data to the Faclon cloud."
+      ]
+    },
+    {
+      "t": "Heat exchanger installation",
+      "points": [
+        "Inlet and outlet temperature sensors on the trap after the heat exchanger, before the condensate recovery line.",
+        "Control valve position, header pressure (e.g. 15 bar), header temperature (e.g. 230 °C) and process temperature come from the DCS or historian.",
+        "An industrial PC sends the DCS / historian data to the Faclon cloud over 4G.",
+        "Control valve position is used to baseline the trap inlet temperature dynamically."
+      ]
+    }
+  ],
+  "platform": [
+    "Analytics and overview dashboard",
+    "Temperature data and trends",
+    "Steam loss and saving calculation",
+    "Trap maintenance logging",
+    "Real-time failure diagnostics and status",
+    "SMS and email alerts",
+    "Scheduled email Excel reports",
+    "Sensor, battery and connectivity health"
+  ],
+  "views": [
+    {
+      "t": "Automatic failure detection",
+      "d": "Each trap gets a status with a plain-language explanation: for example, why it is in major flooding and what the maintenance team should check."
+    },
+    {
+      "t": "Steam loss, saving and status overview",
+      "d": "Steam lost and saved, in tonnes and rupees, to date and this month, with corrective actions logged and the share of traps in each status."
+    },
+    {
+      "t": "Department-wise pivot",
+      "d": "Trap count by department and status: normal, major and mild leak, major and mild flooding, valve closed, choking, no status and offline."
+    },
+    {
+      "t": "Trend analysis",
+      "d": "Inlet and outlet temperature time series and scatter plots for any set of traps over any period."
+    },
+    {
+      "t": "Corrective action recording",
+      "d": "Log the failure found, the action taken, manufacturer, trap size, date and remarks against each trap."
+    },
+    {
+      "t": "Steam trap SLD",
+      "d": "Every trap shown on the plant's steam line diagram, coloured by its live status."
+    }
+  ],
+  "node": [
+    "LoRa RF, 865–867 MHz (free ISM band)",
+    "2 L-shaped temperature sensors, up to 550 °C, for inlet and outlet; waterproof, SS316",
+    "Battery operated, minimum 4–5 years",
+    "PESO certified flameproof enclosure and double compression glands",
+    "Zone 1 compliant; IP-67 enclosure; conformal coating",
+    "LoRa range up to 1 km in free line of sight",
+    "Data every 30 minutes",
+    "Extended antenna, fibreglass canopy; wall or metal clamp / tie mounting",
+    "1 year warranty"
+  ],
+  "gateway": [
+    "LoRa receiver; connects up to 30 traps",
+    "4G uplink with local data storage buffer",
+    "230 VAC power supply",
+    "PESO approved flameproof enclosure and double compression glands",
+    "IP67; outdoor, with canopy; conformal coating",
+    "1 year warranty"
+  ],
+  "cases": [
+    {
+      "logo": "hmel",
+      "customer": "HMEL",
+      "site": "Bathinda",
+      "ongoing": true,
+      "metric": "900+",
+      "metric_label": "steam traps in rollout",
+      "d": "Delivered a successful pilot on 30 steam traps; implementation is under way for over 900 steam traps."
+    },
+    {
+      "logo": "cairn",
+      "customer": "Cairn",
+      "site": "Barmer",
+      "metric": "8 months",
+      "metric_label": "to full ROI",
+      "d": "Real-time failure detection on 100 HP and MP steam traps, running reliably for the past 3 years."
+    },
+    {
+      "logo": "grasim",
+      "customer": "Aditya Birla Grasim",
+      "site": "Vilayat, Harihar",
+      "ongoing": true,
+      "metric": "250",
+      "metric_label": "HP steam traps, 2 plants",
+      "d": "Deploying online failure detection on header and heat exchanger traps, significantly reducing steam losses and improving reliability."
+    },
+    {
+      "logo": "jubilant",
+      "customer": "Jubilant Ingrevia",
+      "site": "Vilayat, Nira & Gajraula",
+      "metric": "250+",
+      "metric_label": "steam traps, 3 plants",
+      "d": "Steam trap health monitoring on header and heat exchanger traps, consistently helping to reduce MTTR."
+    }
+  ],
+  "contact": {
+    "name": "Parth Chaudhary",
+    "phone": "+91 93266 50795",
+    "tel": "+919326650795",
+    "email": "parth@faclon.com",
+    "web": "www.faclon.com"
+  }
+}

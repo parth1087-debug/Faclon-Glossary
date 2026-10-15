@@ -74,13 +74,13 @@ SOLUTIONS = [
     },
     {
         "slug": "steam-trap-monitoring",
-        "name": "Steam Trap Monitoring",
+        "name": "Steam Trap Failure Detection",
         "sector": "Process industries",
         "accent": "blue",
-        "live": False,
-        "blurb": "Continuous monitoring of steam traps to catch failed or leaking traps early and cut "
-                 "steam losses.",
-        "tags": [],
+        "live": True,
+        "blurb": "Wireless, temperature-based monitoring that catches leaking, flooding, choked and isolated "
+                 "steam traps in real time, with ROI in under a year.",
+        "tags": ["4 failure modes", "Zero cabling · Zone 1", "₹33.92 L / yr per 100 traps"],
         "links": [],
     },
     {
