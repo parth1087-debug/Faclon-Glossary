@@ -2,7 +2,7 @@
 
 Customer-facing pages for Faclon Labs solution lines, published as a static website with GitHub Pages.
 
-**Live site:** https://parth1087-debug.github.io/Power-Plant-AI/
+**Live site:** https://parth1087-debug.github.io/faclon-glossary/
 
 | Solution | Page | Download |
 |---|---|---|
