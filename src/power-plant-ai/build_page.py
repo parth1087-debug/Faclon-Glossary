@@ -70,16 +70,6 @@ AGENTS = [
    "An ROI-ranked improvement list for the annual budget"],
   "Is a VFD on ID fan-A worth it?",
   "At your load profile (61% of hours below 80% MCR) the fan runs on the damper most of the year. Estimated saving and payback are shown against three years of operating data."),
- ("APC Improvement Agent", "C&amp;I · Process control engineers", "loop",
-  ["Control-loop performance: oscillation, valve stiction, saturation, poor tuning",
-   "APC on-time, operator overrides and the reasons logged against them",
-   "Model mismatch between APC predictions and plant response"],
-  ["A loop health ranking with tuning recommendations",
-   "Triggers to re-identify the APC model when the plant or coal changes",
-   "Constraint and limit revisions where the APC is being held back",
-   "Monthly APC benefit and uptime reports"],
-  "Why is the combustion APC switched off so often on Unit 1?",
-  "62% of switch-offs happen during mill changeovers. The FD damper loop oscillates, so the APC hits its rate limit. Retuning the damper PID and adding a mill-change feedforward should fix most of them."),
  ("Plant Knowledge Co-pilot", "Every role · New joiners", "chat",
   ["OEM manuals, SOPs, P&amp;IDs, HMBD, shift logs and past RCAs, all linked to the asset in the ontology",
    "Live and historical plant data"],
@@ -98,7 +88,6 @@ ICONS = {
  "wrench": '<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/>',
  "alert": '<path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/>',
  "pencil": '<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13 7l4 4"/>',
- "loop": '<path d="M4 12a8 8 0 0 1 14-5.3L20 9"/><path d="M20 4v5h-5"/><path d="M20 12a8 8 0 0 1-14 5.3L4 15"/><path d="M4 20v-5h5"/>',
  "chat": '<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/>',
 }
 def icon(k):
@@ -125,60 +114,60 @@ agents_html = "".join(agent_card(i + 1, a) for i, a in enumerate(AGENTS))
 agent_chips = "".join(f"<div class='chip-ag'>{icon(a[2])}<span>{a[0]}</span></div>" for a in AGENTS)
 
 # ======================= APC APPLICATIONS =======================
-# name, applicability, model, CVs, MVs, DVs, objective(html), benefits, value
+# name, applicability, model, CVs, MVs, DVs, logic (how it decides, plain language), benefits, value
 APC = [
  ("Combustion & Air–Fuel Ratio Optimization", "All boilers", "MPC",
   ["Excess O<sub>2</sub> (economizer outlet)", "CO", "NOx", "FEGT", "Furnace draft"],
   ["FD / secondary-air damper demand", "PA fan / mill air", "Feeder bias", "OFA dampers"],
   ["Coal GCV and moisture (soft sensor)", "Unit load", "Mill combination"],
-  "min&nbsp; L<sub>dry gas</sub>(O<sub>2</sub>) + L<sub>unburnt</sub>(CO, LOI) + c<sub>fan</sub>·P<sub>fan</sub><br>s.t. CO ≤ CO<sub>max</sub>, NOx ≤ NOx<sub>lim</sub>, draft in band",
+  ["Finds the lowest excess O<sub>2</sub> the current coal and load allow before CO starts to rise", "Trims air and feeder bias together to hold that point, while keeping fan power in check", "Backs off at once if CO, NOx or furnace draft approach their limits"],
   ["Holds the lowest safe excess O<sub>2</sub> for the coal being fired", "Lower dry-flue-gas loss and fan power", "CO-breakthrough protection built in"], 4),
  ("Bed Temperature & Multi-Feeder Coal Balancing", "CFBC + AFBC", "MPC",
   ["Zone-wise bed temperatures", "Bed DP / inventory", "Main steam pressure"],
   ["Individual feeder speeds", "Secondary-air dampers", "PA flow", "Bed drain"],
   ["Coal quality and size", "Load demand", "Feeder trips"],
-  "min&nbsp; Σ<sub>z</sub> w<sub>z</sub>(T<sub>bed,z</sub> − T<sub>ref</sub>)² + w<sub>p</sub>(P<sub>ms</sub> − P<sub>sp</sub>)² + ‖Δu‖²<sub>R</sub><br>s.t. T<sub>bed</sub> &lt; T<sub>sinter</sub> − margin, feeder limits",
+  ["Keeps every bed zone close to its target temperature, with a safe margin below sintering", "Shifts coal between feeders to even out hot and cold zones while holding steam pressure", "Moves feeders and air gradually, so the bed never sees sudden changes"],
   ["Tight, even bed temperature", "Sintering and defluidization risk designed out", "Steadier outlet steam, less attemperation"], 5),
  ("Steam Temperature & Attemperation", "All (RH lever on reheat units)", "MPC",
   ["Main steam temperature", "Hot reheat temperature", "Tube-metal temperatures"],
   ["SH and RH spray valves", "Burner tilt (PF) / bed temperature (FBC)", "Gas bias dampers", "Soot-blow trigger"],
   ["Load ramps", "Fouling state (HEI)", "Mill combination"],
-  "min&nbsp; c<sub>SH</sub>·F<sub>SH spray</sub> + c<sub>RH</sub>·F<sub>RH spray</sub> + w(T − T<sub>sp</sub>)²<br>s.t. T<sub>metal</sub> ≤ T<sub>metal,max</sub>&nbsp; (c<sub>RH</sub> ≫ c<sub>SH</sub>)",
+  ["Holds main steam and reheat temperature at design", "Corrects the cause first (burner tilt, gas bias, soot blowing) and uses spray only to trim", "Uses RH spray last because it costs the most heat rate, and keeps tube-metal temperatures within limits"],
   ["Steam held at design, not below it", "Lower spray flow, especially costly RH spray", "Less thermal fatigue at desuperheaters"], 3),
  ("Intelligent Soot Blowing", "All boilers", "MILP scheduler",
   ["Heat-exchange index per section", "Steam temperatures", "Flue gas exit temperature"],
   ["Blow / no-blow command per blower", "Blow sequence and timing"],
   ["Fouling rate per section", "Coal ash and slagging index", "Load"],
-  "max&nbsp; Σ<sub>s</sub> ΔQ<sub>recovered,s</sub>·x<sub>s</sub> − c<sub>steam</sub>·m<sub>blow</sub>·x<sub>s</sub> − c<sub>erosion,s</sub>·x<sub>s</sub><br>x<sub>s</sub> ∈ {0,1}, steam-header and sequence constraints",
+  ["Scores each section by how much heat it is losing to fouling", "Blows a section only when the heat recovered is worth more than the steam used and the tube wear caused", "Sequences blows to respect steam-header limits and avoid upsetting steam temperature"],
   ["Blows only the sections that need it", "Less blowing steam and tube erosion", "Restores SH/RH absorption balance"], 5),
  ("Condenser Vacuum, CT & CW Optimization", "All boilers", "LP / MILP",
   ["Condenser back pressure", "CW supply temperature"],
   ["CT fan cells on/off", "Per-cell VFD speed", "CW pump combination", "Vacuum pump duty"],
   ["Ambient wet bulb", "Unit load", "Air ingress"],
-  "max&nbsp; ΔMW(P<sub>back</sub>) − Σ P<sub>CT fans</sub> − Σ P<sub>CW pumps</sub><br>s.t. fan / pump curves, minimum cells per header, equal-wear rotation",
+  ["Weighs the extra MW from a better vacuum against the power drawn by CT fans and CW pumps", "Picks the fan cells, fan speeds and pump combination that give the highest net MW", "Re-optimizes as wet bulb and load change, and rotates cells for even wear"],
   ["Net MW gain, not just a better vacuum", "Fewer fans in mild weather", "Even wear across cells"], 4),
  ("Auxiliary Load Allocation", "All boilers", "LP",
   ["Total feedwater / air / CW demand met"],
   ["Load share across parallel BFPs, ID/FD/PA fans, CW pumps", "Units in service"],
   ["Unit load", "Re-traced efficiency curve of each unit"],
-  "min&nbsp; Σ<sub>i</sub> P<sub>i</sub>(q<sub>i</sub>)&nbsp; s.t.&nbsp; Σ<sub>i</sub> q<sub>i</sub> = Q<sub>demand</sub>,&nbsp; q<sub>i,min</sub> ≤ q<sub>i</sub> ≤ q<sub>i,max</sub>",
+  ["Uses each pump’s and fan’s efficiency curve, re-traced from plant data", "Splits the required flow so total power drawn is lowest, loading the most efficient units first", "Respects each unit’s minimum and maximum flow and decides which units should be running"],
   ["Efficient units loaded first, degraded ones relieved", "Direct cut in auxiliary power", "Maintenance priorities from the same curves"], 6),
  ("ESP Energy Optimization", "All boilers", "MPC + LP",
   ["Stack SPM"],
   ["Per-field TR-set voltage / current limit", "Rapping sequence"],
   ["Dust loading", "Load", "Coal ash content"],
-  "min&nbsp; Σ<sub>f</sub> P<sub>TR,f</sub>&nbsp; s.t.&nbsp; SPM ≤ SPM<sub>lim</sub> − margin",
+  ["Predicts stack SPM from dust loading and the behaviour of each field", "Lowers TR-set power field by field while SPM stays safely under the limit", "Adjusts rapping so collection stays steady as fields are trimmed"],
   ["Fields energised only as hard as needed", "Lower ESP power", "SPM compliance held continuously"], 2),
  ("Emissions Reagent Dosing (Limestone · SCR/SNCR)", "CFBC / SCR-SNCR equipped", "MPC + soft sensor",
   ["Stack SO<sub>2</sub>", "Stack NOx", "NH<sub>3</sub> slip"],
   ["Limestone feeder rate", "Urea / ammonia injection rate"],
   ["Coal sulphur and nitrogen", "Bed temperature", "Predicted NOx (ahead of analyser)"],
-  "min&nbsp; c<sub>lime</sub>·m<sub>lime</sub> + c<sub>reag</sub>·m<sub>reag</sub><br>s.t. SO<sub>2</sub> ≤ lim, NOx ≤ lim, NH<sub>3</sub> slip ≤ max",
+  ["Predicts SO<sub>2</sub> and NOx from coal and combustion conditions before the analyser sees them", "Doses the minimum limestone and urea / ammonia that keeps emissions inside limits", "Caps ammonia slip to protect the SCR catalyst"],
   ["Compliance at the lowest reagent use", "Less ammonia slip, longer catalyst life", "Better fly-ash quality for sale"], 2),
 ]
 
 def apc_card(i, a):
-    name, app, model, cv, mv, dv, obj, ben, val = a
+    name, app, model, cv, mv, dv, logic, ben, val = a
     def ul(xs): return "".join(f"<li>{x}</li>" for x in xs)
     return f"""
 <article class="apc">
@@ -192,7 +181,7 @@ def apc_card(i, a):
     <div class="var mv"><div class="vl">Manipulated (MV)</div><ul>{ul(mv)}</ul></div>
     <div class="var dv"><div class="vl">Disturbance (DV)</div><ul>{ul(dv)}</ul></div>
   </div>
-  <div class="obj"><div class="vl">Objective</div><div class="f">{obj}</div></div>
+  <div class="obj"><div class="vl">How it decides</div><ul>{ul(logic)}</ul></div>
   <div class="ben">{''.join(f'<span>{b}</span>' for b in ben)}</div>
 </article>"""
 
@@ -240,7 +229,7 @@ HTML = f"""<!doctype html>
 <meta name="description" content="Advisory Agents and Automated Process Control for boilers, turbines and auxiliaries.">
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{{--ink:#0F1B2D;--ink2:#3A4A5F;--mute:#6B7A90;--line:#E3E8EF;--bg:#F6F8FB;--navy:#0B1A30;--navy2:#13264A;
 --blue:#3D63F5;--blue2:#7C95FF;--blueBg:#EEF2FF;--green:#11875F;--greenBg:#E5F5EE;--amber:#C77A12;--amberBg:#FFF4E2;--red:#B5452F;--redBg:#FBF1EE;--violet:#6A45D0;--violetBg:#F1ECFD}}
@@ -317,6 +306,9 @@ ul{{list-style:none}}
 /* agent cards */
 .agents{{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:36px}}
 .agent{{border:1px solid var(--line);border-radius:16px;padding:22px;display:flex;flex-direction:column}}
+.agent:last-child:nth-child(odd){{grid-column:1/-1;display:grid;grid-template-columns:1.4fr 1fr;column-gap:28px;align-items:start}}
+.agent:last-child:nth-child(odd) header{{grid-column:1/-1}}
+.agent:last-child:nth-child(odd) .convo{{margin-top:0;border-top:0;padding-top:0}}
 .agent header{{display:flex;gap:14px;align-items:center;margin-bottom:16px}}
 .aic{{width:42px;height:42px;border-radius:11px;background:var(--blueBg);color:var(--blue);display:flex;align-items:center;justify-content:center;flex:none}}
 .aic svg{{width:22px;height:22px}}
@@ -373,10 +365,8 @@ ul{{list-style:none}}
 .model .use b{{color:var(--mute);font-weight:600;font-size:11px;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:2px}}
 
 .objfn{{margin-top:24px;background:var(--navy);color:#fff;border-radius:16px;padding:26px 28px;display:grid;grid-template-columns:1.3fr 1fr;gap:28px}}
+.objfn .lead{{color:#C5D0E3;font-size:16px;line-height:1.6;margin-top:12px;max-width:520px}}
 .objfn .mt{{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#5FD3A6}}
-.eq{{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:15px;line-height:2;margin-top:12px;color:#E8EEF8}}
-.eq .t1{{color:#9FC0FF}} .eq .t2{{color:#F2B256}} .eq .t3{{color:#5FD3A6}}
-.eq .st{{color:#9FB0CC;font-size:13.5px;line-height:1.8;margin-top:6px}}
 .terms li{{padding:10px 0;border-top:1px solid rgba(255,255,255,.1);font-size:14px;color:#C5D0E3}}
 .terms li:first-child{{border-top:0}}
 .terms b{{display:inline-block;width:22px;height:4px;border-radius:2px;vertical-align:middle;margin-right:9px}}
@@ -403,7 +393,8 @@ ul{{list-style:none}}
 .var li{{font-size:12.5px;color:var(--ink2);padding:2px 0;line-height:1.4}}
 .obj{{margin-top:10px;border:1px solid var(--line);border-radius:10px;padding:10px 12px}}
 .obj .vl{{color:var(--amber)}}
-.obj .f{{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12.5px;color:var(--ink);line-height:1.75}}
+.obj li{{font-size:13px;color:var(--ink);padding:3px 0 3px 16px;position:relative;line-height:1.45}}
+.obj li:before{{content:"";position:absolute;left:0;top:10px;width:7px;height:7px;border-radius:50%;background:var(--amber)}}
 .ben{{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}}
 .ben span{{font-size:12.5px;background:#fff;border:1px solid #CDE9DC;color:#0E6B4C;border-radius:20px;padding:3px 10px}}
 .ben span:before{{content:"✓ ";font-weight:700}}
@@ -472,6 +463,7 @@ ul{{list-style:none}}
   .arr{{height:36px}} .arr svg{{transform:rotate(90deg)}}
   .how{{grid-template-columns:1fr 1fr}}
   .agents,.apcs{{grid-template-columns:1fr}}
+  .agent:last-child:nth-child(odd){{display:flex}} .agent:last-child:nth-child(odd) .convo{{margin-top:16px;border-top:1px dashed var(--line);padding-top:14px}}
   .zone{{grid-template-columns:1fr;gap:10px}} .zh{{flex-direction:row;gap:10px;align-items:baseline}}
   .models,.safe,.cases{{grid-template-columns:1fr}}
   .objfn,.ssWrap{{grid-template-columns:1fr}}
@@ -490,8 +482,7 @@ ul{{list-style:none}}
   .nodes,.dmz .nodes,.it .nodes{{flex-direction:column;gap:8px}} .dmz .node,.it .node{{flex:1}} .node.ghost{{display:none}} .ot .nodes{{gap:0}}
   .link{{width:auto;height:30px;flex-direction:row}} .link svg{{transform:rotate(90deg)}}
   .ca{{margin-left:12px}}
-  .eq{{font-size:13px}}
-  .benefits{{grid-template-columns:1fr}}
+    .benefits{{grid-template-columns:1fr}}
 }}
 @media print{{ .sp:hover{{background:none}} section{{padding:40px 0}} .agent,.apc,.case{{break-inside:avoid}} }}
 </style></head>
@@ -502,7 +493,7 @@ ul{{list-style:none}}
   <h1>AI that advises your people <em>and</em> controls your process</h1>
   <p class="lede">Two complementary offerings for captive and utility power plants. Advisory Agents turn plant data into decisions for every team. Automated Process Control writes optimal setpoints back to the DCS, around the clock.</p>
   <div class="split">
-    <a class="sp a" href="#agents"><div class="k">Part A</div><h3>Advisory Agents</h3><p>AI agents that analyse plant data through a shared plant ontology and give each team insights, reports, recommendations and root causes.</p><div class="meta">8 agents · humans decide →</div></a>
+    <a class="sp a" href="#agents"><div class="k">Part A</div><h3>Advisory Agents</h3><p>AI agents that analyse plant data through a shared plant ontology and give each team insights, reports, recommendations and root causes.</p><div class="meta">7 agents · humans decide →</div></a>
     <a class="sp b" href="#apc"><div class="k">Part B</div><h3>Automated Process Control</h3><p>Model-predictive and optimization controllers running in the OT network, writing setpoints to the DCS over OPC within safe bounds.</p><div class="meta">8 APC applications · closed loop →</div></a>
   </div>
   <div class="kpis">
@@ -594,7 +585,7 @@ ul{{list-style:none}}
 
   <div class="archB">
     <div class="zone it"><div class="zh">IT network<small>Level 4</small></div>
-      <div class="nodes"><div class="node"><b>Faclon AI platform</b>Model build and retraining on historian data, APC performance dashboards, APC Improvement Agent</div><div class="node ghost"></div></div>
+      <div class="nodes"><div class="node"><b>Faclon AI platform</b>Model build and retraining on historian data, and APC performance dashboards</div><div class="node ghost"></div></div>
     </div>
     <div class="zone dmz"><div class="zh">DMZ<small>Level 3.5</small></div>
       <div class="nodes"><div class="node"><b>I/O Connect</b>Secure gateway: historian mirror out, validated models in. Firewalled, with no direct IT → DCS path</div><div class="node apcn alt"><b>APC engine</b> can also be hosted here<span class="pill">option</span></div></div>
@@ -619,21 +610,19 @@ ul{{list-style:none}}
   </div>
 
   <div class="objfn">
-    <div><div class="mt">The general objective</div>
-      <div class="eq">min<sub>Δu</sub>&nbsp; J = <span class="t1">Σ ‖ŷ<sub>k</sub> − r<sub>k</sub>‖²<sub>Q</sub></span> + <span class="t2">Σ ‖Δu<sub>k</sub>‖²<sub>R</sub></span> + <span class="t3">Σ c<sup>T</sup>u<sub>k</sub></span>
-        <div class="st">subject to&nbsp; u<sub>min</sub> ≤ u ≤ u<sub>max</sub>,&nbsp; |Δu| ≤ Δu<sub>max</sub>,&nbsp; y<sub>min</sub> ≤ ŷ ≤ y<sub>max</sub></div>
-      </div>
+    <div><div class="mt">How every controller decides</div>
+      <p class="lead">Every few seconds, each controller looks at where the plant is now, predicts where it is heading, and chooses the next small set of moves. It balances three things, and it never crosses a limit the plant engineers have set.</p>
     </div>
     <ul class="terms">
-      <li><b style="background:#9FC0FF"></b><strong>Track targets.</strong> Keep controlled variables (O<sub>2</sub>, steam temperature, bed temperature) on target.</li>
-      <li><b style="background:#F2B256"></b><strong>Move gently.</strong> Penalize large valve and damper moves to protect equipment and operator trust.</li>
-      <li><b style="background:#5FD3A6"></b><strong>Run cheapest.</strong> An economic term for fuel, spray, aux power or reagent cost.</li>
+      <li><b style="background:#9FC0FF"></b><strong>Stay on target.</strong> Keep O<sub>2</sub>, steam temperature, bed temperature and emissions where they should be.</li>
+      <li><b style="background:#F2B256"></b><strong>Move gently.</strong> Prefer small, steady valve and damper moves that protect equipment and keep operators’ trust.</li>
+      <li><b style="background:#5FD3A6"></b><strong>Run at least cost.</strong> Among the safe options, choose the one that uses the least fuel, spray, auxiliary power or reagent.</li>
     </ul>
   </div>
 
   <div class="eyebrow" style="margin-top:72px;color:var(--green)">Applications</div>
   <h2>What we control, and what it is worth</h2>
-  <p class="sub">For each application: the variables held on target (CV), the handles the APC moves (MV), the disturbances it anticipates (DV), and the objective it optimizes. Values are indicative, “up to” per 100 MW per year, and are re-baselined against your data.</p>
+  <p class="sub">For each application: the variables held on target (CV), the handles the APC moves (MV), the disturbances it anticipates (DV), and how it decides each move. Values are indicative, “up to” per 100 MW per year, and are re-baselined against your data.</p>
   <div class="apcs">{apc_html}</div>
 
   <div class="eyebrow" style="margin-top:72px;color:var(--green)">Why it pays</div>
@@ -660,7 +649,7 @@ ul{{list-style:none}}
     <div><b>Watchdog fallback</b><p>A heartbeat between the APC and the DCS. If it is lost, the DCS reverts bumplessly to base PID control.</p></div>
     <div><b>DCS interlocks untouched</b><p>Protection, burner management and trips stay in the DCS/BMS. The APC sits above them, never in place of them.</p></div>
     <div><b>Offline validation</b><p>Every controller is tested on the digital twin before go-live.</p></div>
-    <div><b>Full audit trail</b><p>Every write, override and switch-off is logged and reviewed by the APC Improvement Agent.</p></div>
+    <div><b>Full audit trail</b><p>Every write, override and switch-off is logged for review by the plant’s C&amp;I team.</p></div>
   </div>
   <div class="path">
     <div><small>Step 1</small><b>Step tests &amp; model ID</b>Plant response identified for each MV</div>

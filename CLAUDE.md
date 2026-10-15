@@ -5,7 +5,7 @@ This repo holds Faclon Labs customer-facing solution collateral, published with 
 ## Rules
 - Generated files (`<solution>/index.html`, `<solution>/*.pdf`) are never hand-edited. Change the build script in `src/<solution>/` and regenerate.
 - Each solution lives in its own folder with an `index.html`, so its URL is `/<solution>/`. Add a card to the root `index.html` and a row to the README table whenever a solution is added.
-- Pages are self-contained HTML: inline CSS and SVG, with Google Fonts (Inter, JetBrains Mono for formulas) as the only external dependency. They must work at phone width (~390px) with no horizontal scroll.
+- Pages are self-contained HTML: inline CSS and SVG, with Google Fonts (Inter) as the only external dependency. They must work at phone width (~390px) with no horizontal scroll.
 - Keep `<meta name="robots" content="noindex">` on every page unless asked otherwise.
 - The repo is public. Do not commit internal pricing, deal data or anything marked confidential.
 
@@ -19,3 +19,4 @@ This repo holds Faclon Labs customer-facing solution collateral, published with 
 - Example agent conversations are illustrative and must stay labelled as such.
 - ₹ values are "up to, per 100 MW per year" and are indicative.
 - Platform names: Faclon AI platform, Ontology, I/O Connect (gateway, can sit in OT, DMZ or IT).
+- Write in plain language for plant and business readers: describe what a controller or agent does logically, never as mathematical formulas.

@@ -4,7 +4,7 @@
 <meta name="description" content="Advisory Agents and Automated Process Control for boilers, turbines and auxiliaries.">
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--ink:#0F1B2D;--ink2:#3A4A5F;--mute:#6B7A90;--line:#E3E8EF;--bg:#F6F8FB;--navy:#0B1A30;--navy2:#13264A;
 --blue:#3D63F5;--blue2:#7C95FF;--blueBg:#EEF2FF;--green:#11875F;--greenBg:#E5F5EE;--amber:#C77A12;--amberBg:#FFF4E2;--red:#B5452F;--redBg:#FBF1EE;--violet:#6A45D0;--violetBg:#F1ECFD}
@@ -81,6 +81,9 @@ ul{list-style:none}
 /* agent cards */
 .agents{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:36px}
 .agent{border:1px solid var(--line);border-radius:16px;padding:22px;display:flex;flex-direction:column}
+.agent:last-child:nth-child(odd){grid-column:1/-1;display:grid;grid-template-columns:1.4fr 1fr;column-gap:28px;align-items:start}
+.agent:last-child:nth-child(odd) header{grid-column:1/-1}
+.agent:last-child:nth-child(odd) .convo{margin-top:0;border-top:0;padding-top:0}
 .agent header{display:flex;gap:14px;align-items:center;margin-bottom:16px}
 .aic{width:42px;height:42px;border-radius:11px;background:var(--blueBg);color:var(--blue);display:flex;align-items:center;justify-content:center;flex:none}
 .aic svg{width:22px;height:22px}
@@ -137,10 +140,8 @@ ul{list-style:none}
 .model .use b{color:var(--mute);font-weight:600;font-size:11px;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:2px}
 
 .objfn{margin-top:24px;background:var(--navy);color:#fff;border-radius:16px;padding:26px 28px;display:grid;grid-template-columns:1.3fr 1fr;gap:28px}
+.objfn .lead{color:#C5D0E3;font-size:16px;line-height:1.6;margin-top:12px;max-width:520px}
 .objfn .mt{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#5FD3A6}
-.eq{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:15px;line-height:2;margin-top:12px;color:#E8EEF8}
-.eq .t1{color:#9FC0FF} .eq .t2{color:#F2B256} .eq .t3{color:#5FD3A6}
-.eq .st{color:#9FB0CC;font-size:13.5px;line-height:1.8;margin-top:6px}
 .terms li{padding:10px 0;border-top:1px solid rgba(255,255,255,.1);font-size:14px;color:#C5D0E3}
 .terms li:first-child{border-top:0}
 .terms b{display:inline-block;width:22px;height:4px;border-radius:2px;vertical-align:middle;margin-right:9px}
@@ -167,7 +168,8 @@ ul{list-style:none}
 .var li{font-size:12.5px;color:var(--ink2);padding:2px 0;line-height:1.4}
 .obj{margin-top:10px;border:1px solid var(--line);border-radius:10px;padding:10px 12px}
 .obj .vl{color:var(--amber)}
-.obj .f{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12.5px;color:var(--ink);line-height:1.75}
+.obj li{font-size:13px;color:var(--ink);padding:3px 0 3px 16px;position:relative;line-height:1.45}
+.obj li:before{content:"";position:absolute;left:0;top:10px;width:7px;height:7px;border-radius:50%;background:var(--amber)}
 .ben{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
 .ben span{font-size:12.5px;background:#fff;border:1px solid #CDE9DC;color:#0E6B4C;border-radius:20px;padding:3px 10px}
 .ben span:before{content:"✓ ";font-weight:700}
@@ -236,6 +238,7 @@ ul{list-style:none}
   .arr{height:36px} .arr svg{transform:rotate(90deg)}
   .how{grid-template-columns:1fr 1fr}
   .agents,.apcs{grid-template-columns:1fr}
+  .agent:last-child:nth-child(odd){display:flex} .agent:last-child:nth-child(odd) .convo{margin-top:16px;border-top:1px dashed var(--line);padding-top:14px}
   .zone{grid-template-columns:1fr;gap:10px} .zh{flex-direction:row;gap:10px;align-items:baseline}
   .models,.safe,.cases{grid-template-columns:1fr}
   .objfn,.ssWrap{grid-template-columns:1fr}
@@ -254,8 +257,7 @@ ul{list-style:none}
   .nodes,.dmz .nodes,.it .nodes{flex-direction:column;gap:8px} .dmz .node,.it .node{flex:1} .node.ghost{display:none} .ot .nodes{gap:0}
   .link{width:auto;height:30px;flex-direction:row} .link svg{transform:rotate(90deg)}
   .ca{margin-left:12px}
-  .eq{font-size:13px}
-  .benefits{grid-template-columns:1fr}
+    .benefits{grid-template-columns:1fr}
 }
 @media print{ .sp:hover{background:none} section{padding:40px 0} .agent,.apc,.case{break-inside:avoid} }
 </style></head>
@@ -266,7 +268,7 @@ ul{list-style:none}
   <h1>AI that advises your people <em>and</em> controls your process</h1>
   <p class="lede">Two complementary offerings for captive and utility power plants. Advisory Agents turn plant data into decisions for every team. Automated Process Control writes optimal setpoints back to the DCS, around the clock.</p>
   <div class="split">
-    <a class="sp a" href="#agents"><div class="k">Part A</div><h3>Advisory Agents</h3><p>AI agents that analyse plant data through a shared plant ontology and give each team insights, reports, recommendations and root causes.</p><div class="meta">8 agents · humans decide →</div></a>
+    <a class="sp a" href="#agents"><div class="k">Part A</div><h3>Advisory Agents</h3><p>AI agents that analyse plant data through a shared plant ontology and give each team insights, reports, recommendations and root causes.</p><div class="meta">7 agents · humans decide →</div></a>
     <a class="sp b" href="#apc"><div class="k">Part B</div><h3>Automated Process Control</h3><p>Model-predictive and optimization controllers running in the OT network, writing setpoints to the DCS over OPC within safe bounds.</p><div class="meta">8 APC applications · closed loop →</div></a>
   </div>
   <div class="kpis">
@@ -326,7 +328,7 @@ ul{list-style:none}
       </ul>
     </div>
     <div class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 12h15M14 6l6 6-6 6"/></svg></div>
-    <div class="col agentsCol"><h5>Agents</h5><div class='chip-ag'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><span>Visibility Agent</span></div><div class='chip-ag'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg><span>Reporting Agent</span></div><div class='chip-ag'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14l4-4"/><path d="M3.3 17a9 9 0 1 1 17.4 0"/></svg><span>Operations Agent</span></div><div class='chip-ag'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/></svg><span>Maintenance Agent</span></div><div class='chip-ag'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/></svg><span>Breakdown & RCA Agent</span></div><div class='chip-ag'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13 7l4 4"/></svg><span>Design Improvement Agent</span></div><div class='chip-ag'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 14-5.3L20 9"/><path d="M20 4v5h-5"/><path d="M20 12a8 8 0 0 1-14 5.3L4 15"/><path d="M4 20v-5h5"/></svg><span>APC Improvement Agent</span></div><div class='chip-ag'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg><span>Plant Knowledge Co-pilot</span></div></div>
+    <div class="col agentsCol"><h5>Agents</h5><div class='chip-ag'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><span>Visibility Agent</span></div><div class='chip-ag'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg><span>Reporting Agent</span></div><div class='chip-ag'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14l4-4"/><path d="M3.3 17a9 9 0 1 1 17.4 0"/></svg><span>Operations Agent</span></div><div class='chip-ag'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/></svg><span>Maintenance Agent</span></div><div class='chip-ag'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/></svg><span>Breakdown & RCA Agent</span></div><div class='chip-ag'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13 7l4 4"/></svg><span>Design Improvement Agent</span></div><div class='chip-ag'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg><span>Plant Knowledge Co-pilot</span></div></div>
   </div>
   <div class="toPeople"><b>Delivered to</b><span>Chat</span><span>Reports</span><span>Alerts</span><span>Dashboards</span><span>CMMS work orders</span><span>Email / WhatsApp</span></div>
 
@@ -409,18 +411,7 @@ ul{list-style:none}
   </div>
 </article>
 <article class="agent">
-  <header><div class="aic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 14-5.3L20 9"/><path d="M20 4v5h-5"/><path d="M20 12a8 8 0 0 1-14 5.3L4 15"/><path d="M4 20v-5h5"/></svg></div><div><h4>APC Improvement Agent</h4><div class="who">C&amp;I · Process control engineers</div></div><div class="ano">07</div></header>
-  <div class="ag-cols">
-    <div><div class="lbl">What it analyses</div><ul class="ana"><li>Control-loop performance: oscillation, valve stiction, saturation, poor tuning</li><li>APC on-time, operator overrides and the reasons logged against them</li><li>Model mismatch between APC predictions and plant response</li></ul></div>
-    <div><div class="lbl prov">What it provides</div><ul class="prov"><li>A loop health ranking with tuning recommendations</li><li>Triggers to re-identify the APC model when the plant or coal changes</li><li>Constraint and limit revisions where the APC is being held back</li><li>Monthly APC benefit and uptime reports</li></ul></div>
-  </div>
-  <div class="convo">
-    <div class="cq"><span>Ask</span>Why is the combustion APC switched off so often on Unit 1?</div>
-    <div class="ca"><span>Agent</span>62% of switch-offs happen during mill changeovers. The FD damper loop oscillates, so the APC hits its rate limit. Retuning the damper PID and adding a mill-change feedforward should fix most of them.</div>
-  </div>
-</article>
-<article class="agent">
-  <header><div class="aic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></div><div><h4>Plant Knowledge Co-pilot</h4><div class="who">Every role · New joiners</div></div><div class="ano">08</div></header>
+  <header><div class="aic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></div><div><h4>Plant Knowledge Co-pilot</h4><div class="who">Every role · New joiners</div></div><div class="ano">07</div></header>
   <div class="ag-cols">
     <div><div class="lbl">What it analyses</div><ul class="ana"><li>OEM manuals, SOPs, P&amp;IDs, HMBD, shift logs and past RCAs, all linked to the asset in the ontology</li><li>Live and historical plant data</li></ul></div>
     <div><div class="lbl prov">What it provides</div><ul class="prov"><li>Instant, cited answers to operating and maintenance questions</li><li>Step-by-step procedures pulled from the plant’s own SOPs</li><li>Faster onboarding, so senior-operator know-how stays in the plant</li><li>Works in English and in the regional language</li></ul></div>
@@ -446,7 +437,7 @@ ul{list-style:none}
 
   <div class="archB">
     <div class="zone it"><div class="zh">IT network<small>Level 4</small></div>
-      <div class="nodes"><div class="node"><b>Faclon AI platform</b>Model build and retraining on historian data, APC performance dashboards, APC Improvement Agent</div><div class="node ghost"></div></div>
+      <div class="nodes"><div class="node"><b>Faclon AI platform</b>Model build and retraining on historian data, and APC performance dashboards</div><div class="node ghost"></div></div>
     </div>
     <div class="zone dmz"><div class="zh">DMZ<small>Level 3.5</small></div>
       <div class="nodes"><div class="node"><b>I/O Connect</b>Secure gateway: historian mirror out, validated models in. Firewalled, with no direct IT → DCS path</div><div class="node apcn alt"><b>APC engine</b> can also be hosted here<span class="pill">option</span></div></div>
@@ -471,21 +462,19 @@ ul{list-style:none}
   </div>
 
   <div class="objfn">
-    <div><div class="mt">The general objective</div>
-      <div class="eq">min<sub>Δu</sub>&nbsp; J = <span class="t1">Σ ‖ŷ<sub>k</sub> − r<sub>k</sub>‖²<sub>Q</sub></span> + <span class="t2">Σ ‖Δu<sub>k</sub>‖²<sub>R</sub></span> + <span class="t3">Σ c<sup>T</sup>u<sub>k</sub></span>
-        <div class="st">subject to&nbsp; u<sub>min</sub> ≤ u ≤ u<sub>max</sub>,&nbsp; |Δu| ≤ Δu<sub>max</sub>,&nbsp; y<sub>min</sub> ≤ ŷ ≤ y<sub>max</sub></div>
-      </div>
+    <div><div class="mt">How every controller decides</div>
+      <p class="lead">Every few seconds, each controller looks at where the plant is now, predicts where it is heading, and chooses the next small set of moves. It balances three things, and it never crosses a limit the plant engineers have set.</p>
     </div>
     <ul class="terms">
-      <li><b style="background:#9FC0FF"></b><strong>Track targets.</strong> Keep controlled variables (O<sub>2</sub>, steam temperature, bed temperature) on target.</li>
-      <li><b style="background:#F2B256"></b><strong>Move gently.</strong> Penalize large valve and damper moves to protect equipment and operator trust.</li>
-      <li><b style="background:#5FD3A6"></b><strong>Run cheapest.</strong> An economic term for fuel, spray, aux power or reagent cost.</li>
+      <li><b style="background:#9FC0FF"></b><strong>Stay on target.</strong> Keep O<sub>2</sub>, steam temperature, bed temperature and emissions where they should be.</li>
+      <li><b style="background:#F2B256"></b><strong>Move gently.</strong> Prefer small, steady valve and damper moves that protect equipment and keep operators’ trust.</li>
+      <li><b style="background:#5FD3A6"></b><strong>Run at least cost.</strong> Among the safe options, choose the one that uses the least fuel, spray, auxiliary power or reagent.</li>
     </ul>
   </div>
 
   <div class="eyebrow" style="margin-top:72px;color:var(--green)">Applications</div>
   <h2>What we control, and what it is worth</h2>
-  <p class="sub">For each application: the variables held on target (CV), the handles the APC moves (MV), the disturbances it anticipates (DV), and the objective it optimizes. Values are indicative, “up to” per 100 MW per year, and are re-baselined against your data.</p>
+  <p class="sub">For each application: the variables held on target (CV), the handles the APC moves (MV), the disturbances it anticipates (DV), and how it decides each move. Values are indicative, “up to” per 100 MW per year, and are re-baselined against your data.</p>
   <div class="apcs">
 <article class="apc">
   <header>
@@ -498,7 +487,7 @@ ul{list-style:none}
     <div class="var mv"><div class="vl">Manipulated (MV)</div><ul><li>FD / secondary-air damper demand</li><li>PA fan / mill air</li><li>Feeder bias</li><li>OFA dampers</li></ul></div>
     <div class="var dv"><div class="vl">Disturbance (DV)</div><ul><li>Coal GCV and moisture (soft sensor)</li><li>Unit load</li><li>Mill combination</li></ul></div>
   </div>
-  <div class="obj"><div class="vl">Objective</div><div class="f">min&nbsp; L<sub>dry gas</sub>(O<sub>2</sub>) + L<sub>unburnt</sub>(CO, LOI) + c<sub>fan</sub>·P<sub>fan</sub><br>s.t. CO ≤ CO<sub>max</sub>, NOx ≤ NOx<sub>lim</sub>, draft in band</div></div>
+  <div class="obj"><div class="vl">How it decides</div><ul><li>Finds the lowest excess O<sub>2</sub> the current coal and load allow before CO starts to rise</li><li>Trims air and feeder bias together to hold that point, while keeping fan power in check</li><li>Backs off at once if CO, NOx or furnace draft approach their limits</li></ul></div>
   <div class="ben"><span>Holds the lowest safe excess O<sub>2</sub> for the coal being fired</span><span>Lower dry-flue-gas loss and fan power</span><span>CO-breakthrough protection built in</span></div>
 </article>
 <article class="apc">
@@ -512,7 +501,7 @@ ul{list-style:none}
     <div class="var mv"><div class="vl">Manipulated (MV)</div><ul><li>Individual feeder speeds</li><li>Secondary-air dampers</li><li>PA flow</li><li>Bed drain</li></ul></div>
     <div class="var dv"><div class="vl">Disturbance (DV)</div><ul><li>Coal quality and size</li><li>Load demand</li><li>Feeder trips</li></ul></div>
   </div>
-  <div class="obj"><div class="vl">Objective</div><div class="f">min&nbsp; Σ<sub>z</sub> w<sub>z</sub>(T<sub>bed,z</sub> − T<sub>ref</sub>)² + w<sub>p</sub>(P<sub>ms</sub> − P<sub>sp</sub>)² + ‖Δu‖²<sub>R</sub><br>s.t. T<sub>bed</sub> &lt; T<sub>sinter</sub> − margin, feeder limits</div></div>
+  <div class="obj"><div class="vl">How it decides</div><ul><li>Keeps every bed zone close to its target temperature, with a safe margin below sintering</li><li>Shifts coal between feeders to even out hot and cold zones while holding steam pressure</li><li>Moves feeders and air gradually, so the bed never sees sudden changes</li></ul></div>
   <div class="ben"><span>Tight, even bed temperature</span><span>Sintering and defluidization risk designed out</span><span>Steadier outlet steam, less attemperation</span></div>
 </article>
 <article class="apc">
@@ -526,7 +515,7 @@ ul{list-style:none}
     <div class="var mv"><div class="vl">Manipulated (MV)</div><ul><li>SH and RH spray valves</li><li>Burner tilt (PF) / bed temperature (FBC)</li><li>Gas bias dampers</li><li>Soot-blow trigger</li></ul></div>
     <div class="var dv"><div class="vl">Disturbance (DV)</div><ul><li>Load ramps</li><li>Fouling state (HEI)</li><li>Mill combination</li></ul></div>
   </div>
-  <div class="obj"><div class="vl">Objective</div><div class="f">min&nbsp; c<sub>SH</sub>·F<sub>SH spray</sub> + c<sub>RH</sub>·F<sub>RH spray</sub> + w(T − T<sub>sp</sub>)²<br>s.t. T<sub>metal</sub> ≤ T<sub>metal,max</sub>&nbsp; (c<sub>RH</sub> ≫ c<sub>SH</sub>)</div></div>
+  <div class="obj"><div class="vl">How it decides</div><ul><li>Holds main steam and reheat temperature at design</li><li>Corrects the cause first (burner tilt, gas bias, soot blowing) and uses spray only to trim</li><li>Uses RH spray last because it costs the most heat rate, and keeps tube-metal temperatures within limits</li></ul></div>
   <div class="ben"><span>Steam held at design, not below it</span><span>Lower spray flow, especially costly RH spray</span><span>Less thermal fatigue at desuperheaters</span></div>
 </article>
 <article class="apc">
@@ -540,7 +529,7 @@ ul{list-style:none}
     <div class="var mv"><div class="vl">Manipulated (MV)</div><ul><li>Blow / no-blow command per blower</li><li>Blow sequence and timing</li></ul></div>
     <div class="var dv"><div class="vl">Disturbance (DV)</div><ul><li>Fouling rate per section</li><li>Coal ash and slagging index</li><li>Load</li></ul></div>
   </div>
-  <div class="obj"><div class="vl">Objective</div><div class="f">max&nbsp; Σ<sub>s</sub> ΔQ<sub>recovered,s</sub>·x<sub>s</sub> − c<sub>steam</sub>·m<sub>blow</sub>·x<sub>s</sub> − c<sub>erosion,s</sub>·x<sub>s</sub><br>x<sub>s</sub> ∈ {0,1}, steam-header and sequence constraints</div></div>
+  <div class="obj"><div class="vl">How it decides</div><ul><li>Scores each section by how much heat it is losing to fouling</li><li>Blows a section only when the heat recovered is worth more than the steam used and the tube wear caused</li><li>Sequences blows to respect steam-header limits and avoid upsetting steam temperature</li></ul></div>
   <div class="ben"><span>Blows only the sections that need it</span><span>Less blowing steam and tube erosion</span><span>Restores SH/RH absorption balance</span></div>
 </article>
 <article class="apc">
@@ -554,7 +543,7 @@ ul{list-style:none}
     <div class="var mv"><div class="vl">Manipulated (MV)</div><ul><li>CT fan cells on/off</li><li>Per-cell VFD speed</li><li>CW pump combination</li><li>Vacuum pump duty</li></ul></div>
     <div class="var dv"><div class="vl">Disturbance (DV)</div><ul><li>Ambient wet bulb</li><li>Unit load</li><li>Air ingress</li></ul></div>
   </div>
-  <div class="obj"><div class="vl">Objective</div><div class="f">max&nbsp; ΔMW(P<sub>back</sub>) − Σ P<sub>CT fans</sub> − Σ P<sub>CW pumps</sub><br>s.t. fan / pump curves, minimum cells per header, equal-wear rotation</div></div>
+  <div class="obj"><div class="vl">How it decides</div><ul><li>Weighs the extra MW from a better vacuum against the power drawn by CT fans and CW pumps</li><li>Picks the fan cells, fan speeds and pump combination that give the highest net MW</li><li>Re-optimizes as wet bulb and load change, and rotates cells for even wear</li></ul></div>
   <div class="ben"><span>Net MW gain, not just a better vacuum</span><span>Fewer fans in mild weather</span><span>Even wear across cells</span></div>
 </article>
 <article class="apc">
@@ -568,7 +557,7 @@ ul{list-style:none}
     <div class="var mv"><div class="vl">Manipulated (MV)</div><ul><li>Load share across parallel BFPs, ID/FD/PA fans, CW pumps</li><li>Units in service</li></ul></div>
     <div class="var dv"><div class="vl">Disturbance (DV)</div><ul><li>Unit load</li><li>Re-traced efficiency curve of each unit</li></ul></div>
   </div>
-  <div class="obj"><div class="vl">Objective</div><div class="f">min&nbsp; Σ<sub>i</sub> P<sub>i</sub>(q<sub>i</sub>)&nbsp; s.t.&nbsp; Σ<sub>i</sub> q<sub>i</sub> = Q<sub>demand</sub>,&nbsp; q<sub>i,min</sub> ≤ q<sub>i</sub> ≤ q<sub>i,max</sub></div></div>
+  <div class="obj"><div class="vl">How it decides</div><ul><li>Uses each pump’s and fan’s efficiency curve, re-traced from plant data</li><li>Splits the required flow so total power drawn is lowest, loading the most efficient units first</li><li>Respects each unit’s minimum and maximum flow and decides which units should be running</li></ul></div>
   <div class="ben"><span>Efficient units loaded first, degraded ones relieved</span><span>Direct cut in auxiliary power</span><span>Maintenance priorities from the same curves</span></div>
 </article>
 <article class="apc">
@@ -582,7 +571,7 @@ ul{list-style:none}
     <div class="var mv"><div class="vl">Manipulated (MV)</div><ul><li>Per-field TR-set voltage / current limit</li><li>Rapping sequence</li></ul></div>
     <div class="var dv"><div class="vl">Disturbance (DV)</div><ul><li>Dust loading</li><li>Load</li><li>Coal ash content</li></ul></div>
   </div>
-  <div class="obj"><div class="vl">Objective</div><div class="f">min&nbsp; Σ<sub>f</sub> P<sub>TR,f</sub>&nbsp; s.t.&nbsp; SPM ≤ SPM<sub>lim</sub> − margin</div></div>
+  <div class="obj"><div class="vl">How it decides</div><ul><li>Predicts stack SPM from dust loading and the behaviour of each field</li><li>Lowers TR-set power field by field while SPM stays safely under the limit</li><li>Adjusts rapping so collection stays steady as fields are trimmed</li></ul></div>
   <div class="ben"><span>Fields energised only as hard as needed</span><span>Lower ESP power</span><span>SPM compliance held continuously</span></div>
 </article>
 <article class="apc">
@@ -596,7 +585,7 @@ ul{list-style:none}
     <div class="var mv"><div class="vl">Manipulated (MV)</div><ul><li>Limestone feeder rate</li><li>Urea / ammonia injection rate</li></ul></div>
     <div class="var dv"><div class="vl">Disturbance (DV)</div><ul><li>Coal sulphur and nitrogen</li><li>Bed temperature</li><li>Predicted NOx (ahead of analyser)</li></ul></div>
   </div>
-  <div class="obj"><div class="vl">Objective</div><div class="f">min&nbsp; c<sub>lime</sub>·m<sub>lime</sub> + c<sub>reag</sub>·m<sub>reag</sub><br>s.t. SO<sub>2</sub> ≤ lim, NOx ≤ lim, NH<sub>3</sub> slip ≤ max</div></div>
+  <div class="obj"><div class="vl">How it decides</div><ul><li>Predicts SO<sub>2</sub> and NOx from coal and combustion conditions before the analyser sees them</li><li>Doses the minimum limestone and urea / ammonia that keeps emissions inside limits</li><li>Caps ammonia slip to protect the SCR catalyst</li></ul></div>
   <div class="ben"><span>Compliance at the lowest reagent use</span><span>Less ammonia slip, longer catalyst life</span><span>Better fly-ash quality for sale</span></div>
 </article></div>
 
@@ -641,7 +630,7 @@ ul{list-style:none}
     <div><b>Watchdog fallback</b><p>A heartbeat between the APC and the DCS. If it is lost, the DCS reverts bumplessly to base PID control.</p></div>
     <div><b>DCS interlocks untouched</b><p>Protection, burner management and trips stay in the DCS/BMS. The APC sits above them, never in place of them.</p></div>
     <div><b>Offline validation</b><p>Every controller is tested on the digital twin before go-live.</p></div>
-    <div><b>Full audit trail</b><p>Every write, override and switch-off is logged and reviewed by the APC Improvement Agent.</p></div>
+    <div><b>Full audit trail</b><p>Every write, override and switch-off is logged for review by the plant’s C&amp;I team.</p></div>
   </div>
   <div class="path">
     <div><small>Step 1</small><b>Step tests &amp; model ID</b>Plant response identified for each MV</div>
