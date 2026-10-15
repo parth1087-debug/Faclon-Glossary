@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Faclon Labs Solutions</title>
+<meta name="description" content="Faclon Labs industrial AI solutions: customer-facing pages and downloads.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Same tokens as the solution pages: navy band, blue accent, green for control/outcomes */
+:root{--ink:#0F1B2D;--ink2:#3A4A5F;--mute:#6B7A90;--line:#E3E8EF;--bg:#F6F8FB;--navy:#0B1A30;--navy2:#13264A;--blue:#3D63F5;--blue2:#7C95FF;--green:#11875F;--greenBg:#E5F5EE;--blueBg:#EEF2FF;color-scheme:light}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#fff}
+body{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(28px,env(safe-area-inset-left,0px));padding-right:max(28px,env(safe-area-inset-right,0px))}
+.hero{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;right:-180px;top:-220px;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(124,149,255,.3),rgba(124,149,255,0) 68%)}
+.hero .wrap{position:relative;padding-top:34px;padding-bottom:56px}
+.brand{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#9FB0CC}
+.brand b{color:#fff;letter-spacing:.22em}
+h1{font-size:clamp(32px,5vw,50px);line-height:1.1;letter-spacing:-.015em;margin:56px 0 14px;max-width:760px;text-wrap:balance}
+.lede{color:#C5D0E3;font-size:clamp(16px,1.8vw,18px);max-width:640px}
+.stats{display:flex;flex-wrap:wrap;gap:28px;margin-top:32px}
+.stats b{display:block;font-size:24px}
+.stats span{font-size:12.5px;color:#9FB0CC}
+main .wrap{padding-top:56px;padding-bottom:72px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--blue)}
+h2{font-size:28px;letter-spacing:-.015em;margin:6px 0 24px}
+.sol{border:1px solid var(--line);border-radius:16px;display:grid;grid-template-columns:1.2fr 1fr;overflow:hidden}
+.sol .l{padding:28px}
+.sol h3{font-size:24px;letter-spacing:-.01em;margin-bottom:8px}
+.sol p{color:var(--ink2);max-width:520px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.tags span{font-size:12px;font-weight:600;border-radius:20px;padding:3px 10px}
+.ta{background:var(--blueBg);color:var(--blue)}.tb{background:var(--greenBg);color:var(--green)}.tc{border:1px solid var(--line);color:var(--ink2)}
+.sol .r{background:var(--bg);padding:20px;display:flex;flex-direction:column;gap:10px;justify-content:center}
+.dl{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;text-decoration:none;color:var(--ink);transition:border-color .15s}
+.dl:hover,.dl:focus-visible{border-color:var(--blue);outline:none}
+.dl .ic{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex:none;font-size:11px;font-weight:700}
+.dl .ic.w{background:var(--blueBg);color:var(--blue)}.dl .ic.p{background:#FBF1EE;color:#B5452F}
+.dl b{display:block;font-size:14.5px}
+.dl small{color:var(--mute);font-size:12.5px}
+.dl .go{margin-left:auto;color:var(--blue);font-weight:700}
+footer{background:var(--navy);color:#6F80A0;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:20px;padding-bottom:22px}
+footer a{color:#9FB0CC;text-decoration:none}
+@media (max-width:760px){.sol{grid-template-columns:1fr}.wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}}
+</style>
+</head>
+<body>
+<header class="hero"><div class="wrap">
+  <div class="brand"><b>Faclon Labs</b><span>Industrial AI · Solutions</span></div>
+  <h1>Industrial AI solutions from Faclon Labs</h1>
+  <p class="lede">Data integration, visualization and AI-based optimization for heavy industry: cement, metals, power, paper, chemicals and discrete manufacturing.</p>
+  <div class="stats">
+    <div><b>5B+</b><span>data points daily</span></div>
+    <div><b>200+</b><span>deployments</span></div>
+    <div><b>60k+</b><span>assets connected</span></div>
+    <div><b>50+</b><span>customers</span></div>
+  </div>
+</div></header>
+
+<main><div class="wrap">
+  <div class="eyebrow">Solutions</div>
+  <h2>Explore a solution</h2>
+
+  <article class="sol" id="power-plant-ai">
+    <div class="l">
+      <h3>Power Plant AI</h3>
+      <p>Advisory Agents and Automated Process Control for boilers, turbines and auxiliaries. Lower net heat rate, lower auxiliary power and fewer forced outages on captive and utility plants.</p>
+      <div class="tags"><span class="ta">8 Advisory Agents</span><span class="tb">8 APC applications</span><span class="tc">CFBC · AFBC · PF</span></div>
+    </div>
+    <div class="r">
+      <a class="dl" href="power-plant-ai/"><span class="ic w">WEB</span><span><b>Solution overview</b><small>Agents, APC architecture, models and customer cases</small></span><span class="go">→</span></a>
+      <a class="dl" href="power-plant-ai/power-plant-ai-use-case-catalogue.pdf"><span class="ic p">PDF</span><span><b>Use-case catalogue</b><small>All 24 use cases with indicative value per 100 MW</small></span><span class="go">↓</span></a>
+    </div>
+  </article>
+</div></main>
+
+<footer><div class="wrap"><span>Faclon Labs</span><a href="https://www.faclonlabs.com">www.faclonlabs.com</a></div></footer>
+</body>
+</html>
