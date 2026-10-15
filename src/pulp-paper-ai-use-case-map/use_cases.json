@@ -1,0 +1,839 @@
+[
+ {
+  "s": "Wood Yard",
+  "procs": [
+   {
+    "n": "Wood Preparation",
+    "f": ["Log receiving", "Debarking", "Chipping", "Screening", "Chip pile", "Digester feed"],
+    "rm": "Roundwood logs (eucalyptus, hardwood mix), bamboo (where used)",
+    "ut": "Power (chippers, conveyors), water (debarking)",
+    "out": "Screened wood chips (25-40mm)",
+    "q": "Chip size distribution, bark%, dirt content, moisture%, fines%",
+    "uc": [
+     {
+      "t": "Chip Quality & Foreign Material Detection", "k": "cv", "v": 1.5,
+      "loc": ["Chip pile reclaimer to digester feed conveyor (final quality checkpoint before cooking)"],
+      "d": [
+       "Analyses overhead camera feeds at the digester feed (size, bark%, dirt, fines).",
+       "Detects oversize chips, fines, bark contamination and dirt entering the digester.",
+       "Provides real-time chip quality feedback for chipper adjustment and blending decisions.",
+       "Uses existing inline metal detectors for foreign-material trip (no new metal detection added)."
+      ],
+      "p": [
+       "Chip quality variability causes digester kappa swings",
+       "Lab chip analysis slow (4-8 hr lag) — too slow for blending decisions",
+       "Manual visual inspection of chip pile is incomplete",
+       "Yield loss from oversize/fines not tracked in real-time"
+      ],
+      "kpi": ["Chip size distribution variance", "Bark content % in chips", "Fines % in chips", "Moisture % in chips"]
+     },
+     {
+      "t": "Material Handling Health Monitoring", "k": "cv", "v": 0.5,
+      "loc": [
+       "Log-to-debarker conveyor (heavy abrasive logs, jamming risk)",
+       "Chip pile reclaimer to digester feed trunk belts (single-point failure for digester)",
+       "Foreign material detection at digester feed (metal in chips damages digester feed system)"
+      ],
+      "d": [
+       "Analyses camera images of belt surfaces, vibration on idlers and metal detector signals.",
+       "Detects belt tears, mis-tracking, foreign material and bearing degradation.",
+       "Provides location-tagged alerts before catastrophic belt failure or downstream damage."
+      ],
+      "p": [
+       "Long wood yard conveyors fail with limited warning",
+       "Foreign material in chips damages digester feed system",
+       "Belt damage often noticed only on inspection rounds",
+       "Manual belt inspection cannot cover 24/7 operation"
+      ],
+      "kpi": ["Conveyor availability % (wood yard)", "MTBF on chip handling conveyors", "Foreign material events per month", "Belt life (months)"]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Pulping",
+  "procs": [
+   {
+    "n": "Continuous Digester",
+    "f": ["Chip impregnation", "Cooking", "Hi-heat washing", "Blow line", "Brown stock"],
+    "rm": "Wood chips, white liquor (NaOH + Na₂S)",
+    "ut": "Steam (MP/LP), power, makeup water",
+    "out": "Brown stock pulp, weak black liquor (15% solids), TRS gases",
+    "q": "Kappa number, yield%, viscosity (mPa.s), soda losses, brightness post-wash",
+    "uc": [
+     {
+      "t": "Continuous Digester H-Factor & Throughput Advisory", "k": "ai", "v": 10,
+      "d": [
+       "Analyses chip-meter data, cooking liquor flow and temperature, and H-factor (no online kappa; kappa is measured offline and manually in the lab).",
+       "Models cooking kinetics and predicts blow-line kappa, yield and pulp strength from H-factor and liquor charge.",
+       "Advises on liquor charge, active alkali, cooking temperature and chip retention to balance pulp quality (target kappa), utility cost (steam, white liquor, waste-heat recovery) and throughput."
+      ],
+      "p": [
+       "Kappa measured offline in lab (2-4 hr lag); no online analyzer for real-time control",
+       "Cooking parameters set on operator experience; H-factor not used as a live control lever",
+       "AA charge often over-dosed (operator caution), raising chemical recovery cost",
+       "Utility cost (steam, liquor, waste heat) per tonne not optimized against quality and throughput"
+      ],
+      "kpi": ["H-factor target compliance", "Kappa number (offline lab) target compliance %", "Pulp yield % (from wood)", "Production rate (ADt/day)"]
+     }
+    ]
+   },
+   {
+    "n": "Batch / RDH Digester",
+    "f": ["Chip impregnation", "Cooking", "Hi-heat washing", "Blow line", "Brown stock"],
+    "rm": "Wood chips, white liquor (NaOH + Na₂S)",
+    "ut": "Steam (MP/LP), power, makeup water",
+    "out": "Brown stock pulp, weak black liquor (15% solids), TRS gases",
+    "q": "Kappa number, yield%, viscosity (mPa.s), soda losses, brightness post-wash",
+    "uc": [
+     {
+      "t": "Batch / RDH Digester H-Factor & Utility Cost Advisory", "k": "ai", "v": 10,
+      "d": [
+       "Analyses per-cook temperature/pressure schedule, liquor charge, accumulator hot/warm liquor use and H-factor (kappa measured offline and manually per batch).",
+       "Models batch cooking kinetics and predicts end-of-cook kappa and yield from H-factor and charge.",
+       "Advises on cook schedule, AA charge and RDH liquor displacement to hit target kappa while minimising fresh steam (maximising warm/hot liquor and waste-heat reuse) and protecting batch-to-batch consistency."
+      ],
+      "p": [
+       "Batch-to-batch kappa variability with offline lab kappa only",
+       "RDH liquor displacement / accumulator use not optimised for steam economy",
+       "Cook schedule set on experience; H-factor not used as a live target",
+       "Fresh steam over-used where warm/hot liquor or waste heat could substitute"
+      ],
+      "kpi": ["H-factor per batch and batch-to-batch kappa consistency", "Kappa number (offline lab) target compliance %", "Pulp yield % (from wood)", "Cooks per day (throughput)"]
+     }
+    ]
+   },
+   {
+    "n": "Brown Stock Washing",
+    "f": ["Diluted pulp", "Vacuum drum washers (3-4 stages)", "Knot screening", "Bleaching"],
+    "rm": "Brown stock pulp slurry, wash water (recycled hot)",
+    "ut": "Power (pumps, drums), wash water",
+    "out": "Washed brown stock pulp, weak black liquor to evaporators",
+    "q": "Wash loss (kg Na₂SO₄/ADt), dilution factor, drum speed, post-wash brightness (ISO%), dirt content, soda losses",
+    "uc": [
+     {
+      "t": "Brown Stock Wash Loss Optimization", "k": "ai", "v": 2,
+      "d": [
+       "Analyses conductivity, dilution factor, drum speed and wash water flow on each stage of the brown stock washers.",
+       "Predicts wash efficiency and soda losses; identifies anomalies in drum loading and felt blinding.",
+       "Builds a soft sensor for post-wash brown stock brightness at the final stage (between lab samples).",
+       "Advises on dilution factor, wash water distribution and drum speed across stages for minimum wash loss and stable post-wash brightness."
+      ],
+      "p": [
+       "Wash loss varies across washer stages",
+       "Felt blinding reduces drum efficiency",
+       "Dilution factor manually set",
+       "Soda makeup cost higher than design"
+      ],
+      "kpi": ["Wash loss (kg Na₂SO₄/ADt)", "Dilution factor (m³/ADt)", "Washer drum loading and drum speed", "Post-wash brightness (ISO%) — soft sensor vs lab"]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Chemical Recovery",
+  "procs": [
+   {
+    "n": "Black Liquor Evaporators",
+    "f": ["Weak BL", "Multi-effect evaporators (5-7 effects)", "Concentrators", "Strong BL to RB"],
+    "rm": "Weak black liquor (15% solids)",
+    "ut": "LP/MP steam, cooling water (condensers)",
+    "out": "Strong black liquor (65-75% solids), condensate, recovered soap",
+    "q": "BL solids%, Brix, dilution factor, scale buildup, steam economy (t steam/t water evaporated)",
+    "uc": [
+     {
+      "t": "Evaporator Scale, Cleaning & Steam Economy Optimization", "k": "ai", "v": 5,
+      "d": [
+       "Analyses heat transfer coefficient (U) trends per effect, soap recovery, liquor flow/temperature, vacuum levels, condensate quality and steam consumption.",
+       "Predicts scale buildup rates and remaining time-to-clean for each evaporator body, and detects steam economy degradation, vacuum issues and sub-optimal liquor flow splits.",
+       "Provides cleaning schedule optimization plus advisory on liquor flow distribution and operating setpoints to maximise steam economy and uptime."
+      ],
+      "p": [
+       "Evaporator scaling reduces steam economy 15-20% before cleaning",
+       "Cleaning schedules reactive, not predictive; mechanical cleaning takes 8-24 hr downtime",
+       "Steam economy degrades silently; vacuum issues hidden until production drop",
+       "Liquor flow splits manually set; condensate flooding common in some effects"
+      ],
+      "kpi": ["Heat transfer coefficient U per effect (W/m²K)", "Overall steam economy (t evap / t steam)", "Vacuum per effect and liquor flow distribution", "Time-between-cleans (days) and cleaning frequency per year"]
+     }
+    ]
+   },
+   {
+    "n": "Recovery Boiler",
+    "f": ["BL firing", "Char bed combustion", "Smelt formation", "Smelt spouts", "Dissolving tank", "Green liquor"],
+    "rm": "Strong black liquor (65-75% solids), makeup Na₂SO₄, white liquor for ESP",
+    "ut": "Combustion air (primary, secondary, tertiary), ID/FD fans, soot blowers",
+    "out": "HP steam, smelt (Na₂CO₃ + Na₂S), flue gas, fly ash",
+    "q": "Steam generation rate, TRS, smelt bed temp, sulfidity recovery, NOx, char bed stability",
+    "uc": [
+     {
+      "t": "Recovery Boiler Combustion Optimization", "k": "ai", "v": 15,
+      "d": [
+       "Analyses BL solids, BL firing rate, primary/secondary/tertiary air distribution, char bed temperature, ESP O₂, TRS emissions and CO levels.",
+       "Models combustion kinetics and char bed dynamics; predicts steam generation, TRS emissions and bed stability windows.",
+       "Provides advisory on air distribution, BL spray pattern and load setpoints for maximum steam, minimum emissions, stable char bed."
+      ],
+      "p": [
+       "RB is the most-stopped unit at Indian mills",
+       "Combustion air balance manually set",
+       "TRS excursions cause regulatory issues",
+       "Bed upsets cascade to major shutdowns (₹3-5 cr/event)"
+      ],
+      "kpi": ["Steam generation (t/h)", "Boiler efficiency %", "TRS emissions (ppm)", "Char bed temperature"]
+     },
+     {
+      "t": "Smelt Bed Vision Monitoring", "k": "cv", "v": 5,
+      "d": [
+       "Analyses thermal and visual camera feeds of the char bed and smelt spouts in real time.",
+       "Detects bed instability, channel formation, smelt spout blockages and char bed shape anomalies.",
+       "Provides early warning to operators for corrective action before bed upsets escalate."
+      ],
+      "p": [
+       "Bed instability often detected too late",
+       "Channel formation forces emergency response",
+       "Smelt spout blockages cause smelt overflow",
+       "Manual visual checks by operator are intermittent"
+      ],
+      "kpi": ["Bed stability index", "Channel formation events", "Smelt spout flow uniformity", "Bed upset frequency"]
+     },
+     {
+      "t": "Soot Blower Automation & Demand-Driven Cleaning", "k": "ai", "v": 3,
+      "d": [
+       "Analyses heat transfer coefficient trends per section (gas-side temperature, steam temperature/pressure), time since last blow per individual blower, BL solids variability, and effectiveness history of each blower.",
+       "Predicts heat transfer degradation per zone and recommends optimal sequence and timing for each soot blower individually.",
+       "Provides demand-driven blowing schedule that maximizes heat recovery while minimizing soot-blowing steam consumption and tube erosion."
+      ],
+      "p": [
+       "Soot blowing typically scheduled by time, not by actual fouling state",
+       "Operators over-blow as precaution (wastes HP steam at 3-5% of RB output)",
+       "Over-blowing erodes tubes and shortens campaign life",
+       "Under-blowing reduces boiler efficiency (lost steam generation)"
+      ],
+      "kpi": ["Soot blowing steam consumption (t/h or t/d)", "Recovery boiler efficiency %", "Heat transfer coefficient trend per zone", "Tube erosion rate / campaign tube life"]
+     }
+    ]
+   },
+   {
+    "n": "Lime Kiln",
+    "f": ["Lime mud feed", "Drying", "Calcining", "Cooling", "Lime discharge to causticizing"],
+    "rm": "Lime mud (CaCO₃ from causticizing), makeup limestone",
+    "ut": "Fuel (NG/HFO/coal), combustion air, power (kiln drive)",
+    "out": "Reburned lime (CaO) for causticizing, flue gas",
+    "q": "Lime activity (CaO available%), residual CaCO₃, fuel/lime ratio (GJ/t), ring formation, refractory wear",
+    "uc": [
+     {
+      "t": "Lime Kiln Combustion & Quality Optimization", "k": "ai", "v": 5,
+      "d": [
+       "Analyses fuel firing rate, air ratio, kiln shell temperature profile, lime activity (CaO availability) and lime mud feed properties.",
+       "Models calcining kinetics and predicts lime quality, fuel consumption and ring formation tendency.",
+       "Provides advisory on fuel rate, air distribution and feed adjustment for target lime activity with minimum fuel."
+      ],
+      "p": [
+       "Fuel cost rising; consumption higher than design",
+       "Lime activity varies batch to batch",
+       "Ring formation forces unplanned shutdowns",
+       "Refractory wear unpredictable"
+      ],
+      "kpi": ["Fuel consumption (GJ/t lime)", "Lime activity (CaO %)", "Residual CaCO₃ %", "Ring formation incidents"]
+     },
+     {
+      "t": "Lime Kiln Refractory Health Monitoring", "k": "cv", "v": 1,
+      "d": [
+       "Analyses kiln shell IR scanner data, thermal camera feeds and refractory thickness models along the kiln length.",
+       "Detects shell hotspots indicating refractory thinning, spalling and localized wear.",
+       "Provides location-tagged alerts and predicts refractory campaign life remaining."
+      ],
+      "p": [
+       "Refractory failure forces unplanned shutdowns",
+       "Manual shell temperature checks miss developing damage",
+       "Campaign timing reactive",
+       "Refractory replacement cost high"
+      ],
+      "kpi": ["Refractory campaign life (months)", "Shell hotspot count and severity", "Refractory thinning rate by zone", "Unplanned shutdown hours (refractory-related)"]
+     },
+     {
+      "t": "Lime Kiln Ring Formation Monitoring", "k": "cv", "v": 0.5,
+      "d": [
+       "Analyses thermal camera feeds at the discharge end and calcining-zone temperature/shell profile.",
+       "Detects ring and ball formation in the calcining zone before discharge issues appear.",
+       "Provides early alerts and schedules ring removal to avoid forced shutdowns."
+      ],
+      "p": [
+       "Ring formation hidden until discharge issues appear",
+       "Ring removal reactive and disruptive",
+       "Ball formation affects lime quality and throughput",
+       "Manual checks intermittent"
+      ],
+      "kpi": ["Ring removal events per year", "Calcining-zone temperature anomaly count", "Ring-related unplanned shutdown hours", "Lime throughput stability"]
+     }
+    ]
+   },
+   {
+    "n": "Causticizing",
+    "f": ["Green liquor clarification", "Slaking", "Causticizing", "White liquor clarification", "Lime mud washing"],
+    "rm": "Green liquor (Na₂CO₃ + Na₂S), reburned lime (CaO)",
+    "ut": "Steam (green liquor heating), power (agitators, pumps)",
+    "out": "White liquor (NaOH + Na₂S), lime mud (CaCO₃) to lime kiln",
+    "q": "Causticizing efficiency (CE), reduction efficiency (RE), AA, TTA, lime grit",
+    "uc": [
+     {
+      "t": "Causticizing Efficiency Optimization", "k": "ai", "v": 3,
+      "d": [
+       "Analyses green liquor TTA, white liquor AA, lime ratio (CaO/TTA), causticizer agitator current and lime grit.",
+       "Predicts causticizing efficiency and white liquor strength versus lime addition rate.",
+       "Provides optimal lime addition setpoint to maximize CE without lime overdosing."
+      ],
+      "p": [
+       "CE drifts; manual control by operators",
+       "Lime overdosing common (operator caution)",
+       "Reduced CE wastes lime kiln capacity",
+       "White liquor quality variable"
+      ],
+      "kpi": ["Causticizing efficiency (CE %)", "Reduction efficiency (RE %)", "Lime utilization %", "White liquor AA"]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Bleaching",
+  "procs": [
+   {
+    "n": "Bleach Plant",
+    "f": ["Brown stock", "O₂ delignification", "D0 (ClO₂)", "EOP (NaOH+O₂+H₂O₂)", "D1", "D2", "Stock prep"],
+    "rm": "Washed brown stock, ClO₂, O₂, H₂O₂, NaOH, H₂SO₄",
+    "ut": "Steam (tower heating), power (pumps, mixers), MP/LP steam",
+    "out": "Bleached pulp (target brightness)",
+    "q": "Brightness (ISO%), viscosity (mPa.s), kappa stage-wise, strength, ClO₂/NaOH consumption (kg/t)",
+    "uc": [
+     {
+      "t": "Bleach Plant Optimization (Brightness, Inferential Sensing & Tower Mixing)", "k": "ai", "v": 15,
+      "d": [
+       "Analyses kappa before the bleach plant, incoming pulp brightness, ClO₂/alkali dosage per stage, tower temperatures, retention times, mixer power and pH/temperature profile.",
+       "Models bleaching kinetics and builds soft sensors for brightness and viscosity between lab samples (typically every 2 hours), and detects poor mixing, channeling and reaction non-uniformity.",
+       "Provides setpoint optimization for chemical charge, tower temperature and mixer setpoints to hit target brightness with minimum ClO₂ and NaOH and uniform stage-wise reaction."
+      ],
+      "p": [
+       "ClO₂ (₹180/kg) often overdosed for safety margin; chemical cost per tonne above benchmark",
+       "Lab brightness lag (2 hr) prevents real-time control; operators wait for lab confirmation",
+       "Kappa variability upstream drives bleach demand swings",
+       "Poor mixing and channeling waste chemicals and create non-uniform brightness"
+      ],
+      "kpi": ["ClO₂ consumption (kg/t pulp) and NaOH consumption (kg/t pulp)", "Final brightness (ISO%) and brightness variance", "Brightness/viscosity soft-sensor accuracy vs lab", "Tower mixer power, pH variance and temperature uniformity"]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Stock Preparation",
+  "procs": [
+   {
+    "n": "Stock Preparation & Refining",
+    "f": ["Dilution", "Refining", "Cleaning (high-consistency cleaners)", "Screening", "Approach flow", "Headbox"],
+    "rm": "Bleached pulp, additives (sizing, fillers CaCO₃/TiO₂, retention aids), broke",
+    "ut": "Power (refiners, pumps), dilution water",
+    "out": "Furnish to headbox (target consistency, freeness, additive dosing)",
+    "q": "Freeness (CSF), consistency%, pH, conductivity, retention, drainage rate",
+    "uc": [
+     {
+      "t": "Stock Prep Refiner Plate Wear & Energy Optimization", "k": "ai", "v": 4,
+      "d": [
+       "Analyses refiner motor power, no-load power baseline, vibration on refiner shaft, freeness at refiner outlet and plate gap (where instrumented).",
+       "Predicts refiner plate wear, specific energy consumption (kWh/t) and impending plate clash events.",
+       "Provides plate change scheduling and advisory on refiner load distribution."
+      ],
+      "p": [
+       "Refiner energy is major mill consumer",
+       "Plate clash damages refiner (₹10-20 lakh/event)",
+       "Plate life varies by furnish composition",
+       "Manual plate gap adjustment"
+      ],
+      "kpi": ["Specific energy (kWh/t)", "Refiner motor load", "Freeness (CSF) target compliance", "Plate change frequency"]
+     },
+     {
+      "t": "Furnish Optimization", "k": "ai", "v": 3,
+      "d": [
+       "Analyses inlet flow rates, freeness, ash content and strength of virgin pulp, recycled pulp and broke streams.",
+       "Models final furnish properties versus mix ratio and predicts paper machine runnability.",
+       "Provides optimal furnish ratio to balance cost, strength and runnability targets."
+      ],
+      "p": [
+       "Furnish ratio not dynamically optimized",
+       "Broke management reactive",
+       "Quality vs cost tradeoffs not visible to operators",
+       "Strength variability from mix changes"
+      ],
+      "kpi": ["Furnish cost (₹/t)", "Recycled fiber % in mix", "Broke utilization %", "Paper strength tests compliance"]
+     },
+     {
+      "t": "Approach Flow Consistency & Cleaning Optimization", "k": "ai", "v": 2,
+      "d": [
+       "Analyses approach flow consistency, cleaner pressure drops, screen amperages, deaerator vacuum and dosing flows.",
+       "Detects consistency drift, cleaner blockages and screen damage.",
+       "Provides advisory on dilution control, cleaner cleaning cycles and screen maintenance."
+      ],
+      "p": [
+       "Consistency variability causes basis weight swings",
+       "Cleaner blockages cause downtime",
+       "Screen damage discovered post-failure",
+       "Approach flow disturbances cascade to wet end"
+      ],
+      "kpi": ["Consistency variance", "Cleaner pressure drop", "Screen amperage", "Deaerator vacuum"]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Paper Machine",
+  "procs": [
+   {
+    "n": "Paper Machine",
+    "f": ["Headbox", "Wire (forming)", "Press (mechanical dewatering)", "Dryer (thermal dewatering)", "Size press", "Calender", "Reel"],
+    "rm": "Furnish from approach flow, sizing chemicals, fillers, retention aids",
+    "ut": "Steam (drying), power (vacuum, drives), compressed air, cooling water, fresh/recycled water",
+    "out": "Paper jumbo reel (target basis weight, moisture, brightness, smoothness)",
+    "q": "Basis weight (gsm), moisture%, caliper (μm), brightness, smoothness, formation, breaks/day, broke%",
+    "uc": [
+     {
+      "t": "Web Break Prediction & Prevention", "k": "ai", "v": 20,
+      "d": [
+       "Analyses wet end conditions (consistency, retention, drainage), press section vacuum and load profiles, dryer section steam pressures, sheet tension and felt conductivity along the machine.",
+       "Models web break precursor patterns and predicts break risk in advance with location (wet end / press / dryer / reel).",
+       "Provides operator alerts with corrective actions to stabilize the sheet before the break occurs."
+      ],
+      "p": [
+       "Web breaks cost ₹15-25 lakh per event",
+       "Typical 200-400 breaks/yr at 0.5 MTPA mill = ₹30-100 cr/yr",
+       "Breaks unpredictable; operator surprise events",
+       "Restart cycles waste steam, chemicals, time"
+      ],
+      "kpi": ["Web breaks per day", "Cost per break (₹)", "Wet end stability indicators", "Time between breaks (hours)"]
+     },
+     {
+      "t": "Sheet Defect Detection", "k": "cv", "v": 6,
+      "d": [
+       "Analyses high-speed line scan camera feeds across the full sheet width at the reel.",
+       "Detects holes, fish-eyes, dirt specks, wrinkles, fold marks, edge cracks and basis weight variations.",
+       "Provides defect classification, location-tagged alerts and CD/MD trend analysis for root cause investigation."
+      ],
+      "p": [
+       "Defects often discovered post-production at customer",
+       "Customer rejects expensive (₹5,000-50,000/t)",
+       "Manual sampling insufficient",
+       "Defect root cause investigation slow"
+      ],
+      "kpi": ["Defect count per shift (by type)", "Reject rate %", "Customer complaint rate", "Defect cost (₹/t paper)"]
+     },
+     {
+      "t": "Wet End Stability & Drainage Optimization", "k": "ai", "v": 5,
+      "d": [
+       "Analyses headbox slice profile, retention/drainage performance, fines/filler retention, vacuum levels and white water consistency.",
+       "Models wet end stability and predicts dewatering performance versus furnish properties and machine speed.",
+       "Provides advisory on retention aid dosing, dilution, slice profile and vacuum setpoints."
+      ],
+      "p": [
+       "Wet end is upstream source of most PM problems",
+       "Retention aid overdosed for safety",
+       "Drainage variability impacts dryer load",
+       "Manual setpoint adjustment"
+      ],
+      "kpi": ["Retention %", "Drainage rate", "White water consistency", "Filler retention"]
+     },
+     {
+      "t": "Dryer Section Energy & Moisture Profile Optimization", "k": "ai", "v": 15,
+      "d": [
+       "Analyses steam pressures across dryer groups, condensate flows, sheet moisture profile and dryer surface temperatures.",
+       "Models drying kinetics and predicts moisture profile versus steam distribution and machine speed.",
+       "Provides advisory on steam group setpoints for target moisture with minimum steam consumption."
+      ],
+      "p": [
+       "Drying is largest steam consumer (₹600 cr/MTPA paper)",
+       "Steam group setpoints not optimized",
+       "Moisture profile variability causes broke",
+       "Operator adjustments based on experience only"
+      ],
+      "kpi": ["Steam consumption (t/t paper)", "Drying energy (GJ/t)", "Moisture % at reel", "Steam group pressures"]
+     },
+     {
+      "t": "CD Profile Optimization", "k": "ai", "v": 5,
+      "d": [
+       "Analyses scanner data for basis weight, moisture and caliper CD profiles, headbox dilution actuators, steam shower, and induction profilers (where available).",
+       "Models CD response to actuator changes and predicts steady-state profiles.",
+       "Provides advisory on actuator setpoints for tighter CD profiles and reduced 2σ."
+      ],
+      "p": [
+       "CD profile variability forces higher basis weight buffer (cost)",
+       "Actuator coordination manual",
+       "Profile drift over shift",
+       "Quality at edges different from center"
+      ],
+      "kpi": ["Basis weight 2σ (g/m²)", "Moisture 2σ (%)", "Caliper 2σ (μm)", "Profile actuator setpoint accuracy"]
+     },
+     {
+      "t": "Press Felt & Dryer Felt Condition Monitoring", "k": "cv", "v": 3,
+      "d": [
+       "Analyses camera images of felt surfaces, felt water content via NIR, dryer dewatering rate and press load profile.",
+       "Detects felt blinding, compaction, edge wear and damage patterns.",
+       "Provides felt cleaning and replacement scheduling to optimize felt life and dewatering performance."
+      ],
+      "p": [
+       "Felts cost ₹10-30 lakh per set",
+       "Felt blinding gradual; hard to detect",
+       "Premature changes waste felt life",
+       "Late changes hurt dewatering and increase dryer steam"
+      ],
+      "kpi": ["Felt life (days)", "Dewatering rate", "Felt water content", "Felt change cost (₹/yr)"]
+     },
+     {
+      "t": "Reel & Winder Defect Detection", "k": "cv", "v": 2.5,
+      "d": [
+       "Analyses camera images at the reel and unwinder/winder of the finished roll.",
+       "Detects edge cracks, telescoping, wrinkles, surface defects and basis weight anomalies in roll structure.",
+       "Provides quality scoring and rejects bad rolls before customer dispatch."
+      ],
+      "p": [
+       "Roll defects cause customer credits and returns",
+       "Manual roll inspection slow",
+       "Edge cracks discovered at customer",
+       "Reel structure issues hidden"
+      ],
+      "kpi": ["Roll defect rate", "Customer reject rate", "Edge crack frequency", "Telescoping events"]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Coating",
+  "procs": [
+   {
+    "n": "Coating Section",
+    "f": ["Base paper", "Pre-coating drying", "Blade/rod coating", "Drying", "Calendering", "Reel"],
+    "rm": "Base paper, coating color (latex + pigments CaCO₃/kaolin + additives)",
+    "ut": "Steam, power, IR/hot air (drying)",
+    "out": "Coated paper (target coat weight, smoothness, brightness)",
+    "q": "Coat weight (gsm/side), coverage, smoothness, brightness gain, defects (scratches/streaks)",
+    "uc": [
+     {
+      "t": "Coating Weight & Coverage Optimization", "k": "ai", "v": 5,
+      "d": [
+       "Analyses coating color flow, blade pressure, machine speed, online coat weight gauge and brightness scanner data.",
+       "Models coating coverage versus operating parameters and predicts coat weight CD/MD profile.",
+       "Provides advisory on blade pressure, color flow and speed for target coverage with minimum chemical usage."
+      ],
+      "p": [
+       "Coating color overdosed for coverage safety",
+       "Blade pressure manual setting",
+       "Coverage variability causes spec issues",
+       "Coat weight CD/MD profile drift"
+      ],
+      "kpi": ["Coat weight (gsm/side)", "Coverage uniformity", "Color flow rate", "Chemical cost (₹/t coated paper)"]
+     },
+     {
+      "t": "Coating Defect Detection", "k": "cv", "v": 3,
+      "d": [
+       "Analyses high-resolution line scan camera feeds of the coated surface post-drying.",
+       "Detects coating streaks, scratches, bare spots, picking and orange peel defects.",
+       "Provides defect classification with CD/MD location and triggers blade change or color adjustment advisories."
+      ],
+      "p": [
+       "Coating defects expensive (coated grades are premium)",
+       "Streak/scratch from blade wear hidden until inspection",
+       "Bare spots cause customer rejects",
+       "Manual visual inspection slow"
+      ],
+      "kpi": ["Defect count per roll (by type)", "Reject rate of coated grades", "Streak frequency", "Customer complaint rate"]
+     },
+     {
+      "t": "Coating Drying Optimization", "k": "ai", "v": 2,
+      "d": [
+       "Analyses IR dryer power, steam dryer pressures, sheet moisture profile and base paper moisture entry.",
+       "Models drying versus coating chemistry and predicts dryer load for target moisture exit.",
+       "Provides drying setpoints for energy efficiency without quality loss."
+      ],
+      "p": [
+       "IR drying expensive (electric power)",
+       "Drying setpoints conservative",
+       "Moisture variability affects quality",
+       "Energy consumption higher than design"
+      ],
+      "kpi": ["IR dryer power (kWh)", "Steam dryer pressures", "Sheet exit moisture", "Drying energy (GJ/t)"]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Finishing",
+  "procs": [
+   {
+    "n": "Calendering & Winder",
+    "f": ["Jumbo reel", "Supercalendering", "Winder (slitting)", "Roll handling"],
+    "rm": "Jumbo reels from paper machine",
+    "ut": "Power (drives), compressed air",
+    "out": "Customer rolls (slit, wound to target diameter and hardness)",
+    "q": "Roll hardness, edge condition, slit accuracy, taper, telescoping",
+    "uc": [
+     {
+      "t": "Winder Web Break & Roll Quality Optimization", "k": "ai", "v": 3,
+      "d": [
+       "Analyses winder tension profile, drum loading, knife condition, paper tension and unwinder behavior.",
+       "Predicts winder web breaks and roll structure defects (soft rolls, hard rolls, telescoping).",
+       "Provides operator alerts and tension/load setpoint advisory."
+      ],
+      "p": [
+       "Winder breaks waste finished paper (expensive)",
+       "Roll hardness variability",
+       "Tension profile drift",
+       "Knife wear hidden"
+      ],
+      "kpi": ["Winder breaks per shift", "Roll structure quality", "Tension profile compliance", "Knife condition"]
+     },
+     {
+      "t": "Slitting & Edge Crack Detection", "k": "cv", "v": 2,
+      "d": [
+       "Analyses camera feeds of slit edges and side trim removal at the winder.",
+       "Detects edge cracks, ragged edges, slit knife wear and trim handling issues.",
+       "Provides knife change recommendations and quality alerts."
+      ],
+      "p": [
+       "Edge cracks from slit knives cause rejects",
+       "Knife change scheduling reactive",
+       "Trim handling jams",
+       "Edge quality varies"
+      ],
+      "kpi": ["Edge defect rate", "Knife life (operating hours)", "Trim waste %", "Slit accuracy"]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Utilities",
+  "area": true,
+  "procs": [
+   {
+    "n": "Power Boiler",
+    "uc": [
+     {
+      "t": "Integrated Multi-Feeder Coal Load Balancing + Bed Temperature Stabilization", "k": "ai", "v": 3,
+      "d": [
+       "Analyses individual coal feeder speeds/currents, bed temperature thermocouples across the furnace, primary/secondary air distribution, bed pressure and flue gas O₂/CO.",
+       "Models per-feeder fuel delivery vs local bed temperature and detects feeder imbalance, hot/cold spots, bed-temperature excursions and incipient agglomeration/clinkering.",
+       "Advises on per-feeder load balancing and air distribution to hold a uniform, stable bed temperature for consistent steam generation and minimum unburnt carbon."
+      ],
+      "p": [
+       "Multiple coal feeders run unbalanced, creating bed hot/cold spots",
+       "Bed temperature excursions risk agglomeration/clinkering and forced derates",
+       "Variable fuel (coal + biomass + sludge) destabilises the bed",
+       "Air/fuel balance set manually; ash carbon higher than design"
+      ],
+      "kpi": ["Bed temperature uniformity (max-min spread, °C)", "Feeder load balance / deviation across feeders", "Bed temperature excursion events per month", "Steam generation stability (t/h)"]
+     },
+     {
+      "t": "Plant-Wide RCA & Heat Rate Diagnostics Engine", "k": "ai", "v": 4,
+      "d": [
+       "Integrates boiler, turbine, steam-network and auxiliary data into a station heat-rate and energy-balance model spanning fuel-in to power/steam-out.",
+       "Continuously decomposes heat-rate deviation into attributable causes (boiler efficiency, condenser vacuum, auxiliary power, steam losses, fuel quality) and ranks contributors.",
+       "Provides guided root-cause analysis and prioritised corrective actions to recover heat rate and reduce specific energy across the utility island."
+      ],
+      "p": [
+       "Heat-rate deviations not decomposed to attributable causes",
+       "RCA is manual, slow and inconsistent across engineers",
+       "Boiler/turbine/auxiliary losses analysed in silos",
+       "Fuel-quality and operating-mode effects not separated"
+      ],
+      "kpi": ["Station heat rate (kCal/kWh) and deviation from best-achieved", "Boiler efficiency % and condenser vacuum", "Auxiliary power consumption %", "Specific energy (GJ/t paper) attribution"]
+     }
+    ]
+   },
+   {
+    "n": "Energy Management System",
+    "uc": [
+     {
+      "t": "Energy Management System (Power, Compressed Air & Steam Monitoring)", "k": "ai", "v": 5,
+      "d": [
+       "Single plant-wide energy management layer monitoring electrical power, compressed air and steam across all generators and consumers.",
+       "Builds real-time energy balances (power kWh, compressed air Nm³, steam t/h), attributes consumption to areas/assets and detects leaks, failed steam traps, compressor cycling and inefficient consumers.",
+       "Provides cross-utility optimization advisory (load shifting, sequencing, pressure setpoints, demand attribution) and a unified specific-energy view (GJ/t paper)."
+      ],
+      "p": [
+       "Power, compressed air and steam monitored in silos (no unified EMS)",
+       "Steam balance and venting losses hidden from operators",
+       "Compressed air leaks and compressor cycling waste energy continuously",
+       "Consumption not attributed to areas/assets; demand forecasting manual"
+      ],
+      "kpi": ["Specific energy (GJ/t paper) — power, air and steam combined", "Electrical power consumption by area (kWh/t)", "Compressed air specific energy (kWh/Nm³) and leak rate %", "Steam balance, network pressure stability and vent losses"]
+     }
+    ]
+   },
+   {
+    "n": "Steam Network",
+    "uc": [
+     {
+      "t": "Steam Trap Health Monitoring (Wireless Temperature)", "k": "ai", "v": 4,
+      "loc": [
+       "HP/MP/LP steam header drip legs (prevent water hammer, drain condensate)",
+       "Paper machine dryer cylinder drains (largest steam consumer area)",
+       "Evaporator and digester process equipment drains",
+       "Distribution and tracing line drainage points across the mill"
+      ],
+      "d": [
+       "Analyses inlet and outlet temperature signatures from wireless battery-powered sensors deployed at each steam trap.",
+       "Detects failed-open (steam passing through), failed-closed (condensate backup), and failed-cold (dead) conditions using temperature delta logic.",
+       "Provides location-tagged alerts to maintenance for proactive replacement, replacing annual audit cycles with continuous monitoring."
+      ],
+      "p": [
+       "10-25% of steam traps fail at any given time (industry baseline)",
+       "Annual ultrasonic audits cost time and labor, and miss interim failures",
+       "Failed-open traps waste ₹2-25 lakh per trap per year in steam",
+       "Failed-closed traps cause water hammer and equipment damage"
+      ],
+      "kpi": ["Steam trap failure rate %", "Steam loss from failed traps (t/yr or ₹/yr)", "Mean time to detect failure (days)", "Annual audit labor cost reduction"]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Cross-Cutting",
+  "area": true,
+  "procs": [
+   {
+    "n": "Digital Foundation",
+    "uc": [
+     {
+      "t": "IT-OT Integration & Data Foundation", "k": "fd", "v": null,
+      "d": [
+       "Foundational data layer: unified namespace, historian access, MES integration, ERP linkage.",
+       "Enables every other AI use case by providing reliable, tagged, contextual data.",
+       "Provides time-series storage, governance, role-based access and edge-to-cloud connectivity."
+      ],
+      "p": [
+       "Mill data in silos (DCS, lab, ERP)",
+       "Tag naming inconsistent across systems",
+       "Analytics projects start with data plumbing every time",
+       "No single source of truth"
+      ],
+      "kpi": ["Tag coverage %", "Data uptime", "Number of use cases enabled", "Time-to-deploy new analytics"]
+     }
+    ]
+   },
+   {
+    "n": "Quality Management",
+    "uc": [
+     {
+      "t": "LIMS Integration & Quality Intelligence", "k": "ai", "v": 3,
+      "d": [
+       "Integrates lab quality data (digester kappa, brightness, freeness, basis weight, strength tests) with online process data.",
+       "Builds quality intelligence dashboards, SPC charts and root cause analysis across all quality parameters.",
+       "Provides early warning on quality drift and enables faster lab-to-process feedback loops."
+      ],
+      "p": [
+       "Lab samples slow to integrate",
+       "Quality data in silos (pulping, bleaching, PM)",
+       "Trends not visible cross-functionally",
+       "Root cause analysis manual"
+      ],
+      "kpi": ["Lab data turnaround time", "Quality spec compliance %", "SPC out-of-control events", "Customer complaint count"]
+     }
+    ]
+   },
+   {
+    "n": "Safety",
+    "uc": [
+     {
+      "t": "AI Safety Monitoring", "k": "cv", "v": 2,
+      "loc": ["Recovery boiler floor", "Lime kiln area", "Bleach plant chemical handling", "Paper machine wet end", "Broke handling", "Dryer section access"],
+      "locLabel": "Critical zones",
+      "d": [
+       "Analyses CCTV feeds with computer vision models for PPE compliance, restricted-zone intrusion, confined space entry and slip/trip/fall events.",
+       "Provides real-time alerts to control room and safety officers; integrates with site SCM."
+      ],
+      "p": [
+       "PPE compliance manual checks insufficient",
+       "Recovery boiler floor and bleach plant chemical handling are high-risk",
+       "Confined space entry monitoring difficult",
+       "Restricted zone access not monitored 24/7"
+      ],
+      "kpi": ["PPE compliance %", "Restricted zone violation count", "Near-miss frequency", "LTI frequency rate (LTIFR)"]
+     }
+    ]
+   },
+   {
+    "n": "Ops Intelligence",
+    "uc": [
+     {
+      "t": "Plant-Wide KPI & OEE Dashboarding", "k": "ai", "v": 3,
+      "d": [
+       "Integrates production, quality, energy and downtime data across all units into role-based dashboards (operators, section heads, plant head, CXO).",
+       "Provides automated OEE calculation, root cause analysis tools and what-if scenarios.",
+       "Enables data-driven decision making at all levels and enables continuous improvement cycles."
+      ],
+      "p": [
+       "Multiple reporting systems; manual collation",
+       "KPIs not real-time",
+       "Drill-down to root cause manual",
+       "Different definitions across sections"
+      ],
+      "kpi": ["OEE %", "Specific energy (GJ/t paper)", "Conversion cost (₹/t paper)", "Schedule adherence"]
+     }
+    ]
+   },
+   {
+    "n": "Asset Reliability",
+    "uc": [
+     {
+      "t": "Condition-Based Monitoring (CBM)", "k": "ai", "v": 15,
+      "d": [
+       "Analyses vibration, temperature, oil quality and motor signature data from critical rotating equipment (chippers, refiners, pumps, agitators, blowers, drives).",
+       "Predicts bearing failures, alignment issues, lubrication problems and impending breakdowns.",
+       "Provides location-tagged alerts and remaining-useful-life estimates for planned interventions."
+      ],
+      "p": [
+       "Unplanned trips on PM are catastrophic (cascading broke)",
+       "Maintenance largely reactive",
+       "Critical pumps, refiners, fans fail without warning",
+       "Aging asset base needs proactive management"
+      ],
+      "kpi": ["Unplanned downtime hours/year", "MTBF on critical assets", "Maintenance cost (₹/t paper)", "Predictive vs reactive maintenance ratio"]
+     },
+     {
+      "t": "Computerised Maintenance Management System (CMMS)", "k": "ai", "v": 5,
+      "d": [
+       "Workflow management for maintenance work orders, planned/unplanned work tracking, asset history and maintenance KPIs.",
+       "Integrates CBM alerts into work order generation and tracks closure with parts/labor/downtime.",
+       "Provides asset-level reliability metrics (MTBF, MTTR), maintenance cost reporting and compliance audit trails."
+      ],
+      "p": [
+       "Maintenance work tracked in spreadsheets",
+       "Work orders don't close on time",
+       "No structured asset history",
+       "Spare consumption not attributed accurately"
+      ],
+      "kpi": ["Work order closure time (days)", "Planned vs unplanned %", "Asset history completeness", "MTBF/MTTR by asset class"]
+     },
+     {
+      "t": "MRO & Spare-Parts Optimization", "k": "ai", "v": 3,
+      "d": [
+       "Analyses spare parts inventory, lead times, criticality, consumption patterns and supplier reliability.",
+       "Models optimal stocking levels, reorder points and consignment opportunities for critical spares.",
+       "Provides inventory optimization advisory and supplier performance dashboards."
+      ],
+      "p": [
+       "Excess inventory (₹30-80 cr tied up)",
+       "Critical spare stockouts cause emergencies",
+       "Lead times not tracked systematically",
+       "Cataloging inconsistent"
+      ],
+      "kpi": ["Inventory value (₹ cr)", "Stockout events", "Emergency procurement %", "Inventory turn ratio"]
+     }
+    ]
+   }
+  ]
+ }
+]

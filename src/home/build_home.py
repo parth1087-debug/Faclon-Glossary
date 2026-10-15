@@ -51,6 +51,17 @@ SOLUTIONS = [
         "links": [],
     },
     {
+        "slug": "pulp-paper-ai-use-case-map",
+        "name": "Pulp & Paper AI Use Case Map",
+        "sector": "Pulp & Paper",
+        "accent": "blue",
+        "live": True,
+        "blurb": "40 deployable AI use cases across the integrated pulp & paper mill, from wood yard to winder, "
+                 "with up to ₹204 cr per MTPA of value at stake.",
+        "tags": ["10 process areas", "40 use cases", "11 Vision AI"],
+        "links": [],
+    },
+    {
         "slug": "bus-bar-monitoring",
         "name": "Bus Bar Monitoring",
         "sector": "Electrical · All industries",

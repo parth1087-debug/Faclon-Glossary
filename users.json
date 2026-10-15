@@ -29,6 +29,10 @@
    "title": "Power Plant AI"
   },
   {
+   "slug": "pulp-paper-ai-use-case-map",
+   "title": "Pulp & Paper AI Use Case Map"
+  },
+  {
    "slug": "steam-trap-monitoring",
    "title": "Steam Trap Failure Detection"
   },
@@ -75,6 +79,10 @@
   "power-plant-ai": {
    "iv": "87Qsj114xMeyVg9p",
    "ct": "NPJ7x0nzOc1so/RRMboYpYtsc+wYuoFlX99zamoiwUvpbSVHJ1SYj7jmOa4mD8Gy0yiCGFppsYImRs5q"
+  },
+  "pulp-paper-ai-use-case-map": {
+   "iv": "VmeufVYukgjdfRxQ",
+   "ct": "jhwLCBagXGZ0pNxxOhL8p+2sPARiq2IrbxriDH01Ruu+VmxXV+NYWDv4uYv3/p9b9jVndwaWvbQkWpta"
   },
   "steam-trap-monitoring": {
    "iv": "jzPX3sC3K52ymyoA",
