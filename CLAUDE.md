@@ -12,6 +12,8 @@ This repo holds Faclon Labs customer-facing solution pages, published with GitHu
 - The site is password-protected per user. After ANY build, and before committing, run `GLOSSARY_PASSWORD='<admin password>' python3 src/shared/protect.py` (ask Parth for the admin password; never commit it or write it into any file). Then run `python3 src/shared/protect.py --check`, which must pass: never push an unprotected `index.html`.
 - `protect.py` encrypts each page with its own key, refreshes the solution list in `users.json` and builds `admin/index.html` (the User Manager) from `src/admin/index.html` + `src/shared/auth_core.js`. Edit those sources, never `admin/index.html`.
 - `users.json` holds the user list and is written by the User Manager straight to `main`. Never edit or reorder its `users` array by hand. Always pull `main` right before running `protect.py`, and if `users.json` conflicts in a merge, keep `main`'s `users` array.
+- `protect.py` also renders each changed solution page to one continuous PDF page (`src/shared/pagepdf.py`, Playwright + Chromium, Inter from `src/shared/fonts/`) and stores it encrypted as `<solution>/page-pdf.bin` for the in-page Download button. Never hand-edit those files.
+- The signed-in bar and Download dialog (PDF of this page, or one offline HTML file of chosen solutions) come from `src/shared/page_tools.js`. Edit that source and re-run `protect.py`.
 - A new solution page is visible only to admin until Parth ticks it for users in the User Manager.
 - Do not change `src/shared/protect_salt.txt` or the admin password: either one changes every page key, which logs everyone out and means every user has to be recreated.
 

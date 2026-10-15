@@ -19,7 +19,11 @@ How access works
 The admin password is never written to the repo. Changing it changes every
 page key, so every user would have to be recreated.
 
-    python3 src/shared/protect.py --check   # fails if any page is unprotected
+    python3 src/shared/protect.py --check   # fails if any page is unprotected or missing its PDF
+
+It also renders each solution page to one continuous PDF page (pagepdf.py, needs
+Playwright + Chromium) whenever the page changes, stored encrypted as
+<solution>/page-pdf.bin for the in-page Download button. --force-pdf re-renders all.
 """
 import base64
 import getpass
@@ -41,6 +45,8 @@ ROOT = Path(__file__).resolve().parents[2]
 HERE = Path(__file__).resolve().parent
 SALT_FILE = HERE / "protect_salt.txt"
 AUTH_CORE = HERE / "auth_core.js"
+TOOLS_JS = HERE / "page_tools.js"
+PDF_NAME = "page-pdf.bin"
 ADMIN_SRC = ROOT / "src" / "admin" / "index.html"
 ADMIN_OUT = ROOT / "admin" / "index.html"
 USERS = ROOT / "users.json"
@@ -98,6 +104,11 @@ def plaintext(html, slug, master):
     return AESGCM(key).decrypt(unb64(field(html, "iv")), unb64(field(html, "ct")), None).decode("utf-8")
 
 
+def meta(html, name):
+    m = re.search(r'<meta name="%s" content="([^"]*)">' % name, html)
+    return m.group(1) if m else None
+
+
 def title_of(html):
     m = re.search(r"<title>(.*?)</title>", html, re.S)
     t = htmllib.unescape(m.group(1).strip()) if m else ""
@@ -147,37 +158,20 @@ button:disabled{opacity:.6;cursor:default}
   <p>You're signed in as <b id="who"></b>, but this solution hasn't been shared with you. Ask your Faclon contact if you need it.</p>
   <div class="acts"><a class="btn" id="home" href="#">See your solutions</a><button class="ghost" id="out" type="button">Sign in as someone else</button></div>
 </div>
-<script>
+<script id="fa-core">
 __AUTH_CORE__
 </script>
 <script>
 (async function(){
+var TOOLS=__TOOLS__;
 var D={slug:"__SLUG__",base:"__BASE__",iv:"__IV__",ct:"__CT__"};
 var $=function(i){return document.getElementById(i)};
 var gate=$("gate"),noacc=$("noacc"),err=$("err");
 function after(html,acc,U){
-  var sol=(U.solutions||[]).map(function(s){return s.slug});
-  var args=[acc.allowed,acc.name,acc.admin,D.base,sol].map(function(v){return JSON.stringify(v).replace(/</g,"\\u003c")}).join(",");
-  var js='<script>('+FILTER.toString()+')('+args+')<\/script>';
+  var args=[acc.allowed,acc.name,acc.admin,D.base,U.solutions||[],D.slug].map(function(v){return JSON.stringify(v).replace(/</g,"\\u003c")}).join(",");
+  var js='<script>'+$("fa-core").textContent+'\n'+TOOLS+'\nFTOOLS('+args+')<\/script>';
   var i=html.toLowerCase().lastIndexOf("</body>");
   return i<0?html+js:html.slice(0,i)+js+html.slice(i);
-}
-function FILTER(A,N,ADM,B,SOL){
-  var base=new URL(B,location.href).pathname;
-  if(A){document.querySelectorAll("a[href]").forEach(function(a){
-    var u;try{u=new URL(a.getAttribute("href"),location.href)}catch(e){return}
-    if(u.origin!==location.origin||u.pathname.indexOf(base)!==0)return;
-    var seg=u.pathname.slice(base.length).split("/")[0];
-    if(SOL.indexOf(seg)<0||A.indexOf(seg)>=0)return;
-    var c=a.closest("article.card");(c||a).style.display="none";
-  });}
-  var bar=document.createElement("div");
-  bar.setAttribute("style","position:fixed;right:12px;bottom:12px;z-index:9999;display:flex;align-items:center;gap:10px;max-width:calc(100vw - 24px);background:#fff;color:#0F1B2D;border:1px solid #E3E8EF;border-radius:999px;padding:7px 8px 7px 14px;font:500 13px Inter,system-ui,sans-serif;box-shadow:0 6px 24px rgba(11,26,48,.14)");
-  var who=document.createElement("span");who.textContent=N;who.setAttribute("style","white-space:nowrap;overflow:hidden;text-overflow:ellipsis");bar.appendChild(who);
-  function btn(t,f){var b=document.createElement("button");b.type="button";b.textContent=t;b.setAttribute("style","font:600 12px Inter,system-ui,sans-serif;border:0;border-radius:999px;padding:6px 10px;cursor:pointer;white-space:nowrap;background:#EEF2FF;color:#3D63F5");b.onclick=f;bar.appendChild(b)}
-  if(ADM)btn("Manage users",function(){location.href=B+"admin/"});
-  btn("Sign out",function(){try{localStorage.removeItem("faclon-glossary-session");sessionStorage.removeItem("faclon-glossary-session")}catch(e){}location.href=B||"./"});
-  document.body.appendChild(bar);
 }
 function show(html){function go(){document.open();document.write(html);document.close()}if(document.readyState==="complete")go();else window.addEventListener("load",go)}
 async function open(U,acc){
@@ -202,8 +196,10 @@ $("f").addEventListener("submit",async function(e){
 """
 
 
-def gate_html(slug, base, iv, ct, core):
-    return (GATE.replace("__MARKER__", MARKER)
+def gate_html(slug, base, iv, ct, core, gate_ver, content):
+    tools = json.dumps(TOOLS_JS.read_text(encoding="utf-8")).replace("</", "<\\/")
+    return (GATE.replace("__MARKER__", MARKER + f'\n<meta name="faclon-gate" content="{gate_ver}"><meta name="faclon-content" content="{content}">')
+                .replace("__TOOLS__", tools)
                 .replace("__AUTH_CORE__", core)
                 .replace("__SLUG__", slug)
                 .replace("__BASE__", base)
@@ -229,6 +225,10 @@ def main():
         if admin is not None and (not ADMIN_OUT.exists() or ADMIN_OUT.read_text(encoding="utf-8") != admin):
             print("STALE: admin/index.html (re-run protect.py)")
             bad.append(ADMIN_OUT)
+        for slug, p in targets:
+            if slug != "home" and not (p.parent / PDF_NAME).exists():
+                print("MISSING PDF:", (p.parent / PDF_NAME).relative_to(ROOT))
+                bad.append(p)
         if not USERS.exists():
             print("MISSING: users.json")
             bad.append(USERS)
@@ -246,20 +246,41 @@ def main():
     if users.get("check") != check or users.get("salt") != b64(s):
         sys.exit("That password doesn't match this site's admin password (users.json check failed).")
 
-    solutions = []
+    gate_ver = hashlib.sha256((GATE + core + TOOLS_JS.read_text(encoding="utf-8")).encode()).hexdigest()[:16]
+    force_pdf = "--force-pdf" in sys.argv
+    solutions, need_pdf = [], []
     for slug, path in targets:
         raw = path.read_text(encoding="utf-8")
         plain = plaintext(raw, slug, master)
+        content = hashlib.sha256(plain.encode("utf-8")).hexdigest()[:16]
         if slug != "home":
             solutions.append({"slug": slug, "title": title_of(plain)})
-        if MARKER in raw:
+            if force_pdf or not (path.parent / PDF_NAME).exists() or meta(raw, "faclon-content") != content:
+                need_pdf.append((slug, path, plain))
+        if MARKER in raw and meta(raw, "faclon-gate") == gate_ver and meta(raw, "faclon-content") == content:
             print("already protected", path.relative_to(ROOT))
             continue
         iv = secrets.token_bytes(12)
         ct = AESGCM(mac(master, "page:" + slug)).encrypt(iv, plain.encode("utf-8"), None)
         base = "" if slug == "home" else "../"
-        path.write_text(gate_html(slug, base, iv, ct, core), encoding="utf-8")
+        path.write_text(gate_html(slug, base, iv, ct, core, gate_ver, content), encoding="utf-8")
         print("protected", path.relative_to(ROOT))
+
+    if need_pdf:
+        try:
+            import pagepdf
+        except ImportError:
+            sys.path.insert(0, str(HERE))
+            import pagepdf
+        r = pagepdf.Renderer()
+        try:
+            for slug, path, plain in need_pdf:
+                pdf, h, scale = r.pdf(plain)
+                iv = secrets.token_bytes(12)
+                (path.parent / PDF_NAME).write_bytes(iv + AESGCM(mac(master, "page:" + slug)).encrypt(iv, pdf, None))
+                print(f"pdf {slug}: one page, {h}px tall" + (f", scaled to {scale:.2f}" if scale < 1 else ""))
+        finally:
+            r.close()
 
     users["solutions"] = solutions
     USERS.write_text(json.dumps(users, indent=1) + "\n", encoding="utf-8")

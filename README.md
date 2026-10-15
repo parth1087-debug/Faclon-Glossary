@@ -23,7 +23,9 @@ index.html                     Landing page listing every solution (generated)
 src/home/build_home.py         Source of truth for the landing page: edit the SOLUTIONS list
 src/<solution>/build_*.py      Source of truth for each solution page
 src/admin/index.html           Source of the User Manager (built into admin/index.html by protect.py)
-src/shared/protect.py          Encrypts pages and builds the User Manager
+src/shared/protect.py          Encrypts pages, renders their PDFs and builds the User Manager (needs: pip install playwright && playwright install chromium)
+src/shared/page_tools.js       Signed-in bar and Download dialog injected into every unlocked page
+<solution>/page-pdf.bin        Encrypted one-page PDF of that solution (generated)
 users.json                     User list (written by the User Manager; encrypted keyrings)
 src/shared/                    Shared assets
 CLAUDE.md                      Conventions for anyone (or any AI assistant) editing this repo
@@ -64,6 +66,7 @@ Commit and push. GitHub Pages republishes within a minute or two.
 
 - **Access control.** Visitors sign in with a username and password and see only the solutions shared with them; other pages show a "No access" screen. Sign in as `admin` with the admin password to see everything.
 - **User Manager** at [`/admin/`](admin/index.html): add, edit and remove users, pick their solutions, then **Publish**, which commits `users.json` to `main` (needs a fine-grained GitHub token with Contents: Read and write on this repo, saved once per browser; without one it offers a download to upload by hand). Changes are live in about a minute.
+- **Downloads.** Every signed-in visitor gets a Download button: a PDF of the current page as one continuous page (no page breaks), or one offline HTML file containing the solutions they tick (from the ones shared with them). Downloaded files are not password-protected.
 - How it works: each page is AES-encrypted with its own key, derived from the admin password. Each user's entry in `users.json` is a keyring holding only their pages' keys, locked with their own password. Removing a user or a solution takes effect on their next page load.
 - Limits: this protects the published pages only. The sources in `src/` and the PDFs are readable by anyone with the link to this public repo or file. Someone who deliberately copied their page keys before being removed could still read those pages; to cut that off completely, change the admin password and recreate users.
 - Every page carries `<meta name="robots" content="noindex">`, so it is reachable by link but not listed by search engines.
