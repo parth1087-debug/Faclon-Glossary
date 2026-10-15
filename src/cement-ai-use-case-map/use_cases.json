@@ -1,0 +1,404 @@
+[
+ {
+  "s": "Mines",
+  "uc": [
+   {
+    "t": "Limestone Stockpile Quality Visibility", "k": "ai", "v": [0.3, 0.6],
+    "d": [
+     "Tracks stockpile chemistry (CaO, SiO₂, MgO), material movement, and reclaiming patterns across quarry stockpiles in real time.",
+     "Flags likely chemistry deviation (LSF drift) in the reclaimed material before it enters the raw mill.",
+     "Guides quarry teams on blending and reclaiming sequence/locations to homogenise chemistry and stabilise raw mix feed."
+    ],
+    "p": [
+     "No real-time visibility into stockpile chemistry, so quality teams operate blind to in-pile variability.",
+     "Random/sequential reclaiming (rather than chemistry-led) creates chemistry fluctuations entering the plant.",
+     "Resulting raw mix instability increases corrective material usage and downstream kiln upsets."
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Crusher",
+  "uc": [
+   {
+    "t": "Crusher Energy & Throughput Optimization", "k": "ai", "v": [0.2, 0.5],
+    "d": [
+     "Monitors crusher load, feed size/hardness, motor current, and operating conditions in real time.",
+     "Estimates specific power consumption (SPC) and throughput for the current feed and operating settings.",
+     "Recommends optimal feed rate and operating parameters to maximise throughput while minimising SPC."
+    ],
+    "p": [
+     "High crusher specific power consumption due to sub-optimal operating settings.",
+     "Frequent idle running and stoppages reduce effective utilisation.",
+     "Variable throughput caused by inconsistent feed size and operator-driven settings."
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Raw Meal",
+  "uc": [
+   {
+    "t": "Raw Mix Design", "k": "ai", "v": [0.8, 2.5],
+    "d": [
+     "Analyses raw material chemistry, online process data (PGNAA/XRF), and laboratory measurements across limestone, clay and correctives.",
+     "Models the resulting clinker chemistry (LSF, SM, AM) and kiln feed uniformity for a given proportioning combination.",
+     "Recommends the optimal raw material proportions to hit target clinker chemistry and stable kiln operation."
+    ],
+    "p": [
+     "Natural variability in limestone, clay, and corrective materials causes fluctuations in LSF, SM, AM and kiln feed quality.",
+     "Manual proportioning based on delayed lab feedback results in unstable kiln operation and higher SHC.",
+     "Frequent chemistry deviations increase corrective material consumption and operator interventions."
+    ]
+   },
+   {
+    "t": "Raw Meal Blaine Prediction & Optimization", "k": "ai", "v": [0.6, 1.8],
+    "d": [
+     "Tracks raw mill process parameters – throughput, mill DP, roller pressure, separator speed, motor current – in real time.",
+     "Predicts raw meal Blaine and residue (fineness), ahead of laboratory results.",
+     "Recommends mill and separator setpoints to hold target fineness while minimising grinding energy."
+    ],
+    "p": [
+     "Raw meal Blaine is typically measured via periodic lab testing, causing delayed process corrections.",
+     "Under- or over-grinding adversely affects calcination efficiency, kiln stability and clinker quality.",
+     "Operators struggle to balance throughput, fineness and power consumption, leading to inconsistent mill performance."
+    ]
+   },
+   {
+    "t": "Raw Mill Energy & Throughput Optimization", "k": "ai", "v": [0.7, 2.2],
+    "d": [
+     "Continuously monitors mill loading, grinding/hydraulic pressure, separator speed, fan power, vibration, and feed material hardness/moisture.",
+     "Identifies the specific power consumption (SPC) and maximum sustainable throughput achievable for the current operating window.",
+     "Recommends the optimal feed rate, grinding pressure and separator settings to jointly minimise SPC and maximise throughput within safe stability limits."
+    ],
+    "p": [
+     "Raw mills are among the largest power consumers in a plant, and inefficient operation significantly increases production cost.",
+     "Mills often run below maximum sustainable capacity due to conservative operator settings, while pushing feed rate without understanding constraints risks high vibration, trips and poor fineness.",
+     "Variations in raw material hardness, moisture and operating conditions cause inconsistent mill performance, higher kWh/ton, and increased reject rates."
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Pyro",
+  "uc": [
+   {
+    "t": "Burning Zone Prediction & Optimization", "k": "ai", "v": [1.5, 3.5],
+    "d": [
+     "Continuously monitors kiln operating data – burning zone temperature, torque, feed rate, speed, secondary air temperature, and gas analysis (NOx, O₂, CO).",
+     "Predicts the burning zone state (stable/unstable) and emerging risk of free lime excursions or ring formation.",
+     "Recommends proactive adjustments to feed rate, fuel, and kiln speed to restore and hold the optimal burning zone."
+    ],
+    "p": [
+     "Burning zone instability leads to fluctuations in clinker quality, increased free lime, ring formation, and higher SHC.",
+     "Operators rely on manual observation and experience to adjust kiln parameters, resulting in reactive decision-making.",
+     "Changes in raw mix, fuel quality, and production rate make it difficult to consistently maintain the optimal burning zone."
+    ]
+   },
+   {
+    "t": "Kiln SHC Optimizer", "k": "ai", "v": [2.5, 6],
+    "d": [
+     "Analyses kiln thermal and combustion data – feed rate, BZT, torque, secondary/calciner temperature, O₂/CO/NOx, and fuel mix including TSR.",
+     "Forecasts the Specific Heat Consumption (SHC) trajectory for the current operating configuration.",
+     "Recommends operating parameter adjustments to minimise SHC while holding clinker quality and throughput targets."
+    ],
+    "p": [
+     "Kiln SHC is highly influenced by raw mix quality, fuel properties, kiln loading, and combustion efficiency.",
+     "Operators rely on experience to adjust kiln parameters, leading to inconsistent thermal performance and excess fuel use.",
+     "Even small increases in SHC translate into significant annual fuel cost and higher CO₂ emissions."
+    ]
+   },
+   {
+    "t": "C₃S Prediction", "k": "ai", "v": [0.8, 2.5],
+    "d": [
+     "Uses kiln process parameters, raw mix chemistry, fuel properties (incl. AFR feed rate) and operational data as inputs to a soft sensor.",
+     "Predicts clinker Tricalcium Silicate (C₃S) in near real time, ahead of laboratory results.",
+     "Flags the process corrections (feed, fuel, kiln speed) needed to bring C₃S back within target before a quality deviation occurs."
+    ],
+    "p": [
+     "C₃S is one of the most critical clinker quality parameters, directly influencing strength and grindability.",
+     "Laboratory testing introduces delays of 30 minutes to several hours, so operators act without real-time quality feedback.",
+     "Variations in raw mix chemistry, fuel ash contribution and burning zone conditions cause unstable C₃S and inconsistent clinker."
+    ]
+   },
+   {
+    "t": "Cyclone Blockage Prediction", "k": "ai", "v": [1.8, 4.5],
+    "d": [
+     "Continuously monitors cyclone differential pressure, preheater draft, stage-wise temperatures, hot meal chemistry (SO₃, Cl, alkalis) and ID fan load.",
+     "Predicts the likelihood and location of cyclone build-up/blockage 30-60 minutes ahead of occurrence.",
+     "Triggers early alerts and recommends preventive actions (feed/fuel adjustment, targeted cleaning) at the at-risk cyclone stage before a stoppage occurs."
+    ],
+    "p": [
+     "Cyclone build-up and jamming are a leading cause of unplanned kiln stoppages, causing major production losses and safety risk.",
+     "Operators typically detect blockages only after abnormal pressure drop or temperature change, leaving little time to react.",
+     "Variations in raw meal chemistry, volatile cycles and material flow make blockage hard to predict with conventional monitoring."
+    ]
+   },
+   {
+    "t": "Kiln Coal Optimizer", "k": "ai", "v": [2, 5],
+    "d": [
+     "Continuously evaluates kiln thermal loading – BZT, torque, filling ratio, feed rate, secondary air temperature, and gas composition.",
+     "Identifies the degree of excess/conservative thermal loading relative to the actual heat requirement of the process.",
+     "Recommends safe reductions in coal feed rate while protecting clinker quality and kiln stability."
+    ],
+    "p": [
+     "Operators often run a conservative (higher-than-required) coal feed to avoid instability, causing excess fuel consumption.",
+     "Overheating conditions are hard to identify accurately as they depend on multiple interacting parameters.",
+     "Without a data-driven approach, excess thermal energy raises fuel cost, refractory stress and NOx emissions."
+    ]
+   },
+   {
+    "t": "Free Lime Prediction", "k": "ai", "v": [1.2, 3.2],
+    "d": [
+     "Uses kiln process parameters, raw mix chemistry (LSF, SM, AM), fuel conditions, and burning zone behaviour as inputs to a soft sensor.",
+     "Predicts clinker free lime (f-CaO) in near real time, ahead of laboratory results.",
+     "Recommends process corrections to avoid both under-burning (high free lime) and over-burning (excess fuel use)."
+    ],
+    "p": [
+     "Free lime is a critical burnability/performance indicator, but lab measurement is delayed by 30-90 minutes or more.",
+     "High free lime indicates under-burning, while excessively low free lime indicates over-burning and wasted fuel.",
+     "Variations in raw mix chemistry, burning zone conditions and fuel quality make it hard to consistently hold target free lime."
+    ]
+   },
+   {
+    "t": "Clinker Cooler Optimization", "k": "ai", "v": [1.5, 3.5],
+    "d": [
+     "Continuously monitors clinker outlet temperature, secondary/tertiary air temperature, cooler fan power, bed depth, grate speed and DP.",
+     "Estimates the cooler's heat-recuperation efficiency and the resulting secondary/tertiary air conditions for the kiln and calciner.",
+     "Recommends optimal fan and grate-speed settings to maximise heat recovery and stabilise downstream combustion."
+    ],
+    "p": [
+     "Inefficient clinker cooling results in loss of valuable heat, raising SHC and fuel cost.",
+     "Poor cooler operation destabilises secondary/tertiary air temperatures, affecting combustion in the kiln and calciner.",
+     "Operators rely on experience to adjust fans and grate speeds, causing inconsistent cooling efficiency and excess power use."
+    ]
+   },
+   {
+    "t": "Refractory Health Monitoring", "k": "ai", "v": [1.8, 5],
+    "d": [
+     "Continuously assesses kiln shell temperature profile, BZT, torque, feed rate, coating stability and thermal cycling at each kiln location/zone.",
+     "Detects abnormal wear patterns and estimates the refractory health index and remaining refractory life by kiln zone/location.",
+     "Provides early warnings and recommends operating adjustments and maintenance/replacement timing to extend campaign life and avoid emergency shutdowns."
+    ],
+    "p": [
+     "Refractory is one of the most critical and expensive consumables, and unexpected failures cause major losses.",
+     "Excessive temperatures, thermal shocks and unstable coating accelerate wear but are hard to detect before visible damage.",
+     "Maintenance decisions rely on periodic inspection rather than continuous monitoring, leading to premature replacement or surprise outages."
+    ]
+   },
+   {
+    "t": "Kiln Ring Formation Prediction", "k": "ai", "v": [2.5, 7],
+    "d": [
+     "Continuously monitors kiln torque, BZT, filling ratio, volatile cycle chemistry (SO₃, Cl, alkalis), and cyclone DP.",
+     "Identifies the risk of ring formation hours to days before it becomes operationally critical.",
+     "Recommends adjustments to fuel mix, raw mix chemistry or kiln operation to dissipate the ring risk before a shutdown is required."
+    ],
+    "p": [
+     "Rings form from accumulation/sintering of material driven by unstable burning conditions and volatile cycles.",
+     "Ring formation restricts material flow, increases torque, destabilises operation, and can force unscheduled shutdown.",
+     "Operators typically identify rings only after symptoms appear (rising torque, falling throughput), by which time output is already affected."
+    ]
+   },
+   {
+    "t": "Vision-Based AFR (Alternative Fuels & Raw Materials) Monitoring", "k": "cv", "v": [0.5, 1.5],
+    "d": [
+     "Deployed at AFR feed belts and dosing stations feeding the kiln main burner and calciner/precalciner.",
+     "Continuously monitors AFR feed belts via 24x7 camera feeds – fuel type (plastics, rubber, biomass, RDF), colour, texture, particle size and oversize/foreign objects.",
+     "Classifies the fuel mix in real time and estimates the calorific value of the AFR being fed to the kiln/calciner.",
+     "Recommends AFR feed-mix and dosing adjustments to maintain consistent calorific value and combustion stability."
+    ],
+    "p": [
+     "AFR composition and calorific value vary widely batch-to-batch, with no continuous visibility into what is actually being fed.",
+     "Inconsistent calorific value and oversized particles or foreign objects destabilise combustion and increase equipment wear.",
+     "Manual sampling-based quality checks are infrequent and cannot keep pace with continuous AFR feed variability."
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Cement Mill",
+  "uc": [
+   {
+    "t": "Cement Fineness Prediction", "k": "ai", "v": [0.6, 1.8],
+    "d": [
+     "Tracks grinding process parameters – mill DP, separator speed, motor current, reject rate, clinker hardness and gypsum quality.",
+     "Predicts cement fineness (Blaine) and residue, ahead of laboratory results.",
+     "Recommends separator and mill setpoint adjustments to hold target Blaine while avoiding over-grinding."
+    ],
+    "p": [
+     "Blaine is typically measured via periodic lab testing, delaying corrective action by 30-60 minutes or more.",
+     "Variations in clinker hardness, gypsum quality, separator efficiency and mill conditions cause inconsistent fineness and excess power use.",
+     "Operators often over-grind to avoid quality risk, increasing SPC and reducing mill throughput."
+    ]
+   },
+   {
+    "t": "Cement Mill Energy & Throughput Optimization", "k": "ai", "v": [0.8, 2.4],
+    "d": [
+     "Continuously monitors mill motor power/current, separator speed, grinding pressure (VRM), circulating load, vibration, and clinker/gypsum/additive proportions.",
+     "Identifies the specific power consumption (SPC) and maximum achievable throughput (TPH) for the current grinding circuit condition.",
+     "Recommends the optimal feed rate, separator speed, and grinding-pressure settings to jointly minimise SPC and maximise throughput at target Blaine."
+    ],
+    "p": [
+     "Cement grinding is one of the highest electrical energy consumers in a plant, directly impacting production cost.",
+     "Mills are often run conservatively due to quality, vibration, or circulating-load concerns, underutilising available capacity.",
+     "Variations in clinker hardness, gypsum proportion, additives and circulating load increase grinding energy and limit throughput without additional CAPEX visibility."
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Digitization",
+  "uc": [
+   {
+    "t": "Model Digital Plant – IT-OT Integration Platform", "k": "fd", "v": null,
+    "d": [
+     "Integrates process, quality, maintenance, laboratory, ERP (SAP) and energy data from PLC/DCS, historians, LIMS and EMS into a single contextualised data model.",
+     "Powers plant-wide AI/analytics models (SHC, quality, reliability, energy) by giving them a single, reliable source of real-time data.",
+     "Delivers standardised KPI dashboards, GenAI copilots and root-cause/benchmarking views that guide cross-functional decisions."
+    ],
+    "p": [
+     "Critical plant data is distributed across disconnected systems (PLCs, DCS, Historians, LIMS, SAP, EMS), making holistic analysis difficult.",
+     "Engineers and management spend significant time manually collecting, reconciling and validating data before decisions can be made.",
+     "Lack of integrated data prevents implementation of advanced AI use cases such as kiln optimisation, predictive maintenance and energy optimisation."
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Safety",
+  "uc": [
+   {
+    "t": "Vision-Based Manpower Safety & PPE Detection", "k": "cv", "v": [0.3, 1],
+    "d": [
+     "Continuously monitors camera feeds of personnel across plant operational and hazardous areas.",
+     "Detects PPE non-compliance (missing helmet, shoes, jacket, gloves) and unauthorised entry into restricted zones, in real time.",
+     "Triggers immediate alerts to supervisors/EHS teams for corrective action and zone-specific safety interventions."
+    ],
+    "p": [
+     "Manual monitoring of PPE compliance is inconsistent and cannot provide 24x7 coverage across large cement plants.",
+     "Workers may inadvertently enter hazardous areas without mandatory safety gear, increasing accident risk and regulatory exposure.",
+     "Safety incidents can lead to injuries, production disruption, legal liability and reputational damage."
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Asset Reliability",
+  "uc": [
+   {
+    "t": "Condition-Based Maintenance", "k": "ai", "v": [1.5, 4.5],
+    "d": [
+     "Covers critical rotating assets across raw mill, kiln, cement mill, crusher, fans, conveyors and utilities (CPP/WHRS), replacing line-specific predictive-maintenance use cases.",
+     "Continuously monitors vibration, bearing/gearbox temperature, motor current, lubrication health and operating condition of critical rotating and static assets plant-wide.",
+     "Predicts the equipment health index and remaining useful life / failure probability for each monitored asset.",
+     "Recommends maintenance timing and spare-part planning based on actual asset condition rather than fixed time intervals."
+    ],
+    "p": [
+     "Traditional preventive maintenance is time-based, resulting in unnecessary maintenance or unexpected equipment failures.",
+     "Maintenance teams often lack a unified, plant-wide view of equipment health to prioritise interventions.",
+     "Spare-part planning is reactive rather than condition-driven, raising inventory and emergency-procurement cost."
+    ]
+   },
+   {
+    "t": "Vision-Based Belt Health Monitoring", "k": "cv", "v": [0.3, 1],
+    "d": [
+     "Deployed across limestone/raw material yard conveyors, coal handling conveyors, clinker transport conveyors, and cement/finished-product handling conveyors.",
+     "Continuously monitors conveyor belts via industrial camera feeds – surface condition, tracking/alignment, edge wear, tears and spillage.",
+     "Detects developing belt damage and predicts the likelihood of failure (tear, mistracking, edge damage) before it becomes critical.",
+     "Generates early-warning alerts for inspection or maintenance action at the specific belt and location flagged, ahead of breakdown."
+    ],
+    "p": [
+     "Conveyor belts are critical assets across limestone, raw material, coal, clinker and cement handling, and unexpected failures cause major disruption.",
+     "Traditional inspections are manual and periodic, often missing developing issues such as edge damage, tears or mistracking.",
+     "Belt failures lead to production losses, material spillage, safety hazards, and costly replacements."
+    ]
+   },
+   {
+    "t": "Vision-Based Particle Size & Moisture Analysis", "k": "cv", "v": [0.3, 0.8],
+    "d": [
+     "Deployed at crusher discharge, raw material stockpile reclaim conveyors, coal mill feed conveyors, and clinker/cement transfer points.",
+     "Continuously analyses material images from conveyor belts and transfer points across the material-handling circuit.",
+     "Estimates particle size distribution (PSD) and material moisture trend for the feed stream in real time.",
+     "Flags feed-rate/process setpoint adjustments needed at the crusher, raw mill, coal mill or cement mill to correct off-spec feed before it impacts the downstream process."
+    ],
+    "p": [
+     "Particle size and moisture are typically measured via periodic manual sampling and lab testing, resulting in delayed, reactive corrections.",
+     "Variations in limestone fragmentation, clinker size or coal particle distribution reduce crusher efficiency and increase grinding energy.",
+     "Excessive material moisture can destabilise mills, reduce throughput, and raise drying energy and specific power consumption."
+    ]
+   },
+   {
+    "t": "Vision-Based Foreign Object Detection (FOD)", "k": "cv", "v": [0.2, 0.6],
+    "d": [
+     "Deployed at crusher inlet conveyors, raw material and coal feed conveyors, and transfer points ahead of crushers and mills.",
+     "Continuously scans material on conveyor belts using industrial cameras to spot tramp metal, wood, rock chunks, plastic and other foreign objects.",
+     "Detects and classifies foreign objects in real time before they reach the crusher, mill or downstream equipment.",
+     "Triggers automatic alerts or belt-trip/diverter actions to remove the foreign object before it causes equipment damage."
+    ],
+    "p": [
+     "Tramp metal, oversized rocks and other foreign objects entering crushers and mills cause liner, hammer and roller damage and unplanned stoppages.",
+     "Manual visual inspection cannot provide continuous, 24x7 coverage of fast-moving conveyors.",
+     "Existing metal detectors often miss non-metallic foreign objects (wood, plastic, large rocks), leaving a detection gap."
+    ]
+   },
+   {
+    "t": "Wireless Bus Bar Temperature Monitoring", "k": "iot", "v": [0.15, 0.4],
+    "d": [
+     "Deployed on bus bars, joints and terminations inside LT/HT switchgear, MCCs, and key electrical panels across the plant.",
+     "Continuously monitors bus bar and joint temperature in real time using wireless IoT temperature sensors.",
+     "Detects abnormal heating trends and predicts the risk of a hotspot developing into a loose-connection or insulation failure.",
+     "Triggers early alerts to electrical maintenance teams to tighten, clean or replace the affected joint before failure or fire."
+    ],
+    "p": [
+     "Loose connections and degrading bus bar joints generate hotspots that can cause electrical fires, equipment damage and unplanned plant trips.",
+     "Conventional thermal-imaging inspections are periodic and manual, often missing fast-developing hotspots between inspection rounds.",
+     "Wired temperature sensors are costly and impractical to retrofit across the large number of joints and panels in a cement plant."
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Utilities",
+  "uc": [
+   {
+    "t": "Waste Heat Recovery System (WHRS) Optimization", "k": "ai", "v": [0.4, 1],
+    "d": [
+     "Continuously monitors kiln/cooler exhaust gas temperature, AQC/SP boiler conditions, steam parameters and turbine performance.",
+     "Estimates the achievable WHRS power generation for the current kiln load and waste-heat availability.",
+     "Recommends operating adjustments across kiln, cooler and WHRS to maximise heat recovery and power generation."
+    ],
+    "p": [
+     "WHRS performance varies significantly with kiln load, exhaust gas temperature, cooler operation and process stability.",
+     "Operators have limited visibility into the link between kiln process parameters and WHRS power generation, leading to underutilisation.",
+     "Inefficient heat recovery increases grid power dependency and reduces overall plant energy efficiency."
+    ]
+   },
+   {
+    "t": "Net Heat Rate (NHR) Optimization in Captive Power Plant (CPP)", "k": "ai", "v": [0.5, 1.2],
+    "d": [
+     "Continuously monitors boiler, turbine and auxiliary system data – coal GCV, steam flow/pressure/temperature, turbine load and condenser vacuum.",
+     "Identifies the Net Heat Rate (NHR) and root causes of efficiency loss for the current operating configuration.",
+     "Recommends corrective actions on combustion, boiler and turbine operation to minimise fuel use per unit of power generated."
+    ],
+    "p": [
+     "CPP efficiency deteriorates over time due to sub-optimal combustion, poor boiler performance, turbine inefficiencies and high auxiliary consumption.",
+     "Operators often cannot identify root causes of high NHR in real time, leading to increased coal consumption and cost.",
+     "Even small increases in NHR translate into substantial annual fuel cost and reduced plant profitability."
+    ]
+   },
+   {
+    "t": "Energy Management System (EMS)", "k": "ai", "v": [0.6, 1.8],
+    "d": [
+     "Consolidates plant-wide electrical and thermal energy consumption by section (raw mill, kiln, cement mill, utilities), tariff structure, and captive/grid/WHRS generation mix.",
+     "Forecasts section-wise and plant-level energy demand, maximum demand (MD) excursions, and the cost impact of the current generation/consumption mix.",
+     "Recommends optimal load scheduling, power-source dispatch (grid/CPP/WHRS/renewables) and demand-control actions to minimise overall energy cost."
+    ],
+    "p": [
+     "Energy consumption and cost data are tracked in silos across sections, with no single real-time, plant-wide view of energy cost drivers.",
+     "Maximum demand (MD) penalties and sub-optimal source dispatch (grid vs. CPP vs. WHRS vs. renewables) increase the effective cost per unit of power.",
+     "Lack of granular, real-time visibility limits the ability to act before high-cost demand or generation-mix excursions occur."
+    ]
+   }
+  ]
+ }
+]
