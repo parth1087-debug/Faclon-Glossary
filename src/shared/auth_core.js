@@ -30,6 +30,10 @@ var FA = (function () {
     var k = await crypto.subtle.importKey("raw", raw, "AES-GCM", false, ["decrypt"]);
     return td.decode(await crypto.subtle.decrypt({ name: "AES-GCM", iv: u8(iv) }, k, u8(ct)));
   }
+  async function decryptBytes(raw, iv, ct) {
+    var k = await crypto.subtle.importKey("raw", raw, "AES-GCM", false, ["decrypt"]);
+    return crypto.subtle.decrypt({ name: "AES-GCM", iv: iv }, k, ct);
+  }
   async function sha256hex(s) {
     var h = new Uint8Array(await crypto.subtle.digest("SHA-256", te.encode(s)));
     return Array.prototype.map.call(h, function (x) { return ("0" + x.toString(16)).slice(-2); }).join("");
@@ -80,7 +84,7 @@ var FA = (function () {
   function setSession(v) { var j = JSON.stringify(v); try { localStorage.setItem(SESSION, j); } catch (e) { try { sessionStorage.setItem(SESSION, j); } catch (e2) {} } }
   function clearSession() { try { localStorage.removeItem(SESSION); sessionStorage.removeItem(SESSION); localStorage.removeItem("faclon-glossary-key"); } catch (e) {} }
   return {
-    u8: u8, b64: b64, pbkdf2: pbkdf2, hmac: hmac, encrypt: encrypt, decrypt: decrypt, sha256hex: sha256hex,
+    u8: u8, b64: b64, pbkdf2: pbkdf2, hmac: hmac, encrypt: encrypt, decrypt: decrypt, decryptBytes: decryptBytes, sha256hex: sha256hex,
     norm: norm, userId: userId, pageKey: pageKey, loadUsers: loadUsers, adminMaster: adminMaster,
     login: login, access: access, getSession: getSession, setSession: setSession, clearSession: clearSession
   };
