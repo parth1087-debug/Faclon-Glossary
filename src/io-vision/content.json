@@ -1,0 +1,493 @@
+{
+  "hero": {
+    "title": "I/O Vision",
+    "headline": "Intelligence for a Safer, Smarter Plant Using Computer Vision",
+    "tagline": "Decision Intelligence at scale to unlock Latent Potential of each Plant",
+    "pillars": ["Improve Production Throughput and Yield", "Reduce Operational Cost and Wastage", "AI Agents Enable Decision Intelligence at Scale"],
+    "img": "hero",
+    "alt": "Overhead view of loaded conveyor trays with Vision AI detection boxes around lumps of material"
+  },
+  "categories": [
+    {"id": "conveyors", "name": "Material Handling Conveyors", "short": "Conveyors"},
+    {"id": "safety", "name": "Safety & Compliance", "short": "Safety"},
+    {"id": "road", "name": "Road Safety", "short": "Road safety"},
+    {"id": "process", "name": "Process Control", "short": "Process"},
+    {"id": "quality", "name": "Quality Inspection", "short": "Quality"},
+    {"id": "thermal", "name": "Thermal Monitoring", "short": "Thermal"}
+  ],
+  "use_cases": [
+    {
+      "id": "belt", "cat": "conveyors", "name": "Belt Health Monitoring", "title": "Belt Conveyor",
+      "sub": "Transforming conveyor reliability through AI-driven visibility and proactive maintenance",
+      "feat": "Detects belt misalignment, slippage, tear, and wear",
+      "problem": [
+        "Belt misalignment, slippage, or tears lead to unplanned stoppages and material flow losses.",
+        "Manual checks often miss early wear or tension issues, delaying maintenance.",
+        "No real-time visibility into belt condition causes reactive upkeep and higher downtime."
+      ],
+      "solution": [
+        "AI-powered vision system continuously monitors belt alignment, surface wear, and tension, detecting early signs of damage before failure.",
+        "Automated analytics and alerting engine notifies maintenance teams of anomalies, enabling planned interventions instead of reactive breakdowns.",
+        "Integration with SCADA/PLC and CMMS systems ensures real-time status visibility, maintenance logging, and performance trend analysis for each conveyor line."
+      ],
+      "impact": [
+        ["Reduced Downtime", "Early fault detection minimizes stoppages and improves conveyor availability."],
+        ["Predictive Maintenance", "Data-driven alerts enable timely intervention before failures occur."],
+        ["Enhanced Reliability", "Continuous monitoring ensures consistent material flow and equipment health."]
+      ],
+      "img": "belt", "alt": "Close view of a running conveyor belt surface"
+    },
+    {
+      "id": "particle", "cat": "conveyors", "name": "Particle Size Analysis", "title": "Particle Size Analysis",
+      "sub": "Enhancing product quality and process efficiency through automated particle size monitoring",
+      "feat": "Measures and classifies particle size distribution, uniformity, and deviation in material flow",
+      "problem": [
+        "Manual sampling causes delayed feedback on particle size deviations, affecting quality consistency.",
+        "No real-time visibility makes it difficult to detect oversized or uneven particles during production.",
+        "Unlinked process data prevents quick correction of upstream parameters, reducing yield and uniformity."
+      ],
+      "solution": [
+        "Vision AI models analyze live video feeds to measure particle size, shape, and distribution in real time.",
+        "Automated classification detects oversize, undersize, or irregular particles, generating instant quality alerts.",
+        "Integrated dashboards visualize size trends and correlate with process parameters for closed-loop quality control."
+      ],
+      "impact": [
+        ["Consistent Quality", "Real-time monitoring ensures uniform particle size and compliance."],
+        ["Reduced Quality Loss", "Early detection of size deviation minimizes rework and off-spec production."],
+        ["Process Optimization", "Correlating particle trends with process variables enables proactive control and higher yield."]
+      ],
+      "img": "particle", "alt": "Material on a conveyor with every particle outlined and colour-coded by size"
+    },
+    {
+      "id": "foreign", "cat": "conveyors", "name": "Foreign Object Detection", "title": "Foreign Object Detection",
+      "sub": "Ensuring product purity and equipment safety through automated foreign object detection",
+      "feat": "Identifies and alerts for unwanted or hazardous objects in material streams or production lines",
+      "problem": [
+        "Foreign materials or tools left on conveyor surfaces pose contamination risks and can damage downstream equipment.",
+        "Manual inspection is unreliable for continuous belt monitoring, especially during high-speed or multi-line operations.",
+        "Lack of automated surface scanning delays detection, leading to quality rejection, rework, or costly equipment downtime."
+      ],
+      "solution": [
+        "Vision AI cameras continuously scan conveyor belt surfaces to detect unwanted materials, tools, or debris in real time.",
+        "High-speed inference models identify and flag anomalies across moving belts, ensuring immediate detection without halting operations.",
+        "Integrated alerts and event logs notify operators and record each detection instance for quick removal, traceability, and process improvement."
+      ],
+      "impact": [
+        ["Improved Product Quality", "Immediate detection prevents contamination and ensures only clean material proceeds downstream."],
+        ["Equipment Protection", "Early identification of foreign objects avoids mechanical damage and costly downtime."],
+        ["Operational Efficiency", "Continuous monitoring reduces manual inspection effort and enhances process reliability."]
+      ],
+      "img": "foreign", "alt": "Loaded conveyor trays seen from above with objects flagged by red boxes"
+    },
+    {
+      "id": "tray", "cat": "conveyors", "name": "Tray Conveyor Monitoring", "title": "Tray Conveyor",
+      "sub": "AI-driven detection of jams, misalignments, and tray flow disruptions",
+      "feat": "Tracks tray movement, alignment, jam occurrences, and conveyor speed for smooth material flow",
+      "problem": [
+        "Frequent jamming, misalignment, or tray overlap disrupts continuous movement and reduces line efficiency.",
+        "Manual supervision struggles to detect early obstructions or irregular tray flow, especially during high-speed operations.",
+        "Lack of real-time visibility into tray movement leads to delayed intervention and inconsistent production throughput."
+      ],
+      "solution": [
+        "Vision-based monitoring system continuously tracks tray flow, spacing, and alignment across the conveyor line to detect jams or overlaps in real time.",
+        "AI analytics engine classifies and timestamps flow anomalies, enabling quick diagnosis of root causes such as obstruction, overload, or mechanical faults.",
+        "Automated alerting and workflow integration notifies operators and assigns maintenance actions instantly, ensuring minimal disruption and faster recovery."
+      ],
+      "impact": [
+        ["Improved Throughput", "Real-time jam detection prevents stoppages and maintains continuous material flow."],
+        ["Faster Recovery", "Automated alerts enable quick on-ground response and issue resolution."],
+        ["Optimized Maintenance", "Data-driven insights help schedule preventive checks and reduce unplanned downtime."]
+      ],
+      "img": "tray", "alt": "Tray conveyor carrying hot glowing material"
+    },
+    {
+      "id": "shuttle", "cat": "conveyors", "name": "Shuttle Conveyor Location Monitoring", "title": "Shuttle Conveyor",
+      "sub": "Ensuring accurate shuttle positioning through real-time visual monitoring",
+      "feat": "Monitors shuttle position, travel path, and alignment to ensure accurate material transfer and positioning.",
+      "problem": [
+        "Proximity sensors frequently malfunction due to dust or material buildup, leading to inaccurate shuttle position detection.",
+        "Incorrect position feedback causes improper material dispensing, overflows, or uneven loading across bins.",
+        "Lack of reliable location tracking increases manual intervention and disrupts automated material handling efficiency."
+      ],
+      "solution": [
+        "Vision-based position tracking replaces unreliable proximity sensors, continuously identifying the shuttle’s exact location in real time.",
+        "AI-enabled detection models interpret shuttle position even under dusty or low-visibility conditions, ensuring consistent accuracy.",
+        "PLC integration allows the vision system to transmit verified position signals for precise material dispensing and automated cycle control."
+      ],
+      "impact": [
+        ["Accurate Positioning", "Vision-based feedback ensures precise shuttle alignment and consistent material dispensing."],
+        ["Reduced Downtime", "Eliminates sensor-related failures and manual resets during material buildup."],
+        ["Improved Reliability", "Maintains stable conveyor operation under harsh industrial conditions."]
+      ],
+      "img": "shuttle", "alt": "Shuttle conveyor in a dusty plant with its detected position marked"
+    },
+    {
+      "id": "pipe", "cat": "conveyors", "name": "Pipe Conveyor Monitoring", "title": "Pipe Conveyor",
+      "sub": "Enabling real-time detection of belt damage, pipe opening, and misalignment",
+      "feat": "Detects belt deformation, misalignment, tear, and wear",
+      "problem": [
+        "Pipe conveyors carry fine/finished product on an expensive belt that stays folded (tubular), making manual damage inspection extremely difficult.",
+        "Early issues (belt overlap separation, localized tears, pipe opening/flattening, or twist) go unnoticed until spillage or product contamination occurs.",
+        "Dusty, enclosed runs and long stretches hide misalignment and idler/roller faults, leading to costly downtime and quality loss."
+      ],
+      "solution": [
+        "Vision AI monitors the belt along critical spans to detect pipe opening/flattening, overlap seam separation, edge tears, and belt twist in real time.",
+        "Tracks line alignment and belt tracking, spotting abnormal sag, roller/idler seizure signatures, and material leakage or dust plumes.",
+        "Integrates with SCADA/PLC for alerts and maintenance workflows; optional thermal views highlight friction hotspots at idlers and pulleys."
+      ],
+      "impact": [
+        ["Early Fault Containment", "Prevents catastrophic belt failures and reduces unplanned stoppages on high-value equipment."],
+        ["Unplanned Downtime", "Continuous visual monitoring eliminates manual checks across long, enclosed runs."],
+        ["Improved Reliability", "Lowers maintenance costs with early, targeted interventions and extends belt/roller life."]
+      ],
+      "img": "pipe", "alt": "Tubular pipe conveyor belt running between idler rollers"
+    },
+    {
+      "id": "ppe", "cat": "safety", "name": "PPE Safety Compliance Monitoring", "title": "PPE Safety Compliance",
+      "sub": "Enhancing workplace safety through automated PPE monitoring and accountability",
+      "feat": "Detects proper usage of PPE, fire suits, arc suits, etc.",
+      "problem": [
+        "Non-compliance with PPE standards (ISO 45001, ISO 11611/11612) exposes personnel to electrical, thermal, and chemical hazards in high-risk zones.",
+        "Manual observation cannot reliably verify use of correct protective gear such as arc suits, fire suits, or color-coded uniforms across shifts.",
+        "Lack of continuous visibility leads to missed violations, inconsistent enforcement, and safety audit failures."
+      ],
+      "solution": [
+        "Vision AI models detect and verify PPE usage such as arc suits, fire suits, gloves, and color-coded uniforms in real time across work zones.",
+        "Zone-based compliance monitoring differentiates between required protective gear types, automatically flagging non-conforming personnel.",
+        "Centralized compliance dashboard logs detections, generates audit-ready reports, and integrates with safety management systems aligned to ISO 45001."
+      ],
+      "impact": [
+        ["Enhanced Workforce Safety", "Continuous monitoring ensures real-time adherence to protective gear standards."],
+        ["Audit-Ready Compliance", "Automated logging provides traceable, ISO 45001-aligned safety records for inspections."],
+        ["Reduced Incident Risk", "Early detection of PPE violations minimizes exposure to electrical, fire, or chemical hazards."]
+      ],
+      "img": "ppe", "alt": "Three workers in a workshop, each tagged with the PPE items detected or missing"
+    },
+    {
+      "id": "hardhat", "cat": "safety", "name": "Hard Hat Compliance Monitoring", "title": "Hard Hat Safety Compliance",
+      "sub": "Automating helmet compliance to strengthen workplace safety and accountability",
+      "feat": "Detects presence and proper usage of safety helmets in designated work zones",
+      "problem": [
+        "Failure to wear helmets in operational or high-risk zones exposes workers to head injuries from falling or moving objects.",
+        "Manual supervision and periodic audits cannot ensure continuous compliance across large sites or multiple shifts.",
+        "Limited visual traceability makes it difficult to verify safety adherence and enforce accountability under ISO 45001 standards."
+      ],
+      "solution": [
+        "Vision AI models detect and validate helmet usage in real time across entry gates, shop floors, and operational zones.",
+        "Color and zone-based classification ensures detection of correct hardhat types for different departments or risk categories.",
+        "Integrated alert and reporting system logs violations, triggers supervisor notifications, and maintains compliance records aligned with ISO 45001 safety standards."
+      ],
+      "impact": [
+        ["Improved Site Safety", "Continuous AI monitoring ensures 100% helmet compliance in restricted and operational zones."],
+        ["Instant Violation Alerts", "Real-time detection enables immediate intervention and corrective action."],
+        ["Audit-Ready Records", "Automatic logging creates verifiable, ISO 45001-compliant safety documentation."]
+      ],
+      "img": "hardhat", "alt": "Workers walking through a warehouse, each detected with a confidence score"
+    },
+    {
+      "id": "heights", "cat": "safety", "name": "Working at Heights Compliance Monitoring", "title": "Working at Heights Compliance",
+      "sub": "Preventing falls and enhancing workforce safety through automated height compliance monitoring",
+      "feat": "Detects use of safety harnesses, helmets, and guardrails",
+      "problem": [
+        "Manual supervision fails to consistently ensure use of safety harnesses and lanyards in elevated or scaffolded work areas.",
+        "Non-compliance with height safety protocols (ISO 45001 / ISO 22846) increases risk of falls, injuries, and regulatory penalties.",
+        "Limited visibility during night shifts or complex structures makes continuous monitoring and proof of compliance difficult."
+      ],
+      "solution": [
+        "Vision AI models detect and verify the presence of safety harnesses, lanyards, and anchor points on personnel working at elevated zones.",
+        "Zone-based detection logic differentiates between height-restricted and ground-level areas, ensuring context-aware compliance monitoring.",
+        "Real-time alerts and audit logging notify safety officers of non-compliance, generate incident records, and integrate with ISO 45001-aligned safety dashboards."
+      ],
+      "impact": [
+        ["Accident Prevention", "Real-time detection of harness usage minimizes fall-related injuries and fatalities."],
+        ["Continuous Compliance", "Automated monitoring ensures adherence to ISO 45001 and ISO 22846 safety standards."],
+        ["Enhanced Accountability", "Violation alerts and visual records strengthen safety audits and workforce discipline."]
+      ],
+      "img": "heights", "alt": "Worker in a harness on an elevated pipe rack, highlighted by a detection box"
+    },
+    {
+      "id": "perimeter", "cat": "safety", "name": "Perimeter Safety Monitoring", "title": "Perimeter Safety Monitoring",
+      "sub": "Strengthening site security and safety through intelligent perimeter monitoring",
+      "feat": "Detects unauthorized entry, boundary breaches, and intrusion in restricted or high-risk zones",
+      "problem": [
+        "Restricted or hazardous zones often face accidental or unauthorized entry, leading to safety risks and operational disruptions.",
+        "Manual supervision cannot continuously monitor wide plant perimeters or multiple boundary sections.",
+        "Absence of automated detection causes delayed alerts when personnel or equipment cross into defined no-go zones."
+      ],
+      "solution": [
+        "Vision AI models create virtual no-go zone boundaries using configurable bounding boxes within camera views.",
+        "Real-time intrusion detection triggers alerts the moment any person or object crosses a restricted boundary.",
+        "Integrated notifications and logs record each breach event with timestamped evidence, enabling quick response and compliance reporting."
+      ],
+      "impact": [
+        ["Enhanced Site Safety", "Immediate alerts prevent unauthorized or accidental entry into restricted areas."],
+        ["Continuous Surveillance", "Automated boundary monitoring eliminates dependence on manual patrols."],
+        ["Incident Traceability", "Logged breach events provide visual proof for safety audits and investigations."]
+      ],
+      "img": "perimeter", "alt": "Person climbing a perimeter fence into a red virtual no-go zone"
+    },
+    {
+      "id": "fall", "cat": "safety", "name": "Fall Detection", "title": "Fall & Loitering Detection",
+      "sub": "Enhancing on-site safety through real-time fall alerts and loitering analytics",
+      "feat": "Identifies human falls in real time and triggers alerts for immediate emergency response",
+      "problem": [
+        "Worker falls or prolonged inactivity in operational zones often go unnoticed, delaying emergency response and increasing injury risk.",
+        "Manual surveillance cannot continuously track all personnel across large or multi-level facilities.",
+        "Unidentified loitering near restricted areas or equipment leads to safety breaches and productivity loss."
+      ],
+      "solution": [
+        "Vision AI models continuously monitor work zones to detect sudden falls, collapses, or abnormal postures indicating potential accidents.",
+        "Loitering detection logic identifies prolonged idle presence near critical or restricted areas, prompting safety verification.",
+        "Automated alerts and event logs notify supervisors in real time and store visual evidence for incident review and safety compliance."
+      ],
+      "impact": [
+        ["Faster Emergency Response", "Instant alerts on detected falls reduce reaction time and injury severity."],
+        ["Improved Workplace Safety", "Continuous monitoring ensures safer movement and activity within operational zones."],
+        ["Accountable Operations", "Logged events provide traceable records for safety audits and incident investigations."]
+      ],
+      "img": "fall", "alt": "Warehouse worker falling as boxes topple, highlighted by a detection box"
+    },
+    {
+      "id": "housekeeping", "cat": "safety", "name": "Housekeeping", "title": "Housekeeping",
+      "sub": "Driving safety and efficiency through automated housekeeping compliance monitoring",
+      "feat": "Detects clutter, spills, and misplaced objects to ensure clean and hazard-free work areas",
+      "problem": [
+        "Cluttered walkways, waste accumulation, or misplaced tools create tripping hazards and reduce operational safety.",
+        "Manual inspections fail to maintain consistent cleanliness standards across large plants and multiple shifts.",
+        "Lack of real-time visibility leads to delayed corrective actions and non-compliance with ISO 45001 workplace safety norms."
+      ],
+      "solution": [
+        "Vision AI models continuously scan work zones to detect floor clutter, scattered materials, and waste accumulation in designated clean areas.",
+        "Zone-based monitoring differentiates between active work regions and required-clear zones, identifying deviations from housekeeping norms.",
+        "Automated alerts and compliance logs notify facility teams for cleanup, ensuring timely response and ISO 45001-aligned workplace standards."
+      ],
+      "impact": [
+        ["Improved Workplace Safety", "Early detection of clutter and obstructions prevents slips, trips, and accidents."],
+        ["Sustained Cleanliness", "Continuous AI monitoring enforces 5S and ISO 45001 housekeeping standards across shifts."],
+        ["Faster Corrective Action", "Real-time alerts enable prompt cleanup, maintaining operational efficiency and safety compliance."]
+      ],
+      "img": "housekeeping", "alt": "Shop floor with material left on a walkway flagged by a red box"
+    },
+    {
+      "id": "phone", "cat": "safety", "name": "Phone Use in Plant", "title": "Phone Use Detection",
+      "sub": "Preventing distractions and safety breaches through real-time phone use monitoring",
+      "feat": "Detects and alerts phone use in restricted plant zones in real time.",
+      "problem": [
+        "Mobile phone use in operational zones distracts workers, increasing the risk of accidents and non-compliance with safety protocols.",
+        "Manual supervision cannot reliably detect on-call or phone-handling behavior across large areas.",
+        "Lack of automated monitoring allows repeated safety breaches to go unnoticed, compromising site discipline and safety culture."
+      ],
+      "solution": [
+        "Vision AI models detect mobile phone handling and on-call behavior in restricted plant zones in real time.",
+        "Configurable zone mapping allows defining no-phone areas near machinery, control panels, or hazardous sections.",
+        "Automated alerts and event logs notify safety teams instantly and record each violation with timestamped visual evidence."
+      ],
+      "impact": [
+        ["Improved Safety Discipline", "Eliminates distractions in high-risk areas through continuous monitoring."],
+        ["Reduced Incident Risk", "Prevents accidents caused by inattentive behavior during operations."],
+        ["Audit-Ready Records", "Maintains visual evidence of violations for compliance and safety reviews."]
+      ],
+      "img": "phone", "alt": "Worker using a phone beside an assembly line, flagged by a red box"
+    },
+    {
+      "id": "gathering", "cat": "safety", "name": "People Gathering", "title": "People Gathering",
+      "sub": "Enhancing site security and situational awareness through real-time gathering detection",
+      "feat": "Detects and alerts unauthorized crowd gatherings in real time.",
+      "problem": [
+        "Unplanned or unauthorized group gathering inside plant premises can escalate into security, safety, or operational disruption risks.",
+        "Manual monitoring cannot reliably detect sudden crowd formation across large, multi-zone industrial sites.",
+        "Lack of automated alerts allows early signs of unrest, protest activity, or unauthorized assembly to go unnoticed."
+      ],
+      "solution": [
+        "Vision AI models continuously monitor plant zones to detect sudden or growing group gatherings in real time.",
+        "Configurable zone logic allows defining sensitive or restricted areas where group formation should not occur.",
+        "Automated alerts and event logs notify security teams instantly and record each gathering with time stamped visual evidence."
+      ],
+      "impact": [
+        ["Early Threat Identification", "Detects unauthorized gatherings before they escalate into safety or security incidents."],
+        ["Improved Site Security", "Provides continuous monitoring of sensitive zones without relying on manual patrols."],
+        ["Audit & Traceability", "Maintains visual records of crowd events for incident review and compliance reporting."]
+      ],
+      "img": "gathering", "alt": "Aerial view of a crowd gathered on the road outside a factory"
+    },
+    {
+      "id": "vehicle-entry", "cat": "road", "name": "Vehicle Entry Exit Monitoring", "title": "Vehicle Entry-Exit",
+      "sub": "Enhancing site security and logistics efficiency through automated vehicle detection",
+      "feat": "Tracks and records vehicle movement, number plates, and access compliance at entry and exit points",
+      "problem": [
+        "Manual gate supervision often fails to ensure accurate vehicle logging, leading to unrecorded or unauthorized entries and exits.",
+        "Limited visibility during high-traffic or night hours results in missed checks for vehicle type, direction, or zone compliance.",
+        "Lack of digital traceability creates gaps in security audits and material movement records across loading and dispatch areas."
+      ],
+      "solution": [
+        "Vision AI cameras monitor all gate points to automatically detect vehicle entry and exit events with timestamped records.",
+        "Directional and zone-based logic identifies vehicle movement patterns, ensuring correct routing and preventing wrong-lane or unauthorized access.",
+        "Integrated alert and reporting system syncs with access control or weighbridge systems to maintain digital logs and enhance gate-level security visibility."
+      ],
+      "impact": [
+        ["Enhanced Gate Security", "Automated monitoring prevents unauthorized vehicle movement and improves access control."],
+        ["Accurate Traceability", "Timestamped logs create verifiable records for audits and material tracking."],
+        ["Operational Efficiency", "Reduces manual supervision effort and streamlines vehicle flow during peak traffic."]
+      ],
+      "img": "vehicle-entry", "alt": "Car passing through an entry gate"
+    },
+    {
+      "id": "speed", "cat": "road", "name": "Vehicle Speed Monitoring", "title": "Vehicle Speed Monitoring",
+      "sub": "Enhancing on-site safety through automated vehicle speed tracking and violation alerts",
+      "feat": "Detects and alerts for overspeeding or unsafe vehicle movement within plant or restricted zones",
+      "problem": [
+        "Over-speeding within plant premises poses major safety risks to personnel, equipment, and material movement.",
+        "Manual monitoring through security personnel or handheld devices is inconsistent and prone to human error.",
+        "Lack of automated evidence makes it difficult to enforce compliance with internal traffic and safety regulations."
+      ],
+      "solution": [
+        "Vision AI models calculate real-time vehicle speed using frame-by-frame tracking across predefined camera zones.",
+        "Dynamic zone calibration allows setting custom speed thresholds for different areas such as loading bays, corridors, or internal roads.",
+        "Automated violation alerts notify safety officers instantly and log each incident with visual proof for compliance reporting."
+      ],
+      "impact": [
+        ["Improved On-Site Safety", "Automated detection prevents accidents caused by over-speeding within plant zones."],
+        ["Consistent Enforcement", "Data-backed alerts enable uniform implementation of vehicle speed policies."],
+        ["Audit & Accountability", "Logged violations with visual evidence support incident analysis and compliance audits."]
+      ],
+      "img": "speed", "alt": "Two cars on a road, one marked Safety Compliant and one marked Speeding"
+    },
+    {
+      "id": "assembly", "cat": "process", "name": "Assembly Process Monitoring", "title": "Assembly Process Monitoring",
+      "sub": "Ensuring assembly accuracy and operational efficiency through automated visual verification",
+      "feat": "Tracks component placement, sequence accuracy, and operator compliance during assembly operations",
+      "problem": [],
+      "solution": [],
+      "impact": [],
+      "img": "assembly", "alt": "Operator assembling a part at a workbench with each component detected and labelled"
+    },
+    {
+      "id": "surface", "cat": "quality", "name": "Finished Product Surface Defect Detection", "title": "Surface Defect",
+      "sub": "Automating quality inspection through real-time visual intelligence",
+      "feat": "Identifies scratches, dents, discoloration, and other surface imperfections on final products",
+      "problem": [
+        "Manual surface inspection of finished products is time-consuming, inconsistent, and prone to human error.",
+        "Minor surface defects such as scratches, dents, discoloration, or coating irregularities often go undetected, leading to quality rejections and customer complaints.",
+        "High-speed production lines make it difficult for human inspectors to maintain accuracy and consistency across batches."
+      ],
+      "solution": [
+        "Vision AI performs high-resolution surface analysis of products in real time during or after production.",
+        "Detects and classifies surface anomalies including scratches, dents, cracks, stains, or color variations with high precision.",
+        "Integrates with quality management systems to enable automatic rejection, sorting, or marking of defective items."
+      ],
+      "impact": [
+        ["Improved Quality Assurance", "Real-time defect identification ensures only surface-approved material proceeds downstream."],
+        ["Reduced Rework & Rejection", "Early detection minimizes scrap and process losses."],
+        ["Enhanced Process Visibility", "Links defect data to upstream operations for quick root-cause analysis."]
+      ],
+      "img": "surface", "alt": "Four close-ups of metal surfaces with defects marked by red boxes"
+    },
+    {
+      "id": "thermal", "cat": "thermal", "name": "Moving Equipment Temperature Monitoring", "title": "Thermal Monitoring of Machines",
+      "sub": "Real-time thermal intelligence for predictive maintenance of equipment",
+      "feat": "Continuously measures and detects abnormal temperature rise in motors, bearings, and other moving components",
+      "problem": [
+        "Moving equipment such as motors, bearings, and gearboxes are prone to overheating due to friction, misalignment, or lubrication failure.",
+        "Manual thermal checks using handheld devices are infrequent and often miss early signs of temperature rise.",
+        "Undetected hotspots lead to mechanical failures, unplanned stoppages, and potential fire hazards in high-load environments."
+      ],
+      "solution": [
+        "Vision AI combined with thermal imaging continuously monitors temperature profiles of moving equipment in real time.",
+        "Detects abnormal heat buildup, misalignment-induced friction, or bearing overheating before critical failure occurs.",
+        "Integrates with maintenance and alerting systems to trigger preventive action and record thermal trends for diagnostics."
+      ],
+      "impact": [
+        ["Fewer Breakdowns", "Prevents costly breakdowns and extends equipment life through early thermal anomaly detection."],
+        ["Safer Operation", "Enhances workplace safety by reducing fire and failure risks."],
+        ["Higher Uptime", "Enables predictive maintenance and improves overall plant uptime and reliability."]
+      ],
+      "img": "thermal", "alt": "Thermal image of an electric motor showing hot areas in red and yellow"
+    },
+    {
+      "id": "burner", "cat": "thermal", "name": "Burner Flame Monitoring", "title": "Burner Flame Monitoring",
+      "sub": "Enhancing combustion safety and efficiency through real-time flame visibility and analytics",
+      "feat": "Detects flame presence, stability, and intensity to ensure safe and efficient burner operation",
+      "problem": [
+        "Irregular or unstable flame behavior leads to inefficient fuel combustion, increased energy consumption, and inconsistent furnace performance.",
+        "Manual visual checks are unreliable in high-temperature, enclosed, or hazardous furnace zones, causing delayed detection of flameouts or abnormal burning.",
+        "No continuous flame visibility increases safety risks such as backfire, incomplete combustion, and uncontrolled temperature deviations during critical operations."
+      ],
+      "solution": [
+        "Vision AI continuously monitors flame shape, intensity, and stability to detect abnormal burning, flameouts, or uneven combustion in real time.",
+        "Thermal and optical analysis provides deeper visibility into heat zones and combustion patterns, helping optimize fuel usage and maintain ideal operating conditions.",
+        "Automated alerts and integration with control systems notify operators of deviations instantly and support safer, more efficient furnace operation."
+      ],
+      "impact": [
+        ["Optimized Fuel Usage", "Real-time visibility ensures efficient combustion and reduces excessive fuel consumption."],
+        ["Improved Process Stability", "Continuous flame monitoring prevents irregular burning and maintains consistent furnace performance."],
+        ["Enhanced Safety", "Reduces safety risks by detecting flameouts and abnormal burning early."]
+      ],
+      "img": "burner", "alt": "Burner flame inside a furnace"
+    },
+    {
+      "id": "sinter", "cat": "thermal", "name": "Sinterbed Thermal Profile", "title": "Sinterbed Thermal Profile",
+      "sub": "Real-time thermal profiling for consistent sintering quality and efficiency",
+      "feat": "Measures and analyzes temperature distribution across the sinter bed",
+      "problem": [
+        "In sinter plants, maintaining the correct temperature distribution across the sinter bed is critical for product quality and process efficiency.",
+        "Manual or spot-based temperature checks fail to capture thermal variations across the bed surface.",
+        "Uneven heat profiles lead to incomplete sintering, high fuel consumption, inconsistent output quality, and potential equipment stress."
+      ],
+      "solution": [
+        "Vision AI with thermal imaging continuously monitors the sinter bed to map real-time temperature distribution.",
+        "Detects uneven heat zones, cold spots, and overfiring areas across the width and length of the bed.",
+        "Provides actionable insights to adjust air suction, fuel feed, or process parameters for uniform sintering."
+      ],
+      "impact": [
+        ["Consistent Sinter Quality", "Ensures optimal sintering temperature profile for consistent product strength and quality."],
+        ["Lower Fuel Use", "Reduces fuel wastage and energy consumption through precise process control."],
+        ["Higher Efficiency", "Improves overall plant efficiency, throughput, and operational reliability."]
+      ],
+      "img": "sinter", "alt": "Glowing sinter bed leaving the ignition hood of a sinter machine"
+    }
+  ],
+  "projects": [
+    {
+      "customer": "JSW Energy", "uses": ["particle"],
+      "sub": "Vision AI deployment for real-time coal particle size and sieve analysis",
+      "usecase": "Digitizing Lignite Particle Size Analysis to Enhance Productivity, Enable Continuous Monitoring, and Support Data-Driven Decisions for thermal power plant.",
+      "how": [
+        ["Image Acquisition & Processing", "High-resolution cameras capture top-view images from the conveyor, processed on a GPU-enabled server running the I/O Vision AI model."],
+        ["AI-Based Analysis", "The system segments particles, converts pixel data to millimeters, and classifies them into size buckets."],
+        ["Cloud Visualization", "Area-based size distributions are trended over time on the I/O Sense cloud, enabling quick detection of anomalies and process deviations."]
+      ],
+      "buckets": ["<3 mm", "3–4.7 mm", "4.7–6 mm", "6–10 mm", "10–16 mm", "16–25 mm", ">25 mm"],
+      "benefits": "Enables uniform fuel combustion, minimizes unburned fuel, real-time corrections, automated monitoring, and data-driven optimization, improving combustion efficiency, reducing emissions, and enhancing scalability across processes.",
+      "stats": [],
+      "imgs": [["jsw-before", "Before: raw camera image of lignite on the conveyor"], ["jsw-after", "After: every particle segmented and sized"], ["jsw-dashboard", "Particle area %, particle count and sieve analysis trended on I/O Sense"]]
+    },
+    {
+      "customer": "Hindustan Zinc", "uses": ["belt", "tray", "shuttle"],
+      "sub": "Vision AI deployment for belt, tray and shuttle conveyor condition monitoring",
+      "usecase": "Implementation of I/O Vision–based Conveyor Condition Monitoring for Belt, Tray, and Shuttle Conveyors enabling continuous tracking of material movement, fault detection, and performance analytics.",
+      "how": [
+        ["Belt conveyors", "The AI model is trained to detect surface and edge defects on belt conveyors, identifying cracks, tears, or misalignments in real time for proactive maintenance."],
+        ["Tray conveyors", "The system detects functional errors and physical defects such as deformation, jamming, or misalignment to ensure smooth and reliable operation."],
+        ["Shuttle conveyors", "It monitors positional accuracy and movement consistency, detecting location or synchronization errors to maintain uninterrupted material transfer."]
+      ],
+      "buckets": [],
+      "benefits": "AI-enabled detection and trend analysis of defects and errors allow early identification of potential issues, minimizing downtime and enhancing overall system throughput.",
+      "stats": [],
+      "imgs": [["hzl-belt", "Cameras and lighting installed over a belt conveyor"], ["hzl-tray", "Tray conveyor carrying hot material"], ["hzl-shuttle", "Shuttle conveyor with its detected position marked"]]
+    },
+    {
+      "customer": "Hindalco", "uses": ["ppe", "hardhat", "fall", "vehicle-entry", "perimeter", "speed"],
+      "sub": "Vision AI implementation for PPE compliance and on-site road safety monitoring",
+      "usecase": "AI-based Safety and Security Compliance Monitoring for Industrial Environments (200 Cameras).",
+      "how": [
+        ["Safety Compliance", "PPE + Hardhat Detection · Fall + Loitering · Entry - Exit Monitoring"],
+        ["Security Compliance", "Intrusion Detection · Speed Monitoring"],
+        ["How it works", "AI-powered video analytics monitor PPE and hardhat compliance, detect falls or loitering, and flag unsafe events in real time. The system also tracks entry–exit, intrusion, and speed to ensure workplace safety and security compliance."]
+      ],
+      "buckets": [],
+      "benefits": "AI-powered video analytics monitor PPE and hardhat compliance, detect falls or loitering, and flag unsafe events in real time with 98% accuracy. The system also tracks entry-exit, intrusion, and speed to ensure high-reliability workplace safety and security compliance.",
+      "stats": [["200", "Cameras"], ["98%", "Accuracy"]],
+      "imgs": [["hindalco", "Live detections: vehicle speed and number plate, missing hardhat at a material gate, and intrusion zones"]]
+    }
+  ]
+}

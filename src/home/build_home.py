@@ -106,6 +106,17 @@ SOLUTIONS = [
         "links": [],
     },
     {
+        "slug": "io-vision",
+        "name": "I/O Vision",
+        "sector": "Computer vision",
+        "accent": "blue",
+        "live": True,
+        "blurb": "Computer vision for safer, smarter plants: conveyor health, particle size, PPE and site "
+                 "safety, vehicle tracking, surface defects and thermal monitoring, with real-time alerts.",
+        "tags": ["21 use cases", "6 plant areas", "3 customer deployments"],
+        "links": [],
+    },
+    {
         "slug": "metals-ai",
         "name": "Metals AI",
         "sector": "Metals",
