@@ -221,10 +221,9 @@
       "logo": "hmel",
       "customer": "HMEL",
       "site": "Bathinda",
-      "ongoing": true,
       "metric": "900+",
-      "metric_label": "steam traps in rollout",
-      "d": "Delivered a successful pilot on 30 steam traps; implementation is under way for over 900 steam traps."
+      "metric_label": "steam traps monitored",
+      "d": "Delivered a successful pilot on 30 steam traps, then scaled up to over 900 steam traps."
     },
     {
       "logo": "cairn",
@@ -238,10 +237,9 @@
       "logo": "grasim",
       "customer": "Aditya Birla Grasim",
       "site": "Vilayat, Harihar",
-      "ongoing": true,
       "metric": "250",
       "metric_label": "HP steam traps, 2 plants",
-      "d": "Deploying online failure detection on header and heat exchanger traps, significantly reducing steam losses and improving reliability."
+      "d": "Online failure detection on header and heat exchanger traps, significantly reducing steam losses and improving reliability."
     },
     {
       "logo": "jubilant",

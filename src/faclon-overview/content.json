@@ -1082,21 +1082,6 @@
    ]
   },
   {
-   "logo": "pidilite",
-   "customer": "Pidilite",
-   "site": "Polymerization",
-   "title": "Quality Prediction",
-   "domains": [
-    "quality"
-   ],
-   "ongoing": true,
-   "metrics": [],
-   "points": [
-    "Implementing AI model that analyses polymerization process batch data, DCS data, MES data, Lab data to provide realtime diagnosis into batch cycle time, and predicting in-process <b>Viscosity</b> and <b>% Solid</b>.",
-    "Objective to cut cycle time, improve yield and quality, reduce rework."
-   ]
-  },
-  {
    "logo": "sun",
    "customer": "Sun Pharma",
    "site": "28 sites",
