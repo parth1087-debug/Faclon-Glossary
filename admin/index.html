@@ -70,6 +70,11 @@ main{padding:24px 0 80px}
 .cbox{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-top:12px}
 .cbox .ok{color:var(--green);font-weight:600}.cbox .no{color:var(--amber);font-weight:600}
 .upl{font-size:12px;color:var(--mute);font-weight:500;margin-left:6px}
+.ren{font-size:12px;color:var(--mute);font-weight:400;display:block;margin-top:2px}
+.ren button{font:inherit;font-size:12px;background:none;border:0;padding:0;color:var(--blue);cursor:pointer;margin-left:6px}
+.rnb{flex:none;font-size:12px;padding:5px 10px}
+.rform{flex:1;display:flex;gap:8px;align-items:center;flex-wrap:wrap;min-width:0}
+.rform input{flex:1 1 220px;min-width:0;font:inherit;font-size:14px;padding:7px 10px;border:1px solid var(--blue);border-radius:8px}
 .user .acts{display:flex;gap:6px;flex:none}
 .chip.off{background:var(--bg);color:var(--mute);text-decoration:line-through}
 .polbox{margin-bottom:30px}
@@ -440,8 +445,12 @@ function renderContrib(){
 function renderPolicy(){
   renderContrib();
   var rows=(U.solutions||[]).slice().sort(function(a,b){return a.title.localeCompare(b.title)});
-  $("pol").innerHTML=rows.map(function(x){var p=pol(x.slug);
-    return '<div class="prow'+(p.read?'':' dim')+'"><span class="pt">'+esc(x.title)+((U.uploads||{})[x.slug]?'<span class="upl">Uploaded</span>':'')+'</span>'+
+  $("pol").innerHTML=rows.map(function(x){var p=pol(x.slug),rn=(U.names||{})[x.slug];
+    if(renaming===x.slug)return '<div class="prow"><form class="rform" data-ren="'+esc(x.slug)+'"><input id="renIn" maxlength="80" value="'+esc(x.title)+'" aria-label="New name for '+esc(x.title)+'">'+
+      '<button class="small" type="submit">Save</button><button class="sec small" type="button" data-rencancel="1">Cancel</button></form></div>';
+    return '<div class="prow'+(p.read?'':' dim')+'"><span class="pt">'+esc(x.title)+((U.uploads||{})[x.slug]?'<span class="upl">Uploaded</span>':'')+
+      (rn?'<span class="ren">Renamed · was “'+esc(rn.o)+'”<button type="button" data-renreset="'+esc(x.slug)+'">Reset name</button></span>':'')+'</span>'+
+      '<button class="sec small rnb" type="button" data-rename="'+esc(x.slug)+'">Rename</button>'+
       '<label class="sw"><input type="checkbox" data-pol="read" data-slug="'+esc(x.slug)+'"'+(p.read?' checked':'')+'><span class="tr"></span><span class="sl">Read</span></label>'+
       '<label class="sw"><input type="checkbox" data-pol="download" data-slug="'+esc(x.slug)+'"'+(p.read&&p.download?' checked':'')+(p.read?'':' disabled')+'><span class="tr"></span><span class="sl">Download</span></label></div>'}).join("");
 }
@@ -459,6 +468,20 @@ async function setPolicy(slug,field,on){
   finally{$("pol").classList.remove("busy")}
 }
 function title(slug){var s=(U.solutions||[]).filter(function(x){return x.slug===slug})[0];return s?s.title:slug}
+// Rename: U.names[slug] = {t: shown name, o: the page's own title}. protect.py keeps it; the site shows t everywhere.
+var renaming=null;
+function startRename(slug){renaming=slug;renderPolicy();var i=$("renIn");if(i){i.focus();i.select()}}
+function renameSol(slug,t){
+  t=String(t||"").replace(/\s+/g," ").trim().slice(0,80);
+  var s=(U.solutions||[]).filter(function(x){return x.slug===slug})[0];renaming=null;
+  if(!s){render();return}
+  U.names=U.names||{};var cur=U.names[slug],orig=cur?cur.o:s.title,before=s.title;
+  if(!t||t===orig){if(!cur){render();return}delete U.names[slug];s.title=orig}
+  else{if(cur&&cur.t===t){render();return}U.names[slug]={t:t,o:orig};s.title=t}
+  if(!Object.keys(U.names).length)delete U.names;
+  dirty++;render();
+  toast(s.title===orig&&before!==orig?"Name reset to “"+orig+"”. Publish to apply it.":"Renamed to “"+s.title+"”. Publish to apply it.");
+}
 function render(){
   renderPolicy();
   var l=$("list");
@@ -587,6 +610,12 @@ $("gen").onclick=function(){$("ePw").value=genPw()};
 $("all").onclick=function(){var b=$("sols").querySelectorAll("input"),on=Array.prototype.some.call(b,function(i){return !i.checked});b.forEach(function(i){i.checked=on})};
 $("ef").addEventListener("submit",saveUser);
 $("pol").addEventListener("change",function(e){var t=e.target;if(t.dataset.pol)setPolicy(t.dataset.slug,t.dataset.pol,t.checked)});
+$("pol").addEventListener("click",function(e){var t=e.target.closest("button");if(!t)return;
+  if(t.dataset.rename)startRename(t.dataset.rename);
+  else if(t.dataset.renreset){var r=(U.names||{})[t.dataset.renreset];if(r)renameSol(t.dataset.renreset,r.o)}
+  else if(t.dataset.rencancel){renaming=null;renderPolicy()}});
+$("pol").addEventListener("submit",function(e){var f=e.target.closest("form[data-ren]");if(!f)return;e.preventDefault();renameSol(f.dataset.ren,$("renIn").value)});
+$("pol").addEventListener("keydown",function(e){if(e.key==="Escape"&&renaming){renaming=null;renderPolicy()}});
 $("eSuper").onchange=function(){setSuper(this.checked)};
 $("cset").onclick=async function(){
   var v=prompt("Paste a fine-grained GitHub token for contributors (Contents: Read and write on Faclon-Glossary only). It is stored encrypted so only contributors and admin can use it. Leave empty to remove it.");

@@ -381,7 +381,11 @@ def main():
         plain = plaintext(raw, slug, master, users)
         content = hashlib.sha256(plain.encode("utf-8")).hexdigest()[:16]
         if slug != "home":
-            solutions.append({"slug": slug, "title": title_of(plain)})
+            own = title_of(plain)
+            ren = (users.get("names") or {}).get(slug)
+            if ren:
+                ren["o"] = own  # keep the page's own title current so "Reset name" restores it
+            solutions.append({"slug": slug, "title": ren["t"] if ren else own})
             if force_pdf or not (path.parent / PDF_NAME).exists() or meta(raw, "faclon-content") != content:
                 need_pdf.append((slug, path, plain))
         if MARKER in raw and meta(raw, "faclon-gate") == gate_ver and meta(raw, "faclon-content") == content:

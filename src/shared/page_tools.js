@@ -133,7 +133,7 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
     var tags = m.by ? '<div class="tags"><span>Contributed by ' + esc(m.by) + '</span></div>' : '';
     return '<article class="card live b" data-upload="' + esc(slug) + '"><a class="main" href="' + esc(slug) + '/">' +
       '<div class="top"><span class="sec">' + esc(m.sector || "Contributed") + '</span><span class="pill on">Live</span></div>' +
-      '<h3>' + esc(m.title) + '</h3>' + (m.blurb ? '<p>' + esc(m.blurb) + '</p>' : '') + tags +
+      '<h3>' + esc(NAMES[slug] || m.title) + '</h3>' + (m.blurb ? '<p>' + esc(m.blurb) + '</p>' : '') + tags +
       '<span class="open">Open solution →</span></a></article>';
   }
   async function uploadCards(acc, U, only) {
@@ -153,6 +153,20 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
     cards.forEach(function (c) { if (!doc.querySelector('[data-upload="' + c.slug + '"]')) box.insertAdjacentHTML("beforeend", c.html); });
   }
   var usersP = FA.loadUsers(B);
+  // names the admin changed in the User Manager (users.json "names"): cards and the browser tab follow them
+  var NAMES = {};
+  function rename(doc, names, here) {
+    doc.querySelectorAll("article.card a.main[href]").forEach(function (a) {
+      var u; try { u = new URL(a.getAttribute("href"), location.href); } catch (e) { return; }
+      var seg = u.pathname.slice(base.length).split("/")[0], h = a.querySelector("h3");
+      if (names[seg] && h) h.textContent = names[seg];
+    });
+    if (names[here]) doc.title = names[here] + " · Faclon Labs";
+  }
+  usersP.then(function (U) {
+    var n = U.names || {}; for (var k in n) if (n[k] && n[k].t) NAMES[k] = n[k].t;
+    rename(document, NAMES, SLUG);
+  }).catch(function () {});
   access().then(async function (acc) {
     var U = await usersP;
     if (acc.contrib) $("upb").hidden = false;
@@ -272,7 +286,7 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
       var start = picked.length === 1 ? picked[0] : "home";
       var name = picked.length === 1 ? title(picked[0]) + " - Faclon Labs" : "Faclon Labs Solutions";
       var cards = await uploadCards(acc, await usersP, picked);
-      var json = JSON.stringify({ pages: pages, picked: picked, all: slugs, start: start, site: siteURL, cards: cards }).replace(/</g, "\\u003c");
+      var json = JSON.stringify({ pages: pages, picked: picked, all: slugs, start: start, site: siteURL, cards: cards, names: NAMES }).replace(/</g, "\\u003c");
       var html = '<!doctype html>\n<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">' +
         '<meta name="robots" content="noindex"><title>' + esc(name) + '</title>' +
         '<style>html,body{margin:0;height:100%;background:#fff}iframe{border:0;width:100%;height:100%;display:block}</style></head>' +
@@ -303,7 +317,13 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
       var p = route();
       v.onload = function () {
         var doc = v.contentDocument; if (!doc) return;
+        var nm = D.names || {};
+        if (nm[p]) doc.title = nm[p] + " · Faclon Labs";
         document.title = doc.title || document.title;
+        if (p === "home") doc.querySelectorAll("article.card a.main[href]").forEach(function (a) {
+          var t = target(a.getAttribute("href"), "home"), h = a.querySelector("h3");
+          if (t && t.page && nm[t.page] && h) h.textContent = nm[t.page];
+        });
         if (p === "home" && D.cards && D.cards.length) {
           var first = doc.querySelector("article.card");
           if (first) D.cards.forEach(function (c) { first.parentNode.insertAdjacentHTML("beforeend", c.html); });
