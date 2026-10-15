@@ -77,10 +77,10 @@ SOLUTIONS = [
         "name": "Energy Management",
         "sector": "All industries",
         "accent": "blue",
-        "live": False,
-        "blurb": "Plant-wide visibility of electricity, fuel, steam and utilities, with consumption tracked "
-                 "against production.",
-        "tags": [],
+        "live": True,
+        "blurb": "Plant-wide energy monitoring on I/O Sense, from meters to dashboards, alerts, reports and "
+                 "drill-downs from the main incomer to each machine feeder.",
+        "tags": ["10 benefits", "Cloud or on-premise", "12 enterprise customers"],
         "links": [],
     },
     {
