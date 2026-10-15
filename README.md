@@ -7,6 +7,7 @@ Customer-facing pages for Faclon Labs solution lines, published as a static webs
 | Solution | Page | Download |
 |---|---|---|
 | Power Plant AI | [`/power-plant-ai/`](power-plant-ai/index.html) | [Use-case catalogue (PDF)](power-plant-ai/power-plant-ai-use-case-catalogue.pdf) |
+| Faclon Labs Overview | [`/faclon-overview/`](faclon-overview/index.html) | |
 | Steel AI Use Case Map | [`/steel-ai-use-case-map/`](steel-ai-use-case-map/index.html) | |
 
 ## Layout
@@ -27,6 +28,7 @@ CLAUDE.md                      Conventions for anyone (or any AI assistant) edit
 python3 src/home/build_home.py                     # writes index.html
 python3 src/power-plant-ai/build_page.py           # writes power-plant-ai/index.html
 python3 src/steel-ai-use-case-map/build_page.py    # writes steel-ai-use-case-map/index.html (content in use_cases.json)
+python3 src/faclon-overview/build_page.py         # writes faclon-overview/index.html (content in content.json)
 python3 src/power-plant-ai/build_catalogue_pdf.py  # writes the PDF (needs: pip install playwright && playwright install chromium)
 ```
 
