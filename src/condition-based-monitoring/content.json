@@ -9,6 +9,8 @@
     ]
   },
   "architecture": {
+    "img": "architecture",
+    "alt": "Predictive maintenance architecture: tri-axial vibration sensors on fans, extruders, compressors, blowers, pumps and motors send data over Wi-Fi to routers, then over 4G to the I/O Sense Digitization Suite, which feeds the Faclon I/O Sense Platform for fault analysis, alerts, visualization, diagnostic reports and KPI dashboards",
     "transmits": ["Vibration velocity", "Acceleration", "FFT", "Temperature", "Noise"],
     "analytics": [
       {"t": "Data Quality Validation", "d": "Checks every reading before it is analysed, so alerts are not raised on bad data."},
