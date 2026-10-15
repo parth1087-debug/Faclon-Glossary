@@ -24,6 +24,12 @@ h1,h2,h3{letter-spacing:-.015em;line-height:1.2}
 .hero h1 em{font-style:normal;color:var(--blue2)}
 .lede{font-size:clamp(16px,1.8vw,19px);color:#C5D0E3;max-width:660px}
 .sectors{display:flex;flex-wrap:wrap;gap:8px;margin-top:30px}
+.heroact{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.btn.ghost{background:transparent;border:1px solid rgba(255,255,255,.3)}
+.btn:hover,.btn:focus-visible{filter:brightness(1.1)}
+.navlink{color:#fff;text-decoration:none;letter-spacing:.12em;font-weight:600}
+.navlink:hover{color:var(--blue2)}
+#solutions{scroll-margin-top:24px}
 .sectors span{font-size:13px;color:#D5DEEE;border:1px solid rgba(255,255,255,.16);border-radius:20px;padding:4px 12px}
 
 main .wrap{padding-top:64px;padding-bottom:80px}
@@ -73,14 +79,15 @@ h2{font-size:32px;font-weight:700;margin:8px 0 10px}
 <body>
 
 <header class="hero"><div class="wrap">
-  <div class="brand"><b>Faclon Labs</b><span>Industrial AI · Solutions</span></div>
+  <div class="brand"><b>Faclon Labs</b><a class="navlink" href="faclon-overview/">About Faclon Labs →</a></div>
   <h1>Industrial AI that turns plant data into <em>better operations</em></h1>
   <p class="lede">Solutions built on the Faclon AI platform for heavy industry: connecting plant systems, giving every team clear insight, and closing the loop on control.</p>
   <div class="sectors"><span>Cement</span><span>Metals</span><span>Power</span><span>Paper</span><span>Chemicals</span><span>Discrete manufacturing</span></div>
+  <div class="heroact"><a class="btn" href="faclon-overview/">Open Faclon Labs Overview →</a><a class="btn ghost" href="#solutions">Explore solutions ↓</a></div>
 </div></header>
 
 <main><div class="wrap">
-  <div class="eyebrow">Solutions</div>
+  <div class="eyebrow" id="solutions">Solutions</div>
   <h2>Explore a solution</h2>
   <p class="sub">Each solution has its own page with the use cases, architecture and customer results.</p>
   <div class="grid">
