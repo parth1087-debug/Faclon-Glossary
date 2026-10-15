@@ -131,6 +131,19 @@ h2{font-size:clamp(26px,3.4vw,36px);font-weight:700;margin:8px 0 10px}
 .jump a:hover{border-color:var(--blue2);color:#fff}
 
 /* architecture */
+.archfig{margin:0 0 30px;border:1px solid var(--line);border-radius:16px;background:#fff;padding:18px 18px 12px;box-shadow:0 12px 32px rgba(15,27,45,.06)}
+.archfig img{width:100%;height:auto}
+.archfig .zoom{display:block;cursor:zoom-in}
+.archfig figcaption{display:flex;justify-content:space-between;gap:12px;font-size:12.5px;color:var(--mute);border-top:1px solid var(--line);margin-top:12px;padding-top:10px}
+.archfig figcaption span{color:var(--blue);font-weight:600}
+.steph{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);margin-bottom:12px}
+.lbx{display:none}
+.archfig:target{position:fixed;inset:0;z-index:50;margin:0;border:0;border-radius:0;background:#0B1A30;overflow:auto;padding:56px 16px 16px}
+.archfig:target img{background:#fff;border-radius:10px;padding:10px;min-width:900px;max-width:1600px;margin:0 auto}
+.archfig:target .zoom{cursor:default}
+.archfig:target figcaption{display:none}
+.archfig:target .lbx{display:block;position:fixed;top:10px;right:18px;color:#fff;font-size:38px;line-height:1;text-decoration:none}
+@media (min-width:1001px){.archfig figcaption span{display:none}.archfig .zoom{cursor:zoom-in}}
 .flow{display:grid;grid-template-columns:1.1fr auto 1fr auto .8fr auto 1.2fr auto 1.3fr;align-items:stretch;gap:0}
 .node{border:1px solid var(--line);border-radius:14px;background:#fff;padding:16px;display:flex;flex-direction:column;gap:6px}
 .node .k{font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
@@ -314,6 +327,9 @@ HTML = f"""<!doctype html>
   <div class="eyebrow">Predictive maintenance · Architecture</div>
   <h2>From the machine to a maintenance decision</h2>
   <p class="sub">Sensors are fixed to each machine and send readings over Wi-Fi. The data reaches the I/O Sense Digitization Suite over 4G, where it is checked, analysed and turned into alerts, reports and dashboards.</p>
+  <figure class="archfig" id="arch"><a href="#how" class="lbx" aria-label="Close enlarged diagram">×</a><a href="#arch" class="zoom" aria-label="Enlarge architecture diagram"><img src="{img(A["img"])}" alt="{E(A["alt"])}"></a>
+    <figcaption>Predictive maintenance architecture<span>Tap to enlarge</span></figcaption></figure>
+  <h3 class="steph">Step by step</h3>
   <div class="flow">
     <div class="node"><span class="k">Assets</span><b>Rotating equipment</b><p>{E(assets_short)} and more</p></div>
     <div class="arr"><span class="ah">→</span></div>
