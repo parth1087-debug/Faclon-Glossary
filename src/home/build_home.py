@@ -76,6 +76,17 @@ SOLUTIONS = [
         "links": [],
     },
     {
+        "slug": "coal-mining-ai-use-case-map",
+        "name": "Coal Mining AI Use Case Map",
+        "sector": "Mining",
+        "accent": "blue",
+        "live": True,
+        "blurb": "13 AI and IoT use cases across the coal mine, from haulage and washery to gas, safety and "
+                 "environment, for opencast and underground operations, with indicative savings per MTPA.",
+        "tags": ["7 domains", "13 use cases", "₹7.45 Cr / MTPA"],
+        "links": [],
+    },
+    {
         "slug": "bus-bar-monitoring",
         "name": "Bus Bar Monitoring",
         "sector": "Electrical · All industries",
