@@ -66,6 +66,7 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
     '.drop{display:block;border:1.5px dashed #C9D2DF;border-radius:12px;padding:16px;text-align:center;font-size:13px;color:#3A4A5F;cursor:pointer;margin-top:12px}' +
     '.drop b{color:#3D63F5}.drop input{display:none}.drop.has{border-style:solid;border-color:#11875F;background:#E5F5EE}' +
     '.st a{color:#3D63F5;font-weight:600}' +
+    '.dlink{display:inline-block;text-decoration:none;font:600 14px Inter,system-ui,sans-serif;padding:10px 16px;border-radius:9px;background:#3D63F5;color:#fff}' +
     '[hidden]{display:none!important}' +
     '</style>' +
     '<div class="bar"><span class="who"></span><button class="pri" id="dl" type="button">Download</button><button id="upb" type="button" hidden>Upload</button>' +
@@ -79,6 +80,8 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
     '<div class="sols" id="sols"></div>' +
     '<div class="row"><button class="link" id="all" type="button">Select all</button><button class="pri big" id="html" type="button">Download HTML</button></div>' +
     '<div class="st" id="hst"></div></div>' +
+    '<div class="eb">Design guide</div><div class="box"><p>Building your own solution page? The design skill has the Faclon colours, fonts, layout, ready-made components and a starter page, so it matches this site. Use it yourself or give it to an AI assistant.</p>' +
+    '<div class="row"><span class="st" id="gst"></span><a class="pri big dlink" id="guide" href="' + B + 'designskill.md" download="Faclon design skill.md">Download design skill</a></div></div>' +
     '<p class="note">Downloaded files are not password-protected. Share them only with people who should see these solutions.</p>' +
     '<div class="row" style="justify-content:flex-end"><button id="close" type="button">Close</button></div>' +
     '</div></div>' +
@@ -111,6 +114,7 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
     }).catch(function () {});
   };
   $("close").onclick = function () { $("scrim").hidden = true; };
+  $("guide").onclick = function () { $("gst").textContent = "Downloaded."; };
   $("scrim").onclick = function (e) { if (e.target === $("scrim")) $("scrim").hidden = true; };
   $("all").onclick = function () {
     var b = root.querySelectorAll("#sols input"), on = Array.prototype.some.call(b, function (i) { return !i.checked; });
