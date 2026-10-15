@@ -9,6 +9,7 @@ This repo holds Faclon Labs customer-facing solution pages, published with GitHu
 - Pages are self-contained HTML: inline CSS and SVG, with Google Fonts (Inter) as the only external dependency. They must work at phone width (~390px) with no horizontal scroll.
 - Keep `<meta name="robots" content="noindex">` on every page unless asked otherwise.
 - The repo is public. Do not commit internal pricing, deal data or anything marked confidential.
+- The site is password-protected. After ANY build, and before committing, run `GLOSSARY_PASSWORD='<password>' python3 src/shared/protect.py` (ask Parth for the password; never commit it or write it into any file). Then run `python3 src/shared/protect.py --check`, which must pass: never push an unprotected `index.html`. Do not change `src/shared/protect_salt.txt`, or everyone's saved login stops working.
 
 ## Visual system (shared by all pages)
 - Navy bands (`#0B1A30`) for hero and CTA; white body; `#F6F8FB` panels.

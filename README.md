@@ -40,6 +40,13 @@ python3 src/condition-based-monitoring/build_page.py  # writes condition-based-m
 python3 src/power-plant-ai/build_catalogue_pdf.py  # writes the PDF (needs: pip install playwright && playwright install chromium)
 ```
 
+Then password-protect the regenerated pages (the password is not stored in this repo):
+
+```
+GLOSSARY_PASSWORD='<password>' python3 src/shared/protect.py   # encrypts every unprotected index.html
+python3 src/shared/protect.py --check                          # must pass before you commit
+```
+
 Commit and push. GitHub Pages republishes within a minute or two.
 
 ## Adding a new solution
@@ -51,6 +58,8 @@ Commit and push. GitHub Pages republishes within a minute or two.
 
 ## Notes
 
+- Every page is behind a password screen: the page is AES-encrypted and decrypted in the visitor's browser. One login is remembered and unlocks every page. To change the password, rebuild all pages and protect them with the new one.
+- The password screen protects the published site only. The sources in `src/` and the PDFs are still readable by anyone with the link to this public repo or file.
 - Every page carries `<meta name="robots" content="noindex">`, so it is reachable by link but not listed by search engines.
 - The repository is public, so everything committed here (including customer names and figures) can be read by anyone. Keep internal-only material out of it.
 - Indicative ₹ values are "up to, per 100 MW per year" and must be re-baselined against each plant's data.
