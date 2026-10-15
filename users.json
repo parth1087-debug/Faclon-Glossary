@@ -9,6 +9,10 @@
    "title": "Bus Bar Monitoring"
   },
   {
+   "slug": "cement-ai-use-case-map",
+   "title": "Cement AI Use Case Map"
+  },
+  {
    "slug": "condition-based-monitoring",
    "title": "Condition Based Monitoring"
   },
@@ -59,6 +63,10 @@
   "bus-bar-monitoring": {
    "iv": "iOcp0oiVoSa9BgOU",
    "ct": "EFBA4QTz9RVLNRd92xeP597eY9eOVetfcETM5MYtfY/Miapw//n30/eV4HT9Q2RtSdlUdMvSyaV1UyNj"
+  },
+  "cement-ai-use-case-map": {
+   "iv": "uxkJunqPbIqijD0S",
+   "ct": "9yirIlR5k04hIW8r8AivC5tJnYFV3TxM7iAyB9mEWAGt770bj0/amYuXKm+a+ueO7lfmDV7e2bIP5vED"
   },
   "condition-based-monitoring": {
    "iv": "GhRYO04MtQZs/ajA",

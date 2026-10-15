@@ -51,6 +51,17 @@ SOLUTIONS = [
         "links": [],
     },
     {
+        "slug": "cement-ai-use-case-map",
+        "name": "Cement AI Use Case Map",
+        "sector": "Cement",
+        "accent": "blue",
+        "live": True,
+        "blurb": "27 AI and IoT use cases across the cement value chain, from mines and crushing to pyro, "
+                 "grinding, utilities and reliability, with indicative savings per MTPA.",
+        "tags": ["9 plant areas", "27 use cases", "₹0.15–7 Cr / MTPA / yr"],
+        "links": [],
+    },
+    {
         "slug": "pulp-paper-ai-use-case-map",
         "name": "Pulp & Paper AI Use Case Map",
         "sector": "Pulp & Paper",
