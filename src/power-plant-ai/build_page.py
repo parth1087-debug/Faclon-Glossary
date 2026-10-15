@@ -5,6 +5,9 @@ Edit the AGENTS and APC lists below to change content; the page is regenerated i
 """
 import math
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "shared"))
+from cta import CTA_BUTTONS  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "power-plant-ai" / "index.html"
@@ -689,7 +692,7 @@ ul{{list-style:none}}
 
 <div class="cta"><div class="wrap">
   <div><div class="eyebrow" style="color:var(--blue2)">Next step</div><h2>Start with your data</h2><p>Share a sample of DCS, lab and design data. We will return a shortlist of agents and APC applications sized against your plant’s own loss profile, then confirm it on a plant visit.</p></div>
-  <div style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn" href="https://www.faclonlabs.com">www.faclonlabs.com</a><a class="btn" style="background:transparent;border:1.5px solid #7C95FF" href="power-plant-ai-use-case-catalogue.pdf">Use-case catalogue (PDF)</a></div>
+  {CTA_BUTTONS}
 </div></div>
 <div class="foot"><div class="wrap"><span><a href="../" style="color:inherit;text-decoration:none">← All solutions</a> · Faclon Labs · Power Plant AI</span><span>Advisory Agents · Automated Process Control</span></div></div>
 </body></html>"""

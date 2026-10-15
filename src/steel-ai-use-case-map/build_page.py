@@ -14,6 +14,9 @@ import html
 import json
 import re
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "shared"))
+from cta import CTA_BUTTONS  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
@@ -263,7 +266,7 @@ HTML = f"""<!doctype html>
 
 <div class="cta"><div class="wrap">
   <div><div class="eyebrow" style="color:var(--blue2)">From use-case map to plant outcome</div><h2>Start with your plant’s data</h2><p>Faclon’s industrial AI operating layer connects, contextualises and acts on plant data across the steel value chain, turning this map into measurable gains in OEE, yield, energy efficiency and asset availability.</p></div>
-  <a class="btn" href="https://www.faclonlabs.com">www.faclonlabs.com</a>
+  {CTA_BUTTONS}
 </div></div>
 <div class="foot"><div class="wrap"><span><a href="../">← All solutions</a> · Faclon Labs · Steel AI Use Case Map</span><span>Industrial AI operating layer for steel</span></div></div>
 <script>{JS}</script>

@@ -6,7 +6,7 @@ Customer-facing pages for Faclon Labs solution lines, published as a static webs
 
 | Solution | Page | Download |
 |---|---|---|
-| Power Plant AI | [`/power-plant-ai/`](power-plant-ai/index.html) | [Use-case catalogue (PDF)](power-plant-ai/power-plant-ai-use-case-catalogue.pdf) |
+| Power Plant AI | [`/power-plant-ai/`](power-plant-ai/index.html) | |
 | Faclon Labs Overview | [`/faclon-overview/`](faclon-overview/index.html) | |
 | Steel AI Use Case Map | [`/steel-ai-use-case-map/`](steel-ai-use-case-map/index.html) | |
 | Cement AI Use Case Map | [`/cement-ai-use-case-map/`](cement-ai-use-case-map/index.html) | |
@@ -50,7 +50,6 @@ python3 src/energy-management/build_page.py       # writes energy-management/ind
 python3 src/condition-based-monitoring/build_page.py  # writes condition-based-monitoring/index.html (content in content.json)
 python3 src/it-ot-integration/build_page.py      # writes it-ot-integration/index.html (content in content.json, drawing in diagram.py)
 python3 src/io-vision/build_page.py                 # writes io-vision/index.html (content in content.json, photos in assets/)
-python3 src/power-plant-ai/build_catalogue_pdf.py  # writes the PDF (needs: pip install playwright && playwright install chromium)
 ```
 
 Then pull `main` and password-protect the regenerated pages (the admin password is not stored in this repo):

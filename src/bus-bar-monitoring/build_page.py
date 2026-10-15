@@ -18,6 +18,9 @@ import base64
 import html
 import json
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "shared"))
+from cta import CTA_BUTTONS  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
@@ -420,7 +423,7 @@ HTML = f"""<!doctype html>
 
 <div class="cta"><div class="wrap">
   <div><div class="eyebrow" style="color:var(--blue2)">Start with your critical joints</div><h2>Put your bus bars online</h2><p>Tell us how many panels and joints matter most. We will size the straps, receivers and gateway and show you what continuous monitoring is worth for your plant.</p></div>
-  <a class="btn" href="https://www.faclonlabs.com">www.faclonlabs.com</a>
+  {CTA_BUTTONS}
 </div></div>
 <div class="foot"><div class="wrap"><span><a href="../">← All solutions</a> · Faclon Labs · Bus Bar Monitoring</span><span>Digital backbone for operational efficiency</span></div></div>
 <script>{JS}</script>
