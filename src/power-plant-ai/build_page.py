@@ -494,7 +494,7 @@ ul{{list-style:none}}
   <div class="kpis">
     <div class="kp ac"><b>3–5%</b><span>Net heat rate reduction</span></div>
     <div class="kp"><b>98.4%</b><span>Validated RCA recommendation accuracy</span></div>
-    <div class="kp"><b>₹1 cr / yr</b><span>Closed-loop soot blowing, 16 MW boiler</span></div>
+    <div class="kp"><b>−30%</b><span>Soot-blowing steam, closed loop on a 16 MW boiler</span></div>
     <div class="kp"><b>2–8 weeks</b><span>Early warning before equipment failure</span></div>
   </div>
 </div></div>
@@ -665,7 +665,7 @@ ul{{list-style:none}}
       <div class="pt">Automated RCA Agents</div><p>Flag deviations across boiler, turbine, generator and auxiliaries with root cause and recommendation.</p>
       <div class="stat"><span><b>100+</b>RCAs daily</span><span><b>98.4%</b>accuracy</span></div>
       <div class="pt">Closed-loop soot blowing</div><p>29 soot blowers on the recovery boiler.</p>
-      <div class="stat"><span><b>20 TPD</b>steam saved</span><span><b>₹1 cr</b>/ yr</span></div>
+      <div class="stat"><span><b>28.8 t/day</b>steam saved</span><span><b>−30%</b>soot-blowing steam</span></div>
       <div class="pt">APC for coal feeding</div><p>7 coal feeders on the AFBC boiler.</p>
     </div>
     <div class="case"><div class="ct"><div class="cn">JSW Energy</div><span class="ptag a">Agents</span></div><div class="cx">Five plants · predictive maintenance</div>

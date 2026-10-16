@@ -57,6 +57,10 @@
    "title": "Pulp & Paper Use Cases 2"
   },
   {
+   "slug": "spb-closed-loop-soot-blowing",
+   "title": "SPB AI Closed-Loop Soot Blowing"
+  },
+  {
    "slug": "steam-trap-monitoring",
    "title": "Online Steam Trap Failure Detection"
   },
@@ -148,6 +152,10 @@
    "iv": "xX5LfhCGbpdxs30I",
    "ct": "W50oNSpnf6G0ocMPVmEigQE269ip31MUQmI6Scg83rXP4E4IBKY0YeCCshvBeG0MsBFKk7DPZ8k5E1yu"
   },
+  "spb-closed-loop-soot-blowing": {
+   "iv": "7DhdCf7Z3h0tJ4R6",
+   "ct": "Fz8sdzIxa41O/yDOFWbCok437fOGz2qyUmilzJdSUbTDzhVCMSsNQIFyB9eFWGQBnR3ZXfQhSzXM153P"
+  },
   "steam-trap-monitoring": {
    "iv": "jzPX3sC3K52ymyoA",
    "ct": "Uro/Q+uLaOidLNl4OccWo3OPBtO/VmLUN2rb/w1ltPFEqu2CdGlvqaYsnrG1mj2XCscxSpuxy0wCL8R2"
@@ -209,6 +217,10 @@
   "pulp-paper-use-cases-2": {
    "iv": "0CIA6FKsv2+UJsaK",
    "ct": "2nRVUHNqLw/rNAfIoerHlFx8HhB6qjvWri/y2mYYtpy9Lhqix4sflbcY/BeyAXfDGDtDRsQUIznZH4D/"
+  },
+  "spb-closed-loop-soot-blowing": {
+   "iv": "XbMcKQKeuHdgh6VG",
+   "ct": "4pqNzuPLWYZXft0xZ1gH+AJHprbudcD/A4VRPfCqlNt+C6h71zg+05JcT9jmryol6B+MVhUzuAMZK/cA"
   },
   "steam-trap-monitoring": {
    "iv": "Ltz5tZxZYhvFlzCz",
