@@ -664,15 +664,13 @@ try{lucide.createIcons()}catch(e){}
       document.getElementById('cdbody').innerHTML=items.map(x=>'<div class="cds"><h4>'+esc(x.t)+(x.on?'<span class="prog">In progress</span>':'')+'</h4>'+
         (x.w?'<div class="w">'+esc(x.w)+'</div>':'')+(x.p&&x.p.length?'<ul>'+x.p.map(p=>'<li>'+p+'</li>').join('')+'</ul>':'')+
         (x.m&&x.m.length?'<div class="cdm">'+x.m.map(m=>'<div><b>'+esc(m[0])+'</b>'+esc(m[1])+'</div>').join('')+'</div>':'')+
-        (x.case?'<button class="cdl" type="button" data-case="'+esc(x.case)+'">See the full case ↓</button>':'')+
         (x.link?'<a class="cdl" href="'+esc(x.link[0])+'">Open '+esc(x.link[1])+' →</a>':'')+'</div>').join('');
       dlg.showModal();document.documentElement.style.overflow='hidden';document.getElementById('cdbody').scrollTop=0;
     }
     document.getElementById('lwall').addEventListener('click',e=>{const t=e.target.closest('.lt.has');if(t)open(t)});
     document.getElementById('lwall').addEventListener('keydown',e=>{const t=e.target.closest('.lt.has');if(t&&(e.key==='Enter'||e.key===' ')){e.preventDefault();open(t)}});
     document.getElementById('cdx').onclick=()=>dlg.close();
-    dlg.addEventListener('click',e=>{if(e.target===dlg){const r=dlg.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dlg.close()}
-      const c=e.target.closest('[data-case]');if(c){dlg.close();const a=document.getElementById(c.dataset.case);if(a)a.scrollIntoView({behavior:'smooth',block:'start'})}});
+    dlg.addEventListener('click',e=>{if(e.target===dlg){const r=dlg.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dlg.close()}});
     dlg.addEventListener('keydown',e=>{
       if(e.key==='Escape'||e.key==='Tab')return;e.stopPropagation();
       const bd=document.getElementById('cdbody'),h=bd.clientHeight*.85,mv={ArrowDown:40,ArrowUp:-40,PageDown:h,PageUp:-h,Home:-1e6,End:1e6}[e.key];
