@@ -29,6 +29,10 @@
    "title": "Energy Management System"
   },
   {
+   "slug": "faclon-ai-native-stack-platform-capability-referen",
+   "title": "Faclon AI-Native Stack \u00b7 Platform Capability Reference"
+  },
+  {
    "slug": "faclon-overview",
    "title": "Faclon Labs Overview"
   },
@@ -55,10 +59,6 @@
   {
    "slug": "steel-ai-use-case-map",
    "title": "Steel Use Cases"
-  },
-  {
-   "slug": "faclon-ai-native-stack-platform-capability-referen",
-   "title": "Faclon AI-Native Stack · Platform Capability Reference"
   }
  ],
  "users": [
@@ -116,6 +116,10 @@
    "iv": "+XKJA8A65z3AHMU6",
    "ct": "k+WOCH4p9J7CVfol6bCWOKRa1ml6lTJ2/AENHsqWZflvhVRs6X22pP+hX6iSRIuNHfUuaIsUAq/bDJzI"
   },
+  "faclon-ai-native-stack-platform-capability-referen": {
+   "iv": "mhcYVWu/L26Hurk2",
+   "ct": "zByoKHpRmr3S9ebuzQbbzg09R/t7NkFVDfEJTDYR29Q/Wi4zfScb4DS0NDAID5tlWCEMXWw+voPRLHc2"
+  },
   "faclon-overview": {
    "iv": "xSXNUnAUMVKuB9sQ",
    "ct": "HZY2Z7RezCM/GgBuNfCm7wZ4gmmv+AsuZP7RmztK8Gu3dhna1LMp4Y8/EtQclrx8qhTxnctjThqZQMeg"
@@ -143,11 +147,6 @@
   "steel-ai-use-case-map": {
    "iv": "8JbuMXUm+O8q80dh",
    "ct": "mrZprKIpVs1NSixbPtYlN9BNiiHQvzRp7kXJtTrC8/bIfz+6rDB8zISDmSGQoSYy+RKOhsw9U2oCXubp"
-  },
-  "faclon-ai-native-stack-platform-capability-referen": {
-   "e": "BLbAhgxpwYHLGSUYlS+9afYCPV5svujmsA4cOBg0vWgNsu6+h8zsZHZvDLnbWOAxhBQvf810kPtaidcEJtIrcjE=",
-   "iv": "8HqzX0Pd6q0D15DW",
-   "ct": "KyferYzynh0cxW4nno+hj2HK3cWmhfxN+tgr/CyGM9OJ8+DiV8xhIYS46fQKNEtHoGKmagjQG6+1lGiM"
   }
  },
  "dvault": {
@@ -174,6 +173,10 @@
   "energy-management": {
    "iv": "3qCOMVPo/3FiObZW",
    "ct": "fCTLgLLOBR/B1Ok3YxmSaw0VYEKACai3B1dorqoIVXxckFOEQCJQ1WtZYrDOoYjFRKDj4fvHEHZ5S9Ig"
+  },
+  "faclon-ai-native-stack-platform-capability-referen": {
+   "iv": "k9KGFX8wt1AnwZye",
+   "ct": "E7y68dgMtmXuKQibNsZzW2HoXlL3dUQ/kDWZtqvoVmvY5lv5VjuxIxtOiUweGInSfufuPZNhJ8hlXiXQ"
   },
   "faclon-overview": {
    "iv": "A3GK6DiwzgvHBGJ/",
