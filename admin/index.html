@@ -241,6 +241,8 @@ main{padding:24px 0 80px}
      policy[slug]= {read, download}: global switches set in the User Manager (missing = both on).
                    Read off: the page key leaves every keyring and the vault. Download off: the pdf key
                    leaves every keyring and the dvault, and download options are hidden.
+     guides      = GUIDES (the Read me): not solutions. Encrypted with the landing-page key so every signed-in
+                   user can open them; never in solutions, keyrings, vaults or downloads. Mirror of GUIDES in protect.py.
      keyring     = {n, p:{slug:page key}, d:{slug:pdf key}, c?: contrib key, all?/a?/da?: super user}
      user key    = PBKDF2-SHA256(user password, user.s, users.iter)  (encrypts the user's keyring)
      user id     = SHA-256(users.salt + "|" + lower(username)) as hex
@@ -282,11 +284,13 @@ var FA = (function () {
   function dallKey(master) { return hmac(master, "dall"); }
   function contribKey(master) { return hmac(master, "contrib"); }
   function uploadKey(c, slug) { return hmac(c, "page:" + slug); }
+  var GUIDES = { readme: 1 };
+  function isGuide(slug) { return GUIDES.hasOwnProperty(slug); }
   function isUpload(U, slug) { return !!(U.uploads || {})[slug]; }
-  async function keyFor(U, master, slug) { return isUpload(U, slug) ? uploadKey(await contribKey(master), slug) : pageKey(master, slug); }
+  async function keyFor(U, master, slug) { if (isGuide(slug)) return pageKey(master, "home"); return isUpload(U, slug) ? uploadKey(await contribKey(master), slug) : pageKey(master, slug); }
   function pdfKey(master, slug) { return hmac(master, "pdf:" + slug); }
   function canRead(U, slug) { var p = (U.policy || {})[slug]; return slug === "home" || !p || p.read !== false; }
-  function canDownload(U, slug) { var p = (U.policy || {})[slug]; return slug !== "home" && canRead(U, slug) && (!p || p.download !== false); }
+  function canDownload(U, slug) { var p = (U.policy || {})[slug]; return slug !== "home" && !isGuide(slug) && canRead(U, slug) && (!p || p.download !== false); }
   async function sha256(buf) { return new Uint8Array(await crypto.subtle.digest("SHA-256", buf)); }
   /* Locks a page key to the super-user public key (contributors use this; no admin secret needed). */
   async function wrapForSuper(U, key) {
@@ -379,7 +383,7 @@ var FA = (function () {
       return {
         name: ring.n, admin: false, superUser: true, contrib: contrib,
         allowed: Object.keys(U.vault || {}), downloadable: dk ? Object.keys(U.dvault || {}) : [],
-        key: function (slug) { return slug === "home" && ring.p && ring.p.home ? Promise.resolve(u8(ring.p.home)) : open(U.vault, slug, ak); },
+        key: function (slug) { if (isGuide(slug)) slug = "home"; return slug === "home" && ring.p && ring.p.home ? Promise.resolve(u8(ring.p.home)) : open(U.vault, slug, ak); },
         dkey: function (slug) { return open(U.dvault, slug, dk); }
       };
     }
@@ -387,6 +391,7 @@ var FA = (function () {
     return {
       name: ring.n, admin: false, contrib: contrib, allowed: Object.keys(ring.p), downloadable: Object.keys(d),
       key: function (slug) {
+        if (isGuide(slug)) slug = "home";
         if (ring.p[slug]) return Promise.resolve(u8(ring.p[slug]));
         return contrib && isUpload(U, slug) && canRead(U, slug) ? uploadKey(contrib, slug) : Promise.resolve(null);
       },
@@ -415,7 +420,7 @@ var FA = (function () {
   function clearSession() { try { localStorage.removeItem(SESSION); sessionStorage.removeItem(SESSION); localStorage.removeItem("faclon-glossary-key"); } catch (e) {} }
   return {
     u8: u8, b64: b64, pbkdf2: pbkdf2, hmac: hmac, encrypt: encrypt, decrypt: decrypt, decryptBytes: decryptBytes, sha256hex: sha256hex,
-    norm: norm, userId: userId, pageKey: pageKey, allKey: allKey, dallKey: dallKey, contribKey: contribKey, uploadKey: uploadKey, isUpload: isUpload, keyFor: keyFor, wrapForSuper: wrapForSuper, nameKey: nameKey, nameClash: nameClash, pdfKey: pdfKey, canRead: canRead, canDownload: canDownload, syncVault: syncVault, fillVault: fillVault, buildRing: buildRing, loadUsers: loadUsers, adminMaster: adminMaster,
+    norm: norm, userId: userId, pageKey: pageKey, allKey: allKey, dallKey: dallKey, contribKey: contribKey, uploadKey: uploadKey, isUpload: isUpload, isGuide: isGuide, keyFor: keyFor, wrapForSuper: wrapForSuper, nameKey: nameKey, nameClash: nameClash, pdfKey: pdfKey, canRead: canRead, canDownload: canDownload, syncVault: syncVault, fillVault: fillVault, buildRing: buildRing, loadUsers: loadUsers, adminMaster: adminMaster,
     login: login, access: access, getSession: getSession, setSession: setSession, clearSession: clearSession
   };
 })();

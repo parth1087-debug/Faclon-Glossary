@@ -255,6 +255,7 @@ h1,h2,h3{{letter-spacing:-.015em;line-height:1.2}}
 .btn:hover,.btn:focus-visible{{filter:brightness(1.1)}}
 .navlink{{color:#fff;text-decoration:none;letter-spacing:.12em;font-weight:600}}
 .navlink:hover{{color:var(--blue2)}}
+.menu{{display:flex;gap:22px;flex-wrap:wrap}}
 #solutions{{scroll-margin-top:24px}}
 .sectors span{{font-size:13px;color:#D5DEEE;border:1px solid rgba(255,255,255,.16);border-radius:20px;padding:4px 12px}}
 
@@ -305,7 +306,7 @@ h2{{font-size:32px;font-weight:700;margin:8px 0 10px}}
 <body>
 
 <header class="hero"><div class="wrap">
-  <div class="brand"><b>Faclon Labs</b><a class="navlink" href="faclon-overview/">About Faclon Labs →</a></div>
+  <div class="brand"><b>Faclon Labs</b><nav class="menu"><a class="navlink" href="readme/">Read me</a><a class="navlink" href="faclon-overview/">About Faclon Labs →</a></nav></div>
   <h1>Industrial AI that turns plant data into <em>better operations</em></h1>
   <p class="lede">Solutions built on the Faclon AI platform for heavy industry: connecting plant systems, giving every team clear insight, and closing the loop on control.</p>
   <div class="sectors"><span>Cement</span><span>Metals</span><span>Power</span><span>Paper</span><span>Chemicals</span><span>Discrete manufacturing</span></div>
