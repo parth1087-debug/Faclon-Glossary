@@ -131,6 +131,40 @@ svg.lucide{stroke-width:1.8}
 .lwall.few .lt img{height:84px}
 .lwall.few .lt figcaption{font-size:11px}
 @keyframes pop{from{transform:scale(.94);opacity:.4}to{transform:none;opacity:1}}
+/* customer pop-up */
+.lhint{font-family:var(--f-ui);font-size:13px;color:var(--muted);margin:-4px 0 14px;display:flex;align-items:center;gap:8px}
+.lhint .dot,.lt.has:after{width:8px;height:8px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 3px var(--blue-soft)}
+.lhint .dot{display:inline-block;flex:none}
+.lt{position:relative}
+.lt.has{cursor:pointer}
+.lt.has:after{content:"";position:absolute;top:7px;right:7px}
+.lt.has:hover,.lt.has:focus-visible{border-color:var(--blue)}
+.lt.has:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.cdlg{border:0;padding:0;border-radius:16px;width:min(680px,calc(100vw - 32px));max-height:calc(100vh - 48px);background:#fff;color:var(--ink);box-shadow:0 24px 70px rgba(11,26,48,.35);overflow:hidden;font-family:var(--f-ui)}
+.cdlg[open]{display:flex;flex-direction:column;animation:cdin .22s ease}
+.cdlg::backdrop{background:rgba(11,26,48,.55)}
+@keyframes cdin{from{transform:translateY(12px);opacity:0}to{transform:none;opacity:1}}
+.cdhead{display:flex;align-items:center;gap:16px;padding:18px 18px 16px 22px;border-bottom:1px solid var(--line)}
+.cdlogo{width:84px;height:56px;flex:none;border:1px solid var(--line);border-radius:10px;display:grid;place-items:center;padding:6px;background:#fff}
+.cdlogo img{max-width:100%;max-height:100%;object-fit:contain}
+.cdi{font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--blue)}
+.cdhead h3{margin:2px 0 0;font-size:22px;font-weight:700;letter-spacing:-.01em;line-height:1.2}
+.cdx{margin-left:auto;align-self:flex-start;flex:none;width:36px;height:36px;border-radius:9px;border:1px solid var(--line);background:#fff;color:var(--ink);display:grid;place-items:center;cursor:pointer;font-size:18px}
+.cdx:hover{border-color:var(--blue);color:var(--blue)}
+.cdbody{overflow:auto;padding:6px 22px 22px}
+.cds{padding:16px 0;border-bottom:1px solid var(--line)}
+.cds:last-child{border-bottom:0}
+.cds h4{margin:0;font-size:17px;font-weight:700;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.cds .prog{font-size:11px;font-weight:600;border-radius:999px;padding:2px 9px;background:#FDF3E1;color:#B7791F}
+.cds .w{font-size:13px;color:var(--muted);margin-top:2px}
+.cds ul{margin:10px 0 0;padding-left:18px;font-size:14.5px;line-height:1.55;color:var(--text)}
+.cds li{margin:0 0 6px}.cds li b{color:var(--ink);font-weight:600}
+.cdm{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.cdm div{background:#E5F5EE;border-radius:10px;padding:7px 12px;font-size:12.5px;color:var(--text);line-height:1.3}
+.cdm b{display:block;font-size:17px;color:var(--green);font-weight:700}
+.cdl{display:inline-block;margin-top:10px;font-size:13.5px;font-weight:600;color:var(--blue);text-decoration:none;background:none;border:0;padding:0;cursor:pointer;font-family:inherit}
+.cdl:hover{text-decoration:underline}
+@media (max-width:560px){.cdhead{padding:14px 14px 12px 16px;gap:12px}.cdlogo{width:64px;height:44px}.cdhead h3{font-size:18px}.cdbody{padding:4px 16px 16px}}
 
 /* 4 what we do */
 .wwd{display:grid;grid-template-columns:.9fr 1.1fr;gap:28px;align-items:stretch}
@@ -618,6 +652,34 @@ try{lucide.createIcons()}catch(e){}
   function sel(el){const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r)}
 
   // customer logo tabs
+  (()=>{ /* customer pop-up: click a highlighted logo in Key Customers */
+    const dlg=document.getElementById('cdlg'),data=JSON.parse(document.getElementById('custdata').textContent);
+    if(!dlg||!dlg.showModal)return;
+    const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    let from=null;
+    function open(el){
+      const k=el.dataset.k,items=data[k]||[];if(!items.length)return;from=el;
+      document.getElementById('cdimg').src=el.querySelector('img').src;document.getElementById('cdimg').alt=el.dataset.n;
+      document.getElementById('cdn').textContent=el.dataset.n;document.getElementById('cdi').textContent=el.dataset.i;
+      document.getElementById('cdbody').innerHTML=items.map(x=>'<div class="cds"><h4>'+esc(x.t)+(x.on?'<span class="prog">In progress</span>':'')+'</h4>'+
+        (x.w?'<div class="w">'+esc(x.w)+'</div>':'')+(x.p&&x.p.length?'<ul>'+x.p.map(p=>'<li>'+p+'</li>').join('')+'</ul>':'')+
+        (x.m&&x.m.length?'<div class="cdm">'+x.m.map(m=>'<div><b>'+esc(m[0])+'</b>'+esc(m[1])+'</div>').join('')+'</div>':'')+
+        (x.case?'<button class="cdl" type="button" data-case="'+esc(x.case)+'">See the full case ↓</button>':'')+
+        (x.link?'<a class="cdl" href="'+esc(x.link[0])+'">Open '+esc(x.link[1])+' →</a>':'')+'</div>').join('');
+      dlg.showModal();document.documentElement.style.overflow='hidden';document.getElementById('cdbody').scrollTop=0;
+    }
+    document.getElementById('lwall').addEventListener('click',e=>{const t=e.target.closest('.lt.has');if(t)open(t)});
+    document.getElementById('lwall').addEventListener('keydown',e=>{const t=e.target.closest('.lt.has');if(t&&(e.key==='Enter'||e.key===' ')){e.preventDefault();open(t)}});
+    document.getElementById('cdx').onclick=()=>dlg.close();
+    dlg.addEventListener('click',e=>{if(e.target===dlg){const r=dlg.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dlg.close()}
+      const c=e.target.closest('[data-case]');if(c){dlg.close();const a=document.getElementById(c.dataset.case);if(a)a.scrollIntoView({behavior:'smooth',block:'start'})}});
+    dlg.addEventListener('keydown',e=>{
+      if(e.key==='Escape'||e.key==='Tab')return;e.stopPropagation();
+      const bd=document.getElementById('cdbody'),h=bd.clientHeight*.85,mv={ArrowDown:40,ArrowUp:-40,PageDown:h,PageUp:-h,Home:-1e6,End:1e6}[e.key];
+      if(mv!==undefined){e.preventDefault();bd.scrollBy({top:mv,behavior:'smooth'})}
+    });
+    dlg.addEventListener('close',()=>{document.documentElement.style.overflow='';if(from)try{from.focus({preventScroll:true})}catch(x){}});
+  })();
   const ct2=[...document.querySelectorAll('#ctabs .tab')];
   ct2.forEach(b=>b.onclick=()=>{ct2.forEach(x=>x.setAttribute('aria-pressed',x===b));const f=b.dataset.f;document.getElementById('lwall').classList.toggle('few',f!=='all');
     document.querySelectorAll('#lwall .lt').forEach(el=>{el.hidden=!(f==='all'||el.dataset.g===f);if(!el.hidden){el.style.animation='none';void el.offsetWidth;el.style.animation=''}})});
