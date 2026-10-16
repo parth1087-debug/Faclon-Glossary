@@ -439,7 +439,8 @@ ul{{list-style:none}}
 
 /* proof */
 .proof{{background:var(--bg)}}
-.cases{{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}}
+.cases{{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;margin-top:28px}}
+.case{{grid-column:span 2}} .case:nth-child(n+4){{grid-column:span 3}}
 .case{{background:#fff;border-radius:14px;padding:20px;border:1px solid var(--line)}}
 .case .ct{{display:flex;justify-content:space-between;align-items:center;gap:8px}}
 .case .cn{{font-size:18px;font-weight:700}}
@@ -449,7 +450,6 @@ ul{{list-style:none}}
 .stat{{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}}
 .stat span{{font-size:12.5px;background:var(--blueBg);border-radius:8px;padding:4px 9px;color:var(--ink2)}}
 .stat span b{{color:var(--blue);font-size:14px;margin-right:4px}}
-.stat span.prog{{background:var(--amberBg);color:var(--amber);font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase}}
 .ptag{{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:20px}}
 .ptag.ca{{background:var(--blueBg);color:var(--blue)}} .ptag.b{{background:var(--greenBg);color:var(--green)}}
 
@@ -469,6 +469,7 @@ ul{{list-style:none}}
   .agent:last-child:nth-child(odd){{display:flex}} .agent:last-child:nth-child(odd) .convo{{margin-top:16px;border-top:1px dashed var(--line);padding-top:14px}}
   .zone{{grid-template-columns:1fr;gap:10px}} .zh{{flex-direction:row;gap:10px;align-items:baseline}}
   .models,.safe,.cases{{grid-template-columns:1fr}}
+  .case,.case:nth-child(n+4){{grid-column:auto}}
   .objfn,.ssWrap{{grid-template-columns:1fr}}
   .benefits{{grid-template-columns:1fr 1fr}}
   .kpis{{grid-template-columns:1fr 1fr}}
@@ -676,16 +677,21 @@ ul{{list-style:none}}
       <div class="pt">Closed-loop soot blowing</div><p>29 soot blowers on the recovery boiler.</p>
       <div class="stat"><span><b>20 TPD</b>steam saved</span><span><b>₹1 cr</b>/ yr</span></div>
       <div class="pt">APC for coal feeding</div><p>7 coal feeders on the AFBC boiler.</p>
-      <div class="stat"><span class="prog">In progress</span></div>
     </div>
     <div class="case"><div class="ct"><div class="cn">JSW Energy</div><span class="ptag a">Agents</span></div><div class="cx">Five plants · predictive maintenance</div>
       <div class="pt">Vibration-based condition monitoring</div><p>1,000+ vibration sensors across five plants, cutting unplanned downtime and maintenance cost.</p>
       <div class="stat"><span><b>15+</b>failures caught early</span><span><b>₹1.3 cr</b>over 2 yrs</span></div>
-      <div class="pt" style="margin-top:22px">Tata Power · Prayagraj</div><p>Energy meters integrated to benchmark BFPs and ID/FD fans live.</p>
     </div>
-    <div class="case"><div class="ct"><div class="cn">Hindustan Zinc · Grasim</div></div><div class="cx">91 MW captive · 175 MW captive (5 boilers, 5 turbines)</div>
+    <div class="case"><div class="ct"><div class="cn">Tata Power</div></div><div class="cx">Prayagraj · energy benchmarking</div>
+      <div class="pt">Live auxiliary benchmarking</div><p>Energy meters integrated to benchmark BFPs and ID/FD fans live.</p>
+    </div>
+    <div class="case"><div class="ct"><div class="cn">Hindustan Zinc</div></div><div class="cx">91 MW captive</div>
       <div class="pt">APC reduction &amp; NHR reduction</div><p>Historian, EMS and lab data integrated. Auxiliary efficiency curves re-traced and run cycles scheduled to load, coal and season. NHR models handle IEX-driven load swings.</p>
-      <div class="stat"><span><b>1 pp</b>APC reduction target</span><span class="prog">In progress</span></div>
+      <div class="stat"><span><b>1 pp</b>APC reduction target</span></div>
+    </div>
+    <div class="case"><div class="ct"><div class="cn">Grasim</div></div><div class="cx">175 MW captive</div>
+      <div class="pt">APC reduction &amp; NHR reduction</div><p>Historian, EMS and lab data integrated. Auxiliary efficiency curves re-traced and run cycles scheduled to load, coal and season. NHR models handle IEX-driven load swings.</p>
+      <div class="stat"><span><b>5</b>boilers</span><span><b>5</b>turbines</span></div>
     </div>
   </div>
 </section></div></div>
