@@ -5,6 +5,10 @@
  "check": "ztJYwo06SigOUqQtz1NfOdNDwhOJ4YeYkLP2HV5Xo7E=",
  "solutions": [
   {
+   "slug": "ai-closed-loop-soot-blowing",
+   "title": "AI Closed-Loop Soot Blowing"
+  },
+  {
    "slug": "bus-bar-monitoring",
    "title": "Bus Bar Temperature Monitoring"
   },
@@ -57,10 +61,6 @@
    "title": "Pulp & Paper Use Cases 2"
   },
   {
-   "slug": "spb-closed-loop-soot-blowing",
-   "title": "SPB AI Closed-Loop Soot Blowing"
-  },
-  {
    "slug": "steam-trap-monitoring",
    "title": "Online Steam Trap Failure Detection"
   },
@@ -99,6 +99,10 @@
   "home": {
    "iv": "t9ZfQ7YU2Vokx7zt",
    "ct": "ulBanmeGxUpbnU7PlIOIm/ryaBLiK51o/gMhMeAbBU37mlnRplr5Rr/6R546JrwEdo9R5g2qSwNPkbqy"
+  },
+  "ai-closed-loop-soot-blowing": {
+   "iv": "3xSWfiAT/aQdbOKf",
+   "ct": "6OnqybbfXM2cZi9CoqvyTxA/zE62uEoRJNwGLtmhAEWdjQaIYxP0IbNg/Ek8xKNLcZaNqTj2dAO8AR+E"
   },
   "bus-bar-monitoring": {
    "iv": "iOcp0oiVoSa9BgOU",
@@ -152,10 +156,6 @@
    "iv": "xX5LfhCGbpdxs30I",
    "ct": "W50oNSpnf6G0ocMPVmEigQE269ip31MUQmI6Scg83rXP4E4IBKY0YeCCshvBeG0MsBFKk7DPZ8k5E1yu"
   },
-  "spb-closed-loop-soot-blowing": {
-   "iv": "7DhdCf7Z3h0tJ4R6",
-   "ct": "Fz8sdzIxa41O/yDOFWbCok437fOGz2qyUmilzJdSUbTDzhVCMSsNQIFyB9eFWGQBnR3ZXfQhSzXM153P"
-  },
   "steam-trap-monitoring": {
    "iv": "jzPX3sC3K52ymyoA",
    "ct": "Uro/Q+uLaOidLNl4OccWo3OPBtO/VmLUN2rb/w1ltPFEqu2CdGlvqaYsnrG1mj2XCscxSpuxy0wCL8R2"
@@ -166,6 +166,10 @@
   }
  },
  "dvault": {
+  "ai-closed-loop-soot-blowing": {
+   "iv": "dI+uaxH76ld1TJKK",
+   "ct": "eKqclHtGtqVO15g4d5mV5DptT3jWft5S2qhjN1JDd3kdWjlL37FCyseEK2I7pChUTWRqM8IY72AWDNqi"
+  },
   "bus-bar-monitoring": {
    "iv": "His3QhblMHaoPlC0",
    "ct": "IwSW6t3/hhV5+uf/kcaqoaonJLLmwULTtp9FyDqqzXwUnL4L3QfVzzIEIxuiCPIOA8ysLMfZTw+UB6pD"
@@ -217,10 +221,6 @@
   "pulp-paper-use-cases-2": {
    "iv": "0CIA6FKsv2+UJsaK",
    "ct": "2nRVUHNqLw/rNAfIoerHlFx8HhB6qjvWri/y2mYYtpy9Lhqix4sflbcY/BeyAXfDGDtDRsQUIznZH4D/"
-  },
-  "spb-closed-loop-soot-blowing": {
-   "iv": "XbMcKQKeuHdgh6VG",
-   "ct": "4pqNzuPLWYZXft0xZ1gH+AJHprbudcD/A4VRPfCqlNt+C6h71zg+05JcT9jmryol6B+MVhUzuAMZK/cA"
   },
   "steam-trap-monitoring": {
    "iv": "Ltz5tZxZYhvFlzCz",
