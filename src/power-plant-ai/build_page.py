@@ -63,16 +63,6 @@ AGENTS = [
    "Every RCA written back to the knowledge base so the next one is faster"],
   "Unit tripped on drum level low at 02:14. Why?",
   "Most likely BFP-A recirculation valve stuck open (82% confidence): discharge flow fell 9 s before the drum-level dip while the motor current held. The same valve was logged in May. Evidence and trends are attached."),
- ("Design Improvement Agent", "Efficiency cell · Projects · Technical services", "pencil",
-  ["Long-run performance versus design for every major section and auxiliary",
-   "Pump and fan efficiency curves re-traced from operating data",
-   "Recurring failures, chronic losses and digital-twin what-if simulations"],
-  ["Modification cases: APH seal upgrade, heater retubing, VFD retrofit, pump re-impelling, insulation, CT fill replacement",
-   "Each case sized in kcal/kWh, MW, ₹/year and payback",
-   "What-if simulation before capex: coal change, extraction change, an asset out of service",
-   "An ROI-ranked improvement list for the annual budget"],
-  "Is a VFD on ID fan-A worth it?",
-  "At your load profile (61% of hours below 80% MCR) the fan runs on the damper most of the year. Estimated saving and payback are shown against three years of operating data."),
  ("Plant Knowledge Co-pilot", "Every role · New joiners", "chat",
   ["OEM manuals, SOPs, P&amp;IDs, HMBD, shift logs and past RCAs, all linked to the asset in the ontology",
    "Live and historical plant data"],
@@ -498,7 +488,7 @@ ul{{list-style:none}}
   <h1>AI that advises your people <em>and</em> controls your process</h1>
   <p class="lede">Two complementary offerings for captive and utility power plants. Advisory Agents turn plant data into decisions for every team. Automated Process Control writes optimal setpoints back to the DCS, around the clock.</p>
   <div class="split">
-    <a class="sp a" href="#agents"><div class="k">Part A</div><h3>Advisory Agents</h3><p>AI agents that analyse plant data through a shared plant ontology and give each team insights, reports, recommendations and root causes.</p><div class="meta">7 agents · humans decide →</div></a>
+    <a class="sp a" href="#agents"><div class="k">Part A</div><h3>Advisory Agents</h3><p>AI agents that analyse plant data through a shared plant ontology and give each team insights, reports, recommendations and root causes.</p><div class="meta">{len(AGENTS)} agents · humans decide →</div></a>
     <a class="sp b" href="#apc"><div class="k">Part B</div><h3>Automated Process Control</h3><p>Model-predictive and optimisation controllers running in the OT network, writing setpoints to the DCS over OPC within safe bounds.</p><div class="meta">8 APC applications · closed loop →</div></a>
   </div>
   <div class="kpis">
