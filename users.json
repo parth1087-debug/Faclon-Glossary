@@ -6,19 +6,19 @@
  "solutions": [
   {
    "slug": "bus-bar-monitoring",
-   "title": "Bus Bar Monitoring"
+   "title": "Bus Bar Temperature Monitoring"
   },
   {
    "slug": "cement-ai-use-case-map",
-   "title": "Cement AI Use Case Map"
+   "title": "Cement Use Cases"
   },
   {
    "slug": "coal-mining-ai-use-case-map",
-   "title": "Coal Mining AI Use Case Map"
+   "title": "Coal Mining Use Cases"
   },
   {
    "slug": "condition-based-monitoring",
-   "title": "Condition Based Monitoring"
+   "title": "Predictive Maintenanace"
   },
   {
    "slug": "discrete-manufacturing-use-cases",
@@ -26,7 +26,7 @@
   },
   {
    "slug": "energy-management",
-   "title": "Energy Management"
+   "title": "Energy Management System"
   },
   {
    "slug": "faclon-overview",
@@ -34,27 +34,27 @@
   },
   {
    "slug": "io-vision",
-   "title": "I/O Vision"
+   "title": "Computer Vision Use Cases"
   },
   {
    "slug": "it-ot-integration",
-   "title": "IT-OT Integration"
+   "title": "IT-OT Integration and Security"
   },
   {
    "slug": "power-plant-ai",
-   "title": "Power Plant AI"
+   "title": "Power Plant AI Use Cases"
   },
   {
    "slug": "pulp-paper-ai-use-case-map",
-   "title": "Pulp & Paper AI Use Case Map"
+   "title": "Pulp & Paper Use Cases"
   },
   {
    "slug": "steam-trap-monitoring",
-   "title": "Steam Trap Failure Detection"
+   "title": "Online Steam Trap Failure Detection"
   },
   {
    "slug": "steel-ai-use-case-map",
-   "title": "Steel AI Use Case Map"
+   "title": "Steel Use Cases"
   }
  ],
  "users": [
@@ -216,5 +216,51 @@
    "ct": "g8Gw2RLKEW2iDWAB0FNRi8/Mqs8K2wxKKMcd4+wUX/7ubA+WmKqwMjOfZkjV4G/VQ9F/2n/FUhvtGvj8R/aORpSZK32BdZ8G6wGfcRyeGRvbG2a6jXgr5UAAPlQqaxiBnOukUqR7FzScVqX7DQ=="
   },
   "set": "2026-10-15T19:49:18.883Z"
+ },
+ "names": {
+  "io-vision": {
+   "t": "Computer Vision Use Cases",
+   "o": "I/O Vision"
+  },
+  "it-ot-integration": {
+   "t": "IT-OT Integration and Security",
+   "o": "IT-OT Integration"
+  },
+  "energy-management": {
+   "t": "Energy Management System",
+   "o": "Energy Management"
+  },
+  "coal-mining-ai-use-case-map": {
+   "t": "Coal Mining Use Cases",
+   "o": "Coal Mining AI Use Case Map"
+  },
+  "cement-ai-use-case-map": {
+   "t": "Cement Use Cases",
+   "o": "Cement AI Use Case Map"
+  },
+  "bus-bar-monitoring": {
+   "t": "Bus Bar Temperature Monitoring",
+   "o": "Bus Bar Monitoring"
+  },
+  "condition-based-monitoring": {
+   "t": "Predictive Maintenanace",
+   "o": "Condition Based Monitoring"
+  },
+  "power-plant-ai": {
+   "t": "Power Plant AI Use Cases",
+   "o": "Power Plant AI"
+  },
+  "pulp-paper-ai-use-case-map": {
+   "t": "Pulp & Paper Use Cases",
+   "o": "Pulp & Paper AI Use Case Map"
+  },
+  "steam-trap-monitoring": {
+   "t": "Online Steam Trap Failure Detection",
+   "o": "Steam Trap Failure Detection"
+  },
+  "steel-ai-use-case-map": {
+   "t": "Steel Use Cases",
+   "o": "Steel AI Use Case Map"
+  }
  }
 }
