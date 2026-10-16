@@ -148,6 +148,16 @@ SOLUTIONS = [
         "links": [],
     },
     {
+        "slug": "agrochemicals-use-cases",
+        "name": "Agrochemicals Use Cases",
+        "sector": "Chemicals",
+        "accent": "blue",
+        "live": True,
+        "blurb": "35 AI use cases for crop protection manufacturing, from technical synthesis and solvent recovery to SC, EC and granule formulation, small-pack filling, ZLD and campaign planning.",
+        "tags": ["9 plant areas", "35 use cases", "Synthesis · formulation · packing"],
+        "links": [],
+    },
+    {
         "slug": "solar-use-cases",
         "name": "Solar Use Cases",
         "sector": "Renewables",

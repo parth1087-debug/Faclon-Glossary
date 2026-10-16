@@ -18,6 +18,7 @@ Customer-facing pages for Faclon Labs solution lines, published as a static webs
 | Pulp & Fibre Use Cases | [`/pulp-fibre-use-cases/`](pulp-fibre-use-cases/index.html) | |
 | Refinery & Petrochemicals Use Cases | [`/refinery-petrochemicals-use-cases/`](refinery-petrochemicals-use-cases/index.html) | |
 | Chemicals Use Cases | [`/chemicals-use-cases/`](chemicals-use-cases/index.html) | |
+| Agrochemicals Use Cases | [`/agrochemicals-use-cases/`](agrochemicals-use-cases/index.html) | |
 | Solar Use Cases | [`/solar-use-cases/`](solar-use-cases/index.html) | |
 | Battery Energy Storage Use Cases | [`/bess-use-cases/`](bess-use-cases/index.html) | |
 | Steam Trap Failure Detection | [`/steam-trap-monitoring/`](steam-trap-monitoring/index.html) | |
@@ -63,6 +64,7 @@ python3 src/copper-use-cases/build_page.py  # writes copper-use-cases/index.html
 python3 src/pulp-fibre-use-cases/build_page.py  # writes pulp-fibre-use-cases/index.html (content in use_cases.json; shared builder src/shared/use_case_map.py)
 python3 src/refinery-petrochemicals-use-cases/build_page.py  # writes refinery-petrochemicals-use-cases/index.html (content in use_cases.json; shared builder src/shared/use_case_map.py)
 python3 src/chemicals-use-cases/build_page.py  # writes chemicals-use-cases/index.html (content in use_cases.json; shared builder src/shared/use_case_map.py)
+python3 src/agrochemicals-use-cases/build_page.py  # writes agrochemicals-use-cases/index.html (content in use_cases.json; shared builder src/shared/use_case_map.py)
 python3 src/solar-use-cases/build_page.py  # writes solar-use-cases/index.html (content in use_cases.json; shared builder src/shared/use_case_map.py)
 python3 src/bess-use-cases/build_page.py  # writes bess-use-cases/index.html (content in use_cases.json; shared builder src/shared/use_case_map.py)
 python3 src/faclon-overview/build_page.py         # writes faclon-overview/index.html (content in content.json)

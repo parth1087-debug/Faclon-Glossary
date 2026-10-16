@@ -5,6 +5,10 @@
  "check": "ztJYwo06SigOUqQtz1NfOdNDwhOJ4YeYkLP2HV5Xo7E=",
  "solutions": [
   {
+   "slug": "agrochemicals-use-cases",
+   "title": "Agrochemicals Use Cases"
+  },
+  {
    "slug": "ai-closed-loop-soot-blowing",
    "title": "AI Closed-Loop Soot Blowing"
   },
@@ -128,6 +132,10 @@
    "iv": "t9ZfQ7YU2Vokx7zt",
    "ct": "ulBanmeGxUpbnU7PlIOIm/ryaBLiK51o/gMhMeAbBU37mlnRplr5Rr/6R546JrwEdo9R5g2qSwNPkbqy"
   },
+  "agrochemicals-use-cases": {
+   "iv": "Z1PIMLRsvHLL6V5m",
+   "ct": "CcO4R9hYG1xow6kTB8lfi/luTJ+V2pvaY6+87z9j4RAFl2p2RhEX/9RTY0CD6olpAMGseLBA2m0IMmyN"
+  },
   "ai-closed-loop-soot-blowing": {
    "iv": "3xSWfiAT/aQdbOKf",
    "ct": "6OnqybbfXM2cZi9CoqvyTxA/zE62uEoRJNwGLtmhAEWdjQaIYxP0IbNg/Ek8xKNLcZaNqTj2dAO8AR+E"
@@ -222,6 +230,10 @@
   }
  },
  "dvault": {
+  "agrochemicals-use-cases": {
+   "iv": "ql4pajuGO3+gfflL",
+   "ct": "SH3hLKLBZbtTLIZ85VAb9aW3TRklEqDNTHvF/FqEreuCCRwjpaKWYE1hr3JoYXEZNvWQlSY1BCYmSwmE"
+  },
   "ai-closed-loop-soot-blowing": {
    "iv": "dI+uaxH76ld1TJKK",
    "ct": "eKqclHtGtqVO15g4d5mV5DptT3jWft5S2qhjN1JDd3kdWjlL37FCyseEK2I7pChUTWRqM8IY72AWDNqi"
