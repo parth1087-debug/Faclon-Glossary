@@ -10,7 +10,7 @@ Sources, all in this folder:
                    <!--CASES-->      replaced with the Customer Cases section
   content.json   All customer and case content:
                    customers[]   {industry, logos[] {logo, name, about?}}   -> logo wall + industry tabs; a logo with a story
-                   (cases here, on other solution pages, or its own "about" {t, w, p[], m[]}) opens a pop-up when clicked
+                   (a case in this page's Customer Cases, or its own "about" {t, w, p[], m[]}) opens a pop-up when clicked
                    case_groups[] {id, name}   order of groups in Customer Cases; id "on" = ongoing
                    domains       {id: label}  prod / energy / maint / quality
                    cases[]       {logo, customer, site, title, domains[], ongoing, metrics[] {value, label},
@@ -39,10 +39,9 @@ content = json.loads((HERE / "content.json").read_text())
 t = (HERE / "template.html").read_text()
 
 # ---------- Customer stories (pop-up on a logo in Key Customers) ----------
-# Everything here comes from approved sources already on the site: this page's customer cases, and the
-# customer cases on the Steam Trap, Condition Based Monitoring, I/O Vision and Power Plant AI pages.
+# Only this page's own Customer Cases (the section at the bottom) feed the pop-ups; nothing is pulled
+# from other solution pages. A logo without a case on this page is shown without a pop-up.
 # A logo can also carry its own text: customers[].logos[].about = {"t": title, "w": where, "p": [points]}.
-SRC = HERE.parent
 CASE_LOGO = {"hzlfull": "hzl", "cairnefi": "cairn", "sterlite": "vedanta", "valu": "vedanta", "adanicsia": "csia"}
 stories = {}
 
@@ -56,28 +55,6 @@ _order = [c for g in content["case_groups"] for c in content["cases"]
 for i, c in enumerate(_order, 1):
     story(c["logo"], {"t": c["title"], "w": " · ".join(x for x in (c["customer"], c["site"]) if x), "p": c["points"],
                       "m": [[m["value"], m["label"]] for m in c["metrics"]], "on": c["ongoing"], "case": f"c{i}"})
-for c in json.loads((SRC / "steam-trap-monitoring" / "content.json").read_text())["cases"]:
-    story(c["logo"], {"t": "Steam Trap Failure Detection", "w": f'{c["customer"]} · {c["site"]}', "p": [E(c["d"])],
-                      "m": [[c["metric"], c["metric_label"]]], "link": ["../steam-trap-monitoring/", "Steam Trap Failure Detection"]})
-CBM_LOGO = {"JSW Energy": "jswenergy", "JSW Cements": "jswcement", "JSW Steel": "jswsteel", "Godrej Agrovet": "godrejagro",
-            "Grasim Pulp and Fibre": "grasim", "SRF": "srf", "Marico": "marico"}
-for c in json.loads((SRC / "condition-based-monitoring" / "content.json").read_text())["cases"]:
-    if c["c"] in CBM_LOGO:
-        story(CBM_LOGO[c["c"]], {"t": "Condition Based Monitoring", "w": f'{c["c"]} · {c["p"]}',
-              "p": [E("Assets monitored: " + c["d"] + "."), E("Faults caught include: " + c["i"] + ".")],
-              "m": [[f'{c["a"]:,}', "assets"], [f'{c["s"]:,}', "sensors"], [c["n"], "faults detected"]],
-              "link": ["../condition-based-monitoring/", "Condition Based Monitoring"]})
-VIS_LOGO = {"JSW Energy": "jswenergy", "Hindustan Zinc": "hzl", "Hindalco": "hindalco"}
-for c in json.loads((SRC / "io-vision" / "content.json").read_text())["projects"]:
-    if c["customer"] in VIS_LOGO:
-        story(VIS_LOGO[c["customer"]], {"t": "I/O Vision", "w": c["customer"], "p": [E(c["sub"] + ".")],
-              "m": [], "link": ["../io-vision/", "I/O Vision"]})
-story("tatapower", {"t": "Power Plant AI", "w": "Tata Power · Prayagraj", "m": [],
-                    "p": ["Energy meters integrated to benchmark boiler feed pumps and ID/FD fans live."],
-                    "link": ["../power-plant-ai/", "Power Plant AI"]})
-story("hzl", {"t": "Power Plant AI", "w": "Hindustan Zinc · 91 MW captive", "m": [["1 pp", "auxiliary power reduction target"]], "on": True,
-              "p": ["Historian, EMS and lab data integrated. Auxiliary efficiency curves re-traced and run cycles scheduled to load, coal and season."],
-              "link": ["../power-plant-ai/", "Power Plant AI"]})
 for ind in content["customers"]:
     for lg in ind["logos"]:
         if lg.get("about"):
