@@ -1,8 +1,10 @@
-"""Builds spb-closed-loop-soot-blowing/index.html: the SPB AI closed-loop soot blowing case study.
+"""Builds ai-closed-loop-soot-blowing/index.html: the AI closed-loop soot blowing solution, with one paper mill case study.
 
-Run from anywhere:  python3 src/spb-closed-loop-soot-blowing/build_page.py
-Content lives in content.json next to this script (from the ISB Case Study SPB v2 deck), one key per section:
+Run from anywhere:  python3 src/ai-closed-loop-soot-blowing/build_page.py
+Content lives in content.json next to this script (from the ISB case study deck; the customer is not named), one key per section:
   hero         eyebrow, title, sub, stats [[value, label]]
+  how          the solution in three steps: steps [[title, text, section id]], note [lead, text]
+  case         case-study band: eyebrow, title, sub, stats [[value, label]]
   arch         principles [[title, text]], legend [[kind, text]]; the network diagram itself is drawn below (ARCH)
   estimation   steps [[title, text]], note [lead, text]
   decision     objective, constraints [..], overrides [[trigger, action]], note
@@ -25,7 +27,7 @@ ROOT = HERE.parents[1]
 sys.path.insert(0, str(ROOT / "src" / "shared"))
 from cta import CTA_BUTTONS  # noqa: E402
 
-OUT = ROOT / "spb-closed-loop-soot-blowing" / "index.html"
+OUT = ROOT / "ai-closed-loop-soot-blowing" / "index.html"
 C = json.loads((HERE / "content.json").read_text(encoding="utf-8"))
 E = html.escape
 
@@ -118,9 +120,14 @@ slines = "".join(f'<tr><td>{E(a)}</td><td class="calc">{E(b)}</td><td class="res
 va = C["validation"]
 vblocks = "".join(f'<div class="vb {k}"><h3>{E(t)}</h3><p>{E(x)}</p></div>' for t, x, k in va["blocks"])
 
-NAV = [("architecture", "Architecture"), ("estimation", "Estimation"), ("decision", "Decision"), ("safety", "Safety"),
-       ("live", "Live system"), ("performance", "Performance"), ("savings", "Savings"), ("validation", "Validation")]
-nav = "".join(f'<a href="#{i}">{E(t)}</a>' for i, t in NAV)
+NAV = [("Solution", [("how", "How it works"), ("architecture", "Architecture"), ("estimation", "Estimation"), ("decision", "Decision"), ("safety", "Safety")]),
+       ("Case study", [("case", "Paper mill"), ("performance", "Results"), ("savings", "Savings"), ("validation", "Validation")])]
+nav = "".join(f'<span class="grp">{E(g)}</span>' + "".join(f'<a href="#{i}">{E(t)}</a>' for i, t in items) for g, items in NAV)
+
+hw = C["how"]
+how_steps = "".join(f'<a class="hw" href="#{sid}"><i>{n}</i><h3>{E(t)}</h3><p>{E(x)}</p><span>See {E(t.lower())} →</span></a>' for n, (t, x, sid) in enumerate(hw["steps"], 1))
+cs = C["case"]
+case_stats = "".join(f'<div class="kp"><b>{E(v)}</b><span>{E(l)}</span></div>' for v, l in cs["stats"])
 
 CSS = """
 :root{--ink:#0F1B2D;--ink2:#3A4A5F;--mute:#6B7A90;--line:#E3E8EF;--line2:#CDD5E0;--bg:#F6F8FB;--navy:#0B1A30;--navy2:#13264A;
@@ -167,6 +174,23 @@ section.alt{background:var(--bg)}
 .note b{color:var(--blue)}
 .note.g{background:var(--greenBg);border-color:#CDE9DC}.note.g b{color:var(--green)}
 .note.a{background:var(--amberBg);border-color:#EED9B4}.note.a b{color:var(--amber)}
+
+/* how it works */
+.hws{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}
+.hw{display:flex;flex-direction:column;border:1px solid var(--line);border-top:3px solid var(--green);border-radius:14px;padding:20px;background:#fff;text-decoration:none;color:var(--ink)}
+.hw:hover{border-color:#8FD0B4}
+.hw i{font-style:normal;display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--greenBg);color:var(--green);font-weight:700;font-size:13px;margin-bottom:10px}
+.hw h3{font-size:18px}
+.hw p{font-size:14.5px;flex:1}
+.hw span{margin-top:12px;font-size:13.5px;font-weight:600;color:var(--green)}
+.jump .grp{flex:none;font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);margin:0 2px 0 10px}
+/* case-study band */
+.caseband{background:var(--navy);color:#fff}
+.caseband .wrap{padding-top:56px;padding-bottom:56px}
+.caseband .eyebrow{color:#7FD9B3}
+.caseband h2{color:#fff}
+.caseband .lede{color:#C5D0E3}
+.caseband .kpis{margin-top:26px}
 
 /* network diagram */
 .net{margin-top:28px;border:1px solid var(--line);border-radius:16px;padding:18px;background:#fff;display:flex;flex-direction:column;gap:10px}
@@ -305,7 +329,7 @@ table.t td:first-child{color:var(--ink);font-weight:600}
 @media (max-width:760px){
   .wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
   section{padding:48px 0}.kpis{grid-template-columns:1fr 1fr}.hero .eyebrow{margin-top:36px}
-  .princ,.steps,.dec,.perf,.perf .ptiles,.stiles,.vgrid{grid-template-columns:1fr}
+  .princ,.steps,.dec,.perf,.perf .ptiles,.stiles,.vgrid,.hws{grid-template-columns:1fr}
   .net{padding:12px}.nrow.top{grid-template-columns:1fr}.harr{display:none}
   .fw{grid-template-columns:1fr;text-align:center;gap:2px}.fw span:last-child{text-align:center}
   .zone.it,.mid,.zone .pair,.flows{grid-template-columns:1fr}.flows span{text-align:left!important}
@@ -319,8 +343,8 @@ table.t td:first-child{color:var(--ink);font-weight:600}
 
 HTML = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>SPB AI Closed-Loop Soot Blowing · Faclon Labs</title>
-<meta name="description" content="Case study: AI closed-loop soot blowing on SPB's 16 MW recovery boiler, with architecture, estimation and decision layers, safety interlocks and certified savings.">
+<title>AI Closed-Loop Soot Blowing · Faclon Labs</title>
+<meta name="description" content="AI closed-loop soot blowing: architecture, estimation and decision layers and safety interlocks, with a paper mill case study and certified savings.">
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -328,7 +352,7 @@ HTML = f"""<!doctype html>
 <body>
 
 <header class="hero"><div class="wrap">
-  <div class="brand"><a href="../">Faclon Labs</a><span>Case study · Power</span></div>
+  <div class="brand"><a href="../">Faclon Labs</a><span>Solution · Boilers</span></div>
   <a class="back" href="../">← All solutions</a>
   <div class="eyebrow">{E(h["eyebrow"])}</div>
   <h1>{E(h["title"])}</h1>
@@ -338,7 +362,13 @@ HTML = f"""<!doctype html>
 
 <nav class="jump" aria-label="Sections"><div class="wrap"><a class="home" href="../">← All solutions</a>{nav}</div></nav>
 
-<section id="architecture"><div class="wrap">
+<section id="how"><div class="wrap">
+  {head("The solution", hw["title"], hw["sub"])}
+  <div class="hws">{how_steps}</div>
+  {note(hw["note"])}
+</div></section>
+
+<section id="architecture" class="alt"><div class="wrap">
   {head("Architecture", C["arch"]["title"])}
   {ARCH}
   <div class="legend">{legend}</div>
@@ -346,13 +376,13 @@ HTML = f"""<!doctype html>
   <div class="princ" style="margin-top:14px">{principles}</div>
 </div></section>
 
-<section id="estimation" class="alt"><div class="wrap">
+<section id="estimation"><div class="wrap">
   {head("Estimation layer", es["title"], es["sub"])}
   <div class="steps">{est_steps}</div>
   {note(es["note"], "a")}
 </div></section>
 
-<section id="decision"><div class="wrap">
+<section id="decision" class="alt"><div class="wrap">
   {head("Decision layer", d["title"], d["sub"])}
   <div class="dec">
     <div class="box obj"><h3>Objective</h3><p>{E(d["objective"])}</p></div>
@@ -362,7 +392,7 @@ HTML = f"""<!doctype html>
   {note(d["note"])}
 </div></section>
 
-<section id="safety" class="alt"><div class="wrap">
+<section id="safety"><div class="wrap">
   {head("Safety", s["title"], s["sub"])}
   <div class="saf">
     <div class="box" style="background:#fff;border-color:var(--line)"><table class="t"><thead><tr><th>#</th><th>Check</th><th>Condition</th><th>Persistence</th></tr></thead><tbody>{checks}</tbody></table></div>
@@ -370,13 +400,18 @@ HTML = f"""<!doctype html>
   </div>
 </div></section>
 
+<div class="caseband" id="case"><div class="wrap">
+  <div class="eyebrow">{E(cs["eyebrow"])}</div><h2>{E(cs["title"])}</h2><p class="lede">{E(cs["sub"])}</p>
+  <div class="kpis">{case_stats}</div>
+</div></div>
+
 <section id="live"><div class="wrap">
-  {head("Live system", db["title"])}
+  {head("Case study · live system", db["title"])}
   <figure class="shot"><img src="{img(db["img"])}" alt="{E(db["alt"])}" loading="lazy"><figcaption>{E(db["title"])} dashboard</figcaption></figure>
 </div></section>
 
 <section id="performance" class="alt"><div class="wrap">
-  {head("Results", p["title"], p["sub"])}
+  {head("Case study · results", p["title"], p["sub"])}
   <div class="perf"><div class="ptiles">{ptiles}</div>{steam_chart}{sgr_chart}</div>
   {note(p["note"])}
   <h3 style="margin-top:48px;font-size:22px">{E(cp["title"])}</h3>
@@ -386,14 +421,14 @@ HTML = f"""<!doctype html>
 </div></section>
 
 <section id="savings"><div class="wrap">
-  {head("Savings", sv["title"], sv["sub"])}
+  {head("Case study · savings", sv["title"], sv["sub"])}
   <div class="stiles">{stiles}</div>
   <div class="calcw"><table class="t"><thead><tr><th>Line</th><th>Calculation</th><th>Result</th></tr></thead><tbody>{slines}</tbody></table></div>
   <div class="note g">{E(sv["note"])}</div>
 </div></section>
 
 <section id="validation" class="alt"><div class="wrap">
-  {head("Validation", va["title"])}
+  {head("Case study · validation", va["title"])}
   <div class="vgrid">{vblocks}</div>
   <div class="next"><b>Next step</b><span>{E(va["next"])}</span></div>
 </div></section>
@@ -402,7 +437,7 @@ HTML = f"""<!doctype html>
   <div><div class="eyebrow">Next step</div><h2>Put closed-loop soot blowing on your boiler</h2><p>Faclon reads your existing DCS from outside the control network, learns your boiler from its own history and blows only where it pays.</p></div>
   {CTA_BUTTONS}
 </div></div>
-<div class="foot"><div class="wrap"><span><a href="../">← All solutions</a> · Faclon Labs · SPB AI Closed-Loop Soot Blowing</span><span>Case study · 16 MW recovery boiler</span></div></div>
+<div class="foot"><div class="wrap"><span><a href="../">← All solutions</a> · Faclon Labs · AI Closed-Loop Soot Blowing</span><span>Solution · paper mill case study</span></div></div>
 </body></html>"""
 
 OUT.parent.mkdir(parents=True, exist_ok=True)

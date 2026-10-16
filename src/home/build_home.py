@@ -43,14 +43,14 @@ SOLUTIONS = [
         "links": [],
     },
     {
-        "slug": "spb-closed-loop-soot-blowing",
-        "name": "SPB AI Closed-Loop Soot Blowing",
-        "sector": "Case study · Power",
+        "slug": "ai-closed-loop-soot-blowing",
+        "name": "AI Closed-Loop Soot Blowing",
+        "sector": "Boilers · Pulp & paper",
         "accent": "green",
         "live": True,
-        "blurb": "How AI closed-loop soot blowing on SPB's 16 MW recovery boiler cut soot-blowing steam by 30%, "
-                 "from architecture and safety interlocks to certified savings.",
-        "tags": ["−28.8 t/day steam", "29 soot blowers", "₹5.8 Cr / yr base case"],
+        "blurb": "Zone-by-zone soot estimation and a constrained scheduler that blows only where it pays, "
+                 "behind a 9-point safety gate. Paper mill case study: 30% less soot-blowing steam.",
+        "tags": ["−28.8 t/day steam", "9-point safety gate", "Paper mill case study"],
         "links": [],
     },
     {
