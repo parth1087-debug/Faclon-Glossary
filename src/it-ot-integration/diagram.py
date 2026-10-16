@@ -148,7 +148,7 @@ def architecture():
         xs.append(x + w / 2)
     s.append(vline(X0 + CW / 2, 896, 932, "a-tr"))
     s.append(t(X0 + CW / 2 + 10, 917, "Trunk 11 · 12 · 13 (I/O Connect, jump, management)", "a-cn", "start"))
-    s.append(box(X0, 932, CW, 46, "South firewall  ·  HA pair optional", ["No default route · no static routes · SNAT to FW identities · field VLANs 101 · 201–2nn · 301–303 (translated)"], "a-fw", lh=15))
+    s.append(box(X0, 932, CW, 46, "South firewall  ·  HA pair optional", ["No default route · no static routes · SNAT to FW identities · field VLANs 101 · 201–2nn · 301–30n (translated)"], "a-fw", lh=15))
 
     s.append(conn(992, 1024, "Trunk: field VLANs only · native unused", None, arrow=False))
 
@@ -159,40 +159,31 @@ def architecture():
 
     # ---------- L0-2 field ----------
     fy = 1162
-    s.append(band(fy, 330, ["FIELD", "AREAS"], "Level 0–2", "a-band a-field"))
+    s.append(band(fy, 284, ["FIELD", "AREAS"], "Level 0–2", "a-band a-field"))
     groups = [
-        ("ELECTRICAL ROOMS", [("ER-1", "Managed L2 switch", "VLAN 101 · no NAT", "Energy meters", ["Modbus RTU", "RS-485"]),
-                              ("ER-n", "Managed L2 switch", "VLAN 101 · no NAT", "Energy meters", ["Modbus RTU", "RS-485"])]),
-        ("MACHINE LINES (SHOPFLOOR)", [("Line-1", "NAT switch", "VLAN 201 · 1:1 NAT", "PLC · DCS", ["or OPC server", "Existing subnet"]),
-                                       ("Line-2", "NAT switch", "VLAN 202 · 1:1 NAT", "PLC · DCS", ["or OPC server", "Existing subnet"]),
-                                       ("Line-n", "NAT switch", "VLAN 2nn · 1:1 NAT", "PLC · DCS", ["or OPC server", "Existing subnet"])]),
-        ("UTILITY SECTIONS", [("Utility PLCs", "NAT switch", "VLAN 301 · 1:1 NAT", "Controllers", ["Chillers · DGs", "WTP · ETP · air"]),
-                              ("Utility meters", "NAT switch", "VLAN 302 · 1:1 NAT", "Meters", ["Flow · air", "BTU"]),
-                              ("Boiler & turbine", "NAT switch", "VLAN 303 · 1:1 NAT", "DCS", ["Boiler · turbine", "OPC server"])]),
+        ("UTILITIES", "Utility section 1 … n", ["NAT switch per section", "VLAN 301–30n · 1:1 NAT"],
+         "Utility devices", ["Flow meters", "Controllers: chillers · compressors", "Diesel generators · water treatment"]),
+        ("POWER & SUBSTATIONS", "Substation 1 … n", ["Managed L2 switch per substation", "VLAN 101 · no NAT"],
+         "Electrical devices", ["Relays · energy meters", "Transformer indicators", "VFDs · UPS"]),
+        ("PRODUCTION & PROCESS PLANTS", "Line / unit 1 … n", ["NAT switch per line or unit", "VLAN 201–2nn · 1:1 NAT"],
+         "Control systems", ["DCS · SCADA · PLC", "Historian · OPC servers", "Existing subnets unchanged"]),
     ]
-    ggap, cgap = 22, 8
-    ncol = sum(len(g[1]) for g in groups)
-    cw = (CW - ggap * (len(groups) - 1) - cgap * (ncol - len(groups))) / ncol
-    x = X0
-    heads = []
-    for gname, cols in groups:
-        gw = len(cols) * cw + (len(cols) - 1) * cgap
-        heads.append(t(x, fy + 24, gname, "a-mini a-mb a-halo", "start"))
-        for c in cols:
-            cx = x + cw / 2
-            s.append(vline(cx, 1116, fy + 36, "a-of"))
-            s.append(box(x, fy + 36, cw, 22, "LIU", [], "a-liu", "a-sm"))
-            s.append(vline(cx, fy + 58, fy + 70, "a-ln"))
-            s.append(box(x, fy + 70, cw, 62, c[0], [c[1], c[2]], "a-sw", lh=15))
-            s.append(vline(cx, fy + 132, fy + 146, "a-ln"))
-            s.append(box(x, fy + 146, cw, 62, "Converter", ["Only if needed", "Serial / bus → TCP"], "a-box a-dash", lh=15))
-            s.append(vline(cx, fy + 208, fy + 222, "a-ln"))
-            s.append(box(x, fy + 222, cw, 64, c[3], c[4], "a-dev", lh=15))
-            x += cw + cgap
-        x += ggap - cgap
-    s.extend(heads)
-    s.append(t(X0, fy + 312, "Existing field devices unchanged · OFC star · armoured single-mode fibre · ≥ 2 spare cores per run · read-only acquisition", "a-sm", "start"))
-    H = fy + 330 + 10
+    ggap = 22
+    gw = (CW - 6 - ggap * (len(groups) - 1)) / len(groups)  # 6 px for the stacked shadow
+    for k, (gname, sw, swl, dev, devl) in enumerate(groups):
+        x = X0 + k * (gw + ggap)
+        cx = x + gw / 2
+        s.append(t(x, fy + 24, gname, "a-mini a-mb a-halo", "start"))
+        s.append(vline(cx, 1116, fy + 36, "a-of"))
+        s.append(box(x, fy + 36, gw, 22, "LIU", [], "a-liu", "a-sm"))
+        s.append(vline(cx, fy + 58, fy + 72, "a-ln"))
+        s.append(f'<rect x="{x + 6}" y="{fy + 78}" width="{gw}" height="62" rx="10" class="a-sw a-stack"/>')
+        s.append(box(x, fy + 72, gw, 62, sw, swl, "a-sw", lh=15))
+        s.append(vline(cx, fy + 140, fy + 156, "a-ln"))
+        s.append(f'<rect x="{x + 6}" y="{fy + 162}" width="{gw}" height="78" rx="10" class="a-dev a-stack"/>')
+        s.append(box(x, fy + 156, gw, 78, dev, devl, "a-dev", lh=16))
+    s.append(t(X0, fy + 268, "Existing field devices unchanged · fibre star from every area · read-only acquisition", "a-sm", "start"))
+    H = fy + 284 + 10
     return (f'<svg class="ad" viewBox="0 0 {W} {H}" role="img" aria-label="IT-OT integration reference architecture '
             f'from field areas through OT aggregation, industrial DMZ and enterprise IT to the Faclon platforms in the cloud tenancy">'
             + "".join(s) + "</svg>")

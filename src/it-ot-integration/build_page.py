@@ -206,6 +206,7 @@ h3.sub{font-size:18px;margin:30px 0 12px}
 .ad .a-fw{fill:#FBEDEA;stroke:var(--red);stroke-width:1.6}
 .ad .a-sw{fill:#EEF2F8;stroke:#7D8CA3;stroke-width:1.2}
 .ad .a-dev{fill:#fff;stroke:#5B6778;stroke-width:1.2}
+.ad .a-stack{opacity:.55}
 .ad .a-liu{fill:#FDF3E3;stroke:#E0A54B;stroke-width:1.2}
 .ad .a-ctl{fill:#fff;stroke:#D6E0F4;stroke-dasharray:4 4}
 .ad .a-bus{fill:var(--navy)}

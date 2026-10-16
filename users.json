@@ -30,7 +30,7 @@
   },
   {
    "slug": "faclon-ai-native-stack-platform-capability-referen",
-   "title": "Faclon AI-Native Stack · Platform Capability Reference"
+   "title": "Faclon AI-Native Stack \u00b7 Platform Capability Reference"
   },
   {
    "slug": "faclon-overview",
@@ -53,16 +53,16 @@
    "title": "Pulp & Paper Use Cases"
   },
   {
+   "slug": "pulp-paper-use-cases-2",
+   "title": "Pulp & Paper Use Cases 2"
+  },
+  {
    "slug": "steam-trap-monitoring",
    "title": "Online Steam Trap Failure Detection"
   },
   {
    "slug": "steel-ai-use-case-map",
    "title": "Steel Use Cases"
-  },
-  {
-   "slug": "pulp-paper-use-cases-2",
-   "title": "Pulp & Paper Use Cases 2"
   }
  ],
  "users": [
@@ -144,6 +144,10 @@
    "iv": "VmeufVYukgjdfRxQ",
    "ct": "jhwLCBagXGZ0pNxxOhL8p+2sPARiq2IrbxriDH01Ruu+VmxXV+NYWDv4uYv3/p9b9jVndwaWvbQkWpta"
   },
+  "pulp-paper-use-cases-2": {
+   "iv": "xX5LfhCGbpdxs30I",
+   "ct": "W50oNSpnf6G0ocMPVmEigQE269ip31MUQmI6Scg83rXP4E4IBKY0YeCCshvBeG0MsBFKk7DPZ8k5E1yu"
+  },
   "steam-trap-monitoring": {
    "iv": "jzPX3sC3K52ymyoA",
    "ct": "Uro/Q+uLaOidLNl4OccWo3OPBtO/VmLUN2rb/w1ltPFEqu2CdGlvqaYsnrG1mj2XCscxSpuxy0wCL8R2"
@@ -151,11 +155,6 @@
   "steel-ai-use-case-map": {
    "iv": "8JbuMXUm+O8q80dh",
    "ct": "mrZprKIpVs1NSixbPtYlN9BNiiHQvzRp7kXJtTrC8/bIfz+6rDB8zISDmSGQoSYy+RKOhsw9U2oCXubp"
-  },
-  "pulp-paper-use-cases-2": {
-   "e": "BGF02hFiQm6QRKh6MO0fnsKcHDnNqum1/+kLo/xSMu4yXgwGrIZO6TaxsB3DeR9A4k1FPSWPgxT+nlUVxtHyV94=",
-   "iv": "fCJMVYBb1ceb0wpP",
-   "ct": "+BofRC9QR5CzvEbgT0MDtLUk8Zi0QOJE+nKxSQvUr5Z+13YPDRJXTu/T++/51z5eohZAp2A1bCuVADJS"
   }
  },
  "dvault": {
@@ -206,6 +205,10 @@
   "pulp-paper-ai-use-case-map": {
    "iv": "6XeClMBeq47UbqCC",
    "ct": "A3FKscqu2IZsa9O0G/VUzAvRLRUYrjC7MliCBHjMzKzV4cOvtiHZigmsgyoWyjgMxe+ev60kVNfn3Brq"
+  },
+  "pulp-paper-use-cases-2": {
+   "iv": "0CIA6FKsv2+UJsaK",
+   "ct": "2nRVUHNqLw/rNAfIoerHlFx8HhB6qjvWri/y2mYYtpy9Lhqix4sflbcY/BeyAXfDGDtDRsQUIznZH4D/"
   },
   "steam-trap-monitoring": {
    "iv": "Ltz5tZxZYhvFlzCz",
