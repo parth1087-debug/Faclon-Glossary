@@ -82,7 +82,7 @@ def uc_card(u):
     cat = CAT[u["cat"]]
     q = " ".join([u["name"], u["title"], u["sub"], u["feat"], cat["name"], *u["problem"], *u["solution"],
                   *[" ".join(i) for i in u["impact"]], *deployed.get(u["id"], [])]).lower()
-    dep = "".join(f'<span class="dep">Deployed · {E(c)}</span>' for c in deployed.get(u["id"], []))
+    dep = ""  # "Deployed · customer" badges hidden on use-case cards (customers are shown in the deployments section)
     if u["problem"]:
         prob = "".join(f"<li>{E(x)}</li>" for x in u["problem"])
         sol = "".join(f"<li>{E(x)}</li>" for x in u["solution"])
