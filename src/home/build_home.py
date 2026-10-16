@@ -39,7 +39,7 @@ SOLUTIONS = [
         "live": True,
         "blurb": "Advisory Agents and Automated Process Control for boilers, turbines and auxiliaries "
                  "in captive and utility power plants.",
-        "tags": ["7 Advisory Agents", "8 APC applications", "CFBC · AFBC · PF"],
+        "tags": ["6 Advisory Agents", "8 APC applications", "CFBC · AFBC · PF"],
         "links": [],
     },
     {
