@@ -43,6 +43,17 @@ SOLUTIONS = [
         "links": [],
     },
     {
+        "slug": "spb-closed-loop-soot-blowing",
+        "name": "SPB AI Closed-Loop Soot Blowing",
+        "sector": "Case study · Power",
+        "accent": "green",
+        "live": True,
+        "blurb": "How AI closed-loop soot blowing on SPB's 16 MW recovery boiler cut soot-blowing steam by 30%, "
+                 "from architecture and safety interlocks to certified savings.",
+        "tags": ["−28.8 t/day steam", "29 soot blowers", "₹5.8 Cr / yr base case"],
+        "links": [],
+    },
+    {
         "slug": "steel-ai-use-case-map",
         "name": "Steel AI Use Case Map",
         "sector": "Metals",

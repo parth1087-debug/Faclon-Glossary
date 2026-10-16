@@ -9,6 +9,7 @@ Customer-facing pages for Faclon Labs solution lines, published as a static webs
 | Power Plant AI | [`/power-plant-ai/`](power-plant-ai/index.html) | |
 | Faclon Labs Overview | [`/faclon-overview/`](faclon-overview/index.html) | |
 | Steel AI Use Case Map | [`/steel-ai-use-case-map/`](steel-ai-use-case-map/index.html) | |
+| SPB AI Closed-Loop Soot Blowing | [`/spb-closed-loop-soot-blowing/`](spb-closed-loop-soot-blowing/index.html) | |
 | Cement AI Use Case Map | [`/cement-ai-use-case-map/`](cement-ai-use-case-map/index.html) | |
 | Pulp & Paper AI Use Case Map | [`/pulp-paper-ai-use-case-map/`](pulp-paper-ai-use-case-map/index.html) | |
 | Coal Mining AI Use Case Map | [`/coal-mining-ai-use-case-map/`](coal-mining-ai-use-case-map/index.html) | |
@@ -46,6 +47,7 @@ CLAUDE.md                      Conventions for anyone (or any AI assistant) edit
 python3 src/home/build_home.py                     # writes index.html
 python3 src/power-plant-ai/build_page.py           # writes power-plant-ai/index.html
 python3 src/steel-ai-use-case-map/build_page.py    # writes steel-ai-use-case-map/index.html (content in use_cases.json)
+python3 src/spb-closed-loop-soot-blowing/build_page.py  # writes spb-closed-loop-soot-blowing/index.html (content in content.json, screenshot in assets/)
 python3 src/cement-ai-use-case-map/build_page.py   # writes cement-ai-use-case-map/index.html (content in use_cases.json)
 python3 src/pulp-paper-ai-use-case-map/build_page.py  # writes pulp-paper-ai-use-case-map/index.html (content in use_cases.json)
 python3 src/coal-mining-ai-use-case-map/build_page.py  # writes coal-mining-ai-use-case-map/index.html (content in content.json)
