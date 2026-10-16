@@ -1,0 +1,1831 @@
+[
+ {
+  "s": "Wood Yard",
+  "procs": [
+   {
+    "n": "Wood Preparation",
+    "f": [
+     "Log receiving",
+     "Debarking",
+     "Chipping",
+     "Screening",
+     "Chip pile",
+     "Digester feed"
+    ],
+    "rm": "Roundwood logs (eucalyptus, hardwood mix), bamboo (some plants)",
+    "ut": "Power (chippers, conveyors), water (debarking)",
+    "out": "Screened wood chips (25-40mm) to digester",
+    "q": "Chip size distribution, bark%, dirt%, moisture%, fines%",
+    "uc": [
+     {
+      "t": "Chip Quality & Foreign Material Detection",
+      "k": "cv",
+      "v": 2.0,
+      "basis": "MTPA pulp",
+      "loc": [
+       "Chipper discharge to screening conveyor",
+       "Screened chip conveyor to chip pile",
+       "Reclaimer to digester feed conveyor (final quality checkpoint)"
+      ],
+      "d": [
+       "Analyses overhead camera feeds and metal detectors at chip handling conveyors.",
+       "Detects oversize, fines, bark contamination, dirt and foreign material in chip stream.",
+       "Provides real-time chip quality feedback and triggers diverter action on foreign material."
+      ],
+      "p": [
+       "Chip quality variability causes digester DP swings (critical for dissolving pulp)",
+       "Foreign material damages chipper/digester equipment",
+       "Lab chip analysis slow (4-8 hr)",
+       "Manual visual inspection incomplete",
+       "Yield loss from oversize/fines untracked"
+      ],
+      "kpi": [
+       "Chip size distribution variance",
+       "Bark % in chips",
+       "Fines % in chips",
+       "Foreign material events per month",
+       "Digester DP/kappa variance (downstream)"
+      ],
+      "calc": "Yield improvement 1% × wood cost ₹5,000/t × 2 t/t pulp = ₹100/t pulp = ₹10 cr/MTPA potential × 20-30% capture = ₹2-3 cr/MTPA.",
+      "tier": 2
+     },
+     {
+      "t": "Chipper Knife Wear & Health Monitoring",
+      "k": "ai",
+      "v": 1.0,
+      "basis": "MTPA pulp",
+      "d": [
+       "Analyses chipper motor current, vibration on shaft bearings, and chip size analyzer data.",
+       "Detects knife dullness, breakage, anvil wear and bearing degradation.",
+       "Provides knife change scheduling and predicts maintenance windows before unplanned downtime."
+      ],
+      "p": [
+       "Knife life 200-500 hr, unpredictable failures",
+       "Sudden failure causes emergency shutdown",
+       "Chip quality degrades silently before knife change",
+       "Manual inspection only at scheduled changes",
+       "Bearing failures hidden until catastrophic"
+      ],
+      "kpi": [
+       "Knife life (operating hours)",
+       "Chipper power consumption (kWh/t)",
+       "Unplanned chipper downtime (hours)",
+       "Chip quality variance attributed to knife wear"
+      ],
+      "calc": "Unplanned chipper downtime avoidance + chip quality stability. ₹1 cr per MTPA pulp.",
+      "tier": 3
+     },
+     {
+      "t": "Material Handling Health Monitoring",
+      "k": "cv",
+      "v": 0.5,
+      "basis": "MTPA pulp",
+      "loc": [
+       "Log-to-debarker conveyor (heavy abrasive logs)",
+       "Chip pile reclaimer to digester feed trunk belt (single-point failure for pulping)",
+       "Foreign material detection at digester feed"
+      ],
+      "d": [
+       "Analyses camera images, vibration on idlers, and metal detector signals.",
+       "Detects belt tears, mis-tracking, foreign material and bearing degradation.",
+       "Provides location-tagged alerts before catastrophic belt failure or downstream damage."
+      ],
+      "p": [
+       "Long wood yard conveyors fail with limited warning",
+       "Foreign material damages digester feed system",
+       "Manual belt inspection cannot cover 24/7",
+       "Digester feed line failure halts pulping (single-point)",
+       "Belt damage often noticed only on inspection rounds"
+      ],
+      "kpi": [
+       "Conveyor availability % (wood yard)",
+       "MTBF on chip handling conveyors",
+       "Foreign material events per month",
+       "Belt life (months)",
+       "Digester feed disruption events"
+      ],
+      "calc": "Belt failure prevention + jam events avoided. ₹0.5 cr per MTPA pulp.",
+      "tier": 3
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Dissolving Pulp Production",
+  "procs": [
+   {
+    "n": "Prehydrolysis & Digester",
+    "f": [
+     "Chip impregnation",
+     "Prehydrolysis (PHK)",
+     "Cooking",
+     "Blow line",
+     "Brown stock"
+    ],
+    "rm": "Wood chips, prehydrolysis liquor (water/steam), white liquor (NaOH + Na2S)",
+    "ut": "HP/MP/LP steam, power, makeup water",
+    "out": "Brown stock dissolving pulp (high alpha-cellulose), prehydrolysis effluent, weak black liquor",
+    "q": "Alpha-cellulose %, kappa number, DP (degree of polymerization), yield %, hemicellulose %",
+    "uc": [
+     {
+      "t": "Prehydrolysis Stage Optimization (PHK)",
+      "k": "ai",
+      "v": 4.0,
+      "basis": "MTPA pulp",
+      "d": [
+       "Analyses prehydrolysis liquor temperature, time, P-factor calculation, and dissolved hemicellulose data.",
+       "Models prehydrolysis kinetics and predicts hemicellulose removal efficiency.",
+       "Provides advisory on PHK temperature and time for target alpha-cellulose with minimum DP loss."
+      ],
+      "p": [
+       "PHK is unique to dissolving pulp; operators rely on experience",
+       "Hemicellulose removal varies wood-to-wood",
+       "Lab feedback slow (2-4 hr)",
+       "Manual temperature/time control",
+       "Excessive PHK degrades DP; insufficient leaves hemicellulose"
+      ],
+      "kpi": [
+       "Alpha-cellulose % uplift from PHK",
+       "Hemicellulose removal %",
+       "PHK steam consumption",
+       "P-factor accuracy",
+       "DP preservation"
+      ],
+      "calc": "Alpha-cellulose uplift 1-2% reduces HAE load + improves yield. Steam savings from optimized PHK conditions. ₹4 cr per MTPA pulp.",
+      "tier": 2
+     },
+     {
+      "t": "Digester Quality & DP Control",
+      "k": "ai",
+      "v": 8.0,
+      "basis": "MTPA pulp",
+      "d": [
+       "Analyses chip-meter data, cooking liquor flow/temperature, H-factor calculation, and online kappa/DP analyzer data.",
+       "Models cooking kinetics specific to dissolving pulp (alpha-cellulose, DP target).",
+       "Provides real-time advisory on liquor charge, temperature and retention for target alpha-cellulose and DP."
+      ],
+      "p": [
+       "Dissolving pulp DP must stay tight (affects fibre tenacity downstream)",
+       "Operators trade yield for DP conservatively",
+       "Lab DP measurement lag (3-4 hr)",
+       "Cooking parameter tuning manual",
+       "Alpha-cellulose variability impacts viscose"
+      ],
+      "kpi": [
+       "Alpha-cellulose % target compliance",
+       "DP (degree of polymerization)",
+       "Yield % (pulp from wood)",
+       "Production rate (ADt/day)",
+       "Soda losses (kg Na2SO4/ADt)"
+      ],
+      "calc": "DP/alpha-cellulose stability + yield improvement 1-2% × wood cost + reduced bleach chemical demand downstream. ₹8 cr per MTPA pulp.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Brown Stock Washing",
+    "f": [
+     "Diluted pulp",
+     "Vacuum drum washers (3-4 stages)",
+     "Knot screening",
+     "HAE"
+    ],
+    "rm": "Brown stock dissolving pulp slurry, wash water (recycled hot)",
+    "ut": "Power (pumps, drums), wash water",
+    "out": "Washed brown stock pulp, weak black liquor to evaporators",
+    "q": "Wash loss (kg Na2SO4/ADt), dilution factor, soda losses",
+    "uc": [
+     {
+      "t": "Brown Stock Wash Loss Optimization",
+      "k": "ai",
+      "v": 2.0,
+      "basis": "MTPA pulp",
+      "d": [
+       "Analyses conductivity, dilution factor, drum speed and wash water flow on each washer stage.",
+       "Predicts wash efficiency and soda losses; identifies anomalies in drum loading.",
+       "Provides advisory on dilution factor and wash water distribution across stages."
+      ],
+      "p": [
+       "Wash loss varies across stages",
+       "Felt blinding reduces drum efficiency",
+       "Dilution factor manually set",
+       "Counter-current efficiency not real-time",
+       "Soda makeup higher than design"
+      ],
+      "kpi": [
+       "Wash loss (kg Na2SO4/ADt)",
+       "Dilution factor",
+       "Drum loading uniformity",
+       "Soda makeup rate"
+      ],
+      "calc": "Wash loss reduction 1-2 kg Na2SO4/ADt × ₹15/kg × 1 MTPA equivalent. ₹2 cr per MTPA pulp.",
+      "tier": 3
+     }
+    ]
+   },
+   {
+    "n": "Oxygen Delignification",
+    "f": [
+     "Brown stock pulp + O2 + NaOH + Mg salts",
+     "Pressurized reactor (10-12 bar, ~90-95°C)",
+     "Retention tower",
+     "Washing"
+    ],
+    "rm": "Brown stock pulp from washing, oxygen, NaOH, Mg salts (DP protector)",
+    "ut": "Oxygen (high pressure), NaOH solution, steam (temperature), power",
+    "out": "Delignified pulp (reduced kappa, alpha-cellulose uplifted), spent liquor to washing",
+    "q": "Kappa reduction %, alpha-cellulose %, DP preservation, brightness uplift",
+    "uc": [
+     {
+      "t": "Oxygen Delignification Chemical & DP Preservation Optimization",
+      "k": "ai",
+      "v": 4.0,
+      "basis": "MTPA pulp",
+      "d": [
+       "Analyses O2 dosage, NaOH charge, Mg salt addition, reactor temperature/pressure and resulting kappa reduction and DP preservation.",
+       "Models O2 delignification kinetics specific to dissolving pulp (lower kappa target + DP preservation tradeoff).",
+       "Provides O2, NaOH and temperature setpoint advisory for target kappa with minimum DP loss and minimum chemical cost."
+      ],
+      "p": [
+       "O2 delignification cost balance is delicate (more O2/NaOH = more kappa drop but DP risk)",
+       "Mg salt dosing for DP protection often empirical",
+       "Reactor pressure/temperature control affects yield",
+       "Lab feedback on kappa+DP slow (2-3 hr)",
+       "Manual chemical charging variable across shifts",
+       "Sub-optimal O2 delig pushes higher chemical cost to bleach plant downstream"
+      ],
+      "kpi": [
+       "Kappa reduction %",
+       "DP preservation (target DP exit)",
+       "O2 consumption (kg/t pulp)",
+       "NaOH consumption (kg/t pulp)",
+       "Mg salt consumption",
+       "Bleach chemical demand reduction downstream"
+      ],
+      "calc": "Kappa reduction 30-50% via O2 delig × downstream ClO2 savings 15-20% × ₹180/kg × 25 kg/t = ₹0.7-1.2 cr/MTPA in bleach savings. Plus DP preservation enables better fibre tenacity. Plus NaOH + O2 dosing optimization at this stage. ₹4 cr per MTPA pulp.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Hot Alkali Extraction",
+    "f": [
+     "Brown stock",
+     "HAE tower (hot alkali, 90-120°C)",
+     "Washing",
+     "Bleach plant feed"
+    ],
+    "rm": "Brown stock pulp, hot alkali (NaOH solution)",
+    "ut": "MP steam (alkali heating), power, NaOH makeup",
+    "out": "HAE-treated pulp (reduced hemicellulose), HAE effluent",
+    "q": "Residual hemicellulose %, alpha-cellulose uplift, DP preservation, NaOH consumption",
+    "uc": [
+     {
+      "t": "HAE Stage Optimization (Hemicellulose Removal)",
+      "k": "ai",
+      "v": 5.0,
+      "basis": "MTPA pulp",
+      "d": [
+       "Analyses HAE tower temperature, retention time, alkali charge, and downstream hemicellulose results.",
+       "Models HAE kinetics and predicts hemicellulose removal versus alkali consumption.",
+       "Provides setpoint advisory for target hemicellulose with minimum NaOH usage and DP preservation."
+      ],
+      "p": [
+       "HAE NaOH consumption is significant cost",
+       "Hemicellulose target hit conservatively (excess NaOH)",
+       "DP loss during HAE is a real risk",
+       "Manual alkali addition tuning",
+       "Lab feedback slow on hemicellulose"
+      ],
+      "kpi": [
+       "Residual hemicellulose %",
+       "Alpha-cellulose uplift in HAE",
+       "NaOH consumption (kg/t pulp)",
+       "DP preservation",
+       "HAE tower retention time"
+      ],
+      "calc": "NaOH savings 30-50 kg/t pulp × ₹35/kg = ₹1-2,000/t pulp = ₹10-20 cr/MTPA × 25-30% capture = ₹3-6 cr/MTPA pulp.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Bleach Plant",
+    "f": [
+     "HAE pulp",
+     "O2 delignification",
+     "D0",
+     "EOP",
+     "D1",
+     "D2",
+     "Stock prep / Drying"
+    ],
+    "rm": "HAE pulp, ClO2, O2, H2O2, NaOH, H2SO4 (for pH adjustment)",
+    "ut": "Steam (tower heating), power, MP/LP steam",
+    "out": "Bleached dissolving pulp (high brightness, controlled DP)",
+    "q": "Brightness (ISO%), DP (degree of polymerization), viscosity, alpha-cellulose%",
+    "uc": [
+     {
+      "t": "Bleach Plant Chemical & DP Preservation Optimization",
+      "k": "ai",
+      "v": 10.0,
+      "basis": "MTPA pulp",
+      "d": [
+       "Analyses incoming pulp DP and brightness, ClO2 dosage per stage, alkali dosage, tower temperatures and retention.",
+       "Models bleaching kinetics for dissolving grade (preserving DP is critical, unlike paper grade).",
+       "Provides setpoint optimization for chemical charge to hit target brightness with minimum DP loss and minimum chemicals."
+      ],
+      "p": [
+       "Dissolving pulp requires careful bleach (cannot over-bleach or DP drops)",
+       "ClO2 cost is significant (₹180/kg)",
+       "Lab DP/brightness lag prevents real-time control",
+       "Operators over-bleach for brightness safety margin",
+       "DP loss in bleach hurts downstream fibre tenacity"
+      ],
+      "kpi": [
+       "ClO2 consumption (kg/t pulp)",
+       "DP preservation (target DP exit bleach)",
+       "Final brightness (ISO%)",
+       "NaOH consumption",
+       "Chemical cost (₹/t pulp)"
+      ],
+      "calc": "ClO2 reduction 5-10% × 25 kg/t × ₹180/kg × 1 MTPA equivalent = ₹2-5 cr. Plus DP preservation enables higher fibre tenacity (premium grade pricing). ₹10 cr per MTPA pulp.",
+      "tier": 1
+     },
+     {
+      "t": "Dissolving Pulp Strength & DP Inferential Modeling",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MTPA pulp",
+      "d": [
+       "Analyses incoming pulp quality, bleaching conditions and lab DP/brightness measurements.",
+       "Builds soft sensors for DP and brightness between lab samples (typically every 2-4 hours).",
+       "Provides real-time quality predictions enabling faster control loops."
+      ],
+      "p": [
+       "Lab DP measurement is the binding constraint on bleach control",
+       "Operators wait for lab confirmation",
+       "DP drift only caught after off-spec",
+       "Manual sampling labor-intensive",
+       "Control loops too slow to respond"
+      ],
+      "kpi": [
+       "Soft sensor accuracy vs lab",
+       "Lab analysis frequency",
+       "Control loop response time",
+       "Off-spec batch rate"
+      ],
+      "calc": "Faster control + reduced off-spec lots. ₹3 cr per MTPA pulp.",
+      "tier": 2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Pulp Drying",
+  "procs": [
+   {
+    "n": "Pulp Drying",
+    "f": [
+     "Wet pulp",
+     "Press",
+     "Cylinder/airborne dryers",
+     "Sheeter",
+     "Baler / Direct to viscose"
+    ],
+    "rm": "Bleached wet pulp (~50% solids from press)",
+    "ut": "Steam (cylinder dryers), power",
+    "out": "Air-dry baled dissolving pulp (~92-95% solids) or wet pulp to viscose",
+    "q": "Moisture%, sheet uniformity, bale weight, surface defects",
+    "uc": [
+     {
+      "t": "Pulp Dryer Energy & Moisture Optimization",
+      "k": "ai",
+      "v": 4.0,
+      "basis": "MTPA pulp",
+      "d": [
+       "Analyses dryer cylinder pressures, condensate flows, sheet moisture profile and surface temperatures.",
+       "Models drying kinetics and predicts moisture profile versus steam distribution and speed.",
+       "Provides advisory on steam group setpoints for target moisture with minimum steam consumption."
+      ],
+      "p": [
+       "Drying is largest steam consumer at pulp end",
+       "Steam group setpoints conservative",
+       "Moisture variability causes baling issues",
+       "Operator adjustments experience-based",
+       "Energy consumption above design"
+      ],
+      "kpi": [
+       "Steam consumption (t/t pulp)",
+       "Drying energy (GJ/t)",
+       "Moisture % at baler",
+       "Steam group pressures"
+      ],
+      "calc": "Steam savings 2-3% on pulp dryer steam. ₹4 cr per MTPA pulp.",
+      "tier": 2
+     },
+     {
+      "t": "Pulp Bale Quality & Defect Detection",
+      "k": "cv",
+      "v": 1.5,
+      "basis": "MTPA pulp",
+      "d": [
+       "Analyses camera feeds of dried pulp sheet at the sheeter and baler.",
+       "Detects sheet breaks, edge defects, basis weight anomalies, dirt specks and surface marks.",
+       "Provides quality classification and rejects bad bales before storage/dispatch."
+      ],
+      "p": [
+       "Bale defects discovered at customer or downstream viscose",
+       "Manual visual inspection inconsistent",
+       "Sheet breaks at sheeter cause production loss",
+       "Customer audits frequent for dissolving pulp grade",
+       "Defect attribution to upstream slow"
+      ],
+      "kpi": [
+       "Bale defect rate",
+       "Customer complaint rate",
+       "Reject rate at baler",
+       "Bale weight accuracy"
+      ],
+      "calc": "Reject reduction + customer complaint reduction. ₹1.5 cr per MTPA pulp.",
+      "tier": 3
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "VSF Pre-treatment",
+  "procs": [
+   {
+    "n": "Steeping & Pressing",
+    "f": [
+     "Pulp",
+     "Steeping in NaOH",
+     "Pressing (excess caustic squeezed)",
+     "Shredding",
+     "Alkali cellulose"
+    ],
+    "rm": "Dissolving pulp sheets (or wet pulp), steeping NaOH (17-19% w/w)",
+    "ut": "Power (pressing, shredding), NaOH solution",
+    "out": "Alkali cellulose (shredded), steeping liquor (recycled), press lye",
+    "q": "Alkali cellulose composition (cellulose II, NaOH content), shredded particle size",
+    "uc": [
+     {
+      "t": "Steeping NaOH & Alkali Cellulose Optimization",
+      "k": "ai",
+      "v": 6.0,
+      "basis": "MTPA fibre",
+      "d": [
+       "Analyses steeping NaOH concentration, temperature, pulp throughput, and alkali cellulose properties (cellulose II content, NaOH retention).",
+       "Models steeping kinetics and predicts alkali cellulose quality at target NaOH consumption.",
+       "Provides advisory on NaOH concentration, temperature and retention time for consistent alkali cellulose at minimum NaOH usage."
+      ],
+      "p": [
+       "Steeping NaOH cost is significant (₹2,000/t fibre equivalent)",
+       "NaOH concentration manually controlled",
+       "Press lye recovery imperfect",
+       "Alkali cellulose quality variability impacts downstream xanthation",
+       "Operators over-charge NaOH for safety margin"
+      ],
+      "kpi": [
+       "NaOH consumption (kg/t fibre)",
+       "Alkali cellulose composition (NaOH:cellulose ratio)",
+       "Press lye recovery %",
+       "Cellulose II content",
+       "Operating cost (₹/t)"
+      ],
+      "calc": "NaOH savings 3-5% × 700 kg/t fibre × ₹35/kg × 1 MTPA = ₹7-12 cr/MTPA × 50% capture = ₹4-6 cr/MTPA fibre.",
+      "tier": 2
+     },
+     {
+      "t": "Pressing & Shredding Quality Monitoring",
+      "k": "ai",
+      "v": 2.0,
+      "basis": "MTPA fibre",
+      "d": [
+       "Analyses press load, press lye flow, shredder motor current, and alkali cellulose particle size distribution.",
+       "Detects press performance degradation, shredder wear, and alkali cellulose quality issues.",
+       "Provides press setpoint advisory and shredder change scheduling."
+      ],
+      "p": [
+       "Press performance varies; manual setpoints",
+       "Shredder knife wear hidden",
+       "Alkali cellulose particle size affects xanthation",
+       "Manual quality checks",
+       "Equipment failures cause downtime"
+      ],
+      "kpi": [
+       "Press lye recovery %",
+       "Shredder particle size uniformity",
+       "Press load",
+       "Shredder knife life"
+      ],
+      "calc": "Press lye recovery + shredder maintenance. ₹2 cr per MTPA fibre.",
+      "tier": 3
+     }
+    ]
+   },
+   {
+    "n": "Alkali Cellulose Aging",
+    "f": [
+     "Fresh alkali cellulose",
+     "Aging drums / conveyors (controlled time + temp + O2)",
+     "Aged AC"
+    ],
+    "rm": "Alkali cellulose (shredded)",
+    "ut": "Controlled atmosphere (O2 in some processes), power for conveyors",
+    "out": "Aged alkali cellulose (target DP for spinning)",
+    "q": "DP (degree of polymerization) target, aging uniformity, particle size",
+    "uc": [
+     {
+      "t": "Aging Optimization (DP Target for Spinning)",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MTPA fibre",
+      "d": [
+       "Analyses aging drum/conveyor temperature, retention time, oxygen exposure and resulting alkali cellulose DP.",
+       "Models aging kinetics (oxidative depolymerization) and predicts target DP for downstream spinning.",
+       "Provides aging condition advisory to hit DP target consistently."
+      ],
+      "p": [
+       "DP control through aging is delicate (overshooting reduces fibre tenacity)",
+       "Aging time chosen conservatively",
+       "Temperature/atmosphere control imperfect",
+       "Manual operating point selection",
+       "DP variability impacts spinning"
+      ],
+      "kpi": [
+       "Aging time (hours)",
+       "DP target achievement",
+       "Aging uniformity",
+       "Temperature/time control accuracy"
+      ],
+      "calc": "DP consistency + fibre tenacity improvement. ₹3 cr per MTPA fibre.",
+      "tier": 2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Xanthation & Viscose Preparation",
+  "procs": [
+   {
+    "n": "Xanthation",
+    "f": [
+     "Aged AC + CS2",
+     "Xanthator drums (reaction)",
+     "Cellulose xanthate",
+     "Dissolution"
+    ],
+    "rm": "Aged alkali cellulose, CS2 (carbon disulphide), NaOH solution",
+    "ut": "Power (xanthator drums), CS2 (recovered + makeup), cooling water",
+    "out": "Cellulose xanthate (orange/yellow), excess CS2 (recovered), H2S byproduct",
+    "q": "Xanthate gamma value (degree of substitution), CS2 conversion %, residual CS2",
+    "uc": [
+     {
+      "t": "Xanthation CS2 Consumption Optimization",
+      "k": "ai",
+      "v": 8.0,
+      "basis": "MTPA fibre",
+      "d": [
+       "Analyses CS2 dosage, xanthator temperature, reaction time, alkali cellulose properties, and xanthate gamma value at outlet.",
+       "Models xanthation kinetics and predicts gamma value versus CS2 consumption and reaction conditions.",
+       "Provides CS2 dosage advisory for target gamma at minimum fresh CS2 consumption."
+      ],
+      "p": [
+       "CS2 is the most expensive variable input (₹120/kg, 50-100 kg/t fibre net)",
+       "CS2 dosage often conservative (excess for safety)",
+       "Gamma value lab analysis slow",
+       "Manual dosage adjustments",
+       "CS2 losses to recovery system high"
+      ],
+      "kpi": [
+       "Net CS2 consumption (kg/t fibre)",
+       "Xanthate gamma value",
+       "Reaction completeness %",
+       "Residual CS2 in xanthate"
+      ],
+      "calc": "CS2 reduction 5-7% × 75 kg/t fibre × ₹120/kg × 1 MTPA = ₹4.5-6.3 cr × scaling = ₹8 cr per MTPA fibre (with feedback effects on recovery).",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Viscose Dissolution & Ripening",
+    "f": [
+     "Xanthate + dilute NaOH",
+     "Dissolution tanks",
+     "Ripening (controlled aging)",
+     "Filtration"
+    ],
+    "rm": "Cellulose xanthate, dilute NaOH solution",
+    "ut": "Power (mixers, agitators), cooling/heating water",
+    "out": "Viscose solution (cellulose xanthate dissolved in dilute caustic)",
+    "q": "Viscose viscosity, gamma value, ripeness index (Hottenroth/salt test), filterability",
+    "uc": [
+     {
+      "t": "Viscose Quality & Ripening Index Control",
+      "k": "ai",
+      "v": 5.0,
+      "basis": "MTPA fibre",
+      "d": [
+       "Analyses dissolution tank conditions, ripening time and temperature, lab Hottenroth/salt test data, and viscosity measurements.",
+       "Models viscose ripening kinetics and predicts spinnability indicators.",
+       "Provides ripening setpoint advisory to hit target viscose properties for spinning."
+      ],
+      "p": [
+       "Ripening time is critical (under-ripe or over-ripe disrupts spinning)",
+       "Lab indicators lag real-time process",
+       "Manual ripening time setting per batch",
+       "Variability impacts spinning yield",
+       "Operators set conservative ripening time"
+      ],
+      "kpi": [
+       "Viscose viscosity (Falling Ball or rotational)",
+       "Ripeness index (Hottenroth)",
+       "Gamma value retention",
+       "Filterability",
+       "Spinning quality correlation"
+      ],
+      "calc": "Spinnability improvement reduces fibre defects and breaks at spinneret. ₹5 cr per MTPA fibre.",
+      "tier": 2
+     },
+     {
+      "t": "Viscose Dissolution Energy & Cooling Optimization",
+      "k": "ai",
+      "v": 2.0,
+      "basis": "MTPA fibre",
+      "d": [
+       "Analyses dissolution tank temperatures, cooling water flow and dissolution mixer power.",
+       "Models dissolution kinetics and predicts viscose quality versus operating conditions.",
+       "Provides cooling and mixing setpoint advisory for consistent viscose with minimum utility consumption."
+      ],
+      "p": [
+       "Cooling water demand is significant",
+       "Mixer power not optimized",
+       "Manual temperature control",
+       "Quality variability between batches",
+       "Dissolution time conservative"
+      ],
+      "kpi": [
+       "Cooling water consumption (m³/t fibre)",
+       "Dissolution mixer power",
+       "Tank temperature uniformity",
+       "Viscose quality variance"
+      ],
+      "calc": "Utility savings + quality consistency. ₹2 cr per MTPA fibre.",
+      "tier": 3
+     }
+    ]
+   },
+   {
+    "n": "Viscose Filtration & Deaeration",
+    "f": [
+     "Viscose",
+     "Multi-stage filtration",
+     "Deaeration",
+     "Spinning line"
+    ],
+    "rm": "Viscose solution",
+    "ut": "Power (pumps, filters), vacuum for deaeration",
+    "out": "Filtered, deaerated viscose ready for spinning",
+    "q": "Filter pressure drop, deaeration vacuum, filtration value",
+    "uc": [
+     {
+      "t": "Filtration & Deaeration Optimization",
+      "k": "ai",
+      "v": 2.0,
+      "basis": "MTPA fibre",
+      "d": [
+       "Analyses filter pressure drop trends, filter media life, deaeration vacuum and bubble content.",
+       "Predicts filter clogging and recommends cleaning/change intervals.",
+       "Provides filtration and deaeration setpoint advisory for consistent spinning feed."
+      ],
+      "p": [
+       "Filter clogging causes line stoppages",
+       "Manual filter cleaning schedule",
+       "Bubble carryover causes spinning breaks",
+       "Vacuum issues hidden until quality drops",
+       "Media changeover scheduling reactive"
+      ],
+      "kpi": [
+       "Filter pressure drop trend",
+       "Filter media life (cycles)",
+       "Deaeration vacuum",
+       "Spinning rejection rate from feed quality"
+      ],
+      "calc": "Spinning quality improvement + reduced filter media cost. ₹2 cr per MTPA fibre.",
+      "tier": 3
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Spinning & Regeneration",
+  "procs": [
+   {
+    "n": "Spinning & Regeneration",
+    "f": [
+     "Viscose",
+     "Spinneret extrusion",
+     "H2SO4 bath (regeneration)",
+     "Wet tow"
+    ],
+    "rm": "Filtered viscose, spin bath (H2SO4 + Na2SO4 + ZnSO4 solution)",
+    "ut": "Power (pumps, drives), spin bath chemicals",
+    "out": "Wet regenerated cellulose tow (fibre tow before stretching)",
+    "q": "Spin bath composition, tow stability, spinneret performance, fibre denier",
+    "uc": [
+     {
+      "t": "Spin Bath Chemistry Optimization (H2SO4, ZnSO4, Na2SO4)",
+      "k": "ai",
+      "v": 5.0,
+      "basis": "MTPA fibre",
+      "d": [
+       "Analyses spin bath composition (online or frequent lab data), spinning quality, fibre properties and spin bath circulation.",
+       "Models regeneration kinetics and predicts fibre properties versus bath composition.",
+       "Provides bath composition advisory and ZnSO4/H2SO4 makeup setpoints for target fibre quality at minimum chemical cost."
+      ],
+      "p": [
+       "Spin bath composition control is delicate and affects fibre quality",
+       "Lab analysis lag (1-2 hr)",
+       "ZnSO4 cost significant (zinc is expensive)",
+       "Manual makeup adjustments",
+       "Composition variability causes fibre property swings"
+      ],
+      "kpi": [
+       "Spin bath H2SO4 strength",
+       "Na2SO4 level (g/L)",
+       "ZnSO4 level",
+       "Fibre tenacity correlation",
+       "Chemical makeup rate"
+      ],
+      "calc": "ZnSO4 cost reduction 5-10% + H2SO4 optimization + fibre quality uplift. ₹5 cr per MTPA fibre.",
+      "tier": 2
+     },
+     {
+      "t": "Fibre Tenacity & Properties Optimization",
+      "k": "ai",
+      "v": 7.0,
+      "basis": "MTPA fibre",
+      "d": [
+       "Analyses spinning conditions (bath chemistry, jet velocity, stretch ratio), tow tension and lab fibre property results.",
+       "Builds inferential model for fibre tenacity, elongation and denier between lab samples.",
+       "Provides spinning advisory to hit premium fibre property grades consistently."
+      ],
+      "p": [
+       "Premium fibre grades (high tenacity) earn ₹5-10/kg premium",
+       "Operators run mid-grade settings to avoid off-spec risk",
+       "Tenacity lab feedback slow",
+       "Property variability between lots",
+       "Customer audits frequent for premium grades"
+      ],
+      "kpi": [
+       "Fibre tenacity (g/denier)",
+       "Elongation %",
+       "Denier uniformity",
+       "Premium grade % of production",
+       "Property variance between batches"
+      ],
+      "calc": "Premium grade share increase 5-10% × ₹5-10/kg premium × 1 MTPA = ₹5-10 cr. ₹7 cr per MTPA fibre.",
+      "tier": 2
+     },
+     {
+      "t": "Spinneret Health & Cleaning Monitoring",
+      "k": "cv",
+      "v": 3.0,
+      "basis": "MTPA fibre",
+      "d": [
+       "Analyses spinneret pressure drop trends, fibre quality correlation per spinneret, and CV inspection of spinneret faces during cleaning.",
+       "Detects spinneret clogging, hole damage, and cleaning effectiveness.",
+       "Provides spinneret cleaning schedule and replacement advisory."
+      ],
+      "p": [
+       "Spinneret clogging causes fibre breaks",
+       "Cleaning is reactive (operator visual)",
+       "Spinneret damage hidden until quality drop",
+       "Spinneret cost significant (precious metal contacts)",
+       "Cleaning labor-intensive"
+      ],
+      "kpi": [
+       "Spinneret pressure drop",
+       "Cleaning frequency",
+       "Spinneret life (days)",
+       "Fibre quality per spinneret",
+       "Spinneret replacement cost"
+      ],
+      "calc": "Spinneret life extension + reduced cleaning + fibre quality. ₹3 cr per MTPA fibre.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Stretching & Cutting",
+    "f": [
+     "Wet tow",
+     "Stretching godets",
+     "Plasticization",
+     "Cutter",
+     "Staple fibre to washing"
+    ],
+    "rm": "Wet regenerated tow",
+    "ut": "Power (godets, cutters), secondary stretch bath",
+    "out": "Cut staple fibre (32-38mm typical)",
+    "q": "Fibre tenacity, elongation, denier, length variation, defects",
+    "uc": [
+     {
+      "t": "Stretching & Drawing Optimization",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MTPA fibre",
+      "d": [
+       "Analyses godet speeds, stretch ratios, plasticization bath conditions and fibre tension profiles.",
+       "Models stretching effect on fibre orientation and mechanical properties.",
+       "Provides godet speed and stretch ratio setpoint advisory for target fibre properties."
+      ],
+      "p": [
+       "Stretch ratio set conservatively (avoid breaks)",
+       "Operator-dependent stretching schedules",
+       "Fibre property variability",
+       "Stretch godets manual tuning",
+       "Tow breaks waste production"
+      ],
+      "kpi": [
+       "Fibre tenacity after stretching",
+       "Elongation %",
+       "Stretch ratio compliance",
+       "Tow break rate at stretching"
+      ],
+      "calc": "Tenacity uplift + reduced tow breaks. ₹3 cr per MTPA fibre.",
+      "tier": 2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Fibre Washing & Drying",
+  "procs": [
+   {
+    "n": "Fibre Washing",
+    "f": [
+     "Cut fibre",
+     "Counter-current washing (4-6 stages)",
+     "Acid wash",
+     "Neutralization",
+     "Final wash"
+    ],
+    "rm": "Cut wet staple fibre (acidic, contains Na2SO4, residual chemicals)",
+    "ut": "Wash water (fresh + recycled), power",
+    "out": "Washed fibre (low Na2SO4, neutral pH), wash effluent to recovery",
+    "q": "Residual Na2SO4 %, residual H2SO4, fibre pH, wash efficiency",
+    "uc": [
+     {
+      "t": "Washing Energy & Acid Removal Optimization",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MTPA fibre",
+      "d": [
+       "Analyses wash water flow, counter-current washer stage conductivity, residual sulphate and acid in fibre.",
+       "Models washing kinetics and predicts residual chemical removal versus water consumption.",
+       "Provides water distribution and washer setpoint advisory for minimum water with target wash efficiency."
+      ],
+      "p": [
+       "Fibre washing is water-intensive (5-10 m³/t fibre)",
+       "Counter-current efficiency variable",
+       "Manual water flow distribution",
+       "Residual chemicals affect fibre quality and ETP load",
+       "Wash temperature manually set"
+      ],
+      "kpi": [
+       "Fresh water consumption (m³/t fibre)",
+       "Residual Na2SO4 in fibre",
+       "Residual H2SO4",
+       "Wash water temperature",
+       "Effluent volume"
+      ],
+      "calc": "Fresh water reduction + reduced ETP load + Na2SO4 recovery uplift. ₹3 cr per MTPA fibre.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Fibre Drying & Crimping",
+    "f": [
+     "Washed fibre",
+     "Continuous belt dryer",
+     "Finish application",
+     "Crimper",
+     "Baler"
+    ],
+    "rm": "Washed fibre, finish (soft finish oil)",
+    "ut": "Steam/electric drying, power",
+    "out": "Dry crimped staple fibre ready for baling",
+    "q": "Moisture %, crimp count/cm, finish %, fibre tenacity, denier consistency",
+    "uc": [
+     {
+      "t": "Fibre Dryer Energy & Quality Optimization",
+      "k": "ai",
+      "v": 5.0,
+      "basis": "MTPA fibre",
+      "d": [
+       "Analyses belt dryer zone temperatures, residence time, fibre moisture and exit quality.",
+       "Models drying kinetics and predicts exit moisture and fibre quality versus dryer conditions.",
+       "Provides zone setpoint advisory for target moisture with minimum energy."
+      ],
+      "p": [
+       "Fibre drying is the largest energy consumer at fibre end",
+       "Drying setpoints conservative",
+       "Moisture variability affects baling and customer quality",
+       "Manual zone temperature control",
+       "Operating cost above benchmark"
+      ],
+      "kpi": [
+       "Energy consumption (GJ/t fibre)",
+       "Exit moisture %",
+       "Belt dryer zone temperatures",
+       "Fibre quality at exit"
+      ],
+      "calc": "Energy savings 5-8% × ₹50-80 cr/MTPA fibre drying energy. ₹5 cr per MTPA fibre.",
+      "tier": 2
+     },
+     {
+      "t": "Crimping & Final Finish Quality Monitoring",
+      "k": "cv",
+      "v": 2.0,
+      "basis": "MTPA fibre",
+      "d": [
+       "Analyses camera feeds of crimped fibre at the crimper exit and finish application.",
+       "Detects crimp irregularities, finish overdose/underdose, and surface defects.",
+       "Provides crimper and finish line setpoint advisory."
+      ],
+      "p": [
+       "Crimp variability affects downstream spinnability at customer",
+       "Finish overdose wastes oil (cost)",
+       "Manual visual inspection inconsistent",
+       "Customer complaints traced to crimp",
+       "Final QC at packaging insufficient"
+      ],
+      "kpi": [
+       "Crimp count/cm",
+       "Finish % on fibre",
+       "Crimp uniformity",
+       "Customer rejects on crimp quality"
+      ],
+      "calc": "Customer reject reduction + finish oil savings. ₹2 cr per MTPA fibre.",
+      "tier": 3
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Chemical Recovery",
+  "procs": [
+   {
+    "n": "CS2 Recovery",
+    "f": [
+     "CS2 vapor capture",
+     "Compression",
+     "Condensation / activated carbon adsorption",
+     "Regeneration",
+     "Recovered CS2"
+    ],
+    "rm": "CS2-laden gases from xanthation, dissolution, spin bath, fibre processing areas",
+    "ut": "Power (compressors, ID fans), absorbent media (activated carbon), steam (regeneration)",
+    "out": "Recovered CS2 returned to xanthation, residual emissions to scrubber",
+    "q": "CS2 recovery efficiency %, fresh CS2 makeup rate (kg/t fibre), CS2 emission rate",
+    "uc": [
+     {
+      "t": "CS2 Recovery & Loss Reduction Optimization",
+      "k": "ai",
+      "v": 20.0,
+      "basis": "MTPA fibre",
+      "d": [
+       "Analyses CS2 capture system performance (vapor capture efficiency, condenser performance, activated carbon bed cycling), CS2 emission monitor data, and process areas inventory.",
+       "Models CS2 mass balance plant-wide and identifies losses by area (xanthation, dissolution, spin bath, fibre processing).",
+       "Provides location-specific advisory on capture system operations and recovery sequence optimization."
+      ],
+      "p": [
+       "CS2 is the single largest variable cost (₹600-900 cr/MTPA fibre gross)",
+       "Recovery efficiency 85-90% typical; lifting to 92-95% is huge",
+       "Capture system performance not real-time monitored",
+       "Operators rely on lab CS2 measurements",
+       "CS2 emission compliance + financial stake aligned",
+       "Activated carbon regeneration schedule reactive"
+      ],
+      "kpi": [
+       "Net CS2 consumption (kg/t fibre)",
+       "CS2 recovery efficiency %",
+       "CS2 emission rate (g/Nm³)",
+       "Activated carbon bed life",
+       "Fresh CS2 makeup rate"
+      ],
+      "calc": "Recovery improvement 2-4 percentage points × 75 kg/t × ₹120/kg × 1 MTPA = ₹18-36 cr potential × 50-70% capture = ₹10-25 cr/MTPA. ₹20 cr per MTPA fibre.",
+      "tier": 1
+     }
+    ]
+   },
+   {
+    "n": "H2S Capture & Air Emission Control",
+    "f": [
+     "H2S-containing gas",
+     "Caustic scrubbing",
+     "Sulphide solution",
+     "H2SO4 production"
+    ],
+    "rm": "H2S byproduct from xanthation and recovery loops",
+    "ut": "Caustic scrubbing solution, oxidant, power",
+    "out": "Captured sulfide for sulphuric acid production, cleaned gas to stack",
+    "q": "H2S concentration in exit gas, capture efficiency %, S compound recovery",
+    "uc": [
+     {
+      "t": "H2S Capture & H2SO4 Production Optimization",
+      "k": "ai",
+      "v": 4.0,
+      "basis": "MTPA fibre",
+      "d": [
+       "Analyses H2S concentration in source gases, caustic scrubber performance, sulphide solution quality, and downstream H2SO4 production efficiency.",
+       "Models H2S capture and conversion to H2SO4; predicts plant-wide sulphur balance.",
+       "Provides advisory on scrubber and Claus/wet process operation for maximum sulphur recovery and compliant emissions."
+      ],
+      "p": [
+       "H2S compliance limits tight (regulatory + community)",
+       "Caustic scrubber overdosed for safety",
+       "Sulphur recovery imperfect (waste of source material)",
+       "Manual H2SO4 production tuning",
+       "Emission events expensive (fines + reputation)"
+      ],
+      "kpi": [
+       "H2S capture efficiency %",
+       "H2S emission rate (mg/Nm³)",
+       "H2SO4 production from byproduct (% of plant demand)",
+       "Caustic consumption in scrubber"
+      ],
+      "calc": "Caustic savings + H2SO4 production uplift + compliance margin. ₹4 cr per MTPA fibre.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Spin Bath Regeneration",
+    "f": [
+     "Used spin bath",
+     "Filtration",
+     "Concentration",
+     "Composition adjustment",
+     "Recycle to spinning"
+    ],
+    "rm": "Used spin bath (H2SO4, Na2SO4, ZnSO4, dissolved cellulose impurities)",
+    "ut": "Power (pumps, filters), fresh H2SO4 / ZnSO4 makeup",
+    "out": "Regenerated spin bath returned to spinning line, Na2SO4 byproduct to crystallizer",
+    "q": "H2SO4 strength, Na2SO4 level, ZnSO4 level, impurity levels",
+    "uc": [
+     {
+      "t": "Spin Bath Regeneration & Chemical Optimization",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MTPA fibre",
+      "d": [
+       "Analyses used spin bath quality, regeneration system performance (filtration, concentration), and makeup chemical consumption.",
+       "Models bath chemistry over recycling cycles and predicts makeup needs.",
+       "Provides regeneration setpoint advisory for minimum makeup with consistent spinning bath quality."
+      ],
+      "p": [
+       "ZnSO4 makeup cost high (zinc price volatile)",
+       "Spin bath regeneration manual",
+       "Impurity buildup over cycles hidden",
+       "Filter media life variable",
+       "Makeup overdose for safety"
+      ],
+      "kpi": [
+       "Fresh H2SO4 makeup rate",
+       "Fresh ZnSO4 makeup rate",
+       "Spin bath recycle efficiency",
+       "Filter performance"
+      ],
+      "calc": "ZnSO4 + H2SO4 makeup reduction. ₹3 cr per MTPA fibre.",
+      "tier": 2
+     },
+     {
+      "t": "ZnSO4 Recovery Optimization",
+      "k": "ai",
+      "v": 2.0,
+      "basis": "MTPA fibre",
+      "d": [
+       "Analyses zinc inventory in spin bath, fibre carryover, and crystallization fractionation.",
+       "Predicts ZnSO4 losses and recovery opportunities.",
+       "Provides recovery setpoint advisory to minimize zinc losses."
+      ],
+      "p": [
+       "Zinc cost rising (LME volatility)",
+       "Zinc losses to fibre carryover",
+       "Recovery from wash effluent imperfect",
+       "Manual zinc balance management",
+       "Zinc inventory not tracked in real-time"
+      ],
+      "kpi": [
+       "ZnSO4 makeup rate",
+       "Zinc carryover with fibre",
+       "Zinc recovery from wash effluent",
+       "Zinc cost (₹/t fibre)"
+      ],
+      "calc": "Zinc loss reduction × LME zinc price. ₹2 cr per MTPA fibre.",
+      "tier": 3
+     }
+    ]
+   },
+   {
+    "n": "Sodium Sulphate Recovery",
+    "f": [
+     "Na2SO4 liquor",
+     "Evaporation",
+     "Crystallization",
+     "Centrifuge",
+     "Drying",
+     "Bagging"
+    ],
+    "rm": "Na2SO4-rich liquor from spin bath regeneration and fibre washing",
+    "ut": "Steam (evaporation), cooling (crystallization), power",
+    "out": "Crystallized Na2SO4 byproduct (saleable glauber salt or anhydrous), mother liquor",
+    "q": "Na2SO4 purity (>99%), particle size, moisture, salable grade compliance",
+    "uc": [
+     {
+      "t": "Sodium Sulphate Crystallizer Optimization",
+      "k": "ai",
+      "v": 4.0,
+      "basis": "MTPA fibre",
+      "d": [
+       "Analyses crystallizer feed quality, evaporator performance, crystallization conditions, centrifuge output and crystal product quality.",
+       "Models crystallization kinetics and predicts product yield and quality.",
+       "Provides crystallizer setpoint advisory for maximum byproduct yield and quality compliance."
+      ],
+      "p": [
+       "Na2SO4 byproduct is significant revenue (~₹5-8/kg × 300 kg/t fibre)",
+       "Crystallizer operation manual",
+       "Product quality variability",
+       "Customer specs tight for grade",
+       "Operating cost not optimized"
+      ],
+      "kpi": [
+       "Na2SO4 byproduct yield (t/t fibre)",
+       "Crystal purity (>99%)",
+       "Particle size compliance",
+       "Salable grade %",
+       "Byproduct revenue (₹/t fibre)"
+      ],
+      "calc": "Yield improvement 3-5% + quality uplift for premium pricing. ₹4 cr per MTPA fibre.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Caustic Recovery",
+    "f": [
+     "Dilute NaOH",
+     "Evaporators",
+     "Concentrated NaOH",
+     "Storage",
+     "Steeping"
+    ],
+    "rm": "Press lye, dilute NaOH from various process streams",
+    "ut": "Steam (evaporation), power",
+    "out": "Concentrated NaOH for reuse in steeping, residual stream",
+    "q": "NaOH strength (g/L), purity, recovered volume vs makeup",
+    "uc": [
+     {
+      "t": "Caustic Recovery & Concentration Optimization",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MTPA fibre",
+      "d": [
+       "Analyses dilute NaOH feed flow, evaporator performance, and concentrated NaOH output quality.",
+       "Predicts recovery efficiency and steam consumption versus operating conditions.",
+       "Provides evaporator setpoint advisory for maximum recovery at minimum steam."
+      ],
+      "p": [
+       "NaOH makeup is significant ongoing cost",
+       "Caustic recovery evaporators not optimized",
+       "Manual concentration control",
+       "Steam consumption above design",
+       "Recovery rate variability"
+      ],
+      "kpi": [
+       "NaOH recovery efficiency %",
+       "Steam consumption (t/t recovered NaOH)",
+       "Concentrated NaOH strength (g/L)",
+       "NaOH makeup rate"
+      ],
+      "calc": "Recovery improvement + steam optimization. ₹3 cr per MTPA fibre.",
+      "tier": 2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Utilities",
+  "procs": [
+   {
+    "n": "Power Boiler",
+    "f": [
+     "Fuel firing",
+     "Combustion",
+     "Steam generation",
+     "ESP/Bag filter",
+     "Stack"
+    ],
+    "rm": "Coal, biomass (bark/sludge), makeup water",
+    "ut": "Combustion air, makeup water, chemicals",
+    "out": "HP steam, flue gas, ash",
+    "q": "Steam generation rate, boiler efficiency %, O2/CO/NOx, ash carbon%",
+    "uc": [
+     {
+      "t": "Power Boiler Combustion Optimization",
+      "k": "ai",
+      "v": 5.0,
+      "basis": "MTPA fibre",
+      "d": [
+       "Analyses fuel firing rate, air distribution, flue gas O2/CO/NOx, steam generation and ash carbon.",
+       "Models combustion versus fuel mix and predicts boiler efficiency, emissions and ash quality.",
+       "Provides air, fuel and load setpoint advisory for maximum steam at minimum fuel within emission limits."
+      ],
+      "p": [
+       "Fuel mix complexity (coal + biomass + sludge)",
+       "Combustion air balance manual",
+       "Ash carbon higher than design",
+       "Emissions compliance margin shrinking",
+       "Fuel cost rising"
+      ],
+      "kpi": [
+       "Boiler efficiency %",
+       "Steam generation (t/h)",
+       "O2/CO emissions",
+       "Fuel consumption per tonne steam"
+      ],
+      "calc": "Fuel savings 2-4% on ₹100-150 cr fuel cost. ₹5 cr per MTPA fibre.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Steam Network",
+    "f": [
+     "Boiler outlet",
+     "Headers",
+     "PRDS",
+     "Consumers",
+     "Condensate return",
+     "Deaerator"
+    ],
+    "rm": "HP/MP/LP steam from power boiler and recovery systems",
+    "ut": "N/A (utility infrastructure)",
+    "out": "Steam delivered to digesters, bleach plant, evaporators, fibre dryer",
+    "q": "Header pressures, flow distribution, condensate recovery%, venting losses",
+    "uc": [
+     {
+      "t": "Steam Network Optimization (Plant-Wide)",
+      "k": "ai",
+      "v": 5.0,
+      "basis": "MTPA fibre",
+      "d": [
+       "Analyses steam flows, pressures and consumption across plant (boiler, digesters, bleach plant, evaporators, dryers).",
+       "Models steam balance and identifies inefficient consumers and venting losses.",
+       "Provides plant-wide optimization advisory."
+      ],
+      "p": [
+       "Steam is largest energy carrier",
+       "Trap failures silent",
+       "Condensate flooding common",
+       "Vent losses during transients",
+       "Demand forecasting manual"
+      ],
+      "kpi": [
+       "Network pressure stability",
+       "Trap failure events",
+       "Condensate recovery %",
+       "Venting losses"
+      ],
+      "calc": "Network optimization 2-3% on total steam value. ₹5 cr per MTPA fibre.",
+      "tier": 2
+     },
+     {
+      "t": "Steam Trap Health Monitoring (Wireless Temperature)",
+      "k": "ai",
+      "v": 4.0,
+      "basis": "MTPA fibre",
+      "loc": [
+       "HP/MP/LP steam header drip legs (prevent water hammer)",
+       "Pulp dryer cylinder drains (large area, frequent failures)",
+       "Bleach plant tower drains",
+       "Distribution and tracing line drainage points across the plant"
+      ],
+      "d": [
+       "Analyses inlet and outlet temperature signatures from wireless battery-powered sensors deployed at each steam trap.",
+       "Detects failed-open (steam passing), failed-closed (condensate backup), and failed-cold (dead) conditions using temperature delta logic.",
+       "Provides location-tagged alerts to maintenance, replacing annual audit cycles with continuous monitoring."
+      ],
+      "p": [
+       "10-25% of steam traps fail at any time",
+       "Annual ultrasonic audits miss interim failures",
+       "Failed-open traps waste ₹2-25 lakh per trap per year",
+       "Failed-closed traps cause water hammer",
+       "No continuous monitoring at scale (plant has 1,500-3,000 traps)",
+       "Manual inspection cannot cover full population"
+      ],
+      "kpi": [
+       "Steam trap failure rate %",
+       "Steam loss from failed traps (₹/yr)",
+       "Mean time to detect failure (days)",
+       "Annual audit labor cost reduction",
+       "Condensate return %"
+      ],
+      "calc": "Trap failure rate 15% × 2,000 traps × ₹4 lakh/yr × 50% capture = ₹6 cr/yr at 0.5 MTPA = ₹12 cr/MTPA gross. Net ₹4 cr per MTPA fibre.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Effluent Treatment Plant (ETP)",
+    "f": [
+     "Equalization",
+     "pH correction",
+     "Primary clarifier",
+     "Aeration",
+     "Secondary clarifier",
+     "Sulphate removal",
+     "Discharge"
+    ],
+    "rm": "Combined plant effluent (acidic, alkaline, sulphate-rich, BOD/COD load)",
+    "ut": "Power (aerators, pumps), chemicals (pH correction, polymer), nutrients",
+    "out": "Treated effluent, biological sludge",
+    "q": "Inlet/outlet BOD, COD, TSS, sulphate, pH, DO, MLSS",
+    "uc": [
+     {
+      "t": "Effluent Treatment Plant (ETP) Optimization",
+      "k": "ai",
+      "v": 4.0,
+      "basis": "MTPA fibre",
+      "d": [
+       "Analyses inlet effluent characteristics (BOD, COD, TSS, sulphate, pH), aeration tank DO, MLSS, RAS flow and outlet quality.",
+       "Models biological treatment kinetics and predicts outlet compliance margins.",
+       "Provides aeration, RAS and chemical dosing advisory for compliance and energy minimization."
+      ],
+      "p": [
+       "VSF effluent is sulphate-rich and complex",
+       "Aeration is major ETP cost",
+       "Compliance violations costly",
+       "Manual aerator setpoints",
+       "Sulphate removal challenges"
+      ],
+      "kpi": [
+       "Outlet BOD, COD, TSS",
+       "Aeration power (kWh/m³)",
+       "MLSS, F/M ratio",
+       "Compliance margin",
+       "Sulphate removal efficiency"
+      ],
+      "calc": "Aeration savings + compliance + chemical optimization. ₹4 cr per MTPA fibre.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Water Treatment & Reuse",
+    "f": [
+     "Raw intake",
+     "Clarification",
+     "Filtration",
+     "DM/RO",
+     "Storage",
+     "Distribution"
+    ],
+    "rm": "Raw water (river/bore), treated effluent (recycle)",
+    "ut": "Power (pumps), chemicals (alum, polymer, antiscalant), filtration media",
+    "out": "Fresh water for process, recycled water for non-critical uses",
+    "q": "Turbidity, hardness, conductivity, microbiological load, reuse ratio",
+    "uc": [
+     {
+      "t": "Water Treatment & Reuse Optimization",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MTPA fibre",
+      "d": [
+       "Analyses raw water characteristics, treated water quality and reuse loop quality.",
+       "Predicts filter cleaning needs, dosing requirements and reuse opportunities.",
+       "Provides setpoint advisory to maximize reuse and minimize fresh water intake."
+      ],
+      "p": [
+       "VSF is extremely water-intensive (50-100 m³/t fibre)",
+       "Reuse opportunities not fully exploited",
+       "Manual filter cleaning schedule",
+       "Water cost rising (especially water-stressed regions)",
+       "Regulatory pressure on water footprint"
+      ],
+      "kpi": [
+       "Fresh water consumption (m³/t fibre)",
+       "Reuse % of process water",
+       "Treated water quality",
+       "Chemical cost (₹/m³)"
+      ],
+      "calc": "Fresh water reduction + reuse uplift. ₹3 cr per MTPA fibre.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Compressed Air Network",
+    "f": [
+     "Inlet",
+     "Compressors",
+     "Dryers",
+     "Receivers",
+     "Headers",
+     "Consumers"
+    ],
+    "rm": "Atmospheric air",
+    "ut": "Power (compressors)",
+    "out": "Compressed air for pneumatic actuators, instruments, conveying",
+    "q": "Network pressure (bar), flow (Nm3/h), dew point, leak rate %",
+    "uc": [
+     {
+      "t": "Compressed Air Network Optimization",
+      "k": "ai",
+      "v": 1.0,
+      "basis": "MTPA fibre",
+      "d": [
+       "Analyses compressor load, network pressure, flow at consumers and leak rates.",
+       "Detects compressor cycling, network leaks and pressure drops.",
+       "Provides advisory on compressor sequencing, network repairs and pressure setpoints."
+      ],
+      "p": [
+       "Compressed air leaks accumulate",
+       "Network pressure drops at consumers",
+       "Compressor cycling wastes energy",
+       "Leaks rarely fixed",
+       "Demand pattern not visible"
+      ],
+      "kpi": [
+       "Compressor specific energy (kWh/Nm³)",
+       "Network pressure (bar)",
+       "Cooling water ΔT",
+       "Network leak rate %"
+      ],
+      "calc": "Leak reduction + sequencing. ₹1 cr per MTPA fibre.",
+      "tier": 3
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Cross-Cutting",
+  "procs": [
+   {
+    "n": "Digital Foundation",
+    "f": [
+     "Field devices",
+     "Edge",
+     "Historian",
+     "Unified namespace",
+     "Apps and AI models"
+    ],
+    "rm": "OT data (DCS/PLC), MES, ERP, lab/LIMS data, IoT sensor streams",
+    "ut": "Edge gateways, network infrastructure, cloud compute, storage",
+    "out": "Unified data layer enabling all AI use cases",
+    "q": "Tag coverage %, data quality, latency, uptime, governance compliance",
+    "uc": [
+     {
+      "t": "IT-OT Integration & Data Foundation",
+      "k": "fd",
+      "v": null,
+      "basis": null,
+      "vt": "Enabler for all other use cases",
+      "d": [
+       "Foundational data layer: unified namespace, historian access, MES integration, ERP linkage.",
+       "Enables every other AI use case by providing reliable, tagged, contextual data.",
+       "Provides time-series storage, governance, role-based access and edge-to-cloud connectivity."
+      ],
+      "p": [
+       "Plant data scattered across DCS, PLC, lab, ERP",
+       "No single source of truth",
+       "Analytics projects start with data plumbing every time",
+       "Tag naming inconsistent",
+       "Limited self-service for plant teams"
+      ],
+      "kpi": [
+       "Tag coverage %",
+       "Data uptime/latency",
+       "Number of use cases enabled",
+       "Time-to-deploy new analytics"
+      ],
+      "calc": "Enabler — value realized through downstream use cases.",
+      "tier": 1
+     }
+    ]
+   },
+   {
+    "n": "Quality Management",
+    "f": [
+     "Sample collection",
+     "Lab analysis",
+     "LIMS entry",
+     "SPC/dashboards",
+     "Customer COA",
+     "Audit"
+    ],
+    "rm": "Lab samples, online quality sensors, customer specs, regulatory limits",
+    "ut": "Lab instruments, LIMS infrastructure, calibration standards",
+    "out": "Quality intelligence dashboards, certificates of analysis, traceability records",
+    "q": "Spec compliance %, lab turnaround time, COA accuracy, customer complaints",
+    "uc": [
+     {
+      "t": "LIMS Integration & Quality Intelligence",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MTPA fibre",
+      "d": [
+       "Integrates lab quality data (digester DP, alpha-cellulose, brightness, gamma value, ripeness, fibre tenacity) with online process data.",
+       "Builds quality intelligence dashboards, SPC charts and root cause analysis.",
+       "Provides early warning on quality drift and faster lab-to-process feedback loops."
+      ],
+      "p": [
+       "VSF has many lab parameters (DP, alpha, gamma, ripeness, tenacity)",
+       "Quality data in silos",
+       "Trends not visible cross-functionally",
+       "Root cause analysis manual",
+       "Customer audit prep labor-intensive"
+      ],
+      "kpi": [
+       "Lab data turnaround time",
+       "Quality spec compliance %",
+       "SPC out-of-control events",
+       "Customer complaint count"
+      ],
+      "calc": "Quality drift reduction + off-spec production reduction. ₹3 cr per MTPA fibre.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Asset Reliability",
+    "f": [
+     "Sensor",
+     "Anomaly detection",
+     "Alert",
+     "Work order",
+     "Spare",
+     "Execution",
+     "Closure",
+     "KPI"
+    ],
+    "rm": "Sensor data, maintenance history, spare parts data",
+    "ut": "Edge processing, CBM platform, CMMS software, MRO inventory system",
+    "out": "Failure predictions, work orders, reliability KPIs, optimized spares",
+    "q": "Equipment availability %, MTBF, MTTR, maintenance cost/t fibre, unplanned downtime hours",
+    "uc": [
+     {
+      "t": "Condition-Based Monitoring (CBM)",
+      "k": "ai",
+      "v": 15.0,
+      "basis": "MTPA fibre",
+      "d": [
+       "Analyses vibration, temperature, oil quality and motor signature data from critical rotating equipment (xanthator drums, dissolvers, spinning godets, dryers, agitators, pumps, blowers).",
+       "Predicts bearing failures, alignment issues, lubrication problems and impending breakdowns.",
+       "Provides location-tagged alerts and remaining-useful-life estimates."
+      ],
+      "p": [
+       "Unplanned trips on spinning line cause major broke",
+       "Maintenance largely reactive",
+       "Critical equipment fails without warning",
+       "Aging asset base",
+       "Maintenance budget rising"
+      ],
+      "kpi": [
+       "Unplanned downtime hours/year",
+       "MTBF on critical assets",
+       "Maintenance cost (₹/t fibre)",
+       "Predictive vs reactive ratio"
+      ],
+      "calc": "Unplanned downtime reduction × fibre margin × hours saved. ₹15 cr per MTPA fibre.",
+      "tier": 1
+     },
+     {
+      "t": "Computerised Maintenance Management System (CMMS)",
+      "k": "ai",
+      "v": 5.0,
+      "basis": "MTPA fibre",
+      "d": [
+       "Workflow management for maintenance work orders, planned/unplanned tracking, asset history and maintenance KPIs.",
+       "Integrates CBM alerts into work order generation and tracks closure.",
+       "Provides asset-level reliability metrics (MTBF, MTTR), maintenance cost reporting and compliance audit trails."
+      ],
+      "p": [
+       "Maintenance work tracked in spreadsheets",
+       "Work orders don't close on time",
+       "No structured asset history",
+       "Spare consumption not attributed accurately",
+       "Audit prep labor-intensive"
+      ],
+      "kpi": [
+       "Work order closure time (days)",
+       "Planned vs unplanned ratio",
+       "Maintenance cost reporting accuracy",
+       "MTBF/MTTR by asset class"
+      ],
+      "calc": "Work order closure reduction + maintenance cost transparency. ₹5 cr per MTPA fibre.",
+      "tier": 1
+     },
+     {
+      "t": "MRO & Spare-Parts Optimization",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MTPA fibre",
+      "d": [
+       "Analyses spare parts inventory, lead times, criticality, consumption patterns and supplier reliability.",
+       "Models optimal stocking levels, reorder points and consignment opportunities for critical spares.",
+       "Provides inventory optimization advisory and supplier performance dashboards."
+      ],
+      "p": [
+       "Excess inventory (₹30-80+ cr tied up)",
+       "Critical spares stockouts cause emergencies",
+       "Lead times not tracked systematically",
+       "Cataloging inconsistent",
+       "Supplier performance not tracked"
+      ],
+      "kpi": [
+       "Inventory value (₹ cr)",
+       "Stockout events",
+       "Emergency procurement %",
+       "Inventory turn ratio"
+      ],
+      "calc": "Inventory reduction 15-25% + emergency procurement savings. ₹3 cr per MTPA fibre.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Safety",
+    "f": [
+     "CCTV + gas sensors",
+     "CV models",
+     "Violation detection",
+     "Alert",
+     "Field response",
+     "SCM logging"
+    ],
+    "rm": "CCTV feeds, gas detection (CS2, H2S, H2SO4 mist), access control, incident history",
+    "ut": "CV platform, edge inference, SCM integration, alert infrastructure",
+    "out": "Real-time safety alerts, compliance reports, near-miss analytics",
+    "q": "PPE compliance %, restricted-zone violations, CS2 exposure events, near-misses",
+    "uc": [
+     {
+      "t": "AI Safety Monitoring",
+      "k": "cv",
+      "v": 3.0,
+      "basis": "MTPA fibre",
+      "d": [
+       "Critical zones: xanthation area (CS2 exposure), viscose dissolution, spinning area (H2SO4 mist + CS2), chemical handling, recovery systems.",
+       "Analyses CCTV feeds with computer vision (PPE compliance, restricted-zone intrusion) integrated with CS2 and H2S gas detection data.",
+       "Provides real-time alerts to control room and safety officers; integrates with site SCM."
+      ],
+      "p": [
+       "CS2 exposure has serious health effects (neurological)",
+       "H2S is acutely toxic",
+       "PPE compliance manual checks",
+       "Restricted zone access not 24/7 monitored",
+       "Incident investigation slow"
+      ],
+      "kpi": [
+       "PPE compliance %",
+       "Restricted zone violation count",
+       "CS2 exposure events",
+       "H2S exposure events",
+       "LTI frequency rate (LTIFR)"
+      ],
+      "calc": "Incident avoidance + insurance + compliance audit. ₹3 cr per MTPA fibre.",
+      "tier": 1
+     }
+    ]
+   },
+   {
+    "n": "Ops Intelligence",
+    "f": [
+     "Data ingestion",
+     "Contextualization",
+     "KPI computation",
+     "Dashboard",
+     "Decision",
+     "Action"
+    ],
+    "rm": "All plant data",
+    "ut": "Cloud compute, BI platform, scheduling engine",
+    "out": "Plant-wide OEE, KPI dashboards, schedule optimization, what-if scenarios",
+    "q": "OEE%, throughput, conversion cost (₹/t fibre), schedule adherence, grade mix margin",
+    "uc": [
+     {
+      "t": "Plant-Wide KPI & OEE Dashboarding",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MTPA fibre",
+      "d": [
+       "Integrates production, quality, energy and downtime data across all sections into role-based dashboards.",
+       "Provides automated OEE, specific energy and conversion-cost calculation; root cause analysis tools.",
+       "Enables data-driven decision making at all levels."
+      ],
+      "p": [
+       "Multiple reporting systems; manual collation",
+       "KPIs not real-time",
+       "Drill-down to root cause manual",
+       "Different definitions across sections",
+       "Management reviews backward-looking"
+      ],
+      "kpi": [
+       "OEE %",
+       "Specific energy (GJ/t fibre)",
+       "Conversion cost (₹/t fibre)",
+       "Schedule adherence %"
+      ],
+      "calc": "Systemic OEE + energy KPI tracking. ₹3 cr per MTPA fibre.",
+      "tier": 1
+     },
+     {
+      "t": "Production Planning & Scheduling Optimization",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MTPA fibre",
+      "d": [
+       "Analyses order book, fibre grade requirements (denier, length, finish), changeover times, and grade-specific economics.",
+       "Models grade campaign sequencing and predicts margin per scenario.",
+       "Provides optimal schedule and grade sequence recommendations."
+      ],
+      "p": [
+       "Grade changes manually planned",
+       "Changeover cost not optimized",
+       "Demand variability not captured",
+       "Order book to schedule labor-intensive",
+       "Optimal sequencing missed"
+      ],
+      "kpi": [
+       "Schedule adherence %",
+       "Grade changeover loss (t)",
+       "Grade mix margin (₹/t)",
+       "Plant utilization %"
+      ],
+      "calc": "Reduced changeover loss + improved grade-mix margin. ₹3 cr per MTPA fibre.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Sustainability & Compliance",
+    "f": [
+     "Emission/effluent monitoring",
+     "Data integration",
+     "Compliance reporting",
+     "Audit",
+     "Certification"
+    ],
+    "rm": "Air emission data, effluent data, sustainability metrics, chain of custody",
+    "ut": "Compliance management platform, audit infrastructure",
+    "out": "Compliance reports, FSC/PEFC certification data, sustainability declarations",
+    "q": "Emission limit margins, audit findings, certified product %, water footprint per t fibre",
+    "uc": [
+     {
+      "t": "Environmental Compliance & Sustainability Traceability",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MTPA fibre",
+      "d": [
+       "Tracks CS2/H2S emissions, water footprint, effluent quality, chain of custody (FSC/PEFC) and sustainability metrics.",
+       "Integrates with regulatory reporting (state PCB) and customer sustainability audits (Higg, ZDHC).",
+       "Provides compliance dashboards and certified product tracking."
+      ],
+      "p": [
+       "VSF industry under sustainability scrutiny",
+       "Customer brand demands (H&M, Inditex) growing",
+       "FSC/PEFC certification labor-intensive",
+       "Compliance reporting fragmented",
+       "Sustainability data not real-time"
+      ],
+      "kpi": [
+       "Emission compliance margins (CS2, H2S)",
+       "Water footprint (m³/t fibre)",
+       "Certified product %",
+       "Audit findings",
+       "Customer sustainability scorecard"
+      ],
+      "calc": "Certified product premium + compliance + customer brand requirements. ₹3 cr per MTPA fibre.",
+      "tier": 2
+     }
+    ]
+   }
+  ]
+ }
+]

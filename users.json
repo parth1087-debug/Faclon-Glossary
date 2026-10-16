@@ -9,6 +9,14 @@
    "title": "AI Closed-Loop Soot Blowing"
   },
   {
+   "slug": "aluminium-use-cases",
+   "title": "Aluminium Use Cases"
+  },
+  {
+   "slug": "bess-use-cases",
+   "title": "Battery Energy Storage Use Cases"
+  },
+  {
    "slug": "bus-bar-monitoring",
    "title": "Bus Bar Temperature Monitoring"
   },
@@ -17,12 +25,20 @@
    "title": "Cement Use Cases"
   },
   {
+   "slug": "chemicals-use-cases",
+   "title": "Chemicals Use Cases"
+  },
+  {
    "slug": "coal-mining-ai-use-case-map",
    "title": "Coal Mining Use Cases"
   },
   {
    "slug": "condition-based-monitoring",
    "title": "Predictive Maintenanace"
+  },
+  {
+   "slug": "copper-use-cases",
+   "title": "Copper Use Cases"
   },
   {
    "slug": "discrete-manufacturing-use-cases",
@@ -53,12 +69,24 @@
    "title": "Power Plant AI Use Cases"
   },
   {
+   "slug": "pulp-fibre-use-cases",
+   "title": "Pulp & Fibre Use Cases"
+  },
+  {
    "slug": "pulp-paper-ai-use-case-map",
    "title": "Pulp & Paper Use Cases"
   },
   {
    "slug": "pulp-paper-use-cases-2",
    "title": "Pulp & Paper Use Cases 2"
+  },
+  {
+   "slug": "refinery-petrochemicals-use-cases",
+   "title": "Refinery & Petrochemicals Use Cases"
+  },
+  {
+   "slug": "solar-use-cases",
+   "title": "Solar Use Cases"
   },
   {
    "slug": "steam-trap-monitoring",
@@ -104,6 +132,14 @@
    "iv": "3xSWfiAT/aQdbOKf",
    "ct": "6OnqybbfXM2cZi9CoqvyTxA/zE62uEoRJNwGLtmhAEWdjQaIYxP0IbNg/Ek8xKNLcZaNqTj2dAO8AR+E"
   },
+  "aluminium-use-cases": {
+   "iv": "8Prpwg8an4Yo92XB",
+   "ct": "yMjzqeWyh+GZAysdY3f21j4DgCPU5QYA5jJphFb3r/Qw0jlw+tcLRvn121gc+E2aYgqfy/lpGsEQwu9d"
+  },
+  "bess-use-cases": {
+   "iv": "1+KB0HIQLyfy0EqN",
+   "ct": "lQxy/wMUWyE+X+1gN5ldFA9aVEVM/4rbjdK1PkOTwkeg0hjmW/9MskKNrQ5plJYEQ//vlZIE44NQmCkv"
+  },
   "bus-bar-monitoring": {
    "iv": "iOcp0oiVoSa9BgOU",
    "ct": "EFBA4QTz9RVLNRd92xeP597eY9eOVetfcETM5MYtfY/Miapw//n30/eV4HT9Q2RtSdlUdMvSyaV1UyNj"
@@ -112,6 +148,10 @@
    "iv": "uxkJunqPbIqijD0S",
    "ct": "9yirIlR5k04hIW8r8AivC5tJnYFV3TxM7iAyB9mEWAGt770bj0/amYuXKm+a+ueO7lfmDV7e2bIP5vED"
   },
+  "chemicals-use-cases": {
+   "iv": "pVb33fPUDaNo0BFI",
+   "ct": "h2bzpYRHIhoJcla3ptEMNoQ7pXhKxm+gZkQ8EYJpRsXCQ8nldmhXndQ2AT+m/qPojy+vQ20OfQFekRqs"
+  },
   "coal-mining-ai-use-case-map": {
    "iv": "IYwiBlGBqLiEbNW9",
    "ct": "Dt6V2bVVWHR6r2SNxQmJhFxAcZx4Tb0bxenWFi4jmF4ksVC3/Edd6G4SEVG009izoUsrmX8dGTfJnsex"
@@ -119,6 +159,10 @@
   "condition-based-monitoring": {
    "iv": "GhRYO04MtQZs/ajA",
    "ct": "gw0rStdRmqjCXp05XJpvi1fql7M2PucK8tAMDaaLzhLwkhhw2ZiujjnklkztPfbeLffQeXQC/htXA3Ue"
+  },
+  "copper-use-cases": {
+   "iv": "3eqDTJsbxglM9HzT",
+   "ct": "f3IojjaGtdwUpoDcCofZqNVTvERcDTKuvXFzRvVEZvjAs/qpVsmk0vz+0T6CqIV7yGKTdu+8xwrOGTUs"
   },
   "discrete-manufacturing-use-cases": {
    "iv": "AlRXy0PqwgG/ugKI",
@@ -148,6 +192,10 @@
    "iv": "87Qsj114xMeyVg9p",
    "ct": "NPJ7x0nzOc1so/RRMboYpYtsc+wYuoFlX99zamoiwUvpbSVHJ1SYj7jmOa4mD8Gy0yiCGFppsYImRs5q"
   },
+  "pulp-fibre-use-cases": {
+   "iv": "zJj0Jt2BToFuRbgt",
+   "ct": "iWMbTmq3YYr7+WneC816+oTCc/3XqqvSoTkHWzDKR3i916uiSsFXoiKRgsTf7+/e0dwEDOCCTDa6znU7"
+  },
   "pulp-paper-ai-use-case-map": {
    "iv": "VmeufVYukgjdfRxQ",
    "ct": "jhwLCBagXGZ0pNxxOhL8p+2sPARiq2IrbxriDH01Ruu+VmxXV+NYWDv4uYv3/p9b9jVndwaWvbQkWpta"
@@ -155,6 +203,14 @@
   "pulp-paper-use-cases-2": {
    "iv": "xX5LfhCGbpdxs30I",
    "ct": "W50oNSpnf6G0ocMPVmEigQE269ip31MUQmI6Scg83rXP4E4IBKY0YeCCshvBeG0MsBFKk7DPZ8k5E1yu"
+  },
+  "refinery-petrochemicals-use-cases": {
+   "iv": "G578ikpk+FinW7/J",
+   "ct": "AiTLXAC6c8xK8eEhb+WR07lOEp8aaLeQNQAR82/h1k2RLhO5ZU2lJMFiJfbFk/NFUnZt1Jy/RSPdL4Ne"
+  },
+  "solar-use-cases": {
+   "iv": "mo+JELOh5NLXiDT5",
+   "ct": "+1699wp+diNqbKT8eMHjkt1Teph6WnkN0rE5e6MNip/LRWC/sltaINMauqJBVh/yuQkpixSegbcReg8I"
   },
   "steam-trap-monitoring": {
    "iv": "jzPX3sC3K52ymyoA",
@@ -170,6 +226,14 @@
    "iv": "dI+uaxH76ld1TJKK",
    "ct": "eKqclHtGtqVO15g4d5mV5DptT3jWft5S2qhjN1JDd3kdWjlL37FCyseEK2I7pChUTWRqM8IY72AWDNqi"
   },
+  "aluminium-use-cases": {
+   "iv": "VDgkkQMqwZJWnhav",
+   "ct": "jZB73aRM9QVcHISsWi8N5n4BRw59fJ6dbEAjrhc/Sdfe9visi4NqkKRfbX9w5eZdVBxin3/wfNatP5tA"
+  },
+  "bess-use-cases": {
+   "iv": "SSDxrMrd+Q/6YXeI",
+   "ct": "L7tKjOnn6Wtv1hHQhETX23m63CmWgcYksD4LlLHWT+DEvUnoAhygVzEN08yUQinqxreF54+LNrUzXcfj"
+  },
   "bus-bar-monitoring": {
    "iv": "His3QhblMHaoPlC0",
    "ct": "IwSW6t3/hhV5+uf/kcaqoaonJLLmwULTtp9FyDqqzXwUnL4L3QfVzzIEIxuiCPIOA8ysLMfZTw+UB6pD"
@@ -178,6 +242,10 @@
    "iv": "VMhajkrEWR6gz4xA",
    "ct": "RYCAFGILmcEpTrlBIC4FcP1Vc/hODUkdVuQGmtvt+uKaOLsyMm64ZWDMGRValE4fY5n3gvKKpZYllnbf"
   },
+  "chemicals-use-cases": {
+   "iv": "xzvo/qTqKmmpd5x3",
+   "ct": "Ch1xdx0NFufymMXsx9EA1QhPhDcf+UtKbiNIcxbGHsVY57r67ql98gfLr30q+g7OqZkBX4Tcd4vGq6Gr"
+  },
   "coal-mining-ai-use-case-map": {
    "iv": "ve+NWQQg0HyV6CI1",
    "ct": "IfvZjn1SWjgJFoG9zKiUWS0W3E7tdU/hviEofwVhgE48BaP6f15dMKg6WoViHaRichqegB6Bz1Y/41Dy"
@@ -185,6 +253,10 @@
   "condition-based-monitoring": {
    "iv": "axSttDBByxRrAaon",
    "ct": "iOVVc0HS/17Mfhw+CvcmWEtQM1ns5Q/mkeZBsT/BY/qAIO4d/SYFTBx0/DcT4CLOsC+nsfDsERffwyNQ"
+  },
+  "copper-use-cases": {
+   "iv": "sMWp9y58hOJkrulS",
+   "ct": "KFACVrM2skC7wM5RxstwOrrtSNDLDSRv/PPdigNLOBnx62ePihykWpGn5Lq8GibSVe6BQa72G/z0JBdH"
   },
   "discrete-manufacturing-use-cases": {
    "iv": "lZzrumnvt6tnBH9c",
@@ -214,6 +286,10 @@
    "iv": "N1mbBm2B9pI8lDCI",
    "ct": "vonoi30YcMDrqpV/JNUOgupN5oOwKlqdaPnm+OcRSkWKBHDwZ9o5yH3kr98H0n6JyfHKdXM3Baaz1xso"
   },
+  "pulp-fibre-use-cases": {
+   "iv": "WmREvzrpsCXd+XZi",
+   "ct": "WqpX4LyaXt+fV5RudpJ/5njKjuJb5Aa+Elf5kDj4RfYK+fcPRy3K76IfZ8Ixs1Cfi1m82afNO33X1GP5"
+  },
   "pulp-paper-ai-use-case-map": {
    "iv": "6XeClMBeq47UbqCC",
    "ct": "A3FKscqu2IZsa9O0G/VUzAvRLRUYrjC7MliCBHjMzKzV4cOvtiHZigmsgyoWyjgMxe+ev60kVNfn3Brq"
@@ -221,6 +297,14 @@
   "pulp-paper-use-cases-2": {
    "iv": "0CIA6FKsv2+UJsaK",
    "ct": "2nRVUHNqLw/rNAfIoerHlFx8HhB6qjvWri/y2mYYtpy9Lhqix4sflbcY/BeyAXfDGDtDRsQUIznZH4D/"
+  },
+  "refinery-petrochemicals-use-cases": {
+   "iv": "ToLOxPmfSAZ32YrU",
+   "ct": "jk0Dn5I7Q/3AHJDCXguoJImz8dK04ZtgMFbsZqF5+8Ohj4bYJ30owAgb87J3yDMeyQY+D1BylUSZXeou"
+  },
+  "solar-use-cases": {
+   "iv": "r+WuyzabKgS/NELM",
+   "ct": "J3PtGa5R+i9cCZjkENGOQsyBdt8ubJqR3RK2XQPpPvT5NAt7egN2inUOf3TEStlBE5TNJWBo0Lnu8cBl"
   },
   "steam-trap-monitoring": {
    "iv": "Ltz5tZxZYhvFlzCz",

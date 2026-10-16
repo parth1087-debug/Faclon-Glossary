@@ -1,0 +1,2171 @@
+[
+ {
+  "s": "Crude Receipt & Storage",
+  "procs": [
+   {
+    "n": "Crude Receipt & Tankage",
+    "f": [
+     "Crude receipt (pipeline/jetty/rail)",
+     "Storage tanks",
+     "Blending",
+     "Surge tank",
+     "CDU desalter"
+    ],
+    "rm": "Multiple crude grades (Indian + imported, sour/sweet, light/heavy, varying API gravity)",
+    "ut": "Power (pumps, mixers), heating (some heavy crudes), instrumentation",
+    "out": "Blended crude to CDU feed; stored crude inventory by grade",
+    "q": "Crude assay (API gravity, sulphur%, TAN, salt content, water%, distillation profile)",
+    "uc": [
+     {
+      "t": "Crude Selection & Compatibility Optimization",
+      "k": "ai",
+      "v": 8.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Analyses available crude grades (assays), refinery LP model, product slate target and crude economics.",
+       "Models crude blend compatibility (asphaltene stability), unit constraints and margin per crude.",
+       "Provides crude purchase + blending advisory for maximum margin without operational risk."
+      ],
+      "p": [
+       "Crude selection labor-intensive (each cargo decision)",
+       "Incompatible crude blends cause fouling/coking",
+       "Compatibility models exist but not used systematically",
+       "LP model decisions vs operational reality",
+       "Crude opportunity cost not measured"
+      ],
+      "kpi": [
+       "GRM uplift ($/bbl)",
+       "Crude blend compatibility events",
+       "Asphaltene precipitation incidents",
+       "Crude inventory turn"
+      ],
+      "calc": "Crude margin optimization $0.05-0.15/bbl × 7 bbl/t × 1 MMTPA. ₹8 cr per MMTPA crude.",
+      "tier": 2
+     },
+     {
+      "t": "Tank Health & Inventory Optimization",
+      "k": "ai",
+      "v": 2.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Analyses tank inventory levels, tank chemistry (sediment, water, BS&W), product movement patterns and tank maintenance history.",
+       "Detects sludge buildup, water bottoms, sampling discrepancies and tank capacity issues.",
+       "Provides inventory optimization and tank maintenance advisory."
+      ],
+      "p": [
+       "Tank inventories don't match measured (sediment, water)",
+       "Sludge buildup reduces effective capacity",
+       "Cross-contamination during transfers",
+       "Manual gauging slow",
+       "Tank maintenance scheduled by time"
+      ],
+      "kpi": [
+       "Tank inventory accuracy",
+       "Sludge accumulation",
+       "Cross-contamination events",
+       "Tank turnaround time"
+      ],
+      "calc": "Inventory accuracy + sludge management. ₹2 cr per MMTPA crude.",
+      "tier": 3
+     }
+    ]
+   },
+   {
+    "n": "Desalter",
+    "f": [
+     "Crude",
+     "Wash water mixing",
+     "Demulsifier injection",
+     "Electrostatic coalescers",
+     "Water separation",
+     "Desalted crude"
+    ],
+    "rm": "Crude oil from storage (containing salt, water, sediment)",
+    "ut": "Power (mix valves, transformers), wash water, demulsifier chemicals",
+    "out": "Desalted crude to CDU preheat train",
+    "q": "Salt content (PTB - lb/1000 bbl), water content, sediment, oil-water emulsion stability",
+    "uc": [
+     {
+      "t": "Desalter Performance & Crude Pre-treatment Optimization",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Analyses desalter performance (salt removal, water in oil, oil in water), wash water dosing and demulsifier addition.",
+       "Models electrostatic separation effectiveness and predicts salt content reaching CDU.",
+       "Provides chemical dosing + voltage advisory for target salt level."
+      ],
+      "p": [
+       "High salt damages CDU overhead system (corrosion, fouling)",
+       "Chemical dosing manual",
+       "Wash water excessive or insufficient",
+       "Desalter trips affect downstream",
+       "Salt drives downstream chloride issues"
+      ],
+      "kpi": [
+       "Salt content to CDU (PTB target <2)",
+       "Water content carryover",
+       "Demulsifier consumption (ppm)",
+       "Wash water usage",
+       "Oil-in-water rejection"
+      ],
+      "calc": "Corrosion prevention + chemical savings + CDU reliability. ₹3 cr per MMTPA crude.",
+      "tier": 2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Crude Distillation (CDU/VDU)",
+  "procs": [
+   {
+    "n": "Atmospheric Distillation (CDU)",
+    "f": [
+     "Preheat train",
+     "CDU heater",
+     "Atmospheric column",
+     "Side stripper columns",
+     "Overhead system",
+     "Product tankage"
+    ],
+    "rm": "Desalted crude oil",
+    "ut": "Fuel (heater), steam (stripping), power (pumps), cooling water",
+    "out": "LPG, naphtha, kero/ATF, diesel, AGO, atmospheric residue (long residue)",
+    "q": "Cut point control (initial/final BP), product distillation (D86 ASTM), specific gravity, flash point",
+    "uc": [
+     {
+      "t": "CDU Yield & Cut Point Optimization",
+      "k": "ai",
+      "v": 10.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Analyses CDU operating conditions (column temperatures, reflux, stripping steam), crude properties and product yields/specs.",
+       "Models distillation kinetics and predicts product yields versus operating conditions for each crude blend.",
+       "Provides cut-point and operating setpoint advisory for maximum high-value product yield."
+      ],
+      "p": [
+       "Cut points set conservatively",
+       "Operator-dependent column control",
+       "Reflux often higher than needed (wasted energy)",
+       "Side stripper steam excessive",
+       "Product giveaway (better quality than needed)"
+      ],
+      "kpi": [
+       "Light product yield % (Naphtha + Kero + Diesel)",
+       "Off-spec product rate",
+       "Cut-point compliance",
+       "Tower stability",
+       "CDU specific energy"
+      ],
+      "calc": "Higher-value product yield uplift 0.5-1% × refining margin. ₹10 cr per MMTPA crude.",
+      "tier": 1
+     },
+     {
+      "t": "Heat Exchanger Network Fouling Detection & Cleaning Advisory",
+      "k": "ai",
+      "v": 5.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Critical heat exchanger network in CDU/VDU preheat train (20+ exchangers).",
+       "Analyses heat duty, fouling factors and approach temperatures across HEN to detect individual exchanger fouling.",
+       "Models fouling progression and predicts cleaning intervention timing for maximum heat recovery."
+      ],
+      "p": [
+       "HEN fouling silent — adds to heater duty",
+       "Cleaning often time-based, not condition-based",
+       "Individual exchanger performance hidden",
+       "Heat recovery degrades over time",
+       "Operator-driven cleaning decisions"
+      ],
+      "kpi": [
+       "Heat recovery to crude (°C preheat)",
+       "Individual exchanger U values",
+       "Cleaning intervention timing",
+       "Fired duty offset"
+      ],
+      "calc": "Heat recovery improvement 5-10°C preheat = 2-3% fuel reduction × heater fuel cost. ₹5 cr per MMTPA crude.",
+      "tier": 2
+     },
+     {
+      "t": "CDU Stripping Steam & Quality Control",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Analyses side stripper steam usage and product cut quality (95% point, flash point compliance).",
+       "Models stripping vs quality tradeoff.",
+       "Provides stripping steam advisory for spec compliance at minimum steam."
+      ],
+      "p": [
+       "Stripping steam dosed conservatively",
+       "Each strip column independent",
+       "Steam cost rising",
+       "Manual operation",
+       "Flash point safety margin large"
+      ],
+      "kpi": [
+       "Side stripper steam consumption",
+       "Product 95% point compliance",
+       "Flash point compliance",
+       "Steam-to-feed ratio"
+      ],
+      "calc": "Steam reduction 10-20% × stripper steam cost. ₹3 cr per MMTPA crude.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Crude Heater (CDU/VDU)",
+    "f": [
+     "Fluid inlet",
+     "Convection section",
+     "Radiant section",
+     "Outlet",
+     "Process column. Fuel + air",
+     "Burners",
+     "Stack"
+    ],
+    "rm": "Process fluid (crude or residue) for heating",
+    "ut": "Fuel gas / refinery fuel oil, combustion air, steam (atomization)",
+    "out": "Heated process fluid at target temperature",
+    "q": "Heater efficiency %, fuel consumption (kCal/kg), excess air %, tube skin temperatures, draft",
+    "uc": [
+     {
+      "t": "CDU/VDU Heater Efficiency & Energy Optimization",
+      "k": "ai",
+      "v": 6.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Analyses heater performance (fuel firing, excess air, tube skin temperatures, draft, fouling).",
+       "Models heater combustion efficiency and predicts fuel consumption.",
+       "Provides combustion + draft + tube monitoring advisory for minimum fuel at target outlet temperature."
+      ],
+      "p": [
+       "Heaters run with excess air (safety margin)",
+       "Tube fouling causes efficiency degradation",
+       "Manual combustion tuning",
+       "Fuel cost is biggest variable cost",
+       "Tube life shortened by uneven firing"
+      ],
+      "kpi": [
+       "Heater efficiency % (target 88-92%)",
+       "Excess air %",
+       "Fuel consumption (kCal/kg crude)",
+       "Tube skin temperatures",
+       "Stack temperature"
+      ],
+      "calc": "Fuel reduction 3-5% × heater fuel cost. ₹6 cr per MMTPA crude.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Vacuum Distillation (VDU)",
+    "f": [
+     "Atmospheric residue",
+     "VDU heater",
+     "Vacuum column (steam ejectors maintain vacuum)",
+     "Side strippers",
+     "Bottom residue"
+    ],
+    "rm": "Atmospheric residue (long residue from CDU bottom)",
+    "ut": "Fuel (heater), steam (stripping + ejectors), power, vacuum system",
+    "out": "Light/heavy vacuum gas oil (LVGO/HVGO), vacuum residue (short residue) to coker/FCC/HCU",
+    "q": "Vacuum level, cut points (LVGO/HVGO), Conradson Carbon Residue (CCR), heavy metals (Ni, V)",
+    "uc": [
+     {
+      "t": "VDU Vacuum & Heavy Cut Yield Optimization",
+      "k": "ai",
+      "v": 6.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Analyses vacuum column performance (vacuum level, ejector system, heater coil temperature, cut points).",
+       "Models VDU separation efficiency and predicts HVGO/VR cut.",
+       "Provides vacuum + temperature setpoint advisory for maximum HVGO recovery."
+      ],
+      "p": [
+       "Vacuum level often suboptimal (insufficient pump)",
+       "Heater coil temperature limited by coking risk",
+       "Manual VDU control",
+       "Cut points conservative",
+       "HVGO yield below maximum"
+      ],
+      "kpi": [
+       "HVGO yield %",
+       "Vacuum level (mmHg)",
+       "HVGO end point",
+       "Ejector steam consumption",
+       "VR quality (Conradson Carbon, metals)"
+      ],
+      "calc": "HVGO yield uplift × downstream margin + ejector steam optimization. ₹6 cr per MMTPA crude.",
+      "tier": 2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Hydrotreating Complex",
+  "procs": [
+   {
+    "n": "Diesel Hydrotreater (DHDT)",
+    "f": [
+     "Feed + H2",
+     "Heater",
+     "Reactor (multi-bed)",
+     "Hot/cold separator",
+     "Stripper",
+     "Treated diesel"
+    ],
+    "rm": "Straight-run diesel + light cycle oil (LCO) + light coker gas oil (LCGO)",
+    "ut": "Hydrogen (large consumption), power, fuel (reactor preheat)",
+    "out": "BS-VI compliant ultra-low sulfur diesel (sulfur <10 ppm)",
+    "q": "Sulfur content (target <10 ppm for BS-VI), cetane number, distillation, density, cold flow properties",
+    "uc": [
+     {
+      "t": "Hydrotreater Catalyst Cycle Life Management",
+      "k": "ai",
+      "v": 10.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Analyses reactor temperature profile, weighted average bed temperature (WABT), pressure drop, sulfur slip and feed quality.",
+       "Models catalyst deactivation kinetics and predicts remaining cycle life.",
+       "Provides operating advisory to extend cycle while maintaining BS-VI sulfur compliance."
+      ],
+      "p": [
+       "Catalyst replacement expensive (₹20-50 cr per change) + multi-day downtime",
+       "Operating temperature crept up over cycle (more H2, less margin)",
+       "BS-VI sulfur compliance critical",
+       "Manual cycle management",
+       "Catalyst end-of-life decisions conservative"
+      ],
+      "kpi": [
+       "WABT (°C)",
+       "Sulfur slip (ppm)",
+       "Cycle length (months)",
+       "Catalyst utilization",
+       "Pressure drop progression"
+      ],
+      "calc": "Cycle extension 6-12 months × catalyst cost + downtime avoidance. ₹10 cr per MMTPA crude.",
+      "tier": 1
+     },
+     {
+      "t": "BS-VI Sulfur Compliance & H2 Consumption Optimization",
+      "k": "ai",
+      "v": 5.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Analyses real-time sulfur (online analyser), reactor conditions, feed sulfur and H2 partial pressure.",
+       "Models hydrodesulfurization (HDS) kinetics and predicts product sulfur.",
+       "Provides reactor temperature + H2 advisory for spec compliance at minimum H2 consumption."
+      ],
+      "p": [
+       "BS-VI sulfur target (<10 ppm) is tight",
+       "Operators run with safety margin (over-treating)",
+       "H2 cost significant",
+       "Manual reactor temperature",
+       "Sulfur lab feedback slow"
+      ],
+      "kpi": [
+       "Product sulfur compliance (<10 ppm for BS-VI)",
+       "H2 consumption (Nm³/m³ feed)",
+       "H2 efficiency",
+       "Reactor severity"
+      ],
+      "calc": "H2 reduction 5-10% × H2 cost. ₹5 cr per MMTPA crude.",
+      "tier": 2
+     },
+     {
+      "t": "Reactor Bed Temperature Profile Management",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Analyses reactor bed temperature profile, quench gas distribution and exotherm patterns across multiple beds.",
+       "Detects channeling, bed maldistribution and hot/cold spots.",
+       "Provides quench gas distribution advisory for stable operation."
+      ],
+      "p": [
+       "Bed maldistribution causes catalyst utilization loss",
+       "Channeling hidden until temperature spike",
+       "Quench gas distribution manual",
+       "Hot spots damage catalyst",
+       "Bed performance variable"
+      ],
+      "kpi": [
+       "Bed temperature uniformity",
+       "Channeling events",
+       "Quench gas effectiveness",
+       "Hot spot count"
+      ],
+      "calc": "Catalyst utilization + bed life. ₹3 cr per MMTPA crude.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Naphtha Hydrotreater (NHT)",
+    "f": [
+     "Feed + H2",
+     "Heater",
+     "Reactor",
+     "Separator",
+     "Stripper",
+     "Treated naphtha. Sour gas to amine + SRU"
+    ],
+    "rm": "Straight-run naphtha (SR naphtha) from CDU",
+    "ut": "Hydrogen (recycle + makeup), power, fuel (reactor preheat)",
+    "out": "Hydrotreated naphtha (low sulfur) to reformer feed",
+    "q": "Sulfur content (target <0.5 ppm for reformer), nitrogen, RON, distillation",
+    "uc": [
+     {
+      "t": "NHT Performance & Reformer Feed Quality",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Analyses NHT performance (sulfur slip, naphtha quality) versus reformer requirements.",
+       "Models reformer poisoning risks (sulfur, nitrogen) and predicts reformer activity decline.",
+       "Provides NHT advisory for reformer protection."
+      ],
+      "p": [
+       "Sulfur slip to reformer kills catalyst",
+       "NHT trips disrupt downstream",
+       "Manual sulfur monitoring",
+       "Reformer protection conservative",
+       "Trip recovery slow"
+      ],
+      "kpi": [
+       "Sulfur slip to reformer (target <0.5 ppm)",
+       "Nitrogen slip",
+       "Reformer feed quality",
+       "NHT availability"
+      ],
+      "calc": "Reformer catalyst protection + downtime avoidance. ₹3 cr per MMTPA crude.",
+      "tier": 2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Catalytic Reformer (CCR)",
+  "procs": [
+   {
+    "n": "Catalytic Reformer (CCR)",
+    "f": [
+     "Feed",
+     "Multi-stage heaters + reactors",
+     "Separator",
+     "Stabilizer",
+     "Reformate. Catalyst flows through reactors and is continuously regenerated."
+    ],
+    "rm": "Hydrotreated naphtha (low sulfur) from NHT",
+    "ut": "Power, fuel (reactor preheat), N2 (CCR regeneration)",
+    "out": "Reformate (high octane gasoline component), H2 (consumed elsewhere), LPG, fuel gas",
+    "q": "Reformate RON (typically 95-100), reformate yield %, H2 yield, catalyst activity",
+    "uc": [
+     {
+      "t": "Reformer Octane vs Throughput Optimization",
+      "k": "ai",
+      "v": 6.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Analyses reactor inlet temperatures (WAIT), feed properties, octane number and reformate yield.",
+       "Models reforming kinetics and selectivity at varying severity.",
+       "Provides reactor WAIT + recycle ratio advisory for target octane at maximum yield."
+      ],
+      "p": [
+       "Operating at high severity = more octane but lower yield + faster coking",
+       "Severity-yield-octane tradeoff manual",
+       "Coke laydown accelerates regenerator",
+       "Yield variability",
+       "Operator-dependent operation"
+      ],
+      "kpi": [
+       "Reformate RON (target 95-100)",
+       "Reformate yield (vol %)",
+       "H2 yield (mol/mol)",
+       "Coke laydown rate",
+       "Cycle length"
+      ],
+      "calc": "Reformate yield uplift + octane optimization. ₹6 cr per MMTPA crude.",
+      "tier": 2
+     },
+     {
+      "t": "CCR Regeneration Optimization",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Analyses continuous catalyst regeneration (CCR) parameters: catalyst flow rate, regeneration zones (combustion, oxychlorination, drying, reduction).",
+       "Models catalyst aging and regeneration effectiveness.",
+       "Provides regeneration setpoint advisory for catalyst activity restoration."
+      ],
+      "p": [
+       "CCR catalyst regen complex (4-stage process)",
+       "Chloride balance affects catalyst",
+       "Manual regeneration tuning",
+       "Catalyst activity drops over time",
+       "Regeneration energy consumption"
+      ],
+      "kpi": [
+       "Catalyst activity after regen",
+       "Catalyst circulation rate",
+       "Regen severity",
+       "Chloride balance"
+      ],
+      "calc": "Catalyst activity maintenance + cycle stability. ₹3 cr per MMTPA crude.",
+      "tier": 2
+     },
+     {
+      "t": "Reformer Hydrogen Yield Optimization",
+      "k": "ai",
+      "v": 4.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Analyses reformer H2 generation versus refinery H2 demand and operating conditions.",
+       "Models H2 generation kinetics.",
+       "Provides operating advisory for maximum H2 yield at acceptable octane."
+      ],
+      "p": [
+       "Reformer H2 is byproduct of octane making",
+       "H2 demand varies with diesel hydrotreating load",
+       "Manual coordination",
+       "H2 makeup from SMR is expensive",
+       "H2 imbalance causes flaring"
+      ],
+      "kpi": [
+       "H2 yield (kg/t feed)",
+       "H2 cost vs SMR makeup",
+       "Reformer-H2 plant integration",
+       "Refinery H2 balance"
+      ],
+      "calc": "H2 generation + reduced SMR load. ₹4 cr per MMTPA crude.",
+      "tier": 2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "FCC (Fluid Catalytic Cracker)",
+  "procs": [
+   {
+    "n": "FCC Riser & Reactor",
+    "f": [
+     "Feed + steam + hot regenerated catalyst",
+     "Riser (cracking reaction)",
+     "Reactor disengagement",
+     "Stripper",
+     "Spent catalyst to regenerator"
+    ],
+    "rm": "Vacuum gas oil (VGO) + heavy oil + slurry recycle",
+    "ut": "Steam (lift + stripping), atomization steam, catalyst (zeolite)",
+    "out": "Cracked products (gasoline, LPG, propylene, LCO, slurry), spent catalyst to regenerator",
+    "q": "Riser temperature (target ~520°C), conversion %, catalyst:oil ratio, coke on spent catalyst",
+    "uc": [
+     {
+      "t": "FCC Catalyst & Conversion Optimization",
+      "k": "ai",
+      "v": 15.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Analyses FCC riser conditions (temperature, catalyst:oil ratio, feed quality), reactor effluent yields and catalyst circulation.",
+       "Models cracking kinetics and selectivity (gasoline + LPG + propylene yields).",
+       "Provides riser temperature + catalyst circulation + recycle advisory for maximum value-product yield."
+      ],
+      "p": [
+       "FCC is THE conversion unit in refinery",
+       "Operating conditions set conservatively",
+       "Catalyst optimization rare",
+       "Conversion vs selectivity tradeoff",
+       "Catalyst make-up rate conservative"
+      ],
+      "kpi": [
+       "Conversion % (target 70-75)",
+       "Gasoline yield (vol %)",
+       "LPG yield",
+       "Propylene yield",
+       "Coke yield",
+       "Catalyst:oil ratio"
+      ],
+      "calc": "Conversion uplift 1-2% × 30-40% of crude × value margin. ₹15 cr per MMTPA crude.",
+      "tier": 1
+     },
+     {
+      "t": "FCC Catalyst Make-up Rate Optimization",
+      "k": "ai",
+      "v": 6.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Analyses FCC catalyst inventory, activity, metals contamination (Ni, V from feed) and make-up rates.",
+       "Models catalyst aging and activity recovery from fresh additions.",
+       "Provides catalyst make-up advisory and supplier comparison."
+      ],
+      "p": [
+       "Catalyst is significant FCC cost (₹15-30 cr/MMTPA crude)",
+       "Make-up rate set by convention",
+       "Catalyst quality varies by supplier",
+       "Metals contamination from poor feed",
+       "Activity testing batch-based"
+      ],
+      "kpi": [
+       "Catalyst make-up rate (lb/bbl feed)",
+       "E-cat activity",
+       "Metals on catalyst (Ni + V)",
+       "Catalyst cost per t crude"
+      ],
+      "calc": "Catalyst make-up reduction + supplier optimization. ₹6 cr per MMTPA crude.",
+      "tier": 2
+     },
+     {
+      "t": "FCC Slurry & Heavy Oil Recycle Optimization",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Analyses FCC slurry quality (BS&W, viscosity, ash) and heavy oil recycle versus conversion.",
+       "Models heavy oil cracking kinetics.",
+       "Provides slurry recycle + disposal advisory."
+      ],
+      "p": [
+       "Slurry oil low value (negative sometimes)",
+       "Heavy oil recycle complex",
+       "Catalyst lost to slurry",
+       "Manual recycle decisions"
+      ],
+      "kpi": [
+       "Slurry production",
+       "Slurry recycle ratio",
+       "Heavy oil recovery",
+       "Catalyst recovery from slurry"
+      ],
+      "calc": "Heavy oil utilization + catalyst recovery. ₹3 cr per MMTPA crude.",
+      "tier": 3
+     }
+    ]
+   },
+   {
+    "n": "FCC Regenerator",
+    "f": [
+     "Spent catalyst",
+     "Regenerator vessel",
+     "Coke combustion in air",
+     "Catalyst cleaning",
+     "Hot regen catalyst recycle to riser. Flue gas",
+     "CO boiler",
+     "ESP",
+     "Stack"
+    ],
+    "rm": "Spent catalyst with coke deposit from reactor",
+    "ut": "Combustion air (large fans), fuel gas (torch oil if needed), power",
+    "out": "Regenerated hot catalyst back to riser, regenerator flue gas (CO, CO2, SOx, NOx, particulate)",
+    "q": "Regenerator temperature (~720°C), residual coke on regen catalyst, CO/CO2 ratio, NOx, particulate, SOx",
+    "uc": [
+     {
+      "t": "FCC Regenerator Performance & Emissions Control",
+      "k": "ai",
+      "v": 5.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Analyses regenerator temperature, oxygen profile, CO/CO2 ratio, NOx + SOx + particulate emissions.",
+       "Models combustion + emission formation.",
+       "Provides regenerator air + SOx/NOx reagent advisory for stable operation at compliance."
+      ],
+      "p": [
+       "Regenerator emissions tightly regulated",
+       "SOx/NOx reagent costs significant",
+       "Manual combustion tuning",
+       "Compliance margin shrinking",
+       "Regenerator upsets cause hours of disruption"
+      ],
+      "kpi": [
+       "Regen temperature stability",
+       "CO/CO2 ratio",
+       "NOx (mg/Nm³)",
+       "SOx (mg/Nm³)",
+       "Particulate (mg/Nm³)",
+       "Compliance margin"
+      ],
+      "calc": "Reagent reduction + compliance margin + stability. ₹5 cr per MMTPA crude.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "FCC Main Fractionator",
+    "f": [
+     "Reactor effluent",
+     "Main fractionator",
+     "Overhead receiver",
+     "Reflux + product splitting",
+     "LCO + slurry from bottoms"
+    ],
+    "rm": "FCC reactor effluent (cracked gas + vapor)",
+    "ut": "Power (pumps), cooling water, steam (reboilers)",
+    "out": "Wet gas to gas plant, gasoline, LCO, slurry oil",
+    "q": "Product cut points, gasoline RON, LCO cetane, slurry quality",
+    "uc": [
+     {
+      "t": "FCC Main Fractionator Optimization",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Analyses main fractionator cut points (gasoline, LCO, slurry), reflux + side draws and energy.",
+       "Models fractionation efficiency.",
+       "Provides cut-point advisory for maximum gasoline at minimum energy."
+      ],
+      "p": [
+       "Cut points set conservatively",
+       "Reflux higher than needed",
+       "Manual side draw",
+       "Energy waste",
+       "Gasoline-LCO tradeoff"
+      ],
+      "kpi": [
+       "Gasoline 90% point",
+       "LCO yield + quality (cetane)",
+       "Slurry quality",
+       "Energy consumption",
+       "Cut-point compliance"
+      ],
+      "calc": "Cut-point uplift + energy savings. ₹3 cr per MMTPA crude.",
+      "tier": 2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Hydrocracker (HCU)",
+  "procs": [
+   {
+    "n": "Hydrocracker (HCU) Reactor",
+    "f": [
+     "Feed + H2",
+     "Heaters",
+     "Reactor stages (multi-bed)",
+     "Hot/cold separators",
+     "Recycle gas + H2 makeup",
+     "Fractionation"
+    ],
+    "rm": "VGO + heavy diesel + unconverted oil recycle",
+    "ut": "Hydrogen (very large consumption), power, fuel (heater)",
+    "out": "Cracked products (jet, diesel, naphtha, LPG, gas), unconverted residue",
+    "q": "Conversion % (target 80-95%), product yields, sulfur compliance, catalyst activity",
+    "uc": [
+     {
+      "t": "Hydrocracker Catalyst Cycle & Conversion Management",
+      "k": "ai",
+      "v": 10.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Analyses HCU reactor temperature profile (WABT), conversion, catalyst deactivation rate and product yields.",
+       "Models hydrocracking kinetics for catalyst life and conversion.",
+       "Provides reactor temperature + recycle ratio advisory for cycle extension."
+      ],
+      "p": [
+       "HCU catalyst very expensive (₹50-100 cr per change)",
+       "Cycle length 18-36 months target",
+       "Manual WABT management",
+       "Conversion vs catalyst life tradeoff",
+       "Operating margin tight"
+      ],
+      "kpi": [
+       "Conversion %",
+       "WABT (°C)",
+       "Cycle length (months)",
+       "Catalyst activity",
+       "Product yields"
+      ],
+      "calc": "Catalyst cycle extension 3-6 months × catalyst cost + downtime avoidance. ₹10 cr per MMTPA crude.",
+      "tier": 1
+     },
+     {
+      "t": "HCU Yield Slate Optimization",
+      "k": "ai",
+      "v": 6.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Analyses HCU product yields (jet, diesel, naphtha, LPG) versus operating conditions and market values.",
+       "Models product slate sensitivity to reactor severity.",
+       "Provides operating advisory for highest-margin product slate."
+      ],
+      "p": [
+       "Product slate fixed by operator habit",
+       "Market values vary",
+       "Manual product optimization",
+       "Refinery LP not real-time",
+       "Jet vs diesel switch slow"
+      ],
+      "kpi": [
+       "Jet/Diesel/Naphtha yields",
+       "Product margin per t feed",
+       "Market-linked optimization",
+       "Reactor utilization"
+      ],
+      "calc": "Product margin uplift via slate optimization. ₹6 cr per MMTPA crude.",
+      "tier": 2
+     },
+     {
+      "t": "HCU Hydrogen Consumption & Recycle Optimization",
+      "k": "ai",
+      "v": 4.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Analyses H2 consumption, H2 purity, H2 recycle ratio and chemical H2 consumption by reaction.",
+       "Models H2 economics and predicts optimal makeup.",
+       "Provides H2 management advisory."
+      ],
+      "p": [
+       "H2 cost significant",
+       "Recycle gas purity degrades over cycle",
+       "H2 management complex",
+       "Manual makeup adjustments",
+       "H2 imbalance causes flaring"
+      ],
+      "kpi": [
+       "H2 consumption (Nm³/m³ feed)",
+       "Recycle gas purity",
+       "Chemical H2 vs total H2",
+       "Make-up H2 from SMR"
+      ],
+      "calc": "H2 savings 5-10%. ₹4 cr per MMTPA crude.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Hydrocracker Fractionation",
+    "f": [
+     "Reactor effluent",
+     "Hot/cold separators",
+     "Stripper",
+     "Main fractionator",
+     "Product splits",
+     "Recycle to reactor"
+    ],
+    "rm": "Hydrocracker reactor effluent (cracked products + recycle)",
+    "ut": "Power, cooling water, steam (reboilers)",
+    "out": "Jet/ATF, diesel, naphtha, LPG, fuel gas, recycle bottoms",
+    "q": "Product distillation, sulfur, cetane (diesel), smoke point (jet), product yields",
+    "uc": [
+     {
+      "t": "HCU Fractionation Energy Optimization",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Analyses fractionation tower energy consumption and product cuts.",
+       "Models energy vs separation tradeoff.",
+       "Provides reboiler + reflux advisory."
+      ],
+      "p": [
+       "Tower energy consumption high",
+       "Reflux conservative",
+       "Manual operation",
+       "Cut-point variability"
+      ],
+      "kpi": [
+       "Tower energy consumption",
+       "Product yield",
+       "Cut-point compliance",
+       "Reflux ratio"
+      ],
+      "calc": "Tower energy savings 5-10%. ₹3 cr per MMTPA crude.",
+      "tier": 2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Delayed Coker (DCU)",
+  "procs": [
+   {
+    "n": "Delayed Coker Drums",
+    "f": [
+     "Hot feed",
+     "Coke drum (24hr cycle: filling, switching, steamout, cooling, decoking, warming)",
+     "Vapors",
+     "Coker fractionator"
+    ],
+    "rm": "Hot feed from coker heater (~500°C)",
+    "ut": "Steam (steam-out), water (cooling), N2",
+    "out": "Coker gas oil + naphtha + gas (to fractionator) + coke (in drum, drained after cycle)",
+    "q": "Drum cycle time, coke quality (S, V, Ni content), drum temperature profile, fluid coke vs needle coke",
+    "uc": [
+     {
+      "t": "Coker Drum Cycle Optimization",
+      "k": "ai",
+      "v": 4.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Analyses drum cycle time (filling, switching, steam out, cooling, decoking, warming) and coke production.",
+       "Models drum cycle dynamics and predicts optimal cycle time.",
+       "Provides cycle advisory for maximum throughput at safe coke quality."
+      ],
+      "p": [
+       "Drum cycle time set conservatively",
+       "Manual drum switching",
+       "Coke quality variable",
+       "Drum maintenance schedule",
+       "Throughput below design"
+      ],
+      "kpi": [
+       "Drum cycle time (target 14-18 hr)",
+       "Coker throughput",
+       "Coke quality (S, V, Ni)",
+       "Drum availability"
+      ],
+      "calc": "Cycle compression + throughput uplift. ₹4 cr per MMTPA crude.",
+      "tier": 2
+     },
+     {
+      "t": "Coker Yield (Coke vs Liquid) Optimization",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Analyses coker yields (coke, naphtha, gas oil) versus operating conditions.",
+       "Models coker yield economics.",
+       "Provides operating advisory for maximum liquid yield."
+      ],
+      "p": [
+       "Liquid yield more valuable than coke",
+       "Operating conditions impact yield mix",
+       "Manual operation",
+       "Coke quality vs yield tradeoff"
+      ],
+      "kpi": [
+       "Coke yield %",
+       "Liquid yield %",
+       "Yield economics ($/t feed)",
+       "Coke quality"
+      ],
+      "calc": "Liquid yield uplift × value differential. ₹3 cr per MMTPA crude.",
+      "tier": 3
+     }
+    ]
+   },
+   {
+    "n": "Delayed Coker Heater",
+    "f": [
+     "Vacuum residue",
+     "Coker heater coils",
+     "Outlet to coke drums. Critical: prevent coking inside coils!"
+    ],
+    "rm": "Vacuum residue (short residue from VDU)",
+    "ut": "Fuel (heater firing), steam (atomization), power",
+    "out": "Heated coker feed to coke drums",
+    "q": "Coil outlet temperature (~500°C), velocity, heat flux, coking rate, coil pressure drop",
+    "uc": [
+     {
+      "t": "Coker Heater Coil Life & Coking Prevention",
+      "k": "ai",
+      "v": 5.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Analyses coker heater coil pressure drop, tube skin temperatures, velocity and downstream drum performance.",
+       "Predicts in-tube coking events and heater coil end of life.",
+       "Provides heater operation + cleaning advisory."
+      ],
+      "p": [
+       "Coker heater coking is most dreaded refinery event (catastrophic failure mode)",
+       "Coil cleaning (online spalls) require shutdown",
+       "Manual coking risk management",
+       "Heater coil replacement = weeks of downtime + ₹50+ cr"
+      ],
+      "kpi": [
+       "Coil pressure drop progression",
+       "Tube skin temperatures",
+       "Heater run length (between online spalls)",
+       "Coil life (years)"
+      ],
+      "calc": "Catastrophic event prevention + heater life extension. ₹5 cr per MMTPA crude.",
+      "tier": 2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Hydrogen + Sulfur Recovery",
+  "procs": [
+   {
+    "n": "Hydrogen Plant (SMR)",
+    "f": [
+     "NG + steam",
+     "Reformer (catalytic)",
+     "Shift converter",
+     "PSA",
+     "H2. Off-gas",
+     "Fuel to reformer"
+    ],
+    "rm": "Natural gas (feedstock + fuel), steam, makeup water",
+    "ut": "Combustion air, power",
+    "out": "Hydrogen (~99.9% purity) to hydrotreaters + HCU + cracker",
+    "q": "H2 purity, H2 yield (mol H2/mol CH4), specific energy (GCal/kNm³ H2), CO/CO2 slip",
+    "uc": [
+     {
+      "t": "H2 Plant Efficiency & SMR Optimization",
+      "k": "ai",
+      "v": 5.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Analyses SMR operation (NG feed + fuel, steam-to-carbon ratio, reformer temperatures, PSA recovery).",
+       "Models reforming + shift + PSA economics.",
+       "Provides SMR operating advisory for minimum NG consumption per Nm³ H2."
+      ],
+      "p": [
+       "NG cost rising",
+       "Steam-to-carbon higher than needed (safety)",
+       "PSA cycle optimization manual",
+       "Reformer firing variable",
+       "H2 cost meaningful (~₹15-25/Nm³)"
+      ],
+      "kpi": [
+       "NG consumption (Gcal/kNm³ H2)",
+       "H2 purity",
+       "PSA recovery %",
+       "Steam-to-carbon ratio",
+       "H2 cost (₹/Nm³)"
+      ],
+      "calc": "NG savings 3-5% × H2 plant fuel + improved PSA recovery. ₹5 cr per MMTPA crude.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Sulfur Recovery Unit (SRU)",
+    "f": [
+     "Acid gas",
+     "Reaction furnace",
+     "Waste heat boiler",
+     "Multiple Claus reactor stages",
+     "Sulfur condenser",
+     "Liquid sulfur"
+    ],
+    "rm": "Acid gas (H2S) from amine regeneration",
+    "ut": "Combustion air (controlled), power, steam (sulfur tail gas line)",
+    "out": "Elemental sulfur (Claus process), tail gas (CO2, SO2, N2, residual H2S)",
+    "q": "Sulfur recovery efficiency % (target >99.5% with TGT), Claus conversion, tail gas SO2",
+    "uc": [
+     {
+      "t": "SRU Conversion & Sulfur Recovery Optimization",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Analyses SRU operation (acid gas feed rate, reaction furnace temperature, Claus reactor conversion, condenser performance).",
+       "Models Claus conversion kinetics.",
+       "Provides SRU operating advisory for >99% sulfur recovery."
+      ],
+      "p": [
+       "Sulfur recovery compliance critical",
+       "SRU upsets affect refinery (H2S buildup)",
+       "Manual SRU control",
+       "Tail gas emissions",
+       "Sulfur quality variable"
+      ],
+      "kpi": [
+       "Sulfur recovery % (target >99.5)",
+       "Tail gas SO2",
+       "Claus conversion",
+       "Sulfur quality"
+      ],
+      "calc": "Compliance margin + sulfur recovery. ₹3 cr per MMTPA crude.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Tail Gas Treating",
+    "f": [
+     "Tail gas + H2",
+     "Hydrogenation reactor",
+     "Quench",
+     "Amine absorber",
+     "Regenerator (H2S back to SRU)",
+     "Treated tail gas"
+    ],
+    "rm": "SRU tail gas (SO2, residual H2S, sulfur)",
+    "ut": "Power, H2 (hydrogenation), amine solvent",
+    "out": "Recovered H2S to SRU feed (closed loop), clean tail gas to incinerator/stack",
+    "q": "Tail gas SO2 level, overall sulfur recovery %, amine performance, incinerator temperature",
+    "uc": [
+     {
+      "t": "Tail Gas Treating Performance & Compliance",
+      "k": "ai",
+      "v": 2.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Analyses tail gas treating unit (amine performance, H2 hydrogenation, emissions).",
+       "Models tail gas chemistry.",
+       "Provides operating advisory for compliance at minimum reagent use."
+      ],
+      "p": [
+       "Stack SO2 limits tight",
+       "Amine degradation hidden",
+       "Reagent overdose for safety",
+       "Manual operation"
+      ],
+      "kpi": [
+       "Stack SO2 compliance",
+       "Amine performance",
+       "Reagent consumption",
+       "H2 consumption"
+      ],
+      "calc": "Reagent savings + compliance. ₹2 cr per MMTPA crude.",
+      "tier": 3
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Steam Cracker (Naphtha Cracker)",
+  "procs": [
+   {
+    "n": "Cracker Furnaces",
+    "f": [
+     "Feed + dilution steam",
+     "Convection coils (preheat)",
+     "Radiant coils (cracking, ~850°C, very short residence time)",
+     "Transfer line exchangers (quench)",
+     "Primary fractionator"
+    ],
+    "rm": "Naphtha (or LPG, ethane) feedstock + dilution steam",
+    "ut": "Fuel (refinery fuel gas), combustion air, power",
+    "out": "Cracked gas (ethylene, propylene, butadiene, pygas, methane, hydrogen) to quench + cold box",
+    "q": "Conversion % (90-95%), C2/C3 ratio, P/E ratio, severity index, run length (days between decokes), tube skin temperatures",
+    "uc": [
+     {
+      "t": "Cracker Furnace Conversion & Coking Optimization (Closed-Loop)",
+      "k": "ai",
+      "v": 30.0,
+      "basis": "MMTPA ethylene",
+      "d": [
+       "Analyses cracker furnace conditions (coil outlet temperature, residence time, steam dilution, feed rate) across all parallel furnaces.",
+       "Models cracking kinetics + coking dynamics in radiant coils.",
+       "Provides per-furnace severity advisory + decoke timing prediction for maximum ethylene + propylene yield at managed coking."
+      ],
+      "p": [
+       "Furnace coking is THE central operational challenge in cracker",
+       "Decoke cycles (24-48 hr) reduce capacity",
+       "Severity vs selectivity tradeoff manual",
+       "Tube skin temperatures limit severity",
+       "Run length variability across furnaces",
+       "Each furnace has different aging"
+      ],
+      "kpi": [
+       "Ethylene yield (wt %)",
+       "Propylene yield",
+       "P/E ratio (Propylene/Ethylene)",
+       "Coil outlet temperature",
+       "Run length between decokes (days)",
+       "Decoke cycle compliance"
+      ],
+      "calc": "Ethylene yield uplift 0.5-1% × 1 MMTPA ethylene × ₹70,000/t margin = ₹35-70 cr potential. Conservative ₹30 cr per MMTPA ethylene.",
+      "tier": 1
+     },
+     {
+      "t": "Cracker Furnace Tube Life Monitoring",
+      "k": "cv",
+      "v": 8.0,
+      "basis": "MMTPA ethylene",
+      "d": [
+       "Analyses thermal imaging of tubes, tube skin temperatures and creep history.",
+       "Predicts tube remaining life and recommends replacement scheduling."
+      ],
+      "p": [
+       "Cracker tubes expensive (₹10-50 lakh each, dozens per furnace)",
+       "Tube creep silent",
+       "Manual inspection at decokes",
+       "Tube failures catastrophic",
+       "Replacement extends downtime"
+      ],
+      "kpi": [
+       "Tube life (years)",
+       "Tube skin temperatures",
+       "Creep progression",
+       "Tube failures per year",
+       "Tube replacement cost"
+      ],
+      "calc": "Tube life extension + reduced unplanned failures. ₹8 cr per MMTPA ethylene.",
+      "tier": 2
+     },
+     {
+      "t": "Cracker Furnace Energy Integration",
+      "k": "ai",
+      "v": 4.0,
+      "basis": "MMTPA ethylene",
+      "d": [
+       "Analyses cracker furnace heat integration (TLE, dilution steam generation, fuel gas optimization).",
+       "Models heat balance and integration opportunities.",
+       "Provides heat integration advisory."
+      ],
+      "p": [
+       "Furnace fuel cost significant",
+       "Heat integration suboptimal",
+       "Manual coordination",
+       "Steam generation variable"
+      ],
+      "kpi": [
+       "Furnace efficiency %",
+       "TLE steam generation",
+       "Fuel consumption",
+       "Heat integration KPI"
+      ],
+      "calc": "Heat integration + fuel savings. ₹4 cr per MMTPA ethylene.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Cracker Cold Box & Fractionation",
+    "f": [
+     "Cracked gas",
+     "Acid gas removal",
+     "Drying",
+     "Cold box (multi-stage cryogenic separation)",
+     "Demethanizer",
+     "C2/C3 splitters"
+    ],
+    "rm": "Cracked gas from quench tower",
+    "ut": "Compressors (cracked gas), refrigeration (ethylene + propylene refrig), power",
+    "out": "Demethanizer overhead (CH4 + H2 to fuel), C2 stream to splitter, C3 stream, pygas",
+    "q": "Demethanizer recovery %, refrigeration energy, fractionation purity",
+    "uc": [
+     {
+      "t": "Cracker Cold Box & Energy Optimization",
+      "k": "ai",
+      "v": 10.0,
+      "basis": "MMTPA ethylene",
+      "d": [
+       "Analyses cracked gas compression, cold box performance, refrigeration system (ethylene + propylene refrig) and energy consumption.",
+       "Models cryogenic separation efficiency and refrigeration load.",
+       "Provides cold box operation + refrigeration advisory."
+      ],
+      "p": [
+       "Cracker cold box is huge energy consumer",
+       "Refrigeration loops complex",
+       "Manual coordination",
+       "Compressor inefficiency hidden",
+       "Cold box approach temperatures degrade"
+      ],
+      "kpi": [
+       "Ethylene refrigeration load",
+       "Propylene refrig load",
+       "Demethanizer recovery",
+       "Compressor power",
+       "Cold box approach temperatures"
+      ],
+      "calc": "Refrigeration + compressor savings 5-10% × very large base. ₹10 cr per MMTPA ethylene.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "C2/C3 Splitters",
+    "f": [
+     "C2 mixture",
+     "C2 splitter (very tall column)",
+     "Polymer-grade ethylene + ethane recycle. C3 mixture",
+     "C3 splitter",
+     "Polymer-grade propylene + propane"
+    ],
+    "rm": "C2 stream (ethylene + ethane) and C3 stream (propylene + propane)",
+    "ut": "Compressors, refrigeration, steam (reboilers), power",
+    "out": "Polymer-grade ethylene (>99.95%) and polymer-grade propylene (>99.5%), ethane recycle, propane",
+    "q": "Ethylene purity, propylene purity, recovery %, distillate yields",
+    "uc": [
+     {
+      "t": "C2/C3 Splitter Purity & Energy Optimization",
+      "k": "ai",
+      "v": 6.0,
+      "basis": "MMTPA ethylene",
+      "d": [
+       "Analyses C2 splitter and C3 splitter performance (energy, purity, recovery).",
+       "Models splitter efficiency.",
+       "Provides reflux + reboiler advisory for target purity at minimum energy."
+      ],
+      "p": [
+       "Splitters are huge energy consumers",
+       "Purity safety margin large",
+       "Manual reflux setting",
+       "Energy waste",
+       "Recovery losses"
+      ],
+      "kpi": [
+       "Polymer-grade ethylene purity (>99.95%)",
+       "Polymer-grade propylene purity (>99.5%)",
+       "Splitter energy consumption",
+       "Recovery %"
+      ],
+      "calc": "Splitter energy reduction 5-10%. ₹6 cr per MMTPA ethylene.",
+      "tier": 2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Polymer Units (PP/PE)",
+  "procs": [
+   {
+    "n": "Polyethylene (LLDPE/HDPE) Reactor",
+    "f": [
+     "Ethylene + comonomer + catalyst",
+     "Reactor (gas phase or slurry loop)",
+     "Polymer separation",
+     "Stripping",
+     "Pelletizing",
+     "Packaging"
+    ],
+    "rm": "Polymer-grade ethylene + comonomer (1-butene, 1-hexene) + catalyst (Ziegler-Natta or metallocene)",
+    "ut": "Power (compressors, pumps), cooling water, H2 (chain transfer)",
+    "out": "Polyethylene powder/granules (LLDPE, HDPE) at target MFR and density",
+    "q": "MFR (Melt Flow Rate, g/10min), density, molecular weight distribution, comonomer incorporation, color/clarity",
+    "uc": [
+     {
+      "t": "PE Reactor Conditions & Grade Optimization",
+      "k": "ai",
+      "v": 8.0,
+      "basis": "MMTPA polymer",
+      "d": [
+       "Analyses reactor temperature, pressure, comonomer dosing, H2 dosing, catalyst feed and resulting polymer properties.",
+       "Models polymerization kinetics and predicts MFR + density.",
+       "Provides reactor setpoint advisory for grade compliance."
+      ],
+      "p": [
+       "Multi-grade reactor operation",
+       "Lab feedback slow (1-4 hr)",
+       "Manual setpoint",
+       "Grade transitions cause off-spec",
+       "Operator-dependent quality"
+      ],
+      "kpi": [
+       "MFR compliance per grade",
+       "Density compliance",
+       "Throughput (t/h)",
+       "Catalyst productivity",
+       "Reactor stability"
+      ],
+      "calc": "Grade compliance + throughput + off-spec reduction. ₹8 cr per MMTPA polymer.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Polypropylene (PP) Reactor",
+    "f": [
+     "Propylene + comonomer + catalyst",
+     "Reactor (gas phase, multi-zone)",
+     "Polymer separation",
+     "Stripping",
+     "Pelletizing",
+     "Packaging"
+    ],
+    "rm": "Polymer-grade propylene + comonomer (ethylene for impact copolymers) + catalyst (Ziegler-Natta)",
+    "ut": "Power (compressors), cooling water, hydrogen (chain transfer)",
+    "out": "Polypropylene granules (homopolymer, random copolymer, impact copolymer)",
+    "q": "MFR, isotacticity, modulus, impact resistance, color",
+    "uc": [
+     {
+      "t": "PP Reactor & Grade Transition Optimization",
+      "k": "ai",
+      "v": 6.0,
+      "basis": "MMTPA polymer",
+      "d": [
+       "Analyses PP reactor (gas phase) conditions, catalyst feed, comonomer and quality.",
+       "Models PP polymerization and predicts grade transitions.",
+       "Provides operation and transition advisory."
+      ],
+      "p": [
+       "PP grade complexity (homo, random, impact copolymer)",
+       "Transitions cause off-spec",
+       "Manual operation",
+       "Lab feedback slow",
+       "Operator-dependent"
+      ],
+      "kpi": [
+       "MFR per grade",
+       "Isotacticity",
+       "Grade transition time",
+       "Off-spec during transition",
+       "Throughput"
+      ],
+      "calc": "Transition optimization + off-spec reduction. ₹6 cr per MMTPA polymer.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Polymer Pelletizing & Packaging",
+    "f": [
+     "Granules",
+     "Additive mixing",
+     "Extruder",
+     "Pelletizer",
+     "Dewatering",
+     "Drying",
+     "Silo",
+     "Packing/Bulk"
+    ],
+    "rm": "Polymer granules from reactor",
+    "ut": "Power (extruder), cooling water, additives (antioxidant, slip)",
+    "out": "Polymer pellets in bags (25kg) or bulk dispatch",
+    "q": "Pellet uniformity, additive distribution, color, pellet defects (gel, contamination)",
+    "uc": [
+     {
+      "t": "Polymer Pellet Quality & Defect Detection",
+      "k": "cv",
+      "v": 4.0,
+      "basis": "MMTPA polymer",
+      "d": [
+       "Analyses online camera feeds at pelletizer outlet for pellet quality.",
+       "Detects black specks, contamination, deformed pellets, gel particles, color shifts.",
+       "Provides quality scoring and root cause analysis."
+      ],
+      "p": [
+       "Pellet defects detected at customer (expensive)",
+       "Manual inspection",
+       "Contamination sources hidden",
+       "Customer audits frequent",
+       "Reject costs significant"
+      ],
+      "kpi": [
+       "Pellet defect rate",
+       "Color compliance",
+       "Customer rejection",
+       "Internal scrap",
+       "Visual quality score"
+      ],
+      "calc": "Defect reduction + customer claim prevention. ₹4 cr per MMTPA polymer.",
+      "tier": 2
+     },
+     {
+      "t": "Polymer Production Planning & Grade Mix Optimization",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MMTPA polymer",
+      "d": [
+       "Analyses order book, grade demand, reactor capacity, downstream extrusion + packaging.",
+       "Models grade-mix economics.",
+       "Provides scheduling advisory."
+      ],
+      "p": [
+       "Multi-grade scheduling complex",
+       "Grade transitions costly",
+       "Manual planning",
+       "Off-spec accumulation",
+       "Customer-specific grades"
+      ],
+      "kpi": [
+       "Schedule adherence",
+       "Grade transition events",
+       "Off-spec during transition",
+       "Grade-mix margin"
+      ],
+      "calc": "Schedule + transition optimization. ₹3 cr per MMTPA polymer.",
+      "tier": 3
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Blending & Product Movement",
+  "procs": [
+   {
+    "n": "Online Blending",
+    "f": [
+     "Component tanks",
+     "Blending header",
+     "Online analyzers",
+     "Final product tanks",
+     "Dispatch"
+    ],
+    "rm": "Component streams (reformate, alkylate, FCC gasoline, HCU naphtha, blendstocks)",
+    "ut": "Power (pumps), online analyzers, blending control system",
+    "out": "Final products (MS Petrol BS-VI, HSD BS-VI, ATF, etc.) to product tankage",
+    "q": "RON/MON (gasoline), cetane (diesel), sulfur, oxygenate content, RVP, distillation",
+    "uc": [
+     {
+      "t": "Real-time Gasoline/Diesel Blending Optimization",
+      "k": "ai",
+      "v": 6.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Analyses component streams (octane, sulfur, RVP, distillation), online analyzer data and blend recipe.",
+       "Models blend properties and predicts product spec compliance.",
+       "Provides real-time recipe advisory for spec compliance at minimum giveaway."
+      ],
+      "p": [
+       "Quality giveaway is real cost (operating above spec = ₹2-5/L lost)",
+       "Manual recipe adjustments",
+       "Online analyzer reliability",
+       "Blend lab validation slow",
+       "Product diversion if off-spec"
+      ],
+      "kpi": [
+       "RON/MON compliance",
+       "Sulfur compliance",
+       "RVP compliance",
+       "Quality giveaway (above spec)",
+       "Recipe optimization"
+      ],
+      "calc": "Giveaway reduction × product volume × value differential. ₹6 cr per MMTPA crude.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Tank-to-Tank Movement",
+    "f": [
+     "Source tank",
+     "Pump + valves",
+     "Pipe",
+     "Destination tank/loading. Each transfer logged with quantity + quality."
+    ],
+    "rm": "Various products + intermediates being moved between tanks",
+    "ut": "Power (pumps), instrumentation, automated valves",
+    "out": "Product transfers between tanks, dispatch loading",
+    "q": "Cross-contamination prevention, line displacement losses, inventory accuracy, transfer time",
+    "uc": [
+     {
+      "t": "Tank Movement & Cross-Contamination Prevention",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Analyses tank-to-tank product movements, line displacement losses and cross-contamination risks.",
+       "Detects abnormal movements and contamination events.",
+       "Provides movement optimization advisory."
+      ],
+      "p": [
+       "Cross-contamination during transfers downgrades product",
+       "Line losses accumulate",
+       "Manual movement coordination",
+       "Inventory variances",
+       "Pipe washing cost"
+      ],
+      "kpi": [
+       "Line displacement losses",
+       "Cross-contamination events",
+       "Transfer time",
+       "Inventory accuracy"
+      ],
+      "calc": "Contamination + line loss reduction. ₹3 cr per MMTPA crude.",
+      "tier": 3
+     },
+     {
+      "t": "Loading & Dispatch Quality + Throughput Tracking",
+      "k": "ai",
+      "v": 2.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Analyses loading rates, dispatch quality, customer-specific requirements and dispatch documentation.",
+       "Provides loading optimization and quality assurance."
+      ],
+      "p": [
+       "Customer audits frequent",
+       "COA preparation manual",
+       "Loading queue at gantries",
+       "Quality verification at dispatch",
+       "Truck demurrage costs"
+      ],
+      "kpi": [
+       "Loading turnaround time",
+       "Customer quality compliance",
+       "COA generation time",
+       "Dispatch volume"
+      ],
+      "calc": "Throughput + quality + demurrage. ₹2 cr per MMTPA crude.",
+      "tier": 3
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Utilities & Off-sites",
+  "procs": [
+   {
+    "n": "Power Network",
+    "f": [
+     "Grid + CPP",
+     "Substations",
+     "Plant distribution",
+     "Major consumers (compressors, pumps, MCC)"
+    ],
+    "rm": "Grid power + captive power + steam-driven turbines",
+    "ut": "Substations, transformers, switchgear",
+    "out": "Distributed power to refinery (compressors largest), petchem and utilities",
+    "q": "Specific power (kWh/t crude), peak demand, power factor, reliability (uptime)",
+    "uc": [
+     {
+      "t": "Refinery Power Management & Demand Optimization",
+      "k": "ai",
+      "v": 5.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Analyses plant-wide power demand (compressors largest), captive generation and grid integration.",
+       "Models demand patterns and predicts peak loads.",
+       "Provides power management advisory."
+      ],
+      "p": [
+       "Refinery power demand huge (compressors, pumps)",
+       "Peak demand drives capacity charges",
+       "Manual CPP-grid coordination",
+       "Power factor variable",
+       "Captive gen optimization"
+      ],
+      "kpi": [
+       "Specific power (kWh/t crude)",
+       "Peak demand (MW)",
+       "Power factor",
+       "CPP heat rate",
+       "Demand charges"
+      ],
+      "calc": "Peak demand + power factor + tariff. ₹5 cr per MMTPA crude.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Steam Network",
+    "f": [
+     "BFW",
+     "Boilers (utility + WHR)",
+     "VHP",
+     "Turbines (work + extraction)",
+     "HP/MP/LP headers",
+     "Consumers",
+     "Condensate return",
+     "DA",
+     "BFW"
+    ],
+    "rm": "BFW (boiler feed water), fuel gas (steam boilers), exhaust steam from turbines",
+    "ut": "Steam boilers (utility + WHR), turbines, headers",
+    "out": "Multiple steam levels (VHP/HP/MP/LP) for process heating, reboilers, stripping, atomization, ejectors",
+    "q": "Steam header pressures, flow distribution, condensate recovery%, venting losses, steam quality",
+    "uc": [
+     {
+      "t": "Refinery Steam Trap Health Monitoring (Wireless)",
+      "k": "ai",
+      "v": 4.0,
+      "basis": "MMTPA crude",
+      "loc": [
+       "Cracker furnace area",
+       "Coker drum steam-out",
+       "Process heat exchanger drains",
+       "Steam tracing on long-line",
+       "Turbine condensate drains"
+      ],
+      "d": [
+       "Analyses inlet/outlet temperature signatures from wireless battery-powered sensors at each trap (~5,000-10,000 traps in large refinery).",
+       "Detects failed-open, failed-closed and failed-cold conditions.",
+       "Provides location-tagged alerts for proactive replacement."
+      ],
+      "p": [
+       "Refineries have largest steam trap populations (5,000-15,000)",
+       "Trap failures = direct steam loss",
+       "Annual audits costly + miss most",
+       "No continuous monitoring at scale",
+       "Wireless tech enables economic coverage"
+      ],
+      "kpi": [
+       "Steam trap failure rate %",
+       "Steam loss from failed traps",
+       "Mean time to detect",
+       "Annual audit labor cost"
+      ],
+      "calc": "Trap failure rate 15% × ~7,000 traps × ₹3 lakh/yr × 50% capture. ₹4 cr per MMTPA crude.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Cooling Water Network",
+    "f": [
+     "CT basin",
+     "CW pumps",
+     "Exchangers",
+     "Hot return",
+     "Cooling tower (open evaporative)",
+     "CT basin. Chemicals + makeup + blowdown"
+    ],
+    "rm": "Makeup water (often poor quality), cooling tower chemicals",
+    "ut": "Power (CW pumps, cooling tower fans), chemicals (corrosion + scale + biocide)",
+    "out": "Cooling water at supply temperature (~35°C) to process exchangers; warmed return water (~45°C)",
+    "q": "Supply temperature, fouling factor in exchangers, water quality (conductivity, hardness), blowdown",
+    "uc": [
+     {
+      "t": "Cooling Water & Exchanger Network Optimization",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Analyses cooling water supply temperature, return temperatures, individual exchanger fouling and pump operation.",
+       "Models CW system performance and predicts fouling.",
+       "Provides CT chemistry + pump operation advisory."
+      ],
+      "p": [
+       "Cooling water key to all units",
+       "Exchanger fouling silent",
+       "Manual pump control",
+       "Tower performance degrades",
+       "Make-up water cost rising"
+      ],
+      "kpi": [
+       "CW supply temperature",
+       "Pump energy",
+       "Tower performance",
+       "Fouling factor",
+       "Make-up water"
+      ],
+      "calc": "Pump energy + fouling + makeup. ₹3 cr per MMTPA crude.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Flare System",
+    "f": [
+     "Relief sources",
+     "Flare headers",
+     "KO drum",
+     "Flare tip",
+     "Combustion. Flare gas recovery system tries to compress + return to fuel gas before flaring."
+    ],
+    "rm": "Off-spec gas, relief vents, blowdown from process units",
+    "ut": "Steam (smokeless flare), pilot gas, ignition",
+    "out": "Combusted hydrocarbons (CO2 + H2O), some unrecovered flaring loss",
+    "q": "Flare gas flow rate, smokeless operation, pilot reliability, methane recovery from flare gas",
+    "uc": [
+     {
+      "t": "Flare Gas Recovery & Methane Emission Reduction",
+      "k": "ai",
+      "v": 4.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Analyses flare gas flow (continuous + intermittent), composition and recovery system performance.",
+       "Detects sources of flaring and quantifies methane emissions.",
+       "Provides flare reduction advisory and recovery optimization."
+      ],
+      "p": [
+       "Flaring is direct value loss",
+       "Methane emissions tracked",
+       "Regulatory pressure rising (LDAR)",
+       "Manual flare reduction efforts",
+       "Recovery system often suboptimal"
+      ],
+      "kpi": [
+       "Flare gas flow rate",
+       "Methane flaring (CO2e)",
+       "Flare gas recovered",
+       "Compliance margin"
+      ],
+      "calc": "Flare gas recovery + methane emission credits. ₹4 cr per MMTPA crude.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Effluent Treatment Plant (ETP)",
+    "f": [
+     "Collection",
+     "Oil-water separation (API/CPI/DAF)",
+     "Equalization",
+     "Biological treatment",
+     "Polishing",
+     "Discharge"
+    ],
+    "rm": "Oily water (process + tank drainage), spent caustic, sour water, stormwater, sanitary",
+    "ut": "Power (aerators, pumps), chemicals (coagulant, polymer), biological cultures",
+    "out": "Treated effluent (within PCB norms), oil recovery, treated water for reuse where possible",
+    "q": "Outlet COD, BOD, oil & grease, phenol, sulphide, pH, treated water reuse %",
+    "uc": [
+     {
+      "t": "ETP Performance & Water Reuse Optimization",
+      "k": "ai",
+      "v": 2.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Analyses ETP performance (COD, BOD, oil, sulphide) and chemical dosing.",
+       "Models treatment kinetics and predicts compliance.",
+       "Provides operating advisory for compliance + water reuse maximization."
+      ],
+      "p": [
+       "Compliance margin shrinking",
+       "Chemical overdose for safety",
+       "Water reuse opportunity missed",
+       "Manual operation",
+       "Sludge disposal cost"
+      ],
+      "kpi": [
+       "Outlet quality compliance",
+       "Chemical consumption",
+       "Water reuse %",
+       "Sludge generation"
+      ],
+      "calc": "Chemical + water reuse + compliance. ₹2 cr per MMTPA crude.",
+      "tier": 3
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Cross-Cutting",
+  "procs": [
+   {
+    "n": "Digital Foundation",
+    "f": [
+     "Field devices",
+     "DCS/PI historian",
+     "Edge",
+     "Unified namespace",
+     "AI apps + Bruce AI layer"
+    ],
+    "rm": "OT data (DCS, PLC, RTU), MES, ERP, LIMS, online analyzers, IoT sensor streams",
+    "ut": "Edge gateways, network infrastructure, cloud compute, integration with existing PI/Aspen/Honeywell",
+    "out": "Unified data layer enabling AI Operations Layer on top of existing APC/historian/MES",
+    "q": "Tag coverage %, data quality, latency, uptime, integration completeness with existing tools",
+    "uc": [
+     {
+      "t": "IT-OT Integration & AI Operations Layer",
+      "k": "fd",
+      "v": null,
+      "basis": null,
+      "vt": "Enabler for all other use cases",
+      "d": [
+       "Foundational data layer: integration with existing DCS/PI historian/Aspen/Honeywell APC + LIMS + ERP.",
+       "AI Operations Layer above existing tools — NOT replacement of APC/RTO. Complements and extends.",
+       "Provides unified data + edge connectivity + AI app deployment platform."
+      ],
+      "p": [
+       "Refinery data already in PI + Aspen + Honeywell tools",
+       "Faclon must coexist + augment",
+       "Data silos between tools",
+       "Long-cycle analytics deployment",
+       "Operator dashboards fragmented"
+      ],
+      "kpi": [
+       "Tag coverage %",
+       "Integration with existing tools",
+       "Use cases enabled",
+       "Time-to-deploy"
+      ],
+      "calc": "Enabler — value realized through downstream use cases.",
+      "tier": 1
+     }
+    ]
+   },
+   {
+    "n": "Quality Management",
+    "f": [
+     "Sample collection",
+     "Lab analysis (multiple methods)",
+     "LIMS",
+     "SPC/dashboards",
+     "COA",
+     "Customer dispatch"
+    ],
+    "rm": "Lab samples (crude, intermediate, products at every unit), online analyzers, customer specs",
+    "ut": "Lab instruments (GC, NMR, sulfur, distillation, octane, density), LIMS",
+    "out": "Multi-stream quality intelligence, COA, traceability, product compliance (BS-VI etc.)",
+    "q": "Spec compliance %, lab TAT (often 1-6 hr), online analyzer reliability, COA accuracy",
+    "uc": [
+     {
+      "t": "LIMS Integration & Multi-Stream Quality Intelligence",
+      "k": "ai",
+      "v": 4.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Integrates lab quality data (crude, every intermediate, every product) with online analyzers and process data.",
+       "Provides multi-stream quality intelligence, COA automation, BS-VI compliance tracking and customer audit prep.",
+       "Provides early warning on quality drift + faster lab-to-process feedback."
+      ],
+      "p": [
+       "Refinery LIMS has hundreds of routine tests",
+       "Multiple labs (process, environmental)",
+       "Online analyzer reliability",
+       "COA prep manual",
+       "Customer/regulatory audits frequent"
+      ],
+      "kpi": [
+       "Lab TAT",
+       "Quality compliance %",
+       "COA accuracy",
+       "Customer audit findings",
+       "Online analyzer agreement with lab"
+      ],
+      "calc": "Quality drift reduction + audit prep + COA automation. ₹4 cr per MMTPA crude.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Asset Reliability",
+    "f": [
+     "Sensor",
+     "Anomaly detection",
+     "Alert",
+     "Work order",
+     "Spare",
+     "Execution",
+     "Closure",
+     "KPI"
+    ],
+    "rm": "Sensor data (vibration, temp, oil quality, motor current, process), maintenance history, spare parts",
+    "ut": "Edge processing, CBM platform, CMMS, MRO inventory system",
+    "out": "Failure predictions, work orders, reliability KPIs, optimized spares",
+    "q": "Equipment availability %, MTBF on critical assets (compressors, turbines, fired heaters), unplanned downtime hours",
+    "uc": [
+     {
+      "t": "CBM for Critical Rotating Equipment (Compressors, Turbines)",
+      "k": "ai",
+      "v": 15.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Analyses vibration, temperature, motor signature, oil quality from critical rotating equipment: cracked gas compressors, ethylene/propylene refrig compressors, hydrogen makeup compressors, steam turbines, large pumps.",
+       "Predicts bearing failures, seal degradation, balance issues, alignment problems.",
+       "Provides equipment-tagged alerts and remaining-useful-life estimates."
+      ],
+      "p": [
+       "Cracked gas compressor failure = cracker shutdown (₹5-10 cr/day)",
+       "Hydrogen compressor failure = hydrotreater stops (BS-VI risk)",
+       "Critical equipment is biggest reliability risk",
+       "Maintenance often reactive",
+       "Aging asset base"
+      ],
+      "kpi": [
+       "Critical equipment availability %",
+       "MTBF on compressors/turbines",
+       "Unplanned downtime hours",
+       "Maintenance cost (₹/t crude)"
+      ],
+      "calc": "Unplanned downtime reduction × refinery margin × hours saved. ₹15 cr per MMTPA crude.",
+      "tier": 1
+     },
+     {
+      "t": "Computerised Maintenance Management System (CMMS)",
+      "k": "ai",
+      "v": 5.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Workflow management for maintenance work orders, planned/unplanned tracking, asset history.",
+       "Integrates CBM alerts into work order generation and tracks closure.",
+       "Provides asset-level reliability metrics + turnaround (T&I) planning support."
+      ],
+      "p": [
+       "Maintenance work tracked in legacy systems",
+       "Work orders don't close on time",
+       "T&I planning labor-intensive",
+       "Spare consumption attribution",
+       "Audit prep significant"
+      ],
+      "kpi": [
+       "Work order closure time",
+       "Planned vs unplanned ratio",
+       "T&I (turnaround) prep accuracy",
+       "Maintenance cost transparency"
+      ],
+      "calc": "Work order closure + T&I planning + maintenance cost transparency. ₹5 cr per MMTPA crude.",
+      "tier": 1
+     },
+     {
+      "t": "MRO & Spare-Parts Inventory Optimization",
+      "k": "ai",
+      "v": 4.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Analyses refinery spare parts inventory (large + complex), lead times, criticality and consumption patterns.",
+       "Models optimal stocking for critical spares (compressor seals, turbine blades, heater tubes, catalyst).",
+       "Provides inventory optimization advisory."
+      ],
+      "p": [
+       "Refinery inventory huge (₹100-300 cr typical)",
+       "Critical stockouts cause emergencies",
+       "Catalyst inventory significant",
+       "Cataloging inconsistent",
+       "Lead times unpredictable"
+      ],
+      "kpi": [
+       "Inventory value (₹ cr)",
+       "Critical stockouts",
+       "Emergency procurement",
+       "Inventory turn"
+      ],
+      "calc": "Inventory reduction 15-20% + emergency procurement savings. ₹4 cr per MMTPA crude.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Safety",
+    "f": [
+     "CCTV + gas/flame sensors",
+     "CV models + F&G logic",
+     "Violation/leak detection",
+     "Alert",
+     "Field response",
+     "Investigation"
+    ],
+    "rm": "CCTV feeds, fixed gas detectors (H2S, LEL, NH3, CO), flame detectors, thermal imaging",
+    "ut": "CV platform, edge inference, integration with F&G system, alert infrastructure",
+    "out": "Real-time safety alerts (gas plumes, PPE, hot work, restricted zones), MAH compliance, incident analytics",
+    "q": "PPE compliance %, gas detection coverage, hot work permit compliance, near-miss reporting rate, LTIFR",
+    "uc": [
+     {
+      "t": "AI Safety Monitoring (Gas Plume Detection + PPE + Hot Work)",
+      "k": "ai",
+      "v": 5.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Refinery has highest safety stakes (MAH regulations, PHA reviews, F&G systems).",
+       "Analyses CCTV (gas plume detection via thermal imaging, PPE compliance, hot work permit verification, vehicle proximity) integrated with fixed F&G detectors (H2S, LEL, NH3, CO).",
+       "Provides real-time alerts to control room and emergency response coordination."
+      ],
+      "p": [
+       "Refinery has highest acute hazard density",
+       "H2S, hydrocarbon leak detection critical",
+       "PPE in restricted areas",
+       "Hot work permits in process areas",
+       "MAH compliance demanding"
+      ],
+      "kpi": [
+       "Gas leak detection time",
+       "PPE compliance %",
+       "Hot work permit compliance",
+       "Near-miss reporting rate",
+       "LTIFR"
+      ],
+      "calc": "Incident avoidance + MAH compliance + insurance. ₹5 cr per MMTPA crude.",
+      "tier": 1
+     }
+    ]
+   },
+   {
+    "n": "Ops Intelligence",
+    "f": [
+     "Data ingestion",
+     "Contextualization",
+     "KPI computation",
+     "LP optimization",
+     "Dashboard",
+     "Decision",
+     "Action"
+    ],
+    "rm": "All plant data (production, multi-stream quality, energy, maintenance, ERP, LP planning)",
+    "ut": "Cloud compute, BI platform, LP optimization engine, scheduling engine",
+    "out": "Plant-wide KPIs, energy index, refinery LP optimization advisory, scenario analysis",
+    "q": "Energy Index (vs Solomon benchmarks), unit yields vs targets, conversion cost (₹/t crude), schedule adherence",
+    "uc": [
+     {
+      "t": "Refinery Energy Index & Plant-Wide KPI Dashboarding",
+      "k": "ai",
+      "v": 4.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Integrates production, energy, yield, quality, maintenance data across all units into role-based dashboards.",
+       "Provides refinery Energy Index (vs Solomon benchmarks), unit-level KPIs, conversion cost, GRM tracking.",
+       "Enables data-driven cross-unit decisions."
+      ],
+      "p": [
+       "Energy reporting fragmented across units",
+       "Solomon benchmarks not real-time",
+       "Cross-unit visibility limited",
+       "KPI definitions vary",
+       "Management dashboards backward-looking"
+      ],
+      "kpi": [
+       "Refinery Energy Index (vs Solomon)",
+       "Unit yields vs target",
+       "GRM ($/bbl)",
+       "Conversion cost (₹/t)",
+       "Schedule adherence"
+      ],
+      "calc": "Cross-unit visibility + energy index tracking. ₹4 cr per MMTPA crude.",
+      "tier": 1
+     },
+     {
+      "t": "Refinery LP Planning & Real-Time Optimization Support",
+      "k": "ai",
+      "v": 6.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Integrates refinery LP planning model (Aspen PIMS or similar) with real-time operational data.",
+       "Provides LP-vs-actual reconciliation, scenario analysis and what-if support.",
+       "Faclon AI layer augments existing LP/RTO tools — NOT replaces them."
+      ],
+      "p": [
+       "LP model decisions vs operational reality have gaps",
+       "Scenario analysis takes hours",
+       "Crude purchasing decisions weekly",
+       "LP-RTO integration manual",
+       "Margin optimization opportunity"
+      ],
+      "kpi": [
+       "LP-actual gap",
+       "Scenario analysis turnaround",
+       "Crude purchase decision support",
+       "Refinery margin uplift"
+      ],
+      "calc": "LP-actual gap closure + scenario analysis acceleration. ₹6 cr per MMTPA crude.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Sustainability & Compliance",
+    "f": [
+     "Emission/energy/waste monitoring",
+     "Data integration",
+     "Compliance reporting",
+     "Audit",
+     "ESG certification + voluntary credits"
+    ],
+    "rm": "Air emission data (SO2, NOx, particulate, VOC, GHG), water consumption, waste tracking, fugitive emissions",
+    "ut": "Compliance management platform, audit infrastructure, carbon accounting",
+    "out": "Compliance reports, ESG metrics, fugitive emission reports, carbon footprint per t product, net-zero tracking",
+    "q": "Stack emission compliance margins, fugitive emission counts (LDAR), GHG intensity (kgCO2e/t crude), water reuse %",
+    "uc": [
+     {
+      "t": "Environmental Compliance & Net-Zero Tracking",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MMTPA crude",
+      "d": [
+       "Tracks stack emissions (SO2, NOx, particulate, VOC), GHG emissions (CO2 + methane fugitive), water footprint and energy intensity.",
+       "Integrates with regulatory (CPCB), customer ESG and voluntary credit schemes.",
+       "Provides emission dashboards, fugitive emission (LDAR) tracking, net-zero pathway monitoring."
+      ],
+      "p": [
+       "Refinery decarbonization pressure intense",
+       "Methane fugitive emissions tracked (CH4 has 25x GWP)",
+       "LDAR compliance labor-intensive",
+       "Customer scope 3 reporting",
+       "Net-zero pledges by all majors"
+      ],
+      "kpi": [
+       "Emission compliance margins",
+       "GHG intensity (kgCO2e/t crude)",
+       "Methane fugitive emissions",
+       "LDAR coverage",
+       "Net-zero progress"
+      ],
+      "calc": "Compliance + methane reduction + carbon credit eligibility. ₹3 cr per MMTPA crude.",
+      "tier": 2
+     }
+    ]
+   }
+  ]
+ }
+]

@@ -1,0 +1,251 @@
+[
+ {
+  "s": "Battery System",
+  "procs": [
+   {
+    "n": "Cell & Module",
+    "uc": [
+     {
+      "t": "Cell Anomaly & Thermal Runaway Early Warning",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "100 MWh per year",
+      "vq": "risk-adjusted",
+      "d": [
+       "Analyses cell/module voltages, temperatures, internal-resistance trends and (where fitted) off-gas sensors across all racks.",
+       "Detects outlier cells, abnormal self-discharge, temperature divergence and precursor signatures of thermal runaway hours-to-days ahead.",
+       "Provides rack-level isolation advisories and escalation protocol to prevent propagation."
+      ],
+      "p": [
+       "BMS alarms fire at thresholds — too late for runaway precursors",
+       "One cell failure can propagate to rack/container fire",
+       "Container fire = ₹15-40 cr asset loss + site shutdown + reputational damage",
+       "Cell-level data volume overwhelms manual review",
+       "Insurance costs rising after global BESS fire incidents"
+      ],
+      "kpi": [
+       "Cell voltage/temperature divergence index",
+       "Anomalous cell count per rack",
+       "Early-warning lead time (hours)",
+       "Thermal events per year",
+       "Insurance premium %"
+      ],
+      "calc": "Expected loss reduction: fire probability ~0.5-1%/yr × ₹25 cr loss × 60-70% risk reduction ≈ ₹1-1.5 cr + insurance premium reduction 10-20% + avoided shutdown days. ₹3 cr per 100 MWh per year.",
+      "tier": 1
+     }
+    ]
+   },
+   {
+    "n": "Degradation Management",
+    "uc": [
+     {
+      "t": "State-of-Health Estimation & Degradation Analytics",
+      "k": "ai",
+      "v": 2.0,
+      "basis": "100 MWh per year",
+      "d": [
+       "Analyses charge/discharge curves, capacity tests, DoD/C-rate/temperature history per rack to estimate true SoH beyond BMS values.",
+       "Models degradation drivers and forecasts capacity fade under alternative dispatch profiles.",
+       "Tracks fade vs OEM warranty curve and builds evidence for warranty claims and augmentation planning."
+      ],
+      "p": [
+       "BMS SoH values optimistic and inconsistent across racks",
+       "Fade above warranty curve unnoticed until capacity tests fail",
+       "Dispatch decisions ignore degradation cost per cycle",
+       "Warranty claims fail without independent SoH evidence",
+       "Augmentation capex planned on assumptions, not data"
+      ],
+      "kpi": [
+       "SoH % per rack (measured vs BMS-reported)",
+       "Capacity fade rate %/yr vs warranty curve",
+       "Warranty claims raised/recovered (₹)",
+       "Usable energy (MWh) trend",
+       "Augmentation timing accuracy"
+      ],
+      "calc": "Warranty recovery on abnormal fade (₹1-3 cr episodic) + deferred augmentation 6-12 months × capex carrying cost + degradation-aware dispatch uplift. ₹2 cr per 100 MWh per year.",
+      "tier": 1
+     }
+    ]
+   },
+   {
+    "n": "BMS & Controls",
+    "uc": [
+     {
+      "t": "SoC Accuracy & PCS-BMS Performance Diagnostics",
+      "k": "ai",
+      "v": 1.0,
+      "basis": "100 MWh per year",
+      "d": [
+       "Analyses SoC estimate drift vs coulomb-count/OCV reconciliation, PCS efficiency curves, rack imbalance and communication faults across BMS/PCS/EMS stack.",
+       "Detects SoC estimation errors, rack imbalance limiting usable capacity, PCS derating and control-stack misconfiguration.",
+       "Provides calibration schedules and configuration fixes to recover usable capacity and round-trip efficiency."
+      ],
+      "p": [
+       "SoC errors 3-8% strand usable capacity and breach obligations",
+       "Rack imbalance means weakest rack caps the container",
+       "PCS derating and efficiency loss unmonitored",
+       "BMS/PCS/EMS from different vendors — faults fall between them",
+       "RTE degrades silently below contracted values"
+      ],
+      "kpi": [
+       "SoC estimation error %",
+       "Usable capacity vs nameplate %",
+       "Round-trip efficiency %",
+       "Rack imbalance spread %",
+       "PCS derating hours"
+      ],
+      "calc": "Usable capacity recovery 2-4% × revenue per MWh installed + RTE improvement 0.5-1% × throughput margin. ₹1 cr per 100 MWh per year.",
+      "tier": 2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Market Operations",
+  "procs": [
+   {
+    "n": "Dispatch Optimization",
+    "uc": [
+     {
+      "t": "Revenue-Optimal Dispatch (Arbitrage, DSM & Ancillary Stacking)",
+      "k": "ai",
+      "v": 4.0,
+      "basis": "100 MWh per year",
+      "d": [
+       "Analyses market prices (DAM/RTM), DSM signals, contracted obligations, RE co-located generation forecasts and battery degradation cost per cycle.",
+       "Optimizes charge/discharge schedules to stack revenue streams (energy arbitrage, deviation reduction, ancillary/peak obligations) net of degradation cost.",
+       "Provides automated bid/schedule recommendations and post-trade P&L attribution."
+      ],
+      "p": [
+       "Dispatch run on static rules; price spreads under-captured",
+       "Degradation cost ignored — cheap cycles destroy asset value",
+       "Revenue streams optimized in isolation, not stacked",
+       "RTM volatility opportunities missed",
+       "No P&L attribution per cycle/decision"
+      ],
+      "kpi": [
+       "Revenue per MWh installed (₹)",
+       "Arbitrage spread capture %",
+       "Cycles per day vs degradation budget",
+       "Round-trip efficiency-adjusted margin",
+       "Obligation compliance %"
+      ],
+      "calc": "Revenue uplift 10-15% on ₹25-35 cr/yr gross revenue per 100 MWh (1 cycle/day × ₹4-6/kWh spread) net of degradation cost = ₹3-4 cr per 100 MWh per year.",
+      "tier": 1
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Balance of System",
+  "procs": [
+   {
+    "n": "Thermal Management",
+    "uc": [
+     {
+      "t": "HVAC & Auxiliary Power Optimization",
+      "k": "ai",
+      "v": 0.8,
+      "basis": "100 MWh per year",
+      "d": [
+       "Analyses container/room temperatures, HVAC power, chiller setpoints, ambient conditions and dispatch schedule.",
+       "Models thermal inertia and optimizes cooling setpoints/pre-cooling around planned cycles to hold cell temperature bands with minimum auxiliary consumption.",
+       "Detects HVAC faults (refrigerant loss, fan failures) degrading thermal control."
+      ],
+      "p": [
+       "Auxiliary (HVAC) consumption 2-5% of throughput — direct margin loss",
+       "HVAC setpoints static; no pre-cooling before heavy cycles",
+       "Temperature excursions accelerate degradation silently",
+       "HVAC failures found on temperature alarms, after cell stress",
+       "Summer aux loads spike unmanaged"
+      ],
+      "kpi": [
+       "Auxiliary consumption % of throughput",
+       "Cell temperature band compliance %",
+       "HVAC specific power (kW per container)",
+       "HVAC fault detection lead time"
+      ],
+      "calc": "Aux reduction 20-30% × 3% of throughput × ₹4/kWh + degradation avoidance from tighter temperature bands. ₹0.8 cr per 100 MWh per year.",
+      "tier": 2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Site Operations",
+  "procs": [
+   {
+    "n": "Safety & Compliance",
+    "uc": [
+     {
+      "t": "Fire & Gas Safety Monitoring Integration",
+      "k": "cv",
+      "v": 1.0,
+      "basis": "100 MWh per year",
+      "vq": "risk + compliance",
+      "d": [
+       "Integrates off-gas detectors, smoke/heat sensors, thermal cameras and CCTV CV models across containers into one safety layer.",
+       "Detects gas evolution, external thermal anomalies, unauthorized entry and suppression-system readiness gaps.",
+       "Provides automated emergency protocol triggers (isolation, ventilation, fire brigade alert) and compliance audit trails."
+      ],
+      "p": [
+       "Safety sensors installed but not integrated into one decision layer",
+       "Suppression readiness unverified between audits",
+       "Emergency response depends on operator interpretation at 3 am",
+       "CEA/insurer compliance documentation manual",
+       "Access control gaps during O&M visits"
+      ],
+      "kpi": [
+       "Gas/thermal alarm verification time",
+       "Suppression system readiness %",
+       "Emergency drill/protocol compliance",
+       "Unauthorized access events"
+      ],
+      "calc": "Risk-adjusted loss reduction + insurance terms + avoided compliance penalties. ₹1 cr per 100 MWh per year.",
+      "tier": 2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Cross-Cutting",
+  "procs": [
+   {
+    "n": "Digital Foundation",
+    "uc": [
+     {
+      "t": "EMS Data Foundation & Fleet Analytics Layer",
+      "k": "fd",
+      "v": null,
+      "basis": null,
+      "vt": "Enabler for all other use cases (no standalone ₹ impact)",
+      "d": [
+       "Foundational layer unifying BMS (cell-level), PCS, EMS, meters, HVAC and market data across containers/sites into one historian.",
+       "Handles high-frequency cell data volumes and vendor heterogeneity; enables all analytics use cases.",
+       "Provides fleet dashboards, obligation tracking and APIs for optimization engines."
+      ],
+      "p": [
+       "Cell-level data discarded or locked in vendor BMS",
+       "BMS/PCS/EMS vendors have separate portals",
+       "Dispatch decisions run on incomplete data",
+       "Fleet-level view absent across sites",
+       "Analytics blocked on data plumbing"
+      ],
+      "kpi": [
+       "Cell-level data capture % and retention",
+       "Cross-vendor data model coverage",
+       "Data latency for dispatch decisions",
+       "Time-to-deploy new analytics"
+      ],
+      "calc": "Enabler — value realized through downstream use cases.",
+      "tier": 1
+     }
+    ]
+   }
+  ]
+ }
+]

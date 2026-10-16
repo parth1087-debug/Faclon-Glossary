@@ -1,0 +1,1588 @@
+[
+ {
+  "s": "Concentrate Receiving & Handling",
+  "procs": [
+   {
+    "n": "Concentrate Receiving & Handling",
+    "f": [
+     "Ship/rail receipt",
+     "Storage silos",
+     "Blending",
+     "Drying",
+     "Smelter feed"
+    ],
+    "rm": "Copper concentrate (25-32% Cu, imported via shipping for most Indian smelters)",
+    "ut": "Power (conveyors, dryers), heat (concentrate drying)",
+    "out": "Dried, blended concentrate ready for smelter feed",
+    "q": "Cu%, Fe%, S%, As/Sb/Bi/Pb (deleterious elements), Au/Ag (payable), moisture %, particle size",
+    "uc": [
+     {
+      "t": "Concentrate Multi-Element Assay & Payable Tracking",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MTPA copper",
+      "d": [
+       "Analyses multi-element assay data from each concentrate batch (Cu, Fe, S, As, Sb, Bi, Pb, Au, Ag) integrated with shipment, supplier and contract data.",
+       "Tracks payable Cu/Au/Ag and penalty elements (As, Sb, Bi, Hg) against contract terms.",
+       "Provides reconciliation between supplier assay, plant assay and umpire if applicable; flags discrepancies."
+      ],
+      "p": [
+       "Concentrate assay drives commercial settlement (high financial stake)",
+       "Multi-supplier blends complicate tracking",
+       "Penalty elements (As, Bi) hit on every shipment",
+       "Manual reconciliation labor-intensive",
+       "Discrepancies caught late in payment cycle"
+      ],
+      "kpi": [
+       "Lab TAT on concentrate assay",
+       "Multi-element accuracy vs umpire",
+       "Payable metal accuracy %",
+       "Supplier dispute frequency"
+      ],
+      "calc": "Assay reconciliation error reduction 0.1-0.3% × concentrate value ₹5-6 lakh/t × 3.5 t conc/t Cu = ₹15-50K/t Cu = ₹15-50 cr/MTPA. Capture 5-10% = ₹3 cr per MTPA copper.",
+      "tier": 2
+     },
+     {
+      "t": "Concentrate Blending Optimization",
+      "k": "ai",
+      "v": 4.0,
+      "basis": "MTPA copper",
+      "d": [
+       "Analyses concentrate stockpile inventory, assays, smelter operational constraints (Cu/S ratio, deleterious elements, heat balance) and downstream feedback.",
+       "Models optimal blend recipes for stable smelter operation at minimum penalty element risk.",
+       "Provides daily blend recipe advisory with traceability."
+      ],
+      "p": [
+       "Concentrate Cu% varies 25-32% between suppliers",
+       "Penalty element spikes destabilize smelter",
+       "Blending often by experience, not optimization",
+       "Stockpile assays not always up to date",
+       "Smelter operational disruptions traced back to bad blends"
+      ],
+      "kpi": [
+       "Smelter feed Cu/S ratio variability",
+       "Penalty element compliance",
+       "Smelter operational stability",
+       "Blend recipe adherence"
+      ],
+      "calc": "Smelter stability + reduced penalty events + improved matte grade consistency. ₹4 cr per MTPA copper.",
+      "tier": 2
+     },
+     {
+      "t": "Material Handling Health & Foreign Material Detection",
+      "k": "cv",
+      "v": 1.0,
+      "basis": "MTPA copper",
+      "loc": [
+       "Ship/rail unloading to storage conveyors",
+       "Storage silo discharge to dryer feed",
+       "Dryer to smelter feed conveyor (final checkpoint)"
+      ],
+      "d": [
+       "Analyses camera feeds, vibration on idlers, and metal detector signals.",
+       "Detects belt tears, mis-tracking, foreign material and bearing degradation.",
+       "Provides location-tagged alerts before unplanned conveyor failures."
+      ],
+      "p": [
+       "Concentrate handling lines failure halts smelter feed",
+       "Foreign material damages dryer/smelter feed",
+       "Manual belt inspection cannot cover 24/7",
+       "Wet concentrate causes corrosion",
+       "Belt damage often noticed only on inspection rounds"
+      ],
+      "kpi": [
+       "Conveyor availability %",
+       "MTBF on concentrate handling",
+       "Foreign material events",
+       "Belt life (months)"
+      ],
+      "calc": "Belt failure prevention + jam events avoided. ₹1 cr per MTPA copper.",
+      "tier": 3
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Smelter",
+  "procs": [
+   {
+    "n": "Smelter",
+    "f": [
+     "Concentrate + flux + O2",
+     "ISASMELT/Flash furnace",
+     "Matte (settled) + Slag (skimmed) + Off-gas"
+    ],
+    "rm": "Dried concentrate, silica flux, recycled materials, fuel (HFO/NG)",
+    "ut": "Oxygen (95%+ purity), combustion air, fuel, power",
+    "out": "Matte (60-70% Cu), slag, off-gas (25-35% SO2 to acid plant)",
+    "q": "Matte grade %, Cu-in-slag %, off-gas SO2 strength, slag fluidity, thermal efficiency",
+    "uc": [
+     {
+      "t": "Smelter Thermal & Matte Grade Optimization",
+      "k": "ai",
+      "v": 8.0,
+      "basis": "MTPA copper",
+      "d": [
+       "Analyses concentrate feed rate and assay, oxygen flow, fuel rate, bath temperature and matte grade lab data.",
+       "Models smelter thermodynamics and predicts matte grade, slag chemistry and SO2 generation versus operating conditions.",
+       "Provides advisory on O2 enrichment, fuel rate and matte target for stable, efficient operation."
+      ],
+      "p": [
+       "Matte grade target hit via experience",
+       "O2 over-consumed for safety margin",
+       "Fuel cost rising; consumption above design",
+       "Bath temperature swings affect refractory",
+       "Feed variability impacts thermal balance"
+      ],
+      "kpi": [
+       "Matte grade % consistency",
+       "Specific O2 consumption (Nm³/t Cu)",
+       "Fuel consumption (GJ/t Cu)",
+       "Bath temperature stability",
+       "Smelter throughput"
+      ],
+      "calc": "O2 savings 5% × ₹50-80 cr/MTPA O2 cost + fuel savings 3-5% + matte grade stability for downstream. ₹8 cr per MTPA copper.",
+      "tier": 2
+     },
+     {
+      "t": "Slag Chemistry & Cu Loss Optimization",
+      "k": "ai",
+      "v": 15.0,
+      "basis": "MTPA copper",
+      "d": [
+       "Analyses slag composition (Fe/SiO2 ratio, Cu%, magnetite content), slag temperature/fluidity, and matte settling.",
+       "Models slag-matte separation thermodynamics and predicts Cu losses versus slag chemistry.",
+       "Provides flux addition advisory and slag chemistry setpoints to minimize Cu carried in discard slag."
+      ],
+      "p": [
+       "Slag carries 0.8-1.5% Cu (direct revenue loss)",
+       "Each 0.1% Cu-in-slag = ₹5 cr/MTPA at LME",
+       "Flux addition by recipe, not optimized",
+       "Magnetite buildup causes settling issues",
+       "Slag chemistry feedback slow (lab TAT)"
+      ],
+      "kpi": [
+       "Cu-in-slag % (target 0.7-0.9%)",
+       "Fe/SiO2 ratio",
+       "Slag temperature/fluidity",
+       "Magnetite buildup",
+       "Slag handling rate"
+      ],
+      "calc": "Cu-in-slag reduction 0.2-0.4% × slag rate 3-4 t/t Cu × ₹6.5 lakh/t Cu × 1 MTPA = ₹15-25 cr. Conservative ₹15 cr per MTPA copper.",
+      "tier": 1
+     },
+     {
+      "t": "Off-gas SO2 Capture & Acid Plant Feed Optimization",
+      "k": "ai",
+      "v": 6.0,
+      "basis": "MTPA copper",
+      "d": [
+       "Analyses smelter off-gas SO2 strength, temperature, particulate load and acid plant feed conditions.",
+       "Models smelter-to-acid-plant integration and identifies SO2 capture inefficiencies.",
+       "Provides advisory on smelter feed timing and acid plant gas conditioning for maximum SO2 capture."
+      ],
+      "p": [
+       "SO2 emissions tightly regulated (CPCB limits)",
+       "Off-gas SO2 variability hurts acid plant",
+       "Particulate carryover blinds ESP",
+       "Manual smelter-acid plant coordination",
+       "Compliance margin shrinking"
+      ],
+      "kpi": [
+       "SO2 capture efficiency %",
+       "SO2 emission rate at stack",
+       "Acid plant feed SO2 strength",
+       "Acid production rate"
+      ],
+      "calc": "SO2 capture +1-2 percentage points × 3 t acid/t Cu × ₹2,500/t acid + compliance margin. ₹6 cr per MTPA copper.",
+      "tier": 2
+     },
+     {
+      "t": "Smelter Refractory Wear & Campaign Life Monitoring",
+      "k": "ai",
+      "v": 4.0,
+      "basis": "MTPA copper",
+      "d": [
+       "Analyses thermal imaging of refractory shell, lance/wall temperatures and operating conditions correlated with historical campaign life.",
+       "Predicts refractory wear patterns and remaining campaign life.",
+       "Provides relining schedule advisory and operational adjustments to extend campaign."
+      ],
+      "p": [
+       "Refractory relining is expensive (₹10-25 cr per campaign + 15-30 day shutdown)",
+       "Manual inspection at scheduled stops",
+       "Wear pattern emerges late in campaign",
+       "Relining decisions conservative",
+       "Campaign extension worth significant value"
+      ],
+      "kpi": [
+       "Campaign life (days/months)",
+       "Refractory wear rate",
+       "Hot spots on shell",
+       "Relining cost per campaign"
+      ],
+      "calc": "Campaign life extension 10-15% + reduced unplanned relines. ₹4 cr per MTPA copper.",
+      "tier": 2
+     },
+     {
+      "t": "Concentrate Burner & Oxygen Efficiency Optimization",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MTPA copper",
+      "d": [
+       "Analyses concentrate burner performance, O2 lance behavior, combustion efficiency and feed segregation.",
+       "Models burner heat release and oxygen utilization patterns.",
+       "Provides burner setpoint advisory for maximum O2 efficiency and stable bath operation."
+      ],
+      "p": [
+       "O2 lance positioning manually adjusted",
+       "Burner instability disrupts bath",
+       "Feed segregation causes hot/cold spots",
+       "O2 cost is significant variable",
+       "Manual tuning per shift"
+      ],
+      "kpi": [
+       "O2 utilization %",
+       "Burner stability",
+       "Feed segregation events",
+       "Off-gas O2 carryover"
+      ],
+      "calc": "O2 efficiency improvement 2-3%. ₹3 cr per MTPA copper.",
+      "tier": 3
+     },
+     {
+      "t": "Smelter Mass Balance & Cu Accounting Inferential",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MTPA copper",
+      "d": [
+       "Integrates concentrate input, matte output, slag output and off-gas data with multi-element assays.",
+       "Builds real-time copper mass balance and identifies unaccounted Cu losses.",
+       "Provides Cu accounting closure dashboards and discrepancy investigation tools."
+      ],
+      "p": [
+       "Cu accounting closure typically 97-99% (1-3% unaccounted)",
+       "Discrepancies investigated manually",
+       "Sample timing misalignment",
+       "Inventory adjustments at month-end",
+       "Cu in process not tracked precisely"
+      ],
+      "kpi": [
+       "Cu accounting closure %",
+       "Mass balance discrepancy magnitude",
+       "Multi-element reconciliation",
+       "Stockpile inventory accuracy"
+      ],
+      "calc": "Accounting closure improvement + reduced unaccounted Cu losses. ₹3 cr per MTPA copper.",
+      "tier": 2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Converting",
+  "procs": [
+   {
+    "n": "Pierce-Smith Converter",
+    "f": [
+     "Matte ladle",
+     "Converter charging",
+     "Slag blow (FeS",
+     "FeO+SO2)",
+     "Slag skim",
+     "Copper blow (Cu2S",
+     "Cu+SO2)",
+     "Blister tap"
+    ],
+    "rm": "Matte from smelter (~65% Cu), silica flux for slag-making",
+    "ut": "Oxygen-enriched air (28-30% O2), auxiliary fuel, power",
+    "out": "Blister copper (~98-99% Cu), converter slag (recycled to smelter), off-gas with SO2",
+    "q": "Blister Cu%, S%, O%, cycle time, oxygen utilization %, refractory wear",
+    "uc": [
+     {
+      "t": "Converter Cycle & Throughput Optimization",
+      "k": "ai",
+      "v": 6.0,
+      "basis": "MTPA copper",
+      "d": [
+       "Analyses converter blow times (slag-making + copper-making), matte input quality, O2 enrichment and converter slag chemistry.",
+       "Models converter cycle dynamics and predicts blow endpoints.",
+       "Provides cycle optimization advisory for maximum copper throughput at target quality."
+      ],
+      "p": [
+       "Converter throughput is plant bottleneck",
+       "Endpoint determination is operator skill",
+       "Cycle time variability",
+       "Slag-make vs copper-make balance manual",
+       "Unplanned cycle extensions"
+      ],
+      "kpi": [
+       "Average cycle time (hours)",
+       "Copper-make blow time",
+       "Slag-make blow time",
+       "Charge-to-tap availability %",
+       "Cycles per day"
+      ],
+      "calc": "Cycle time reduction 5-10% × copper margin. ₹6 cr per MTPA copper.",
+      "tier": 2
+     },
+     {
+      "t": "Converter Oxygen Efficiency Optimization",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MTPA copper",
+      "d": [
+       "Analyses O2 enrichment ratio, blast rate, off-gas O2 content and converter performance.",
+       "Models O2 utilization at converter and predicts optimal enrichment per cycle stage.",
+       "Provides O2 dosing setpoint advisory."
+      ],
+      "p": [
+       "O2 enrichment manually set per cycle",
+       "O2 cost significant",
+       "Off-gas SO2 affects acid plant",
+       "O2 over-consumed for cycle safety",
+       "Cycle stage transitions empirical"
+      ],
+      "kpi": [
+       "O2 utilization at converter %",
+       "O2 cost per cycle",
+       "Off-gas SO2 strength",
+       "Cycle time correlation"
+      ],
+      "calc": "O2 cost reduction 3-5% on converter. ₹3 cr per MTPA copper.",
+      "tier": 2
+     },
+     {
+      "t": "Converter Mouth & Slag Skim Monitoring",
+      "k": "cv",
+      "v": 3.0,
+      "basis": "MTPA copper",
+      "d": [
+       "Analyses high-temperature camera feeds at converter mouth during charging, blowing and skimming.",
+       "Detects slag/matte interface, splashing events, mouth buildup and refractory wear visible at mouth.",
+       "Provides operational alerts and quality scoring for skim cycle endpoints."
+      ],
+      "p": [
+       "Mouth buildup limits cycle efficiency",
+       "Slag carryover affects blister quality",
+       "Splash events safety risk",
+       "Skim endpoint operator-judgment",
+       "Visibility poor due to fumes"
+      ],
+      "kpi": [
+       "Mouth buildup events",
+       "Slag carryover quality",
+       "Splash incident count",
+       "Skim endpoint accuracy"
+      ],
+      "calc": "Improved skim quality + reduced splash events + mouth maintenance. ₹3 cr per MTPA copper.",
+      "tier": 2
+     },
+     {
+      "t": "Converter Refractory Life Monitoring",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MTPA copper",
+      "d": [
+       "Analyses thermal imaging of converter shell, tuyere health and operational stress markers.",
+       "Predicts refractory wear and lining campaign life.",
+       "Provides relining scheduling advisory."
+      ],
+      "p": [
+       "Converter relines disrupt production",
+       "Tuyere life variable",
+       "Manual inspection during cool-down",
+       "Lining failures sometimes catastrophic",
+       "Campaign extension worth significant cycles"
+      ],
+      "kpi": [
+       "Lining campaign life",
+       "Tuyere life (cycles)",
+       "Shell hot spots",
+       "Relining cost"
+      ],
+      "calc": "Campaign extension + reduced unplanned relines. ₹3 cr per MTPA copper.",
+      "tier": 3
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Anode Furnace & Casting",
+  "procs": [
+   {
+    "n": "Anode Furnace",
+    "f": [
+     "Blister",
+     "Anode furnace",
+     "Oxidation blow (removes S)",
+     "Reduction blow (sets O)",
+     "Tapping"
+    ],
+    "rm": "Blister copper (~99% Cu)",
+    "ut": "Reductant (NG or LPG), combustion air, power (rotary drive)",
+    "out": "Anode-grade copper (~99.5%), set to target oxygen content for casting",
+    "q": "Final S% (<0.005%), O% (0.15-0.25% target), Pb/Bi/As content, temperature",
+    "uc": [
+     {
+      "t": "Fire Refining Optimization (S-removal and O-control)",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MTPA copper",
+      "d": [
+       "Analyses anode furnace blow profile (oxidation removes S, reduction sets O), bath temperature and final anode quality.",
+       "Models S and O endpoint kinetics and predicts target O content (0.15-0.25%) for downstream cell house.",
+       "Provides reductant dosing and blow duration setpoint advisory."
+      ],
+      "p": [
+       "S endpoint determination manual",
+       "O target window narrow (0.15-0.25%)",
+       "Reductant cost rising",
+       "Anode oxygen affects cathode quality",
+       "Cycle time variability"
+      ],
+      "kpi": [
+       "Final S% (<0.005%)",
+       "Final O% (target window compliance)",
+       "Reductant consumption",
+       "Cycle time",
+       "Anode cathode quality correlation"
+      ],
+      "calc": "Reductant savings + cycle time + downstream cathode quality. ₹3 cr per MTPA copper.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Anode Casting",
+    "f": [
+     "Anode furnace tap",
+     "Casting wheel (24-32 molds)",
+     "Cooling spray",
+     "Anode harvesting",
+     "Stacking"
+    ],
+    "rm": "Refined anode copper from anode furnace",
+    "ut": "Power (casting wheel drive), cooling water",
+    "out": "Cast copper anodes (~330-380 kg each, dimensionally consistent for cell house)",
+    "q": "Anode weight tolerance, surface quality, dimensional accuracy, structural integrity",
+    "uc": [
+     {
+      "t": "Anode Casting Quality & Defect Detection",
+      "k": "cv",
+      "v": 3.0,
+      "basis": "MTPA copper",
+      "d": [
+       "Analyses cameras at casting wheel exit and anode stacking line; detects casting defects (cold shut, porosity, deformation, mold issues).",
+       "Provides defect classification and rejects bad anodes before cell house feed.",
+       "Tracks defect patterns to mold/casting wheel for root cause."
+      ],
+      "p": [
+       "Anode defects cause cell house disruption (short circuits, current efficiency loss)",
+       "Manual visual inspection inconsistent",
+       "Defects discovered at cell house",
+       "Mold wear hidden until anode quality drops",
+       "Root cause analysis manual"
+      ],
+      "kpi": [
+       "Anode defect rate",
+       "Cathode quality from anode defect (downstream impact)",
+       "Mold change frequency",
+       "Defect classification accuracy"
+      ],
+      "calc": "Defect reduction + cell house disruption avoidance. ₹3 cr per MTPA copper.",
+      "tier": 2
+     },
+     {
+      "t": "Anode Mass & Dimensional Control",
+      "k": "ai",
+      "v": 2.0,
+      "basis": "MTPA copper",
+      "d": [
+       "Analyses real-time anode weight and dimensions at casting wheel output.",
+       "Detects deviations from target anode spec (weight tolerance, shape, dimensions).",
+       "Provides immediate operational alerts and casting wheel adjustment guidance."
+      ],
+      "p": [
+       "Anode weight variability impacts cell house",
+       "Manual weight checks",
+       "Dimensional issues cause cell short circuits",
+       "Cycle time variations",
+       "Casting wheel maintenance reactive"
+      ],
+      "kpi": [
+       "Anode weight 2σ",
+       "Dimensional tolerance compliance",
+       "Anode-to-anode consistency",
+       "Cell house fit-up issues"
+      ],
+      "calc": "Weight + dimension consistency reducing cell house disruption. ₹2 cr per MTPA copper.",
+      "tier": 3
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Electrorefining",
+  "procs": [
+   {
+    "n": "Electrorefining Cell House",
+    "f": [
+     "Anodes + cathodes in tankhouse cells",
+     "DC current",
+     "Cu dissolves at anode",
+     "Cu plates at cathode",
+     "Slimes settle",
+     "Cathode stripping (7-10 day cycle)"
+    ],
+    "rm": "Copper anodes, stainless steel permanent cathodes (or starter sheets), electrolyte (CuSO4 + H2SO4)",
+    "ut": "DC power (250-320 A/m² current density, 0.25-0.35 V per cell), heated electrolyte (60-65°C)",
+    "out": "LME-grade cathode copper (>99.99% Cu), depleted anode scrap (recycled), anode slimes (precious metals)",
+    "q": "Current efficiency (CE %), specific energy (kWh/t Cu), cathode purity, electrolyte composition (Cu, H2SO4, Fe, As, Sb, Ni)",
+    "uc": [
+     {
+      "t": "Cell House Current Efficiency Optimization",
+      "k": "ai",
+      "v": 15.0,
+      "basis": "MTPA copper",
+      "d": [
+       "Analyses current density, electrolyte temperature, electrolyte flow, anode-cathode geometry, electrolyte composition and historical cell performance data.",
+       "Models cell electrochemistry plant-wide and predicts current efficiency versus operating conditions.",
+       "Provides advisory on current density, electrolyte flow, additive dosing for maximum CE at target cathode quality."
+      ],
+      "p": [
+       "Cell house consumes 40-50% of plant power",
+       "Each 1% CE improvement = ₹6-8 cr/MTPA",
+       "Current density limited by quality risk",
+       "Electrolyte composition imbalance hidden",
+       "Manual flow/temperature control"
+      ],
+      "kpi": [
+       "Current efficiency (CE %)",
+       "Specific energy (kWh/t Cu)",
+       "Cathode quality grade",
+       "Electrolyte temperature/composition stability"
+      ],
+      "calc": "CE improvement 1-2 percentage points × 280 kWh/t Cu specific energy × ₹6/kWh × 1 MTPA = ₹15-30 cr. ₹15 cr per MTPA copper conservatively.",
+      "tier": 1
+     },
+     {
+      "t": "Cathode Quality Monitoring",
+      "k": "cv",
+      "v": 6.0,
+      "basis": "MTPA copper",
+      "d": [
+       "Analyses high-resolution cameras at cathode stripping machines.",
+       "Detects cathode surface defects (nodules, dendrites, pits, discoloration), thickness anomalies and stripping issues.",
+       "Provides defect classification with cell-level tracking for root cause."
+      ],
+      "p": [
+       "Premium LME-A cathodes earn $50-100/t over standard",
+       "Defects cause customer downgrade",
+       "Manual quality inspection at stripping",
+       "Cell-level performance tracking manual",
+       "Quality drift only caught by sampling"
+      ],
+      "kpi": [
+       "Cathode quality grade (LME-A vs lower)",
+       "Defect rate per cathode",
+       "Surface defect classification",
+       "Cell-level performance correlation"
+      ],
+      "calc": "Premium grade share +3-5% × $50-100/t premium × 1 MTPA × ₹83/$. ₹6 cr per MTPA copper.",
+      "tier": 2
+     },
+     {
+      "t": "Electrolyte Chemistry & Impurity Bleed Optimization",
+      "k": "ai",
+      "v": 4.0,
+      "basis": "MTPA copper",
+      "d": [
+       "Analyses electrolyte Cu, H2SO4, Fe, As, Sb, Bi, Ni levels, bleed rate and makeup feed.",
+       "Models impurity buildup kinetics and predicts cathode quality risk versus electrolyte state.",
+       "Provides bleed/purification setpoint advisory to maintain target electrolyte at minimum chemical/energy cost."
+      ],
+      "p": [
+       "Impurity buildup hidden until cathode quality drops",
+       "Bleed rate often conservative (excess purification cost)",
+       "Lab feedback slow on multi-element",
+       "Cathode rejects from chemistry imbalance",
+       "Purification cost significant"
+      ],
+      "kpi": [
+       "Electrolyte impurity levels",
+       "Bleed rate",
+       "Cathode quality correlation",
+       "Purification cost"
+      ],
+      "calc": "Bleed optimization + cathode quality. ₹4 cr per MTPA copper.",
+      "tier": 2
+     },
+     {
+      "t": "Cell Short Circuit Detection (Thermal CV)",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MTPA copper",
+      "d": [
+       "Analyses thermal imaging of cell house aisles, individual cell temperatures and infrared anode-cathode gap profiles.",
+       "Detects short circuits, hot spots, abnormal cell behavior in real time.",
+       "Provides immediate alerts to cell house operators for intervention."
+      ],
+      "p": [
+       "Short circuits waste current (CE loss)",
+       "Manual aisle patrol cannot cover continuously",
+       "Shorts persist until found",
+       "Bent anodes cause repeat shorts",
+       "Cathode quality affected near shorts"
+      ],
+      "kpi": [
+       "Short circuit count per day",
+       "Short circuit duration before intervention",
+       "CE loss from shorts",
+       "Cell house aisle coverage"
+      ],
+      "calc": "Short circuit time reduction × CE recovery. ₹3 cr per MTPA copper.",
+      "tier": 2
+     },
+     {
+      "t": "Anode Slimes Collection & Loss Prevention",
+      "k": "ai",
+      "v": 5.0,
+      "basis": "MTPA copper",
+      "d": [
+       "Analyses cell-by-cell slimes generation rates, settling characteristics, and cell cleaning effectiveness.",
+       "Identifies slimes loss to electrolyte circulation and anode washing inefficiencies.",
+       "Provides cell cleaning schedule and slimes recovery advisory."
+      ],
+      "p": [
+       "Anode slimes contain valuable PMs (Au, Ag, Se, Te)",
+       "Slimes loss to circulation reduces PM yield",
+       "Cell cleaning manual",
+       "Slimes accumulation affects current distribution",
+       "PM revenue often largest profit driver"
+      ],
+      "kpi": [
+       "Slimes capture rate (kg/t Cu)",
+       "Slimes Au/Ag grade",
+       "Slimes loss to electrolyte (%)",
+       "Cell cleaning effectiveness"
+      ],
+      "calc": "PM yield improvement 1-2% × slimes value (Au, Ag, PGMs). ₹5 cr per MTPA copper.",
+      "tier": 2
+     },
+     {
+      "t": "Cell House Health & Safety Monitoring",
+      "k": "cv",
+      "v": 2.0,
+      "basis": "MTPA copper",
+      "d": [
+       "Analyses CCTV across cell house aisles for personnel safety, equipment integrity and process anomalies.",
+       "Detects acid mist, electrolyte leaks, restricted-zone entry without PPE.",
+       "Provides safety alerts and area-tagged incidents."
+      ],
+      "p": [
+       "Cell house has H2SO4 mist + electrolyte splash hazards",
+       "Manual safety patrol insufficient",
+       "Acid mist exposure cumulative",
+       "Electrolyte leaks discovered late",
+       "Compliance audit prep labor-intensive"
+      ],
+      "kpi": [
+       "Restricted zone violations",
+       "Acid mist exposure events",
+       "PPE compliance %",
+       "Near-miss count"
+      ],
+      "calc": "Incident prevention + compliance + asset protection. ₹2 cr per MTPA copper.",
+      "tier": 3
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Sulphuric Acid Plant",
+  "procs": [
+   {
+    "n": "Sulphuric Acid Plant",
+    "f": [
+     "Off-gas",
+     "Gas cleaning (ESP/wet)",
+     "Drying tower",
+     "4-pass V2O5 converter (DCDA)",
+     "Absorption towers",
+     "98% H2SO4 storage"
+    ],
+    "rm": "SO2-rich off-gas from smelter and converter (cleaned, dried)",
+    "ut": "Air (combustion + drying), water, electricity, V2O5 catalyst, demin water (absorber)",
+    "out": "Sulphuric acid (98-99% concentration, saleable to fertilizer/chemical industries)",
+    "q": "SO2-to-SO3 conversion %, acid quality, mist emissions (mg/Nm³), stack SO2 ppm",
+    "uc": [
+     {
+      "t": "SO2-to-SO3 Conversion Optimization (DCDA)",
+      "k": "ai",
+      "v": 5.0,
+      "basis": "MTPA copper",
+      "d": [
+       "Analyses converter bed temperatures, SO2 feed strength, catalyst activity and final acid quality.",
+       "Models catalyst kinetics across 4 beds and predicts overall conversion versus operating conditions.",
+       "Provides advisory on bed temperatures, feed strength and interpass cooling for maximum conversion."
+      ],
+      "p": [
+       "Conversion target 99.5-99.7%; below = stack emission risk",
+       "Catalyst deactivation hidden",
+       "Bed temperature swings affect conversion",
+       "Manual bed control",
+       "Catalyst replacement cost significant"
+      ],
+      "kpi": [
+       "Overall SO2-to-SO3 conversion %",
+       "Stack SO2 ppm",
+       "Acid production rate",
+       "Catalyst remaining life"
+      ],
+      "calc": "Conversion +0.1-0.3% × 3 t acid/t Cu × ₹2,500/t acid + reduced catalyst replacement. ₹5 cr per MTPA copper.",
+      "tier": 2
+     },
+     {
+      "t": "Acid Mist Emission & Absorption Tower Optimization",
+      "k": "ai",
+      "v": 2.0,
+      "basis": "MTPA copper",
+      "d": [
+       "Analyses absorption tower performance, acid mist emissions and acid quality.",
+       "Predicts acid mist levels versus operating conditions.",
+       "Provides setpoint advisory for absorption tower operation."
+      ],
+      "p": [
+       "Acid mist emissions tightly regulated",
+       "Absorber demisters fouled over time",
+       "Manual operation",
+       "Mist plumes are visible compliance issue",
+       "Demister replacement scheduling reactive"
+      ],
+      "kpi": [
+       "Acid mist emissions (mg/Nm³)",
+       "Absorption tower efficiency",
+       "Acid quality (98%+)",
+       "Compliance margin"
+      ],
+      "calc": "Compliance margin + reduced demister replacement. ₹2 cr per MTPA copper.",
+      "tier": 2
+     },
+     {
+      "t": "Acid Plant Heat Recovery Optimization",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MTPA copper",
+      "d": [
+       "Analyses HRS (Heat Recovery System) performance, steam generation from acid plant exothermic, and heat integration with plant steam network.",
+       "Models heat recovery potential and predicts steam generation versus operating mode.",
+       "Provides advisory on HRS operation for maximum steam recovery."
+      ],
+      "p": [
+       "HRS often under-utilized",
+       "Heat recovery economics significant",
+       "Steam network integration manual",
+       "Heat exchanger fouling",
+       "HRS reliability issues"
+      ],
+      "kpi": [
+       "HRS steam generation (t/h)",
+       "Steam temperature/pressure",
+       "Heat recovery efficiency %",
+       "Steam to plant network"
+      ],
+      "calc": "Steam generation uplift + reduced auxiliary boiler fuel. ₹3 cr per MTPA copper.",
+      "tier": 2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Precious Metals Recovery",
+  "procs": [
+   {
+    "n": "Anode Slimes Processing",
+    "f": [
+     "Slimes collection",
+     "Decopperization",
+     "Roasting",
+     "Leaching (Cu, Se, Te)",
+     "Reduction (Ag dore)",
+     "Aqua regia (Au)",
+     "Final metals"
+    ],
+    "rm": "Anode slimes from cell house (contain residual Cu, Au, Ag, Se, Te, Pb, Bi, As, possibly PGMs)",
+    "ut": "Steam (decopperization), power, leaching chemicals (H2SO4, NaOH), smelting energy",
+    "out": "Refined Au, Ag (dore bars), Se, Te, residual Pb/Bi/As streams",
+    "q": "PM recovery %, refined metal purity (>99.9% Au/Ag), throughput (t slimes/day)",
+    "uc": [
+     {
+      "t": "Anode Slimes Processing & PM Recovery Optimization",
+      "k": "ai",
+      "v": 10.0,
+      "basis": "MTPA copper",
+      "d": [
+       "Analyses slimes input composition (Cu, Au, Ag, Se, Te, Pb, Bi), roasting/leaching parameters and final metal recovery.",
+       "Models multi-element separation chemistry and predicts PM yield versus operating conditions.",
+       "Provides recovery advisory and process optimization for maximum Au/Ag/Se/Te recovery."
+      ],
+      "p": [
+       "PMs represent 5-15% of plant profit despite tiny mass throughput",
+       "Slimes processing complex (multiple stages)",
+       "Lab feedback slow on PM grade",
+       "Yield variability per batch",
+       "Reagent cost significant"
+      ],
+      "kpi": [
+       "Au recovery % (target >99%)",
+       "Ag recovery %",
+       "Se/Te recovery %",
+       "Slimes throughput (t/day)",
+       "Refined metal purity"
+      ],
+      "calc": "Au recovery improvement 0.5-1% × Au content × LBMA price + Ag yield uplift + Se/Te. ₹10 cr per MTPA copper.",
+      "tier": 1
+     },
+     {
+      "t": "Multi-Element Assay & PM Mass Balance",
+      "k": "ai",
+      "v": 4.0,
+      "basis": "MTPA copper",
+      "d": [
+       "Integrates LIMS data for Au, Ag, Se, Te, PGMs across slimes processing stages.",
+       "Builds real-time mass balance for each precious metal and identifies recovery losses.",
+       "Provides PM accounting dashboards and yield investigation tools."
+      ],
+      "p": [
+       "PM accounting complex (multi-stage, multi-element)",
+       "Manual reconciliation labor-intensive",
+       "Discrepancies investigated reactively",
+       "High financial stake (small % loss = ₹ cr)",
+       "Customer audit prep significant"
+      ],
+      "kpi": [
+       "PM mass balance closure %",
+       "Au/Ag accounting accuracy",
+       "Yield investigation time",
+       "COA accuracy for refined metals"
+      ],
+      "calc": "Accounting closure + reduced unaccounted PM losses. ₹4 cr per MTPA copper.",
+      "tier": 2
+     },
+     {
+      "t": "Selenium & Tellurium Recovery Optimization",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MTPA copper",
+      "d": [
+       "Analyses Se/Te recovery process performance, reagent consumption and product quality.",
+       "Models Se/Te separation chemistry and predicts recovery and purity.",
+       "Provides recovery setpoint advisory for these specialty byproducts."
+      ],
+      "p": [
+       "Se/Te markets price-sensitive",
+       "Recovery is multi-stage",
+       "Reagent cost significant",
+       "Quality affects pricing",
+       "Process tuning manual"
+      ],
+      "kpi": [
+       "Se recovery %",
+       "Te recovery %",
+       "Product purity (>99.5%)",
+       "Reagent consumption"
+      ],
+      "calc": "Se/Te recovery uplift + product quality premium. ₹3 cr per MTPA copper.",
+      "tier": 2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Continuous Cast Rod Plant",
+  "procs": [
+   {
+    "n": "Continuous Cast Rod Plant",
+    "f": [
+     "Cathodes",
+     "Shaft furnace melt",
+     "Holding furnace",
+     "Casting wheel (5-strand belt)",
+     "Rolling mill",
+     "Pickling",
+     "Coiling"
+    ],
+    "rm": "Copper cathodes (LME grade A, >99.99%), possibly with copper scrap blending",
+    "ut": "Power (induction shaft furnace), gas (reducing atmosphere), cooling water, lubricants",
+    "out": "Copper rod (8mm typical) on coils (~5 tonne) for wire drawing applications",
+    "q": "Surface quality, oxygen content (<300 ppm ETP grade, <30 ppm OF grade), dimensional tolerance, hardness",
+    "uc": [
+     {
+      "t": "Rod Quality & Throughput Optimization",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MTPA copper rod",
+      "d": [
+       "Analyses melting furnace operations, casting wheel speed, rolling mill load and downstream quality feedback.",
+       "Models rod production kinetics and predicts surface quality, dimensional accuracy and throughput.",
+       "Provides rolling schedule and casting speed advisory."
+      ],
+      "p": [
+       "Rod throughput is bottleneck for downstream wire customers",
+       "Quality variability per coil",
+       "Manual casting wheel tuning",
+       "Cathode quality affects rod",
+       "Coil quality customer-rejected occasionally"
+      ],
+      "kpi": [
+       "Throughput (t/h)",
+       "Yield %",
+       "Surface quality compliance",
+       "Pickling line stability",
+       "Coil quality"
+      ],
+      "calc": "Throughput uplift + quality improvement. ₹3 cr per MTPA copper rod.",
+      "tier": 2
+     },
+     {
+      "t": "Rod Surface Defect Detection",
+      "k": "cv",
+      "v": 2.0,
+      "basis": "MTPA copper rod",
+      "d": [
+       "Analyses high-speed line scan cameras at rolling mill exit and post-pickling.",
+       "Detects surface defects (cracks, slivers, scale, drawing marks) on rod.",
+       "Provides defect classification and reject diversion."
+      ],
+      "p": [
+       "Surface defects cause wire drawing failures at customer",
+       "Manual sampling insufficient",
+       "Defects discovered at customer",
+       "Reject costs significant",
+       "Quality variability operator-dependent"
+      ],
+      "kpi": [
+       "Defect rate",
+       "Customer reject rate",
+       "Defect classification accuracy",
+       "Drawing customer complaints"
+      ],
+      "calc": "Reject reduction + customer complaint reduction. ₹2 cr per MTPA copper rod.",
+      "tier": 2
+     },
+     {
+      "t": "Oxygen Content Control (ETP vs OF Grades)",
+      "k": "ai",
+      "v": 2.0,
+      "basis": "MTPA copper rod",
+      "d": [
+       "Analyses melting furnace gas composition, casting line atmosphere and oxygen meter readings.",
+       "Models oxygen pickup/loss kinetics and predicts final rod oxygen content.",
+       "Provides shaft furnace operation advisory to hit target oxygen (ETP <300 ppm, OF <30 ppm)."
+      ],
+      "p": [
+       "ETP and OF grades earn different prices",
+       "Oxygen target window tight",
+       "Manual atmosphere control",
+       "Off-spec rod must be reverted",
+       "Furnace transition between grades slow"
+      ],
+      "kpi": [
+       "Oxygen content compliance per grade",
+       "ETP vs OF mix achievement",
+       "Grade premium revenue",
+       "Off-spec rate"
+      ],
+      "calc": "Grade compliance + premium grade share. ₹2 cr per MTPA copper rod.",
+      "tier": 2
+     },
+     {
+      "t": "Rod Dimensional & Mass Control",
+      "k": "ai",
+      "v": 2.0,
+      "basis": "MTPA copper rod",
+      "d": [
+       "Analyses online laser gauges of rod diameter and ovality, plus coil mass tracking.",
+       "Detects dimensional drift and rolling mill issues affecting tolerance.",
+       "Provides operational alerts for tolerance management."
+      ],
+      "p": [
+       "Diameter tolerance is customer spec",
+       "Ovality affects wire drawing",
+       "Manual checks insufficient",
+       "Tolerance issues caught late",
+       "Customer audits frequent"
+      ],
+      "kpi": [
+       "Diameter 2σ",
+       "Ovality compliance",
+       "Coil mass accuracy",
+       "Customer spec compliance"
+      ],
+      "calc": "Dimensional compliance + customer satisfaction. ₹2 cr per MTPA copper rod.",
+      "tier": 3
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Utilities",
+  "procs": [
+   {
+    "n": "Power Management",
+    "f": [
+     "Grid + CPP",
+     "Plant substation",
+     "Distribution",
+     "Major loads (cell house, smelter, mills)"
+    ],
+    "rm": "Grid power, captive power generation, plant-wide load profile",
+    "ut": "Substations, transformers, demand control infrastructure",
+    "out": "Optimized power distribution to plant (cell house dominant, smelter auxiliary)",
+    "q": "Specific power consumption (MWh/t Cu), peak demand, power factor, demand charges",
+    "uc": [
+     {
+      "t": "Plant Power Management & Demand Optimization",
+      "k": "ai",
+      "v": 4.0,
+      "basis": "MTPA copper",
+      "d": [
+       "Analyses plant-wide power demand profile (cell house dominant, smelter/converter intermittent, utilities steady).",
+       "Models power demand patterns and predicts peak load events.",
+       "Provides demand management advisory, peak shaving and load coordination."
+      ],
+      "p": [
+       "Cell house is 40-50% of plant power",
+       "Peak demand drives capacity charges",
+       "Manual load coordination",
+       "Power factor variable",
+       "Demand charge optimization opportunity"
+      ],
+      "kpi": [
+       "Specific power consumption (MWh/t Cu)",
+       "Peak demand (MW)",
+       "Power factor",
+       "Demand charges (₹/yr)"
+      ],
+      "calc": "Peak demand reduction + power factor improvement. ₹4 cr per MTPA copper.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Steam Network",
+    "f": [
+     "Acid plant HRS / aux boiler",
+     "Headers",
+     "PRDS",
+     "Consumers",
+     "Condensate return"
+    ],
+    "rm": "Steam from acid plant heat recovery + auxiliary boilers",
+    "ut": "N/A (utility infrastructure)",
+    "out": "Steam delivered to anode slimes processing, concentrate drying, deaeration, building heating",
+    "q": "Header pressures, flow distribution, condensate recovery%, venting losses",
+    "uc": [
+     {
+      "t": "Steam Network Optimization",
+      "k": "ai",
+      "v": 2.0,
+      "basis": "MTPA copper",
+      "d": [
+       "Analyses steam flows from acid plant HRS and auxiliary boiler, headers and consumers (anode slimes processing, concentrate drying).",
+       "Models steam balance and identifies inefficient consumers.",
+       "Provides distribution and consumption advisory."
+      ],
+      "p": [
+       "Steam network smaller than other industries but real",
+       "HRS integration complex",
+       "Trap failures",
+       "Consumer demand variability",
+       "Manual operation"
+      ],
+      "kpi": [
+       "Steam balance closure",
+       "Header pressure stability",
+       "Condensate recovery %",
+       "Steam cost per consumer"
+      ],
+      "calc": "Network optimization + trap management. ₹2 cr per MTPA copper.",
+      "tier": 2
+     },
+     {
+      "t": "Steam Trap Health Monitoring (Wireless Temperature)",
+      "k": "ai",
+      "v": 2.0,
+      "basis": "MTPA copper",
+      "loc": [
+       "HRS-side steam headers and drip legs",
+       "Anode slimes processing reactor and evaporator drains",
+       "Concentrate dryer steam drains",
+       "Distribution and tracing line drainage points"
+      ],
+      "d": [
+       "Analyses inlet and outlet temperature signatures from wireless battery-powered sensors deployed at each steam trap.",
+       "Detects failed-open, failed-closed and failed-cold conditions using temperature delta logic.",
+       "Provides location-tagged alerts for proactive replacement."
+      ],
+      "p": [
+       "Copper plant has 500-1,500 steam traps (smaller infrastructure than pulp/steel but real)",
+       "Annual audits miss interim failures",
+       "Failed traps waste steam silently",
+       "Manual inspection cannot cover full population",
+       "Failed-closed traps cause water hammer"
+      ],
+      "kpi": [
+       "Steam trap failure rate %",
+       "Steam loss from failed traps (₹/yr)",
+       "Mean time to detect failure",
+       "Annual audit labor cost"
+      ],
+      "calc": "Trap failure rate 15% × ~1,000 traps × ₹3 lakh/yr × 50% capture = ₹2 cr per MTPA copper.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Effluent Treatment Plant (ETP)",
+    "f": [
+     "Collection",
+     "pH correction",
+     "Heavy metal precipitation",
+     "Clarification",
+     "Polishing",
+     "Discharge / reuse"
+    ],
+    "rm": "Combined plant effluent (acid mine drainage, cell house bleed, acid plant blowdown, area washings)",
+    "ut": "Power (aerators, pumps), chemicals (lime, polymer, sulphide precipitant), sludge handling",
+    "out": "Treated effluent (within state PCB limits), copper-bearing sludge (recycled to smelter)",
+    "q": "Outlet Cu/heavy metals (mg/L), pH, sulphate, TSS, COD",
+    "uc": [
+     {
+      "t": "ETP Heavy Metal Removal Optimization",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MTPA copper",
+      "d": [
+       "Analyses inlet effluent characteristics (Cu, Pb, As, Sb, Zn, sulphate, pH), treatment chemical dosing and outlet quality.",
+       "Models heavy metal precipitation kinetics and predicts outlet compliance.",
+       "Provides dosing advisory and sludge management optimization."
+      ],
+      "p": [
+       "Copper ETP must remove multiple heavy metals",
+       "Sulphide precipitant cost",
+       "Chemical overdose for safety margin",
+       "Sludge contains valuable Cu (recycle to smelter)",
+       "Compliance margin shrinking"
+      ],
+      "kpi": [
+       "Outlet Cu/Pb/As/Sb (mg/L)",
+       "pH compliance",
+       "Chemical consumption",
+       "Sludge generation",
+       "Compliance margin"
+      ],
+      "calc": "Chemical optimization + Cu-in-sludge recovery. ₹3 cr per MTPA copper.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Compressed Air Network",
+    "f": [
+     "Inlet",
+     "Compressors",
+     "Dryers",
+     "Receivers",
+     "Headers",
+     "Consumers"
+    ],
+    "rm": "Atmospheric air",
+    "ut": "Power (compressors)",
+    "out": "Compressed air (instrument + plant) and oxygen-enriched air feed",
+    "q": "Network pressure (bar), flow (Nm3/h), dew point, leak rate %",
+    "uc": [
+     {
+      "t": "Compressed Air Network Optimization",
+      "k": "ai",
+      "v": 1.0,
+      "basis": "MTPA copper",
+      "d": [
+       "Analyses compressor load, network pressure, flow at consumers and leak rates.",
+       "Detects compressor cycling, leaks and pressure drops.",
+       "Provides advisory on compressor sequencing and network repairs."
+      ],
+      "p": [
+       "Compressed air leaks accumulate",
+       "Network pressure drops at consumers",
+       "Compressor cycling wastes energy",
+       "Demand pattern not visible",
+       "Leaks rarely fixed"
+      ],
+      "kpi": [
+       "Compressor specific energy (kWh/Nm³)",
+       "Network pressure (bar)",
+       "Network leak rate %",
+       "Demand pattern"
+      ],
+      "calc": "Leak reduction + sequencing. ₹1 cr per MTPA copper.",
+      "tier": 3
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Cross-Cutting",
+  "procs": [
+   {
+    "n": "Digital Foundation",
+    "f": [
+     "Field devices",
+     "Edge",
+     "Historian",
+     "Unified namespace",
+     "Apps and AI models"
+    ],
+    "rm": "OT data (DCS/PLC), MES, ERP, LIMS, IoT sensor streams",
+    "ut": "Edge gateways, network infrastructure, cloud compute, storage",
+    "out": "Unified data layer enabling all AI use cases",
+    "q": "Tag coverage %, data quality, latency, uptime, governance compliance",
+    "uc": [
+     {
+      "t": "IT-OT Integration & Data Foundation",
+      "k": "fd",
+      "v": null,
+      "basis": null,
+      "vt": "Enabler for all other use cases",
+      "d": [
+       "Foundational data layer: unified namespace, historian access, MES integration, ERP linkage, LIMS integration (especially critical for multi-element copper assays).",
+       "Enables every other AI use case by providing reliable, tagged, contextual data.",
+       "Provides time-series storage, governance, role-based access and edge-to-cloud connectivity."
+      ],
+      "p": [
+       "Plant data scattered across DCS, PLC, lab, ERP",
+       "Multi-element LIMS data not integrated with operations",
+       "Analytics projects start with data plumbing every time",
+       "Tag naming inconsistent",
+       "Limited self-service for plant teams"
+      ],
+      "kpi": [
+       "Tag coverage %",
+       "Data uptime/latency",
+       "Number of use cases enabled",
+       "LIMS integration completeness"
+      ],
+      "calc": "Enabler — value realized through downstream use cases.",
+      "tier": 1
+     }
+    ]
+   },
+   {
+    "n": "Quality Management",
+    "f": [
+     "Sample collection",
+     "Multi-method lab analysis",
+     "LIMS entry",
+     "Mass balance / SPC",
+     "COA",
+     "Customer dispatch"
+    ],
+    "rm": "Lab samples (concentrate, slag, matte, blister, anode, cathode, slimes, acid), online sensors, customer specs",
+    "ut": "Lab instruments (XRF, ICP-OES, fire assay), LIMS, calibration standards",
+    "out": "Multi-element quality intelligence, COA, mass balance integrity, traceability",
+    "q": "Multi-element spec compliance, lab TAT, mass balance closure, COA accuracy",
+    "uc": [
+     {
+      "t": "LIMS Integration & Multi-Element Assay Intelligence",
+      "k": "ai",
+      "v": 4.0,
+      "basis": "MTPA copper",
+      "d": [
+       "Integrates lab quality data (concentrate, slag, matte, blister, anode, cathode, slimes, acid) with online process data.",
+       "Provides multi-element mass balance, payable metal tracking, and quality intelligence across all process streams.",
+       "Provides early warning on quality drift and faster lab-to-process feedback loops."
+      ],
+      "p": [
+       "Copper plant has dense LIMS environment (10+ elements at every stage)",
+       "Lab data in silos",
+       "Mass balance manual",
+       "Multi-element reconciliation labor-intensive",
+       "Customer audits frequent"
+      ],
+      "kpi": [
+       "Lab TAT (multi-element)",
+       "Mass balance closure %",
+       "Multi-element compliance",
+       "COA accuracy",
+       "Customer audit prep time"
+      ],
+      "calc": "Quality drift reduction + mass balance closure + customer audit acceleration. ₹4 cr per MTPA copper.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Asset Reliability",
+    "f": [
+     "Sensor",
+     "Anomaly detection",
+     "Alert",
+     "Work order",
+     "Spare",
+     "Execution",
+     "Closure",
+     "KPI"
+    ],
+    "rm": "Sensor data (vibration, temp, oil, motor current), maintenance history, spare parts data",
+    "ut": "Edge processing, CBM platform, CMMS software, MRO inventory system",
+    "out": "Failure predictions, work orders, reliability KPIs, optimized spares",
+    "q": "Equipment availability %, MTBF, MTTR, maintenance cost/t Cu, unplanned downtime hours",
+    "uc": [
+     {
+      "t": "Condition-Based Monitoring (CBM)",
+      "k": "ai",
+      "v": 15.0,
+      "basis": "MTPA copper",
+      "d": [
+       "Analyses vibration, temperature, oil quality and motor signature data from critical rotating equipment (smelter blowers, converter aisle cranes, rectifier transformers, cell house pumps, casting wheels, rolling mills).",
+       "Predicts bearing failures, alignment issues, lubrication problems and impending breakdowns.",
+       "Provides location-tagged alerts and remaining-useful-life estimates."
+      ],
+      "p": [
+       "Smelter or converter unplanned shutdown is catastrophic (₹2-5 cr/day)",
+       "Maintenance largely reactive",
+       "Critical equipment fails without warning",
+       "Aging asset base",
+       "Maintenance budget rising"
+      ],
+      "kpi": [
+       "Unplanned downtime hours/year",
+       "MTBF on critical assets",
+       "Maintenance cost (₹/t Cu)",
+       "Predictive vs reactive ratio"
+      ],
+      "calc": "Unplanned downtime reduction × copper margin × hours saved. ₹15 cr per MTPA copper.",
+      "tier": 1
+     },
+     {
+      "t": "Computerised Maintenance Management System (CMMS)",
+      "k": "ai",
+      "v": 5.0,
+      "basis": "MTPA copper",
+      "d": [
+       "Workflow management for maintenance work orders, planned/unplanned tracking, asset history and maintenance KPIs.",
+       "Integrates CBM alerts into work order generation and tracks closure.",
+       "Provides asset-level reliability metrics (MTBF, MTTR), maintenance cost reporting and compliance audit trails."
+      ],
+      "p": [
+       "Maintenance work tracked in spreadsheets",
+       "Work orders don't close on time",
+       "No structured asset history",
+       "Spare consumption not attributed accurately",
+       "Audit prep labor-intensive"
+      ],
+      "kpi": [
+       "Work order closure time",
+       "Planned vs unplanned ratio",
+       "Maintenance cost reporting accuracy",
+       "MTBF/MTTR by asset class"
+      ],
+      "calc": "Work order closure reduction + maintenance cost transparency. ₹5 cr per MTPA copper.",
+      "tier": 1
+     },
+     {
+      "t": "MRO & Spare-Parts Optimization",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MTPA copper",
+      "d": [
+       "Analyses spare parts inventory, lead times, criticality, consumption patterns and supplier reliability.",
+       "Models optimal stocking levels, reorder points and consignment opportunities for critical spares (refractory, electrodes, rectifier components, mill rolls).",
+       "Provides inventory optimization advisory and supplier performance dashboards."
+      ],
+      "p": [
+       "Excess inventory (₹40-100+ cr tied up)",
+       "Critical spares stockouts cause emergencies",
+       "Lead times not tracked systematically",
+       "Cataloging inconsistent",
+       "Refractory inventory significant"
+      ],
+      "kpi": [
+       "Inventory value (₹ cr)",
+       "Stockout events",
+       "Emergency procurement %",
+       "Inventory turn ratio"
+      ],
+      "calc": "Inventory reduction 15-25% + emergency procurement savings. ₹3 cr per MTPA copper.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Safety",
+    "f": [
+     "CCTV + gas sensors",
+     "CV models",
+     "Violation detection",
+     "Alert",
+     "Field response",
+     "SCM logging"
+    ],
+    "rm": "CCTV feeds, gas detection (SO2, H2SO4 mist, H2S), thermal imaging, access control",
+    "ut": "CV platform, edge inference, SCM integration, alert infrastructure",
+    "out": "Real-time safety alerts, compliance reports, near-miss analytics",
+    "q": "PPE compliance %, restricted zone violations, hot metal splash events, gas exposure events, LTIFR",
+    "uc": [
+     {
+      "t": "AI Safety Monitoring",
+      "k": "cv",
+      "v": 3.0,
+      "basis": "MTPA copper",
+      "d": [
+       "Critical zones: smelter floor (hot metal splash), converter aisle (high-temp + SO2), cell house aisles (H2SO4 mist), acid plant, slimes processing.",
+       "Analyses CCTV with computer vision (PPE, restricted-zone, hot metal proximity) integrated with SO2, H2SO4 mist, and thermal sensors.",
+       "Provides real-time alerts to control room and safety officers; integrates with site SCM."
+      ],
+      "p": [
+       "Hot metal splashes are serious risk",
+       "SO2 exposure has acute and chronic effects",
+       "H2SO4 mist + electrolyte hazards",
+       "PPE compliance manual checks",
+       "Incident investigation slow"
+      ],
+      "kpi": [
+       "PPE compliance %",
+       "Restricted zone violation count",
+       "Hot metal proximity alerts",
+       "Acid exposure events",
+       "LTIFR"
+      ],
+      "calc": "Incident avoidance + insurance + compliance audit. ₹3 cr per MTPA copper.",
+      "tier": 1
+     }
+    ]
+   },
+   {
+    "n": "Ops Intelligence",
+    "f": [
+     "Data ingestion",
+     "Contextualization",
+     "KPI computation",
+     "Dashboard",
+     "Decision",
+     "Action"
+    ],
+    "rm": "All plant data (production, multi-element quality, energy, maintenance, ERP, financial)",
+    "ut": "Cloud compute, BI platform, scheduling engine, mass balance engine",
+    "out": "Plant-wide OEE, Cu accounting, payable metals tracking, scenario analysis",
+    "q": "OEE%, throughput, conversion cost (₹/t Cu), Cu accounting closure %, payable PM yield",
+    "uc": [
+     {
+      "t": "Plant-Wide KPI & OEE Dashboarding",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MTPA copper",
+      "d": [
+       "Integrates production, multi-element quality, energy, downtime and PM yield data across all sections into role-based dashboards.",
+       "Provides automated OEE, specific energy, conversion cost, Cu accounting and payable PM tracking; root cause analysis tools.",
+       "Enables data-driven decision making at all levels."
+      ],
+      "p": [
+       "Multiple reporting systems; manual collation",
+       "KPIs not real-time",
+       "Drill-down to root cause manual",
+       "Different definitions across sections",
+       "PM accounting complex"
+      ],
+      "kpi": [
+       "OEE %",
+       "Specific energy (MWh/t Cu)",
+       "Conversion cost (₹/t Cu)",
+       "Schedule adherence %",
+       "PM yield"
+      ],
+      "calc": "Systemic OEE + energy + PM KPI tracking. ₹3 cr per MTPA copper.",
+      "tier": 1
+     },
+     {
+      "t": "Production Planning & Scheduling Optimization",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MTPA copper",
+      "d": [
+       "Analyses concentrate availability, smelter/converter/cell house capacities, cathode demand forecasts and rod plant orders.",
+       "Models scheduling sequences and predicts margin per scenario.",
+       "Provides optimal schedule and grade sequence recommendations."
+      ],
+      "p": [
+       "Multi-stage plant scheduling complex",
+       "Cathode-to-rod transition manual",
+       "Concentrate inventory variability",
+       "Order book to schedule labor-intensive",
+       "Optimal sequencing missed"
+      ],
+      "kpi": [
+       "Schedule adherence %",
+       "Capacity utilization %",
+       "Cathode-to-rod grade mix margin",
+       "Plant utilization %"
+      ],
+      "calc": "Reduced changeover loss + improved capacity utilization. ₹3 cr per MTPA copper.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Sustainability & Compliance",
+    "f": [
+     "Emission/effluent monitoring",
+     "Data integration",
+     "Compliance reporting",
+     "Audit",
+     "Certification"
+    ],
+    "rm": "Air emission data (SO2, mist, particulate), effluent data, GHG emissions, chain of custody",
+    "ut": "Compliance management platform, audit infrastructure",
+    "out": "Compliance reports, ESG metrics, copper mark/ASI traceability, carbon footprint",
+    "q": "Emission limit margins, audit findings, certified product %, carbon intensity per t Cu",
+    "uc": [
+     {
+      "t": "Environmental Compliance & ESG Traceability",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MTPA copper",
+      "d": [
+       "Tracks SO2 emissions, GHG (CO2e), water footprint, heavy metal effluent, and chain of custody for Copper Mark / ASI / responsible sourcing.",
+       "Integrates with regulatory reporting (CPCB) and customer ESG audits.",
+       "Provides compliance dashboards and certified product tracking."
+      ],
+      "p": [
+       "Copper industry under decarbonization scrutiny",
+       "Customer brand demands (EV, electronics) growing",
+       "Copper Mark / ASI certification labor-intensive",
+       "Compliance reporting fragmented",
+       "ESG data not real-time"
+      ],
+      "kpi": [
+       "Emission compliance margins (SO2, heavy metals)",
+       "GHG intensity (kgCO2e/t Cu)",
+       "Water footprint (m³/t Cu)",
+       "Copper Mark / ASI certified product %"
+      ],
+      "calc": "Certified product premium + compliance + customer brand requirements. ₹3 cr per MTPA copper.",
+      "tier": 2
+     }
+    ]
+   }
+  ]
+ }
+]
