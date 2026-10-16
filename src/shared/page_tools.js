@@ -68,6 +68,11 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
     '.drop b{color:#3D63F5}.drop input{display:none}.drop.has{border-style:solid;border-color:#11875F;background:#E5F5EE}' +
     '.st a{color:#3D63F5;font-weight:600}' +
     '.dlink{display:inline-block;text-decoration:none;font:600 14px Inter,system-ui,sans-serif;padding:10px 16px;border-radius:9px;background:#3D63F5;color:#fff}' +
+    'ol.steps,ul.tips{margin:8px 0 0;padding-left:20px;font-size:13px;line-height:1.55;color:#3A4A5F}ol.steps li,ul.tips li{margin:0 0 7px}' +
+    'ul.tips q{quotes:"\u201c" "\u201d";color:#0F1B2D}' +
+    'code,pre{font:12px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}' +
+    'pre{margin:8px 0 0;padding:10px 12px;background:#F6F8FB;border:1px solid #E3E8EF;border-radius:9px;white-space:pre-wrap;word-break:break-all;color:#0F1B2D}' +
+    '.dlg a{color:#3D63F5;font-weight:600}.dlg a.dlink{color:#fff}' +
     '[hidden]{display:none!important}' +
     '@media (max-width:560px){.bar{flex-wrap:wrap;justify-content:flex-end;row-gap:6px;border-radius:18px}}' +
     '</style>' +
@@ -84,11 +89,13 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
     '<div class="st" id="hst"></div></div>' +
     '<div class="eb">Design guide</div><div class="box"><p>Building your own solution page? The design skill has the Faclon colours, fonts, layout, ready-made components and a starter page, so it matches this site. Use it yourself or give it to an AI assistant.</p>' +
     '<div class="row"><span class="st" id="gst"></span><a class="pri big dlink" id="guide" href="' + B + 'designskill.md" download="Faclon design skill.md">Download design skill</a></div></div>' +
+    '<div id="conSec" hidden><div class="eb">Claude connector</div><div class="box"><p>Work with these pages from Claude: list and read the solutions you can open, save them as PDF or HTML, build a page with the design skill and publish it, just by asking. Runs in the Claude desktop app.</p>' +
+    '<div class="row"><button class="link" id="conHow" type="button">How to connect</button><a class="pri big dlink" href="' + B + 'connector/faclon-glossary.mcpb" download="faclon-glossary.mcpb">Download connector</a></div></div></div>' +
     '<p class="note">Downloaded files are not password-protected. Share them only with people who should see these solutions.</p>' +
     '<div class="row" style="justify-content:flex-end"><button id="close" type="button">Close</button></div>' +
     '</div></div>' +
     '<div class="scrim" id="uscrim" hidden><div class="dlg" role="dialog" aria-modal="true" aria-labelledby="uh">' +
-    '<h2 id="uh">Upload a solution page</h2><p>Add a self-contained HTML page (styles and images inside the file). It goes live straight away for admin, super users and contributors; the admin can share it with other users. Building one? Follow the <a href="' + B + 'designskill.md" download="designskill.md" style="color:#3D63F5;font-weight:600">design guide</a> so it matches the site.</p>' +
+    '<h2 id="uh">Upload a solution page</h2><p>Add a self-contained HTML page (styles and images inside the file). It goes live straight away for admin, super users and contributors; the admin can share it with other users. Building one? Follow the <a href="' + B + 'designskill.md" download="designskill.md" style="color:#3D63F5;font-weight:600">design guide</a> so it matches the site. You can also upload from Claude with the <a href="#" id="conUp">Claude connector</a>.</p>' +
     '<label class="drop" id="drop"><input type="file" id="uf" accept=".html,.htm,text/html"><span id="ufl"><b>Choose an HTML file</b> or drop it here</span></label>' +
     '<span class="fl">Title</span><input class="in" id="ut" maxlength="80" placeholder="e.g. Cooling Tower Optimisation">' +
     '<span class="fl">Category <em>(optional)</em></span><input class="in" id="uc" maxlength="40" placeholder="e.g. Power, Metals, Utilities">' +
@@ -96,6 +103,27 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
     '<span class="fl">Your name <em>(optional, shown as \u201cContributed by\u201d)</em></span><input class="in" id="un" maxlength="60">' +
     '<div class="st" id="ust" style="margin-top:12px"></div>' +
     '<div class="row" style="justify-content:flex-end"><button id="ucancel" type="button">Cancel</button><button class="pri big" id="ugo" type="button">Upload and publish</button></div>' +
+    '</div></div>' +
+    '<div class="scrim" id="cscrim" hidden><div class="dlg" role="dialog" aria-modal="true" aria-labelledby="ch">' +
+    '<h2 id="ch">Connect Claude to Faclon solutions</h2><p>The connector lets Claude read and download the solution pages you can open, follow the Faclon design skill and publish new pages for you. It runs on your computer in the Claude desktop app (Mac or Windows) and signs in with your Faclon username and password, which stay on your computer.</p>' +
+    '<div class="eb">Set it up</div><ol class="steps">' +
+    '<li><a href="' + B + 'connector/faclon-glossary.mcpb" download="faclon-glossary.mcpb">Download the connector</a> (faclon-glossary.mcpb).</li>' +
+    '<li>Open the Claude desktop app and go to <b>Settings \u2192 Extensions</b>. Drag the file onto that page, or double-click the file, then click <b>Install</b>.</li>' +
+    '<li>Enter your Faclon username and password, the same ones you use to sign in here. You can also pick the folder downloads are saved to.</li>' +
+    '<li>Check the extension is switched on, then start a new chat.</li></ol>' +
+    '<div class="eb">Things to ask Claude</div><ul class="tips">' +
+    '<li><q>Which Faclon solutions can I open?</q></li>' +
+    '<li><q>Summarise the Steam Trap page for a plant head.</q></li>' +
+    '<li><q>Save the I/O Vision and Energy Management pages as PDF.</q></li>' +
+    '<li><q>Get the Faclon design skill and build a solution page on cooling tower optimisation from my notes.</q></li>' +
+    '<li><q>Upload cooling-tower.html from my Desktop as Cooling Tower Optimisation, category Utilities.</q></li></ul>' +
+    '<div class="eb">Good to know</div><ul class="tips">' +
+    '<li>You get the same pages and download rights as on this site. Uploads go live straight away, as with the Upload button, so Claude checks with you before publishing.</li>' +
+    '<li>If your password or access changes, update it in Claude under <b>Settings \u2192 Extensions \u2192 Faclon Labs solutions</b>.</li>' +
+    '<li>Claude on the web and the phone app can\u2019t use it, because it runs on your computer.</li>' +
+    '<li>Files Claude saves for you are not password-protected. Share them only with people who should see them.</li>' +
+    '<li>Using Claude Code? Download the <a href="' + B + 'connector/faclon-glossary-connector.js" download="faclon-glossary-connector.js">single-file connector</a> (needs Node.js 18 or later) and run:<pre id="ccmd"></pre></li></ul>' +
+    '<div class="row" style="justify-content:flex-end"><button class="pri" id="cclose" type="button">Done</button></div>' +
     '</div></div>';
   var $ = function (id) { return root.querySelector("#" + id); };
   root.querySelector(".who").textContent = N;
@@ -225,9 +253,14 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
   }).catch(function () {});
   access().then(async function (acc) {
     var U = await usersP;
-    if (acc.contrib) $("upb").hidden = false;
+    if (acc.contrib) { $("upb").hidden = false; $("conSec").hidden = false; $("dl").hidden = false; }
     if (SLUG === "home") placeCards(document, await uploadCards(acc, U));
   }).catch(function () {});
+  $("ccmd").textContent = "claude mcp add faclon -e FACLON_USERNAME=\"your username\" -e FACLON_PASSWORD=\"your password\" -- node /path/to/faclon-glossary-connector.js";
+  function conOpen(e) { if (e) e.preventDefault(); $("scrim").hidden = true; $("uscrim").hidden = true; $("cscrim").hidden = false; }
+  $("conHow").onclick = conOpen; $("conUp").onclick = conOpen;
+  $("cclose").onclick = function () { $("cscrim").hidden = true; };
+  $("cscrim").onclick = function (e) { if (e.target === $("cscrim")) $("cscrim").hidden = true; };
   $("upb").onclick = function () { $("uscrim").hidden = false; $("ust").textContent = ""; if (!$("un").value) $("un").value = ADM ? "" : N; };
   $("ucancel").onclick = function () { $("uscrim").hidden = true; };
   $("uscrim").onclick = function (e) { if (e.target === $("uscrim")) $("uscrim").hidden = true; };
@@ -263,7 +296,7 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
       if (!token) throw new Error("the admin hasn't set up contributor GitHub access yet");
       var html = await upFile.text();
       var taken = {}; (U.solutions || []).forEach(function (x) { taken[x.slug] = 1; }); Object.keys(U.uploads || {}).forEach(function (x) { taken[x] = 1; });
-      ["home", "admin", "src"].forEach(function (x) { taken[x] = 1; });
+      ["home", "admin", "src", "connector"].forEach(function (x) { taken[x] = 1; });
       var slug = slugify(t), n = 2; while (taken[slug]) slug = slugify(t).slice(0, 46) + "-" + n++;
       var K = await FA.uploadKey(C, slug), box = await FA.encrypt(K, html);
       var content = (await FA.sha256hex(html)).slice(0, 16);

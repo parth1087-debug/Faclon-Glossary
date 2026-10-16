@@ -231,6 +231,13 @@ def gate_html(slug, base, iv, ct, core, gate_ver, content, up=False):
                 .replace("__CT__", b64(ct)))
 
 
+def connector():
+    """The Claude connector for contributors (src/connector/build_connector.py) bundles auth_core.js, so it is rebuilt with every run."""
+    sys.path.insert(0, str(ROOT / "src" / "connector"))
+    import build_connector
+    return build_connector
+
+
 def build_admin(core):
     if not ADMIN_SRC.exists():
         return None
@@ -359,6 +366,9 @@ def main():
                 if slug not in vault and can_read(u, slug):
                     print("MISSING VAULT KEY:", slug, "(re-run protect.py)")
                     bad.append(USERS)
+        for p in connector().stale():
+            print("STALE:", p.relative_to(ROOT), "(re-run protect.py)")
+            bad.append(p)
         sys.exit(1 if bad else 0)
 
     password = os.environ.get("GLOSSARY_PASSWORD") or getpass.getpass("Admin password: ")
@@ -433,6 +443,8 @@ def main():
         ADMIN_OUT.parent.mkdir(exist_ok=True)
         ADMIN_OUT.write_text(admin, encoding="utf-8")
         print("wrote", ADMIN_OUT.relative_to(ROOT))
+    for p in connector().build():
+        print("wrote", p.relative_to(ROOT))
 
 
 if __name__ == "__main__":

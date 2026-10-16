@@ -29,6 +29,8 @@ src/home/build_home.py         Source of truth for the landing page: edit the SO
 src/<solution>/build_*.py      Source of truth for each solution page
 src/admin/index.html           Source of the User Manager (built into admin/index.html by protect.py)
 src/shared/protect.py          Encrypts pages, renders their PDFs and builds the User Manager (needs: pip install playwright && playwright install chromium)
+src/connector/                 Source of the Claude connector for contributors (built into connector/ by protect.py)
+connector/                     Claude connector downloads: .mcpb for Claude Desktop, single .js for Claude Code (generated)
 src/shared/page_tools.js       Signed-in bar and Download dialog injected into every unlocked page
 <solution>/page-pdf.bin        Encrypted one-page PDF of that solution (generated)
 users.json                     User list (written by the User Manager; encrypted keyrings)

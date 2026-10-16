@@ -426,3 +426,4 @@ Save this as `my-solution.html`, replace the bracketed text, and paste the token
 
 **Upload**
 - [ ] Use the site's **Upload** button. Give a short category ("Power", "Utilities"), a one-line description for the card, and your name if you want the "Contributed by" credit.
+- [ ] Working in the Claude desktop app with the **Claude connector** (Download dialog → Claude connector)? Ask Claude to upload the file instead: it takes the same title, category, description and name, and checks with you before publishing. Claude can also fetch this skill and read existing pages through the connector.
