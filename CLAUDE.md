@@ -38,4 +38,5 @@ This repo holds Faclon Labs customer-facing solution pages, published with GitHu
 - Example agent conversations are illustrative and must stay labelled as such.
 - ₹ values are "up to, per 100 MW per year" and are indicative.
 - Platform names: Faclon AI platform, Ontology, I/O Connect (gateway, can sit in OT, DMZ or IT).
+- Don't name third-party technologies the platforms are built on (databases, frameworks, container or cloud tooling such as MongoDB, React, Kubernetes, Docker, CI/CD); describe what the platform does instead. Interface standards customers integrate with (OPC UA, Modbus, OAuth2, MCP) are fine.
 - Write in plain language for plant and business readers: describe what a controller or agent does logically, never as mathematical formulas.

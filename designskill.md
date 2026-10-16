@@ -422,6 +422,7 @@ Save this as `my-solution.html`, replace the bracketed text, and paste the token
 - [ ] British spelling, sentence-case headings and labels, hyphenated compound adjectives.
 - [ ] Units spaced and written the standard way (0.2 Hz, 24 V DC, Wi-Fi, IP67); ₹ values give their basis.
 - [ ] Totals add up and counts match the page.
+- [ ] No third-party technology names (databases, frameworks, cloud or container tools such as MongoDB, React or Kubernetes). Describe what the platform does, not what it is built with.
 - [ ] Every number and customer name comes from an approved source; no personal contact details or confidential data.
 
 **Upload**
