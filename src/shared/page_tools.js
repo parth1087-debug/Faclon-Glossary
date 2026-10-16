@@ -189,7 +189,7 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
   $("sols").innerHTML = mine.map(function (s) {
     return '<label><input type="checkbox" value="' + esc(s.slug) + '"' + (s.slug === SLUG ? " checked" : "") + '>' + esc(s.title) + '</label>';
   }).join("") || '<p>No solutions are shared with you yet.</p>';
-  if (!mine.length) $("dl").hidden = true;
+  if (!mine.length || FA.isGuide(SLUG)) $("dl").hidden = true; // guides (the Read me) can't be downloaded
   $("pdfSec").hidden = SLUG === "home" || mine.every(function (s) { return s.slug !== SLUG; });
   $("dl").onclick = function () {
     $("scrim").hidden = false; $("pst").textContent = ""; $("hst").textContent = "";
@@ -253,7 +253,7 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
   }).catch(function () {});
   access().then(async function (acc) {
     var U = await usersP;
-    if (acc.contrib) { $("upb").hidden = false; $("conSec").hidden = false; $("dl").hidden = false; }
+    if (acc.contrib) { $("upb").hidden = false; $("conSec").hidden = false; $("dl").hidden = FA.isGuide(SLUG); }
     if (SLUG === "home") placeCards(document, await uploadCards(acc, U));
   }).catch(function () {});
   $("ccmd").textContent = "claude mcp add faclon -e FACLON_USERNAME=\"your username\" -e FACLON_PASSWORD=\"your password\" -- node /path/to/faclon-glossary-connector.js";
@@ -298,7 +298,7 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
       if (clash) throw new Error("a solution called \u201c" + clash + "\u201d already exists. Give your page a different title");
       var html = await upFile.text();
       var taken = {}; (U.solutions || []).forEach(function (x) { taken[x.slug] = 1; }); Object.keys(U.uploads || {}).forEach(function (x) { taken[x] = 1; });
-      ["home", "admin", "src", "connector"].forEach(function (x) { taken[x] = 1; });
+      ["home", "admin", "src", "connector", "readme"].forEach(function (x) { taken[x] = 1; });
       var slug = slugify(t), n = 2; while (taken[slug]) slug = slugify(t).slice(0, 46) + "-" + n++;
       var K = await FA.uploadKey(C, slug), box = await FA.encrypt(K, html);
       var content = (await FA.sha256hex(html)).slice(0, 16);
@@ -404,6 +404,7 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
       var rest = u.href.slice(D.site.length).split("#")[0].split("?")[0];
       if (rest === "" || rest === "index.html") return { page: "home" };
       var seg = rest.split("/")[0], tail = rest.slice(seg.length);
+      if (seg === "readme") return { hide: true }; // the Read me is never part of an offline file
       if (D.all.indexOf(seg) >= 0 && (tail === "/" || tail === "/index.html" || tail === "")) return D.pages[seg] ? { page: seg } : { hide: true };
       return { ext: u.href };
     }

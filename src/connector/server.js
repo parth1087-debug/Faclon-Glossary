@@ -250,7 +250,7 @@ var TOOLS = [
       if (clash) throw new Error("A solution called \u201c" + clash + "\u201d already exists. Choose a different title.");
       var token = U.contrib && U.contrib.tok ? await FA.decrypt(C, U.contrib.tok.iv, U.contrib.tok.ct) : null;
       if (!token) throw new Error("The admin hasn't set up contributor GitHub access yet (User Manager → Contributor GitHub access).");
-      var taken = { home: 1, admin: 1, src: 1, connector: 1 };
+      var taken = { home: 1, admin: 1, src: 1, connector: 1, readme: 1 };
       (U.solutions || []).forEach(function (x) { taken[x.slug] = 1; }); Object.keys(U.uploads || {}).forEach(function (x) { taken[x] = 1; });
       var slug = slugify(t), n = 2; while (taken[slug]) slug = slugify(t).slice(0, 46) + "-" + n++;
       var K = await FA.uploadKey(C, slug), box = await FA.encrypt(K, html);

@@ -20,6 +20,8 @@
      policy[slug]= {read, download}: global switches set in the User Manager (missing = both on).
                    Read off: the page key leaves every keyring and the vault. Download off: the pdf key
                    leaves every keyring and the dvault, and download options are hidden.
+     guides      = GUIDES (the Read me): not solutions. Encrypted with the landing-page key so every signed-in
+                   user can open them; never in solutions, keyrings, vaults or downloads. Mirror of GUIDES in protect.py.
      keyring     = {n, p:{slug:page key}, d:{slug:pdf key}, c?: contrib key, all?/a?/da?: super user}
      user key    = PBKDF2-SHA256(user password, user.s, users.iter)  (encrypts the user's keyring)
      user id     = SHA-256(users.salt + "|" + lower(username)) as hex
@@ -61,11 +63,13 @@ var FA = (function () {
   function dallKey(master) { return hmac(master, "dall"); }
   function contribKey(master) { return hmac(master, "contrib"); }
   function uploadKey(c, slug) { return hmac(c, "page:" + slug); }
+  var GUIDES = { readme: 1 };
+  function isGuide(slug) { return GUIDES.hasOwnProperty(slug); }
   function isUpload(U, slug) { return !!(U.uploads || {})[slug]; }
-  async function keyFor(U, master, slug) { return isUpload(U, slug) ? uploadKey(await contribKey(master), slug) : pageKey(master, slug); }
+  async function keyFor(U, master, slug) { if (isGuide(slug)) return pageKey(master, "home"); return isUpload(U, slug) ? uploadKey(await contribKey(master), slug) : pageKey(master, slug); }
   function pdfKey(master, slug) { return hmac(master, "pdf:" + slug); }
   function canRead(U, slug) { var p = (U.policy || {})[slug]; return slug === "home" || !p || p.read !== false; }
-  function canDownload(U, slug) { var p = (U.policy || {})[slug]; return slug !== "home" && canRead(U, slug) && (!p || p.download !== false); }
+  function canDownload(U, slug) { var p = (U.policy || {})[slug]; return slug !== "home" && !isGuide(slug) && canRead(U, slug) && (!p || p.download !== false); }
   async function sha256(buf) { return new Uint8Array(await crypto.subtle.digest("SHA-256", buf)); }
   /* Locks a page key to the super-user public key (contributors use this; no admin secret needed). */
   async function wrapForSuper(U, key) {
@@ -158,7 +162,7 @@ var FA = (function () {
       return {
         name: ring.n, admin: false, superUser: true, contrib: contrib,
         allowed: Object.keys(U.vault || {}), downloadable: dk ? Object.keys(U.dvault || {}) : [],
-        key: function (slug) { return slug === "home" && ring.p && ring.p.home ? Promise.resolve(u8(ring.p.home)) : open(U.vault, slug, ak); },
+        key: function (slug) { if (isGuide(slug)) slug = "home"; return slug === "home" && ring.p && ring.p.home ? Promise.resolve(u8(ring.p.home)) : open(U.vault, slug, ak); },
         dkey: function (slug) { return open(U.dvault, slug, dk); }
       };
     }
@@ -166,6 +170,7 @@ var FA = (function () {
     return {
       name: ring.n, admin: false, contrib: contrib, allowed: Object.keys(ring.p), downloadable: Object.keys(d),
       key: function (slug) {
+        if (isGuide(slug)) slug = "home";
         if (ring.p[slug]) return Promise.resolve(u8(ring.p[slug]));
         return contrib && isUpload(U, slug) && canRead(U, slug) ? uploadKey(contrib, slug) : Promise.resolve(null);
       },
@@ -194,7 +199,7 @@ var FA = (function () {
   function clearSession() { try { localStorage.removeItem(SESSION); sessionStorage.removeItem(SESSION); localStorage.removeItem("faclon-glossary-key"); } catch (e) {} }
   return {
     u8: u8, b64: b64, pbkdf2: pbkdf2, hmac: hmac, encrypt: encrypt, decrypt: decrypt, decryptBytes: decryptBytes, sha256hex: sha256hex,
-    norm: norm, userId: userId, pageKey: pageKey, allKey: allKey, dallKey: dallKey, contribKey: contribKey, uploadKey: uploadKey, isUpload: isUpload, keyFor: keyFor, wrapForSuper: wrapForSuper, nameKey: nameKey, nameClash: nameClash, pdfKey: pdfKey, canRead: canRead, canDownload: canDownload, syncVault: syncVault, fillVault: fillVault, buildRing: buildRing, loadUsers: loadUsers, adminMaster: adminMaster,
+    norm: norm, userId: userId, pageKey: pageKey, allKey: allKey, dallKey: dallKey, contribKey: contribKey, uploadKey: uploadKey, isUpload: isUpload, isGuide: isGuide, keyFor: keyFor, wrapForSuper: wrapForSuper, nameKey: nameKey, nameClash: nameClash, pdfKey: pdfKey, canRead: canRead, canDownload: canDownload, syncVault: syncVault, fillVault: fillVault, buildRing: buildRing, loadUsers: loadUsers, adminMaster: adminMaster,
     login: login, access: access, getSession: getSession, setSession: setSession, clearSession: clearSession
   };
 })();
@@ -206,7 +211,7 @@ var FA = (function () {
    connector only talks to the public site and the GitHub API.
    Env: FACLON_USERNAME, FACLON_PASSWORD, FACLON_DOWNLOAD_DIR (optional), FACLON_SITE (optional). */
 /* eslint-disable no-var */
-var VERSION = "1.0.1";
+var VERSION = "1.0.2";
 var REPO = "parth1087-debug/Faclon-Glossary";
 var nodeFs = require("fs"), nodePath = require("path"), nodeOs = require("os");
 
@@ -451,7 +456,7 @@ var TOOLS = [
       if (clash) throw new Error("A solution called \u201c" + clash + "\u201d already exists. Choose a different title.");
       var token = U.contrib && U.contrib.tok ? await FA.decrypt(C, U.contrib.tok.iv, U.contrib.tok.ct) : null;
       if (!token) throw new Error("The admin hasn't set up contributor GitHub access yet (User Manager → Contributor GitHub access).");
-      var taken = { home: 1, admin: 1, src: 1, connector: 1 };
+      var taken = { home: 1, admin: 1, src: 1, connector: 1, readme: 1 };
       (U.solutions || []).forEach(function (x) { taken[x.slug] = 1; }); Object.keys(U.uploads || {}).forEach(function (x) { taken[x] = 1; });
       var slug = slugify(t), n = 2; while (taken[slug]) slug = slugify(t).slice(0, 46) + "-" + n++;
       var K = await FA.uploadKey(C, slug), box = await FA.encrypt(K, html);

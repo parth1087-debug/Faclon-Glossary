@@ -97,8 +97,14 @@ def field(html, name):
     return m.group(1) if m else None
 
 
+GUIDES = {"readme"}  # guide pages, not solutions: mirror of GUIDES in auth_core.js
+
+
 def key_for(users, master, slug):
-    """Page key: contributor uploads derive from the contrib key, everything else from the master key."""
+    """Page key: contributor uploads derive from the contrib key, guides use the landing-page key,
+    everything else derives from the master key."""
+    if slug in GUIDES:
+        return mac(master, "page:home")
     if slug in (users.get("uploads") or {}):
         return mac(mac(master, "contrib"), "page:" + slug)
     return mac(master, "page:" + slug)
@@ -383,7 +389,7 @@ def main():
             print("STALE: admin/index.html (re-run protect.py)")
             bad.append(ADMIN_OUT)
         for slug, p in targets:
-            if slug != "home" and not (p.parent / PDF_NAME).exists():
+            if slug != "home" and slug not in GUIDES and not (p.parent / PDF_NAME).exists():
                 print("MISSING PDF:", (p.parent / PDF_NAME).relative_to(ROOT))
                 bad.append(p)
         if not USERS.exists():
@@ -396,7 +402,7 @@ def main():
                 print(f'DUPLICATE NAME: {a["slug"]} and {b["slug"]} are both called "{b["title"]}"')
                 bad.append(USERS)
             for slug, _ in targets:
-                if slug not in vault and can_read(u, slug):
+                if slug not in vault and slug not in GUIDES and can_read(u, slug):
                     print("MISSING VAULT KEY:", slug, "(re-run protect.py)")
                     bad.append(USERS)
         for p in connector().stale():
@@ -423,7 +429,7 @@ def main():
         raw = path.read_text(encoding="utf-8")
         plain = plaintext(raw, slug, master, users)
         content = hashlib.sha256(plain.encode("utf-8")).hexdigest()[:16]
-        if slug != "home":
+        if slug != "home" and slug not in GUIDES:
             own = upload_title(users, master, slug) or title_of(plain)
             ren = (users.get("names") or {}).get(slug)
             if ren:
@@ -466,9 +472,9 @@ def main():
     migrate_pdfs(targets, master, [x[0] for x in need_pdf], users)
     all_key = mac(master, "all")
     users["vault"] = sync_box(users.get("vault") or {}, all_key,
-                              {slug: key_for(users, master, slug) for slug, _ in targets if can_read(users, slug)})
+                              {slug: key_for(users, master, slug) for slug, _ in targets if slug not in GUIDES and can_read(users, slug)})
     users["dvault"] = sync_box(users.get("dvault") or {}, mac(master, "dall"),
-                               {slug: mac(master, "pdf:" + slug) for slug, _ in targets if can_download(users, slug)})
+                               {slug: mac(master, "pdf:" + slug) for slug, _ in targets if slug not in GUIDES and can_download(users, slug)})
     ensure_super_keypair(users, master)
     if users.get("version", 2) < 4:
         n = upgrade_rings(users, master)

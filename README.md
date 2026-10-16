@@ -29,6 +29,8 @@ src/home/build_home.py         Source of truth for the landing page: edit the SO
 src/<solution>/build_*.py      Source of truth for each solution page
 src/admin/index.html           Source of the User Manager (built into admin/index.html by protect.py)
 src/shared/protect.py          Encrypts pages, renders their PDFs and builds the User Manager (needs: pip install playwright && playwright install chromium)
+readme/index.html              Read me guide for signed-in users (generated; not a solution, can't be downloaded)
+src/readme/build_page.py       Source of the Read me
 src/connector/                 Source of the Claude connector for contributors (built into connector/ by protect.py)
 connector/                     Claude connector downloads: .mcpb for Claude Desktop, single .js for Claude Code (generated)
 src/shared/page_tools.js       Signed-in bar and Download dialog injected into every unlocked page
@@ -54,6 +56,7 @@ python3 src/energy-management/build_page.py       # writes energy-management/ind
 python3 src/condition-based-monitoring/build_page.py  # writes condition-based-monitoring/index.html (content in content.json)
 python3 src/it-ot-integration/build_page.py      # writes it-ot-integration/index.html (content in content.json, drawing in diagram.py)
 python3 src/io-vision/build_page.py                 # writes io-vision/index.html (content in content.json, photos in assets/)
+python3 src/readme/build_page.py                    # writes readme/index.html (the Read me guide)
 ```
 
 Then pull `main` and password-protect the regenerated pages (the admin password is not stored in this repo):
