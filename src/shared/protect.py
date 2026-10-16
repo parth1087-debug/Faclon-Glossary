@@ -36,6 +36,7 @@ import html as htmllib
 import json
 import os
 import re
+import unicodedata
 import secrets
 import sys
 from pathlib import Path
@@ -117,6 +118,35 @@ def plaintext(html, slug, master, users=None):
 def meta(html, name):
     m = re.search(r'<meta name="%s" content="([^"]*)">' % name, html)
     return m.group(1) if m else None
+
+
+def name_key(t):
+    """Mirror of FA.nameKey in auth_core.js: solution names must be unique under this key."""
+    t = re.sub(r"\s*[\u00b7|\u2013\u2014-]\s*faclon labs\s*$", "", (t or "").lower()).replace("&", " and ")
+    t = "".join(c for c in unicodedata.normalize("NFKD", t) if not unicodedata.combining(c))
+    return re.sub(r"[^a-z0-9]+", "", t)
+
+
+def duplicate_names(solutions):
+    seen, dups = {}, []
+    for s in solutions:
+        k = name_key(s["title"])
+        if k in seen:
+            dups.append((seen[k], s))
+        else:
+            seen[k] = s
+    return dups
+
+
+def upload_title(users, master, slug):
+    """The title a contributor gave their upload (shown on its card), or None."""
+    m = ((users.get("uploads") or {}).get(slug) or {}).get("meta")
+    if not m:
+        return None
+    try:
+        return json.loads(AESGCM(key_for(users, master, slug)).decrypt(unb64(m["iv"]), unb64(m["ct"]), None)).get("title") or None
+    except Exception:
+        return None
 
 
 def title_of(html):
@@ -362,6 +392,9 @@ def main():
         else:
             u = json.loads(USERS.read_text(encoding="utf-8"))
             vault = u.get("vault") or {}
+            for a, b in duplicate_names(u.get("solutions") or []):
+                print(f'DUPLICATE NAME: {a["slug"]} and {b["slug"]} are both called "{b["title"]}"')
+                bad.append(USERS)
             for slug, _ in targets:
                 if slug not in vault and can_read(u, slug):
                     print("MISSING VAULT KEY:", slug, "(re-run protect.py)")
@@ -391,7 +424,7 @@ def main():
         plain = plaintext(raw, slug, master, users)
         content = hashlib.sha256(plain.encode("utf-8")).hexdigest()[:16]
         if slug != "home":
-            own = title_of(plain)
+            own = upload_title(users, master, slug) or title_of(plain)
             ren = (users.get("names") or {}).get(slug)
             if ren:
                 ren["o"] = own  # keep the page's own title current so "Reset name" restores it
@@ -406,6 +439,12 @@ def main():
         base = "" if slug == "home" else "../"
         path.write_text(gate_html(slug, base, iv, ct, core, gate_ver, content, slug in (users.get("uploads") or {})), encoding="utf-8")
         print("protected", path.relative_to(ROOT))
+
+    dups = duplicate_names(solutions)
+    if dups:
+        for a, b in dups:
+            print(f'DUPLICATE NAME: {a["slug"]} and {b["slug"]} are both called "{b["title"]}"')
+        sys.exit("Solution names must be unique. Change one page's <title> (or rename it in the User Manager) and run protect.py again. users.json was not updated.")
 
     if need_pdf:
         try:

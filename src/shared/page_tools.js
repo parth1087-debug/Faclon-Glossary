@@ -294,6 +294,8 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
       if (U.contrib && U.contrib.tok) token = await FA.decrypt(C, U.contrib.tok.iv, U.contrib.tok.ct);
       if (!token && ADM) { try { token = localStorage.getItem("faclon-glossary-gh-token"); } catch (e) {} }
       if (!token) throw new Error("the admin hasn't set up contributor GitHub access yet");
+      var clash = FA.nameClash(U, t);
+      if (clash) throw new Error("a solution called \u201c" + clash + "\u201d already exists. Give your page a different title");
       var html = await upFile.text();
       var taken = {}; (U.solutions || []).forEach(function (x) { taken[x.slug] = 1; }); Object.keys(U.uploads || {}).forEach(function (x) { taken[x] = 1; });
       ["home", "admin", "src", "connector"].forEach(function (x) { taken[x] = 1; });
@@ -307,6 +309,9 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
       if (!dLine.test(gate)) throw new Error("couldn't prepare the page wrapper");
       gate = gate.replace(dLine, function () { return '\nvar D={up:1,slug:"' + slug + '",base:"../",iv:"' + box.iv + '",ct:"' + box.ct + '"};'; })
                  .replace(/<meta name="faclon-content" content="[^"]*">/, function () { return '<meta name="faclon-content" content="' + content + '">'; });
+      var g0 = await gh(token, "/contents/users.json?ref=main&t=" + Date.now(), { cache: "no-store" });
+      if (g0.ok) { var live = JSON.parse(new TextDecoder().decode(FA.u8((await g0.json()).content.replace(/\s/g, ""))));
+        clash = FA.nameClash(live, t); if (clash) throw new Error("a solution called \u201c" + clash + "\u201d already exists. Give your page a different title"); }
       var by = $("un").value.trim();
       var meta = await FA.encrypt(K, JSON.stringify({ title: t, sector: $("uc").value.trim(), blurb: $("ud").value.trim(), by: by, user: N, at: new Date().toISOString() }));
       var sup = await FA.wrapForSuper(U, K);

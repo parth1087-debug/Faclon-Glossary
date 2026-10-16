@@ -295,6 +295,8 @@ function renameSol(slug,t){
   var s=(U.solutions||[]).filter(function(x){return x.slug===slug})[0];renaming=null;
   if(!s){render();return}
   U.names=U.names||{};var cur=U.names[slug],orig=cur?cur.o:s.title,before=s.title;
+  var clash=FA.nameClash(U,t||orig,slug);
+  if(clash){render();toast("“"+clash+"” is already the name of another solution. Solution names must be unique.",6000);return}
   if(!t||t===orig){if(!cur){render();return}delete U.names[slug];s.title=orig}
   else{if(cur&&cur.t===t){render();return}U.names[slug]={t:t,o:orig};s.title=t}
   if(!Object.keys(U.names).length)delete U.names;

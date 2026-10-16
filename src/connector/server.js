@@ -223,7 +223,7 @@ var TOOLS = [
   {
     name: "upload_page",
     title: "Upload a new solution page",
-    description: "Publishes a self-contained HTML file (styles and images inside the file) as a new Faclon solution page. It goes live on the site in about a minute for the admin, super users and contributors; the admin can then share it with other users. Give either file_path (a file on this computer) or html. Confirm the title with the user before uploading, and follow get_design_skill so the page matches the site.",
+    description: "Publishes a self-contained HTML file (styles and images inside the file) as a new Faclon solution page. It goes live on the site in about a minute for the admin, super users and contributors; the admin can then share it with other users. Give either file_path (a file on this computer) or html. Every solution needs a unique title (an upload whose title matches an existing solution is refused). Confirm the title with the user before uploading, and follow get_design_skill so the page matches the site.",
     inputSchema: { type: "object", properties: {
       title: { type: "string", description: "Page title shown on the solution card, e.g. \"Cooling Tower Optimisation\"" },
       file_path: { type: "string", description: "Full path of the HTML file on this computer" },
@@ -246,6 +246,8 @@ var TOOLS = [
       if (Buffer.byteLength(html) > 20 * 1048576) throw new Error("That page is over 20 MB. Compress its images and try again.");
       if (!/<html[\s>]/i.test(html) || !/<body[\s>]/i.test(html)) throw new Error("That doesn't look like a complete HTML page (it needs <html> and <body>).");
       var s = await signIn(), C = s.acc.contrib, U = await users(true);
+      var clash = FA.nameClash(U, t);
+      if (clash) throw new Error("A solution called \u201c" + clash + "\u201d already exists. Choose a different title.");
       var token = U.contrib && U.contrib.tok ? await FA.decrypt(C, U.contrib.tok.iv, U.contrib.tok.ct) : null;
       if (!token) throw new Error("The admin hasn't set up contributor GitHub access yet (User Manager → Contributor GitHub access).");
       var taken = { home: 1, admin: 1, src: 1, connector: 1 };
@@ -260,6 +262,9 @@ var TOOLS = [
       if (!dLine.test(gate)) throw new Error("couldn't prepare the page wrapper");
       gate = gate.replace(dLine, function () { return '\nvar D={up:1,slug:"' + slug + '",base:"../",iv:"' + box.iv + '",ct:"' + box.ct + '"};'; })
                  .replace(/<meta name="faclon-content" content="[^"]*">/, function () { return '<meta name="faclon-content" content="' + content + '">'; });
+      var g0 = await gh(token, "/contents/users.json?ref=main&t=" + Date.now());
+      if (g0.ok) { clash = FA.nameClash(JSON.parse(Buffer.from((await g0.json()).content.replace(/\s/g, ""), "base64").toString("utf8")), t);
+        if (clash) throw new Error("A solution called \u201c" + clash + "\u201d already exists. Choose a different title."); }
       var by = String(a.contributor_name || s.acc.name || "").trim().slice(0, 60);
       var meta = await FA.encrypt(K, JSON.stringify({ title: t, sector: String(a.category || "").trim().slice(0, 40), blurb: String(a.description || "").trim().slice(0, 240), by: by, user: s.acc.name, at: new Date().toISOString(), via: "connector" }));
       var sup = await FA.wrapForSuper(U, K);
