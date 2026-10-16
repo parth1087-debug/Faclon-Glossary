@@ -9,7 +9,8 @@ Sources, all in this folder:
                    <!--CUSTOMERS-->  replaced with the Key Customers section
                    <!--CASES-->      replaced with the Customer Cases section
   content.json   All customer and case content:
-                   customers[]   {industry, logos[] {logo, name}}   -> logo wall + industry tabs
+                   customers[]   {industry, logos[] {logo, name, about?}}   -> logo wall + industry tabs; a logo with a story
+                   (cases here, on other solution pages, or its own "about" {t, w, p[], m[]}) opens a pop-up when clicked
                    case_groups[] {id, name}   order of groups in Customer Cases; id "on" = ongoing
                    domains       {id: label}  prod / energy / maint / quality
                    cases[]       {logo, customer, site, title, domains[], ongoing, metrics[] {value, label},
@@ -37,6 +38,52 @@ E = html.escape
 content = json.loads((HERE / "content.json").read_text())
 t = (HERE / "template.html").read_text()
 
+# ---------- Customer stories (pop-up on a logo in Key Customers) ----------
+# Everything here comes from approved sources already on the site: this page's customer cases, and the
+# customer cases on the Steam Trap, Condition Based Monitoring, I/O Vision and Power Plant AI pages.
+# A logo can also carry its own text: customers[].logos[].about = {"t": title, "w": where, "p": [points]}.
+SRC = HERE.parent
+CASE_LOGO = {"hzlfull": "hzl", "cairnefi": "cairn", "sterlite": "vedanta", "valu": "vedanta", "adanicsia": "csia"}
+stories = {}
+
+
+def story(logo, item):
+    stories.setdefault(CASE_LOGO.get(logo, logo), []).append(item)
+
+
+_order = [c for g in content["case_groups"] for c in content["cases"]
+          if (("on" if c["ongoing"] else c["domains"][0]) == g["id"])]
+for i, c in enumerate(_order, 1):
+    story(c["logo"], {"t": c["title"], "w": " · ".join(x for x in (c["customer"], c["site"]) if x), "p": c["points"],
+                      "m": [[m["value"], m["label"]] for m in c["metrics"]], "on": c["ongoing"], "case": f"c{i}"})
+for c in json.loads((SRC / "steam-trap-monitoring" / "content.json").read_text())["cases"]:
+    story(c["logo"], {"t": "Steam Trap Failure Detection", "w": f'{c["customer"]} · {c["site"]}', "p": [E(c["d"])],
+                      "m": [[c["metric"], c["metric_label"]]], "link": ["../steam-trap-monitoring/", "Steam Trap Failure Detection"]})
+CBM_LOGO = {"JSW Energy": "jswenergy", "JSW Cements": "jswcement", "JSW Steel": "jswsteel", "Godrej Agrovet": "godrejagro",
+            "Grasim Pulp and Fibre": "grasim", "SRF": "srf", "Marico": "marico"}
+for c in json.loads((SRC / "condition-based-monitoring" / "content.json").read_text())["cases"]:
+    if c["c"] in CBM_LOGO:
+        story(CBM_LOGO[c["c"]], {"t": "Condition Based Monitoring", "w": f'{c["c"]} · {c["p"]}',
+              "p": [E("Assets monitored: " + c["d"] + "."), E("Faults caught include: " + c["i"] + ".")],
+              "m": [[f'{c["a"]:,}', "assets"], [f'{c["s"]:,}', "sensors"], [c["n"], "faults detected"]],
+              "link": ["../condition-based-monitoring/", "Condition Based Monitoring"]})
+VIS_LOGO = {"JSW Energy": "jswenergy", "Hindustan Zinc": "hzl", "Hindalco": "hindalco"}
+for c in json.loads((SRC / "io-vision" / "content.json").read_text())["projects"]:
+    if c["customer"] in VIS_LOGO:
+        story(VIS_LOGO[c["customer"]], {"t": "I/O Vision", "w": c["customer"], "p": [E(c["sub"] + ".")],
+              "m": [], "link": ["../io-vision/", "I/O Vision"]})
+story("tatapower", {"t": "Power Plant AI", "w": "Tata Power · Prayagraj", "m": [],
+                    "p": ["Energy meters integrated to benchmark boiler feed pumps and ID/FD fans live."],
+                    "link": ["../power-plant-ai/", "Power Plant AI"]})
+story("hzl", {"t": "Power Plant AI", "w": "Hindustan Zinc · 91 MW captive", "m": [["1 pp", "auxiliary power reduction target"]], "on": True,
+              "p": ["Historian, EMS and lab data integrated. Auxiliary efficiency curves re-traced and run cycles scheduled to load, coal and season."],
+              "link": ["../power-plant-ai/", "Power Plant AI"]})
+for ind in content["customers"]:
+    for lg in ind["logos"]:
+        if lg.get("about"):
+            a = lg["about"]
+            story(lg["logo"], {"t": a["t"], "w": a.get("w", ""), "p": a.get("p", []), "m": a.get("m", [])})
+
 # ---------- Key Customers ----------
 inds = content["customers"]
 total = sum(len(i["logos"]) for i in inds)
@@ -45,14 +92,22 @@ tiles = ""
 for n, ind in enumerate(inds):
     tabs += f'<button class="tab" data-f="i{n}" aria-pressed="false">{E(ind["industry"])} <span>{len(ind["logos"])}</span></button>'
     for lg in ind["logos"]:
-        tiles += (f'<figure class="lt" data-g="i{n}"><img src="{{{{{lg["logo"]}}}}}" alt="{E(lg["name"])}">'
+        has = lg["logo"] in stories
+        tiles += (f'<figure class="lt{" has" if has else ""}" data-g="i{n}"'
+                  + (f' data-k="{E(lg["logo"])}" data-n="{E(lg["name"])}" data-i="{E(ind["industry"])}" tabindex="0" role="button" aria-haspopup="dialog" aria-label="{E(lg["name"])}: what Faclon did"' if has else "")
+                  + f'><img src="{{{{{lg["logo"]}}}}}" alt="{E(lg["name"])}">'
                   f'<figcaption>{E(ind["industry"])}</figcaption></figure>')
+wall_keys = {lg["logo"] for ind in inds for lg in ind["logos"]}
+story_json = json.dumps({k: v for k, v in stories.items() if k in wall_keys}, ensure_ascii=False).replace("</", "<\\/")
 customers = f"""<!-- 3 -->
 <section class="sec alt" id="s3" data-title="Key Customers">
   <div class="wrap">
     <div class="sh rv"><div class="k">Customers</div><h2><b>Key</b> customers</h2><p>A trusted digital partner for industrial plants, commercial buildings and OEMs</p></div>
     <div class="tabs" role="group" aria-label="Filter customers by industry" id="ctabs">{tabs}</div>
+    <p class="lhint"><span class="dot"></span>Click a highlighted logo to see what Faclon delivered there</p>
     <div class="lwall" id="lwall">{tiles}</div>
+    <dialog class="cdlg" id="cdlg" aria-labelledby="cdn"><div class="cdhead"><div class="cdlogo"><img id="cdimg" alt=""></div><div><div class="cdi" id="cdi"></div><h3 id="cdn"></h3></div><button class="cdx" id="cdx" type="button" aria-label="Close"><i data-lucide="x"></i></button></div><div class="cdbody" id="cdbody"></div></dialog>
+    <script type="application/json" id="custdata">{story_json}</script>
   </div>
 </section>"""
 t = t.replace("<!--CUSTOMERS-->", customers).replace("<!--CTABUTTONS-->", CTA_BUTTONS)
