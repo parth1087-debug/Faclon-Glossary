@@ -30,7 +30,7 @@
   },
   {
    "slug": "faclon-ai-native-stack-platform-capability-referen",
-   "title": "Faclon AI-Native Stack \u00b7 Platform Capability Reference"
+   "title": "Faclon AI-Native Stack · Platform Capability Reference"
   },
   {
    "slug": "faclon-overview",
@@ -59,6 +59,10 @@
   {
    "slug": "steel-ai-use-case-map",
    "title": "Steel Use Cases"
+  },
+  {
+   "slug": "pulp-paper-use-cases-2",
+   "title": "Pulp & Paper Use Cases 2"
   }
  ],
  "users": [
@@ -147,6 +151,11 @@
   "steel-ai-use-case-map": {
    "iv": "8JbuMXUm+O8q80dh",
    "ct": "mrZprKIpVs1NSixbPtYlN9BNiiHQvzRp7kXJtTrC8/bIfz+6rDB8zISDmSGQoSYy+RKOhsw9U2oCXubp"
+  },
+  "pulp-paper-use-cases-2": {
+   "e": "BGF02hFiQm6QRKh6MO0fnsKcHDnNqum1/+kLo/xSMu4yXgwGrIZO6TaxsB3DeR9A4k1FPSWPgxT+nlUVxtHyV94=",
+   "iv": "fCJMVYBb1ceb0wpP",
+   "ct": "+BofRC9QR5CzvEbgT0MDtLUk8Zi0QOJE+nKxSQvUr5Z+13YPDRJXTu/T++/51z5eohZAp2A1bCuVADJS"
   }
  },
  "dvault": {
@@ -226,6 +235,13 @@
     "ct": "D26ykJRQuOCOLFs51GSiejiiKz+i2R6KaKVDepEgsjEF9fXSrP+jJT71SlH07H3cunF3YK3wBZt6ppfC7fyl+3R0fOFgT+3NIK8+xPSfGLJMpdrLFfG7Nc9bR02A8aVyO3I1g1lQ1v9xRu0gyGk7mvwaKJn8Dow0GJIo1njM87lJFpZ/0MfBP6LYxP10dAaAL2+L9GTxKhj8/Mzs6u9u3PDMyD6sxXbJfFQDJqR6MQM="
    },
    "at": "2026-10-16T07:06:06.670Z"
+  },
+  "pulp-paper-use-cases-2": {
+   "meta": {
+    "iv": "/60MGJ0phOh+WpZb",
+    "ct": "/rYu2iUDTQWdAtwR+TL5iLHLxE62ofYGD+XORTC0NbVWKeq+ghpWZIsFqaiFjfaZ1LG9Txj5hoJlmAlIn7lmLYoVa0E7qlpQLQwuD2F2P2ITuRx43q/lGt6iFgMXhQAz4QkDiSR+HNWH2oDdUqpQicPaLpTxJhef/Vcu5TlkDcY6qxIJXzcBUO4cTC4HlLBqvArbvk2x+RgLd6qQLkjWseD1sgx5fXNUUpApZBxxuCJ1MW0a9FuWv6IJjSPRziVKOA/ov43waEqVWTloaTuAAKYzVsCqWbwyYchQ7S1Wye0DmZXPa2Su1E36MxV1J5e8WtBWjhAwprNZ14RQ2Xj/2u5AacFzEjjfyasXOgyjKIqDBFAeZpxlA6S+Dg4="
+   },
+   "at": "2026-10-16T07:27:55.708Z"
   }
  },
  "policy": {},
