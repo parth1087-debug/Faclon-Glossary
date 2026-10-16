@@ -393,12 +393,29 @@ var FA = (function () {
       dkey: function (slug) { return Promise.resolve(d[slug] ? u8(d[slug]) : null); }
     };
   }
+  /* Solution names must be unique. Two names clash when they match ignoring case, spaces, punctuation,
+     "&" vs "and" and a trailing "· Faclon Labs". Mirror of name_key in protect.py. */
+  function nameKey(t) {
+    return String(t || "").toLowerCase().replace(/\s*[\u00b7|\u2013\u2014-]\s*faclon labs\s*$/, "").replace(/&/g, " and ")
+      .normalize("NFKD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "");
+  }
+  /* The existing solution name that t clashes with (ignoring solution `except`), or null. */
+  function nameClash(U, t, except) {
+    var k = nameKey(t), names = U.names || {}, sols = U.solutions || [];
+    if (!k) return null;
+    for (var i = 0; i < sols.length; i++) {
+      var s = sols[i]; if (s.slug === except) continue;
+      var shown = names[s.slug] && names[s.slug].t ? names[s.slug].t : s.title;
+      if (nameKey(shown) === k || nameKey(s.title) === k) return shown;
+    }
+    return null;
+  }
   function getSession() { try { return JSON.parse(localStorage.getItem(SESSION) || sessionStorage.getItem(SESSION) || "null"); } catch (e) { return null; } }
   function setSession(v) { var j = JSON.stringify(v); try { localStorage.setItem(SESSION, j); } catch (e) { try { sessionStorage.setItem(SESSION, j); } catch (e2) {} } }
   function clearSession() { try { localStorage.removeItem(SESSION); sessionStorage.removeItem(SESSION); localStorage.removeItem("faclon-glossary-key"); } catch (e) {} }
   return {
     u8: u8, b64: b64, pbkdf2: pbkdf2, hmac: hmac, encrypt: encrypt, decrypt: decrypt, decryptBytes: decryptBytes, sha256hex: sha256hex,
-    norm: norm, userId: userId, pageKey: pageKey, allKey: allKey, dallKey: dallKey, contribKey: contribKey, uploadKey: uploadKey, isUpload: isUpload, keyFor: keyFor, wrapForSuper: wrapForSuper, pdfKey: pdfKey, canRead: canRead, canDownload: canDownload, syncVault: syncVault, fillVault: fillVault, buildRing: buildRing, loadUsers: loadUsers, adminMaster: adminMaster,
+    norm: norm, userId: userId, pageKey: pageKey, allKey: allKey, dallKey: dallKey, contribKey: contribKey, uploadKey: uploadKey, isUpload: isUpload, keyFor: keyFor, wrapForSuper: wrapForSuper, nameKey: nameKey, nameClash: nameClash, pdfKey: pdfKey, canRead: canRead, canDownload: canDownload, syncVault: syncVault, fillVault: fillVault, buildRing: buildRing, loadUsers: loadUsers, adminMaster: adminMaster,
     login: login, access: access, getSession: getSession, setSession: setSession, clearSession: clearSession
   };
 })();
@@ -476,6 +493,8 @@ function renameSol(slug,t){
   var s=(U.solutions||[]).filter(function(x){return x.slug===slug})[0];renaming=null;
   if(!s){render();return}
   U.names=U.names||{};var cur=U.names[slug],orig=cur?cur.o:s.title,before=s.title;
+  var clash=FA.nameClash(U,t||orig,slug);
+  if(clash){render();toast("“"+clash+"” is already the name of another solution. Solution names must be unique.",6000);return}
   if(!t||t===orig){if(!cur){render();return}delete U.names[slug];s.title=orig}
   else{if(cur&&cur.t===t){render();return}U.names[slug]={t:t,o:orig};s.title=t}
   if(!Object.keys(U.names).length)delete U.names;
