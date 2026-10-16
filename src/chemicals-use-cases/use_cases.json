@@ -1,0 +1,602 @@
+[
+ {
+  "s": "Raw Material Receipt & Storage",
+  "procs": [
+   {
+    "n": "Raw Material Receipt & Tank Farm",
+    "f": ["Tanker / rail / pipeline receipt", "Sampling & QC release", "Storage tanks & silos", "Day tanks", "Feed to plant"],
+    "rm": "Liquid and solid feedstocks, solvents, catalysts, additives",
+    "ut": "Power (pumps, agitators), nitrogen blanketing, steam tracing",
+    "out": "Released, inventoried raw materials at the plant battery limit",
+    "q": "Purity %, moisture, impurity profile, density, certificate-of-analysis match",
+    "uc": [
+     {
+      "t": "Incoming Material Quality & Supplier Variability Analytics",
+      "k": "ai", "v": null, "basis": null,
+      "d": [
+       "Analyses certificates of analysis, incoming QC results and downstream batch outcomes for every lot and supplier.",
+       "Detects lots and suppliers whose impurity profile drifts, and links raw material variation to yield and quality losses downstream.",
+       "Provides lot-level release advisories, blending suggestions and supplier scorecards for procurement."
+      ],
+      "p": [
+       "Raw material variation shows up later as batch failures or off-spec product",
+       "Certificate-of-analysis values are rarely checked against plant outcomes",
+       "QC release decisions depend on a few lab results and experience",
+       "Supplier performance is discussed on anecdote rather than data"
+      ],
+      "kpi": ["Lots released first time", "Batch failures traced to raw material", "Supplier quality index", "QC release turnaround time"]
+     },
+     {
+      "t": "Tank Farm Inventory, Transfer & Loss Monitoring",
+      "k": "ai", "v": null, "basis": null,
+      "d": [
+       "Analyses tank levels, temperatures, densities, transfer flows and receipt and dispatch records across the tank farm.",
+       "Detects unaccounted losses, mismatched transfers, wrong-tank routing and abnormal level changes.",
+       "Provides live mass balance by tank, transfer reconciliation and alerts for overfill and contamination risk."
+      ],
+      "p": [
+       "Book stock and measured stock rarely match",
+       "Transfer errors and wrong-line routing cause cross-contamination",
+       "Overfill and loss-of-containment risk on manual transfers",
+       "Month-end reconciliation is slow and manual"
+      ],
+      "kpi": ["Inventory accuracy %", "Unaccounted loss %", "Transfer errors per month", "Overfill alarms"]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Reaction",
+  "procs": [
+   {
+    "n": "Batch & Semi-Batch Reactors",
+    "f": ["Charging", "Heat-up", "Reaction & dosing", "Hold / digestion", "Cool-down", "Discharge & clean"],
+    "rm": "Charged raw materials, intermediates, catalysts, solvents",
+    "ut": "Steam, thermic fluid, cooling water, chilled brine, nitrogen, power (agitators)",
+    "out": "Reaction mass to work-up and purification",
+    "q": "Conversion %, selectivity, impurity profile, end-point parameters, batch cycle time",
+    "uc": [
+     {
+      "t": "Golden Batch Profiling & Batch Deviation Detection",
+      "k": "ai", "v": null, "basis": null,
+      "d": [
+       "Analyses temperature, pressure, dosing, agitation and jacket profiles of every past batch alongside its lab results.",
+       "Builds the golden batch envelope for each product and detects live batches drifting away from it phase by phase.",
+       "Provides early deviation alerts and corrective advisories while the batch can still be saved."
+      ],
+      "p": [
+       "Batch-to-batch variation in yield and quality with no clear cause",
+       "Deviations are found only when lab results come back",
+       "Best-operator know-how is not captured in the recipe",
+       "Rework and reprocessing consume reactor time"
+      ],
+      "kpi": ["Right-first-time batches %", "Yield variation between batches", "Rework batches per month", "Deviation alerts acted on"]
+     },
+     {
+      "t": "Reaction End-Point Prediction & Cycle Time Optimisation",
+      "k": "ai", "v": null, "basis": null,
+      "d": [
+       "Analyses heat-flow, dosing, pressure and inline analyser data together with in-process lab samples.",
+       "Predicts conversion and reaction end-point in real time with a soft sensor, between lab samples.",
+       "Provides end-point advisories so batches are neither stopped early nor held longer than needed."
+      ],
+      "p": [
+       "Batches held 'to be safe' while waiting for lab confirmation",
+       "In-process sampling is slow and exposes operators",
+       "Cycle time varies widely between shifts",
+       "Reactor capacity is the bottleneck for the plant"
+      ],
+      "kpi": ["Batch cycle time", "Samples per batch", "Reactor utilisation %", "Over-reaction or under-reaction events"]
+     },
+     {
+      "t": "Exotherm & Thermal Runaway Early Warning",
+      "k": "ai", "v": null, "basis": null,
+      "d": [
+       "Analyses reactor temperature, jacket duty, dosing rate, pressure and agitator power during exothermic steps.",
+       "Detects heat accumulation, cooling shortfall and dosing-to-cooling mismatch before the safety interlocks trip.",
+       "Provides graded alerts and dosing hold advisories to operators, alongside (never replacing) the safety system."
+      ],
+      "p": [
+       "Exothermic steps depend on manual dosing control",
+       "Cooling capacity margins are not visible live",
+       "Near-misses are investigated only after the event",
+       "Conservative dosing slows the batch to stay safe"
+      ],
+      "kpi": ["High-temperature excursions", "Interlock trips", "Dosing time per batch", "Near-miss events"]
+     }
+    ]
+   },
+   {
+    "n": "Continuous Reactors",
+    "f": ["Feed preparation", "Preheat", "Reactor (fixed bed / CSTR / tubular)", "Quench & separation", "Recycle"],
+    "rm": "Feed streams, recycle streams, catalyst",
+    "ut": "Steam, fuel, cooling water, power",
+    "out": "Reactor effluent to separation",
+    "q": "Conversion %, selectivity, by-product formation, catalyst activity",
+    "uc": [
+     {
+      "t": "Yield & Selectivity Optimisation",
+      "k": "ai", "v": null, "basis": null,
+      "d": [
+       "Analyses feed composition, temperature profile, pressure, residence time and analyser data across operating history.",
+       "Models how conversion and selectivity respond to each operating condition, including recycle effects.",
+       "Provides setpoint advisories that keep the reactor at the most profitable operating point within its limits."
+      ],
+      "p": [
+       "Reactors run at conservative, habit-based setpoints",
+       "By-product formation rises without anyone noticing",
+       "Feed changes are not followed by setpoint changes",
+       "Lab analysis is too slow to steer the reactor"
+      ],
+      "kpi": ["Selectivity %", "Specific raw material consumption", "By-product make", "Time at optimum operating point"]
+     },
+     {
+      "t": "Catalyst Activity & Run-Length Prediction",
+      "k": "ai", "v": null, "basis": null,
+      "d": [
+       "Analyses temperature profiles, pressure drop, conversion and selectivity over the catalyst life.",
+       "Tracks deactivation, predicts end of run and compares catalyst batches and suppliers.",
+       "Provides changeout planning insights and operating advisories that extend useful catalyst life."
+      ],
+      "p": [
+       "Catalyst changeouts scheduled by calendar, not condition",
+       "Unexpected activity loss forces unplanned shutdowns",
+       "Catalyst performance is hard to compare between charges",
+       "Operating to compensate for deactivation raises energy use"
+      ],
+      "kpi": ["Catalyst run length", "Activity decline rate", "Pressure drop trend", "Unplanned changeouts"]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Separation & Purification",
+  "procs": [
+   {
+    "n": "Distillation & Solvent Recovery",
+    "f": ["Feed", "Column (reboiler / condenser)", "Product draw-offs", "Solvent recovery", "Recycle to process"],
+    "rm": "Reaction mass, crude product, spent solvent",
+    "ut": "Steam (reboilers), cooling water, chilled water, vacuum, power",
+    "out": "Purified product, recovered solvent, residue",
+    "q": "Product purity %, solvent recovery %, residue content",
+    "uc": [
+     {
+      "t": "Column Energy & Purity Optimisation",
+      "k": "ai", "v": null, "basis": null,
+      "d": [
+       "Analyses column temperatures, pressure, reflux, reboiler steam and product analysers.",
+       "Builds soft sensors for top and bottom purity and finds where the column is over-purifying.",
+       "Provides reflux and steam advisories that hold purity on target at the lowest energy use."
+      ],
+      "p": [
+       "Columns over-purify to avoid off-spec product",
+       "Steam per tonne varies widely between shifts",
+       "Purity is known only from periodic lab samples",
+       "Flooding and weeping episodes cut capacity"
+      ],
+      "kpi": ["Steam per tonne of product", "Purity giveaway", "Off-spec draws", "Column throughput"]
+     },
+     {
+      "t": "Solvent Loss & Recovery Tracking",
+      "k": "ai", "v": null, "basis": null,
+      "d": [
+       "Analyses solvent purchases, recovery column performance, tank inventories and vent and effluent data.",
+       "Detects where solvent is being lost: vents, residues, effluent or poor recovery.",
+       "Provides a live solvent balance by area with loss alerts and recovery improvement advisories."
+      ],
+      "p": [
+       "Solvent make-up is a large, poorly explained cost",
+       "Losses are found only at month-end",
+       "Vent and effluent losses also create compliance exposure",
+       "Recovered solvent quality varies"
+      ],
+      "kpi": ["Solvent recovery %", "Solvent make-up per tonne of product", "Recovered solvent purity", "VOC emissions"]
+     }
+    ]
+   },
+   {
+    "n": "Crystallisation, Filtration & Drying",
+    "f": ["Crystalliser", "Centrifuge / filter", "Cake wash", "Dryer", "Milling & sieving"],
+    "rm": "Purified liquor or slurry",
+    "ut": "Steam or hot water, chilled brine, nitrogen, vacuum, power",
+    "out": "Dried solid product to packing",
+    "q": "Particle size distribution, moisture / loss on drying, purity, colour, bulk density",
+    "uc": [
+     {
+      "t": "Crystal Size & Filtration Performance Optimisation",
+      "k": "ai", "v": null, "basis": null,
+      "d": [
+       "Analyses cooling profiles, seeding, agitation, filtration time and particle size results by batch.",
+       "Links crystalliser conditions to particle size, filtration time and cake wash quality.",
+       "Provides cooling and seeding advisories that give consistent crystals and faster filtration."
+      ],
+      "p": [
+       "Fine crystals clog filters and stretch filtration time",
+       "Particle size varies from batch to batch",
+       "Wash effectiveness is not measured, so impurities carry over",
+       "Centrifuges and filters become the bottleneck"
+      ],
+      "kpi": ["Filtration time per batch", "Particle size in specification %", "Cake moisture", "Wash solvent per batch"]
+     },
+     {
+      "t": "Dryer End-Point & Energy Optimisation",
+      "k": "ai", "v": null, "basis": null,
+      "d": [
+       "Analyses product temperature, exhaust humidity and temperature, vacuum and heating media data.",
+       "Predicts moisture content during drying and detects the true end-point.",
+       "Provides end-point and heating advisories that stop over-drying, save energy and protect heat-sensitive products."
+      ],
+      "p": [
+       "Dryers run on fixed times with safety margins",
+       "Over-drying degrades product and wastes energy",
+       "Moisture known only from offline samples",
+       "Dryer cycle limits plant output"
+      ],
+      "kpi": ["Drying time per batch", "Energy per tonne dried", "Moisture in specification %", "Product degradation events"]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Product Handling & Packaging",
+  "procs": [
+   {
+    "n": "Packing, Warehousing & Dispatch",
+    "f": ["Bulk storage", "Filling / bagging / drumming", "Labelling", "Palletising", "Warehouse", "Dispatch"],
+    "rm": "Finished product, packing material",
+    "ut": "Power, compressed air, nitrogen (inerting)",
+    "out": "Packed, labelled product ready for dispatch",
+    "q": "Fill weight accuracy, label and batch code correctness, seal and container integrity",
+    "uc": [
+     {
+      "t": "Packing Line Fill Weight, Label & Seal Inspection",
+      "k": "cv", "v": null, "basis": null,
+      "loc": ["Filling and weighing stations", "Label applicators and batch code printers", "Palletiser infeed"],
+      "d": [
+       "Analyses camera feeds and checkweigher data on every container leaving the packing line.",
+       "Detects wrong or missing labels, unreadable batch codes, damaged containers, open seals and over-filling.",
+       "Provides automatic reject signals, line-level alerts and a traceable record for every pack."
+      ],
+      "p": [
+       "Mislabelled or mis-coded packs reach customers",
+       "Over-filling gives product away on every container",
+       "Manual checks cover only a sample of packs",
+       "Customer complaints are hard to trace back to a line and shift"
+      ],
+      "kpi": ["Fill weight giveaway", "Label and code errors", "Customer packaging complaints", "Packs inspected %"]
+     },
+     {
+      "t": "Batch Genealogy & Product Traceability",
+      "k": "ai", "v": null, "basis": null,
+      "d": [
+       "Links raw material lots, batches, equipment, operators, QC results and packs into one genealogy record.",
+       "Traces any customer complaint or deviation back through every batch and lot it touched, and forward to every affected shipment.",
+       "Provides one-click traceability reports for audits, recalls and customer queries."
+      ],
+      "p": [
+       "Traceability depends on paper batch records and spreadsheets",
+       "Complaint investigations take days",
+       "Scope of a recall is unclear without full genealogy",
+       "Customer and regulatory audits are labour-intensive"
+      ],
+      "kpi": ["Time to trace a complaint", "Batches with complete genealogy %", "Audit preparation time", "Recall scope accuracy"]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Utilities",
+  "procs": [
+   {
+    "n": "Steam & Boilers",
+    "uc": [
+     {
+      "t": "Boiler Efficiency & Steam Network Optimisation",
+      "k": "ai", "v": null, "basis": null,
+      "d": [
+       "Analyses fuel, air, flue gas, feedwater and steam flows across boilers and the plant steam headers.",
+       "Calculates live boiler efficiency and finds excess air, blowdown losses, letdown losses and steam trap failures.",
+       "Provides load sharing, combustion and header pressure advisories across the steam network."
+      ],
+      "p": [
+       "Boiler efficiency is checked only during audits",
+       "Steam demand swings with batch schedules",
+       "Pressure-reducing letdowns waste available energy",
+       "Steam losses across the plant are not visible"
+      ],
+      "kpi": ["Boiler efficiency %", "Fuel per tonne of steam", "Steam per tonne of product", "Condensate recovery %"]
+     }
+    ]
+   },
+   {
+    "n": "Cooling, Chilling & Refrigeration",
+    "uc": [
+     {
+      "t": "Chiller, Brine & Cooling Tower Optimisation",
+      "k": "ai", "v": null, "basis": null,
+      "d": [
+       "Analyses chiller loads, brine and cooling water temperatures, compressor power and ambient conditions.",
+       "Calculates live efficiency per chiller and cooling tower and detects fouling, low charge and poor sequencing.",
+       "Provides sequencing and setpoint advisories that meet process cooling demand at the lowest power."
+      ],
+      "p": [
+       "Chillers run in fixed combinations regardless of load",
+       "Brine temperature set lower than reactors need",
+       "Condenser fouling raises power use without warning",
+       "Cooling shortfalls slow exothermic steps"
+      ],
+      "kpi": ["kW per tonne of refrigeration", "Cooling tower approach", "Chiller availability", "Cooling-limited batches"]
+     }
+    ]
+   },
+   {
+    "n": "Compressed Air, Nitrogen & Vacuum",
+    "uc": [
+     {
+      "t": "Compressed Air, Nitrogen & Vacuum System Optimisation",
+      "k": "ai", "v": null, "basis": null,
+      "d": [
+       "Analyses compressor, nitrogen generator and vacuum pump loads, pressures, flows and consumption by area.",
+       "Detects leaks, artificial demand from high header pressure and inefficient machine sequencing.",
+       "Provides pressure setpoint, sequencing and leak-repair advisories with the savings tracked."
+      ],
+      "p": [
+       "Air and nitrogen leaks run unchecked",
+       "Header pressure set high for the most demanding user",
+       "Nitrogen used for inerting is not measured by area",
+       "Vacuum systems run whether or not they are needed"
+      ],
+      "kpi": ["Specific power per unit of air", "Leak rate %", "Nitrogen use per tonne of product", "Header pressure"]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Environment & Compliance",
+  "procs": [
+   {
+    "n": "Effluent Treatment & Emissions",
+    "f": ["Segregation & collection", "Equalisation", "Primary / secondary treatment", "Tertiary / ZLD", "Discharge or reuse"],
+    "rm": "Process effluent, washings, scrubber blowdown",
+    "ut": "Power (aerators, pumps), treatment chemicals, steam (evaporators)",
+    "out": "Treated water for reuse or discharge, sludge, salts",
+    "q": "COD, BOD, TDS, pH, specific pollutants, stack and vent emissions",
+    "uc": [
+     {
+      "t": "ETP Performance & Chemical Dosing Optimisation",
+      "k": "ai", "v": null, "basis": null,
+      "d": [
+       "Analyses inflow load, pH, COD, dissolved oxygen, sludge and dosing data through every treatment stage.",
+       "Predicts treated water quality ahead of lab results and links load spikes back to their source plant.",
+       "Provides dosing and aeration advisories and early warnings of breaches against consent limits."
+      ],
+      "p": [
+       "Shock loads from batch discharges upset biological treatment",
+       "Chemicals and aeration dosed by habit",
+       "Breaches are found after the fact from lab results",
+       "Evaporators and ZLD systems are energy-hungry"
+      ],
+      "kpi": ["Treated water in compliance %", "Chemical cost per m³", "Aeration power per kg COD removed", "Water reuse %"]
+     },
+     {
+      "t": "Stack, Vent & Fugitive Emission Monitoring",
+      "k": "ai", "v": null, "basis": null,
+      "d": [
+       "Analyses continuous emission monitors, scrubber performance, vent flows and leak detection survey data.",
+       "Detects emission trends approaching limits, scrubber underperformance and repeat leak points.",
+       "Provides compliance dashboards, early breach alerts and regulator-ready reports."
+      ],
+      "p": [
+       "Emission excursions noticed only after they happen",
+       "Scrubber performance is not tracked against the load it treats",
+       "Leak detection and repair runs on paper",
+       "Regulatory reporting is manual and slow"
+      ],
+      "kpi": ["Emission compliance margin", "Excursion events", "Repeat leaks", "Reporting time"]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Safety",
+  "procs": [
+   {
+    "n": "Process & Personnel Safety",
+    "uc": [
+     {
+      "t": "Gas Leak & Hazardous Area Monitoring",
+      "k": "ai", "v": null, "basis": null,
+      "d": [
+       "Analyses fixed gas detectors, flame detectors, area cameras and wind data across the plant.",
+       "Detects slow-building leaks, detector faults and patterns of repeat releases at the same equipment.",
+       "Provides early leak alerts with location, likely source and affected zone, plus detector health reports."
+      ],
+      "p": [
+       "Small leaks build up before reaching alarm levels",
+       "Faulty or drifting detectors go unnoticed",
+       "Alarm floods during incidents hide the real source",
+       "Repeat leak points are not tracked"
+      ],
+      "kpi": ["Leak events", "Detector availability %", "Time to locate a leak", "Repeat leak points"]
+     },
+     {
+      "t": "PPE, Restricted Zone & Unsafe Act Detection",
+      "k": "cv", "v": null, "basis": null,
+      "loc": ["Reactor and charging floors", "Tank farm and tanker unloading bays", "Packing and warehouse areas"],
+      "d": [
+       "Analyses existing CCTV feeds with person detection at high-risk work areas.",
+       "Detects missing helmets, goggles, chemical suits or respirators, entry into restricted zones and unsafe acts during charging.",
+       "Provides real-time alerts to supervisors, zone-wise dashboards and audit-ready evidence logs."
+      ],
+      "p": [
+       "PPE checks rely on supervisor rounds",
+       "Chemical exposure risk during charging and unloading",
+       "Restricted areas entered without permits",
+       "Safety audits lack evidence"
+      ],
+      "kpi": ["PPE compliance %", "Restricted zone breaches", "Unsafe acts reported", "Incidents and near-misses"]
+     },
+     {
+      "t": "Alarm Rationalisation & Operator Load Analytics",
+      "k": "ai", "v": null, "basis": null,
+      "d": [
+       "Analyses DCS alarm and event logs, operator actions and shift records.",
+       "Finds chattering, standing and duplicate alarms and periods when operators are overloaded.",
+       "Provides a prioritised alarm clean-up list and live operator load indicators."
+      ],
+      "p": [
+       "Too many alarms for operators to act on",
+       "Nuisance alarms train operators to ignore warnings",
+       "Alarm floods during upsets",
+       "No measure of how loaded each console is"
+      ],
+      "kpi": ["Alarms per operator per hour", "Standing alarms", "Alarm floods per month", "Chattering alarms"]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Cross-Cutting",
+  "procs": [
+   {
+    "n": "Asset Reliability",
+    "uc": [
+     {
+      "t": "Rotating Equipment Condition Monitoring",
+      "k": "ai", "v": null, "basis": null,
+      "d": [
+       "Analyses vibration, temperature, current and process data on pumps, agitators, compressors, centrifuges, blowers and fans.",
+       "Detects bearing faults, imbalance, misalignment, cavitation and seal problems early.",
+       "Provides fault diagnoses with recommended actions and remaining-life insights for maintenance planning."
+      ],
+      "p": [
+       "Agitator and pump failures stop batches mid-way",
+       "Seal failures cause leaks and exposure",
+       "Maintenance is calendar-based or reactive",
+       "Critical spares are not planned against condition"
+      ],
+      "kpi": ["Unplanned stoppages", "MTBF", "Seal failures", "Maintenance cost per asset"]
+     },
+     {
+      "t": "Heat Exchanger Fouling & Cleaning Optimisation",
+      "k": "ai", "v": null, "basis": null,
+      "d": [
+       "Analyses flows and temperatures across condensers, reboilers, jackets and process exchangers.",
+       "Tracks heat transfer performance and predicts when fouling will start to limit the process.",
+       "Provides cleaning schedules that balance cleaning cost against lost throughput and energy."
+      ],
+      "p": [
+       "Fouling slowly reduces cooling and heating capacity",
+       "Exchangers cleaned too early or too late",
+       "Fouled jackets stretch batch cycle times",
+       "Energy losses from fouling are not measured"
+      ],
+      "kpi": ["Heat transfer performance", "Cleaning interval", "Fouling-limited batches", "Energy per tonne of product"]
+     },
+     {
+      "t": "Corrosion & Integrity Monitoring",
+      "k": "ai", "v": null, "basis": null,
+      "d": [
+       "Analyses corrosion probes, thickness surveys, process chemistry and operating conditions for vessels, piping and tanks.",
+       "Links corrosion rates to process conditions such as temperature, pH and chloride, and flags assets nearing limits.",
+       "Provides risk-based inspection priorities and operating window alerts."
+      ],
+      "p": [
+       "Corrosive services cause unplanned leaks",
+       "Inspection data sits in reports, not linked to process data",
+       "Operating outside safe windows is noticed late",
+       "Inspection effort is spread evenly instead of by risk"
+      ],
+      "kpi": ["Loss-of-containment events", "Assets within corrosion allowance %", "Inspection backlog", "Operating window excursions"]
+     }
+    ]
+   },
+   {
+    "n": "Energy & Sustainability",
+    "uc": [
+     {
+      "t": "Specific Energy & Carbon Intensity Tracking by Product",
+      "k": "ai", "v": null, "basis": null,
+      "d": [
+       "Analyses power, steam, fuel and utility consumption by plant, product and batch.",
+       "Calculates energy and carbon per tonne of each product and benchmarks batches and shifts against their best.",
+       "Provides deviation alerts, product carbon footprints and reports for customers and ESG disclosures."
+      ],
+      "p": [
+       "Energy use is known for the site, not for each product",
+       "Customers increasingly ask for product carbon footprints",
+       "No baseline to prove energy projects worked",
+       "ESG reporting is assembled by hand"
+      ],
+      "kpi": ["Energy per tonne of product", "Carbon per tonne of product", "Batches within energy benchmark %", "Reporting time"]
+     }
+    ]
+   },
+   {
+    "n": "Quality & Operations Intelligence",
+    "uc": [
+     {
+      "t": "LIMS-Linked Quality Prediction & Release",
+      "k": "ai", "v": null, "basis": null,
+      "d": [
+       "Combines LIMS results with process data for every batch and stage.",
+       "Predicts final quality from in-process data and flags batches likely to fail before they reach QC.",
+       "Provides early quality warnings and supports faster, evidence-based release."
+      ],
+      "p": [
+       "Quality failures found only at final testing",
+       "Release waits on long lab queues",
+       "Process and lab data live in separate systems",
+       "Root cause of quality issues takes days to find"
+      ],
+      "kpi": ["First-pass quality %", "QC release time", "Off-spec batches", "Time to root cause"]
+     },
+     {
+      "t": "Production Scheduling & Changeover Optimisation",
+      "k": "ai", "v": null, "basis": null,
+      "d": [
+       "Analyses orders, recipes, equipment availability, cleaning requirements and changeover history.",
+       "Sequences products to cut changeovers and cleaning, and spots equipment becoming the bottleneck.",
+       "Provides schedule recommendations and live adherence tracking for planners and shift leads."
+      ],
+      "p": [
+       "Frequent changeovers on multi-product equipment",
+       "Cleaning time between products limits output",
+       "Schedules built in spreadsheets and changed daily",
+       "Bottlenecks shift with the product mix"
+      ],
+      "kpi": ["Changeover time", "Schedule adherence %", "Equipment utilisation %", "On-time delivery %"]
+     }
+    ]
+   },
+   {
+    "n": "Digital Foundation",
+    "uc": [
+     {
+      "t": "IT-OT Integration & Data Foundation",
+      "k": "fd", "v": null, "basis": null, "vt": "Enabler for all other use cases",
+      "d": [
+       "Connects DCS, PLC, batch systems, historians, LIMS, ERP, energy meters and cameras through I/O Connect.",
+       "Organises the data by plant, unit, equipment, batch and product so every use case reads from one model.",
+       "Provides the secure data layer, dashboards and alerting that every other use case on this page runs on."
+      ],
+      "p": [
+       "Data spread across DCS, batch, lab and ERP systems",
+       "Each analytics project starts with fresh data plumbing",
+       "Batch context missing from historian data",
+       "Plant network security concerns slow integration"
+      ],
+      "kpi": ["Systems connected", "Data availability %", "Use cases live on the platform", "Time to deploy a new use case"]
+     }
+    ]
+   }
+  ]
+ }
+]

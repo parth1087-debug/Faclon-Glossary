@@ -1,0 +1,2260 @@
+[
+ {
+  "s": "Mining",
+  "procs": [
+   {
+    "n": "Bauxite Mining Operations",
+    "f": [
+     "Drilling",
+     "Blasting",
+     "Loading",
+     "Hauling",
+     "Crushing",
+     "Beneficiation",
+     "Storage"
+    ],
+    "rm": "Bauxite ore (ROM, alumina-grade), waste rock",
+    "ut": "Diesel (fleet), explosives, power, water (dust suppression)",
+    "out": "Crushed bauxite (-25mm typical) to refinery feed",
+    "q": "Available alumina (Al2O3)%, reactive silica%, moisture%, Fe2O3%, TiO2%",
+    "uc": [
+     {
+      "t": "Bauxite Quality Sensing & Sorting",
+      "k": "cv",
+      "v": 4.0,
+      "basis": "MTPA aluminium",
+      "loc": [
+       "Crusher discharge to stockpile conveyors (real-time quality grading)",
+       "Blending bay where multiple ore lots converge",
+       "Refinery feed conveyor (final quality checkpoint before digestion)"
+      ],
+      "d": [
+       "Analyses overhead camera feeds, NIR/LIBS sensors and online XRF data at conveyor lines.",
+       "Detects high-reactive-silica zones (the key cost driver in Bayer) and high-iron lots; sorts by grade.",
+       "Provides blending advisory and triggers diverter action for off-spec lots before refinery feed."
+      ],
+      "p": [
+       "Lab silica analysis has 4-8 hour lag, too slow for blending decisions",
+       "Inconsistent bauxite feed causes Bayer process upsets and yield drops",
+       "High reactive silica lots silently increase NaOH cost without visibility",
+       "Manual blending decisions depend on operator judgment",
+       "Customer complaints on alumina quality traced back to bauxite variability"
+      ],
+      "kpi": [
+       "Reactive silica % in refinery feed",
+       "Available alumina % in feed",
+       "NaOH consumption (kg/t alumina)",
+       "Off-spec lot rejection rate",
+       "Bauxite blending accuracy"
+      ],
+      "calc": "NaOH savings 5-10 kg/t alumina × ₹35/kg × 1.92 t alumina/t Al × 1 MTPA = ₹3-6 cr. Plus extraction efficiency uplift. ₹4 cr per MTPA aluminium.",
+      "tier": 2
+     },
+     {
+      "t": "Mine Fleet Productivity & Operations Optimization",
+      "k": "ai",
+      "v": 2.0,
+      "basis": "MTPA aluminium",
+      "d": [
+       "Analyses GPS/telematics on haul trucks, shovel loading times, dispatch system data, and pit conditions.",
+       "Detects fleet utilization gaps, sub-optimal hauling routes, and shovel/truck mismatch.",
+       "Provides real-time dispatch optimization and operator coaching for throughput improvement."
+      ],
+      "p": [
+       "Trucks queuing at shovels (capacity waste)",
+       "Empty hauls and sub-optimal routes",
+       "Operator productivity varies between shifts",
+       "Maintenance breakdowns disrupt fleet plans",
+       "Dispatch decisions made without real-time visibility"
+      ],
+      "kpi": [
+       "Truck utilization %",
+       "Shovel match factor",
+       "Cycle time variance (minutes)",
+       "Tonnes per operating hour",
+       "Diesel consumption (L/tonne mined)"
+      ],
+      "calc": "Fleet productivity 3-5% improvement + diesel consumption reduction. ₹2 cr per MTPA aluminium.",
+      "tier": 3
+     },
+     {
+      "t": "Material Handling Health Monitoring",
+      "k": "cv",
+      "v": 1.0,
+      "basis": "MTPA aluminium",
+      "loc": [
+       "Pit-to-crusher conveyor lines (long-distance, weather-exposed)",
+       "Primary and secondary crusher feeds (oversize rocks, blasting debris)",
+       "Stockpile-to-refinery trunk belts (single-point failure for refinery feed)"
+      ],
+      "d": [
+       "Analyses camera images of belt surfaces, vibration on idlers, overhead camera feeds and metal detector signals.",
+       "Detects belt tears, mis-tracking, bearing degradation, tramp metal and oversize rocks.",
+       "Provides location-tagged alerts before crusher damage or belt failure."
+      ],
+      "p": [
+       "Long bauxite conveyors fail with limited warning",
+       "Crusher damage from foreign material causes major shutdowns (₹50 lakh-1 cr/event)",
+       "Belt damage often noticed only on inspection rounds",
+       "Manual belt inspection cannot cover 24/7 operation",
+       "Stockpile-to-refinery line failure halts refinery feed"
+      ],
+      "kpi": [
+       "Conveyor availability % (mining trunk lines)",
+       "MTBF on mining conveyor systems",
+       "Crusher damage events per year",
+       "Foreign material events per month",
+       "Belt life (months)"
+      ],
+      "calc": "Belt failure prevention + crusher damage prevention. ₹1 cr per MTPA aluminium.",
+      "tier": 3
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Alumina Refining (Bayer)",
+  "procs": [
+   {
+    "n": "Digestion",
+    "f": [
+     "Bauxite slurry preparation",
+     "Pre-heating",
+     "Digesters (high-T high-P)",
+     "Flash tanks",
+     "Slurry to clarification"
+    ],
+    "rm": "Crushed bauxite, spent liquor (NaOH recycled) + makeup NaOH",
+    "ut": "High-pressure steam (15-25 bar), power",
+    "out": "Sodium aluminate slurry (pregnant liquor + red mud)",
+    "q": "A/C ratio, extraction efficiency%, digestion temperature, residual NaOH",
+    "uc": [
+     {
+      "t": "Digester Extraction Efficiency Optimization",
+      "k": "ai",
+      "v": 10.0,
+      "basis": "MTPA aluminium",
+      "d": [
+       "Analyses bauxite feed quality (reactive silica, available alumina), digestion temperature, pressure, liquor concentration and residence time.",
+       "Models digestion kinetics and predicts extraction efficiency (% Al2O3 recovered from bauxite) versus operating conditions.",
+       "Provides advisory on temperature, A/C ratio and liquor flow for maximum extraction at minimum NaOH consumption."
+      ],
+      "p": [
+       "Extraction varies 2-3% week-to-week due to bauxite quality variability",
+       "Operators manually adjust temperature/charge without optimization tools",
+       "Bauxite cost overruns from lower-than-expected extraction",
+       "Lab data lag (4-8 hr) prevents real-time response",
+       "Multiple parallel digesters operate at different extraction levels"
+      ],
+      "kpi": [
+       "Extraction efficiency %",
+       "A/C ratio in pregnant liquor",
+       "Bauxite consumption (t/t Al)",
+       "Digester throughput (t/h)",
+       "Steam consumption (t/t alumina)"
+      ],
+      "calc": "Extraction improvement 1-2% × 4.5 t bauxite/t Al × ₹2,000/t bauxite = ₹90-180/t Al = ₹9-18 cr/MTPA. Capture 60% = ₹5-10 cr. Plus reduced makeup NaOH. ₹10 cr per MTPA aluminium.",
+      "tier": 1
+     },
+     {
+      "t": "Digester Heat Exchanger Scale & Cleaning Optimization",
+      "k": "ai",
+      "v": 4.0,
+      "basis": "MTPA aluminium",
+      "d": [
+       "Analyses overall heat transfer coefficient (U) trends across digestion heat exchangers, liquor flow/temperature, and scale buildup patterns.",
+       "Predicts scale buildup rates and remaining time-to-clean for each heat exchanger train.",
+       "Provides cleaning schedule optimization to maximize steam economy and digester availability."
+      ],
+      "p": [
+       "Heat exchangers scale fast; cleaning frequency is reactive",
+       "Steam economy degrades 15-25% before cleaning",
+       "Cleaning shutdowns force throughput reduction",
+       "No predictive model for scale buildup vs bauxite changes",
+       "Mechanical cleaning is labor and chemical intensive"
+      ],
+      "kpi": [
+       "Overall heat transfer coefficient U (W/m²K)",
+       "Steam consumption (t/t alumina)",
+       "Time-between-cleans (days)",
+       "Heat exchanger availability %"
+      ],
+      "calc": "Steam economy improvement 5-10% on ₹50-80 cr digestion steam value. ₹4 cr per MTPA aluminium.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Red Mud Clarification",
+    "f": [
+     "Slurry",
+     "Primary settler",
+     "Washers (counter-current 5-6 stages)",
+     "Polishing filter",
+     "Pregnant liquor"
+    ],
+    "rm": "Sodium aluminate slurry from digestion, flocculant",
+    "ut": "Power (pumps, rakes), flocculant chemicals",
+    "out": "Clarified pregnant liquor, red mud (residue) to disposal",
+    "q": "Overflow solids%, A/C ratio, soda losses to red mud, flocculant consumption",
+    "uc": [
+     {
+      "t": "Red Mud Settling & Soda Recovery Optimization",
+      "k": "ai",
+      "v": 4.0,
+      "basis": "MTPA aluminium",
+      "d": [
+       "Analyses settler underflow density, overflow clarity, flocculant dosing rate, washer train counter-current performance and soda losses to red mud.",
+       "Models settling and washing efficiency; predicts soda losses per tonne red mud.",
+       "Provides flocculant dosing and washer operation advisory to minimize NaOH losses to red mud disposal."
+      ],
+      "p": [
+       "Each washer stage performance varies; not optimally tuned",
+       "Flocculant overdosing common (operator caution)",
+       "Soda recovery declines as bauxite quality changes",
+       "Red mud disposal volumes constrained by storage capacity",
+       "High NaOH makeup cost without clear attribution to operations"
+      ],
+      "kpi": [
+       "Soda losses (kg Na2O/t red mud)",
+       "Flocculant consumption (g/t red mud)",
+       "Washer counter-current efficiency %",
+       "NaOH makeup rate (kg/t alumina)"
+      ],
+      "calc": "Soda recovery improvement 3-5 kg Na/t Al × ₹40/kg + reduced flocculant. ₹4 cr per MTPA aluminium.",
+      "tier": 2
+     },
+     {
+      "t": "Red Mud Disposal Compliance & Dry Stacking Optimization",
+      "k": "ai",
+      "v": 2.0,
+      "basis": "MTPA aluminium",
+      "d": [
+       "Analyses red mud thickener output solids, filter press performance, transport conditions and dry stack moisture profile.",
+       "Detects compliance risks (pH, runoff potential), thickener underperformance and stacking anomalies.",
+       "Provides operational advisory and audit-ready compliance documentation."
+      ],
+      "p": [
+       "Environmental compliance (state PCB) is sensitive and audited",
+       "Red mud area is regulator and community concern",
+       "Stacking moisture/density optimization is manual",
+       "Risk of runoff during monsoon",
+       "Storage area constraint forces operational adjustments"
+      ],
+      "kpi": [
+       "Red mud pH at outfall",
+       "Underdrain runoff quality",
+       "Storage capacity utilization %",
+       "Dust emission events from stack area"
+      ],
+      "calc": "Compliance penalty avoidance + dry stacking operational efficiency. ₹2 cr per MTPA aluminium.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Precipitation",
+    "f": [
+     "Liquor cooling",
+     "Seed addition",
+     "Precipitation tanks (agglomeration/growth)",
+     "Classification",
+     "Hydrate to calcination"
+    ],
+    "rm": "Pregnant liquor (sodium aluminate), seed crystals (Al(OH)3)",
+    "ut": "Cooling water/air, power (agitators), seed handling",
+    "out": "Aluminium hydroxide crystals (Al(OH)3), spent liquor (recycled to digestion)",
+    "q": "Yield (g Al2O3/L), particle size distribution, soda in product, agglomerate strength",
+    "uc": [
+     {
+      "t": "Precipitation Yield & Particle Size Optimization",
+      "k": "ai",
+      "v": 6.0,
+      "basis": "MTPA aluminium",
+      "d": [
+       "Analyses precipitation tank temperatures, seed addition rate, A/C ratio, agglomeration tank conditions and product PSD.",
+       "Models yield (g Al2O3/L), particle size distribution and product quality versus operating conditions.",
+       "Provides setpoint advisory for maximum yield with smelter-grade PSD targets."
+      ],
+      "p": [
+       "Precipitation tank conditions drift over 24-48 hr cycle",
+       "PSD off-spec impacts smelter alumina quality",
+       "Yield variability constrains refinery throughput",
+       "Seed management depends on operator expertise",
+       "Temperature control balance is delicate"
+      ],
+      "kpi": [
+       "Precipitation yield (g Al2O3/L)",
+       "Particle size D50 (μm)",
+       "Soda in product (Na2O%)",
+       "Refinery throughput (t/h)"
+      ],
+      "calc": "Yield improvement 2-3 g/L × refinery throughput × alumina margin. ₹6 cr per MTPA aluminium.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Calcination",
+    "f": [
+     "Hydrate feed",
+     "Drying",
+     "Calcining (~1000°C)",
+     "Cooling",
+     "Alumina to silos",
+     "Smelter"
+    ],
+    "rm": "Aluminium hydroxide (Al(OH)3) hydrate",
+    "ut": "Fuel (NG/HFO/coal), combustion air, power",
+    "out": "Smelter-grade alumina (Al2O3) for potline, water vapor, fluidization gas",
+    "q": "LOI (loss on ignition)%, BET surface area (m2/g), α-alumina%, particle size, attrition index",
+    "uc": [
+     {
+      "t": "Calciner Combustion & Alumina Quality Optimization",
+      "k": "ai",
+      "v": 5.0,
+      "basis": "MTPA aluminium",
+      "d": [
+       "Analyses fuel firing rate, air/fuel ratio, calciner temperature profile, flue gas O2/CO and alumina LOI/BET surface area.",
+       "Models calcining kinetics and predicts smelter-grade alumina (SGA) quality versus fuel consumption.",
+       "Provides fuel/air setpoint advisory for target LOI and BET with minimum fuel consumption."
+      ],
+      "p": [
+       "Smelter alumina quality varies (LOI, BET) batch to batch",
+       "Fuel consumption higher than design specification",
+       "Manual fuel/air adjustments based on operator experience",
+       "Limited real-time alumina quality feedback (lab samples)",
+       "Calciner upsets cause smelter alumina supply variability"
+      ],
+      "kpi": [
+       "LOI % (loss on ignition)",
+       "BET surface area (m²/g)",
+       "Fuel consumption (GJ/t alumina)",
+       "α-alumina content %",
+       "Calciner availability %"
+      ],
+      "calc": "Fuel savings 3-5% on ₹100 cr calcination fuel + alumina quality premium downstream. ₹5 cr per MTPA aluminium.",
+      "tier": 2
+     },
+     {
+      "t": "Calciner Refractory Health & Hotspot Monitoring",
+      "k": "cv",
+      "v": 1.5,
+      "basis": "MTPA aluminium",
+      "d": [
+       "Analyses kiln/calciner shell IR scanner data, thermal camera feeds and refractory thickness models.",
+       "Detects hotspots indicating refractory thinning and damage zones.",
+       "Provides location-tagged alerts and campaign life prediction."
+      ],
+      "p": [
+       "Refractory failure forces unplanned shutdowns (₹2-5 cr/event)",
+       "Manual shell temperature checks miss developing hotspots",
+       "Campaign end timing is guesswork",
+       "Difficult to plan major maintenance when life is uncertain"
+      ],
+      "kpi": [
+       "Refractory campaign life (months)",
+       "Shell hotspot count and severity",
+       "Unplanned shutdowns per campaign",
+       "Refractory replacement cost (₹/campaign)"
+      ],
+      "calc": "Campaign extension + unplanned shutdown avoidance. ₹1.5 cr per MTPA aluminium.",
+      "tier": 3
+     }
+    ]
+   },
+   {
+    "n": "Causticization",
+    "f": [
+     "Spent liquor",
+     "Causticization with lime",
+     "Settling",
+     "Recycle to digestion"
+    ],
+    "rm": "Spent liquor (recycled from precipitation), lime (CaO)",
+    "ut": "Steam (heating), power",
+    "out": "Recausticized liquor returned to digestion, calcium aluminate residue",
+    "q": "Free caustic, total caustic (TC), free alkali to total ratio",
+    "uc": [
+     {
+      "t": "Causticization & Liquor Loop Optimization",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MTPA aluminium",
+      "d": [
+       "Analyses spent liquor composition, lime addition rate, recausticization tank conditions and recycled liquor strength.",
+       "Models causticization efficiency and lime utilization; predicts recycled liquor strength.",
+       "Provides lime dosing setpoints to maximize CE without lime overdosing."
+      ],
+      "p": [
+       "Liquor loop chemistry drifts; manual control",
+       "Lime overdosing common (operator caution)",
+       "NaOH makeup higher than thermodynamic minimum",
+       "Quality variability impacts upstream digestion"
+      ],
+      "kpi": [
+       "Causticizing efficiency %",
+       "Free NaOH in causticized liquor",
+       "Lime utilization %",
+       "NaOH makeup rate (kg/t alumina)"
+      ],
+      "calc": "Lime savings + reduced NaOH makeup. ₹3 cr per MTPA aluminium.",
+      "tier": 2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Anode Plant",
+  "procs": [
+   {
+    "n": "Green Anode Production",
+    "f": [
+     "Coke grinding/screening",
+     "Pitch heating",
+     "Mixing",
+     "Vibroforming",
+     "Green anode cooling",
+     "Storage"
+    ],
+    "rm": "Calcined petroleum coke, coal tar pitch, recycled anode butts",
+    "ut": "Power (mixers, vibroformers), pitch heating",
+    "out": "Green anode blocks (un-baked) for baking furnace",
+    "q": "Apparent density (g/cc), real density, blaine fineness, pitch absorption, green strength",
+    "uc": [
+     {
+      "t": "Green Anode Recipe & Quality Optimization",
+      "k": "ai",
+      "v": 4.0,
+      "basis": "MTPA aluminium",
+      "d": [
+       "Analyses petroleum coke quality, pitch properties, anode butt fraction, mixing temperature, vibroformer cycle and green anode density.",
+       "Models anode recipe versus baked anode properties (apparent density, resistivity).",
+       "Provides recipe and process setpoint advisory for consistent baked anode quality."
+      ],
+      "p": [
+       "Coke and pitch quality variability causes inconsistent anodes",
+       "Recipe adjustments are slow (multiple shifts to test)",
+       "Baked anode rejects high (anode effect contributors downstream)",
+       "Anode butt recycling fraction not optimally managed",
+       "Lab feedback loop on anode properties is slow"
+      ],
+      "kpi": [
+       "Green anode density (g/cc)",
+       "Baked anode density (g/cc)",
+       "Anode resistivity (μΩ·m)",
+       "Anode butt return %",
+       "Recipe deviation count"
+      ],
+      "calc": "Anode quality improvement reduces pot specific energy + reduced anode consumption. ₹4 cr per MTPA aluminium.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Anode Baking Furnace",
+    "f": [
+     "Green anode loading",
+     "Pit firing (multi-section ring furnace, 14-28 days)",
+     "Cooling",
+     "Unloading",
+     "Rodding"
+    ],
+    "rm": "Green anode blocks",
+    "ut": "Fuel (NG/HFO), combustion air, pitch volatiles (recycled)",
+    "out": "Baked anodes (target apparent density, low resistivity) to rodding",
+    "q": "Baked density (g/cc), specific electrical resistivity (μΩ·m), thermal shock resistance, cracks",
+    "uc": [
+     {
+      "t": "Anode Baking Furnace Optimization",
+      "k": "ai",
+      "v": 5.0,
+      "basis": "MTPA aluminium",
+      "d": [
+       "Analyses fuel firing per section, draft control, baking curve adherence, section temperature profile and finished anode quality.",
+       "Models baking kinetics across the ring furnace and predicts baked anode properties.",
+       "Provides firing schedule and draft setpoints for target quality at minimum fuel."
+      ],
+      "p": [
+       "Multi-section ring furnace firing manually balanced",
+       "Baked anode density varies across pits",
+       "Fuel cost higher than design",
+       "Air leaks and combustion imbalances unknown until lab tests",
+       "Difficult to coordinate firing schedule across 32-72 sections"
+      ],
+      "kpi": [
+       "Fuel consumption (GJ/t anode)",
+       "Baked anode density (g/cc)",
+       "Section temperature uniformity",
+       "Furnace availability %",
+       "Baking cycle time (days)"
+      ],
+      "calc": "Fuel savings 5-10% on ₹50-100 cr baking fuel + anode quality. ₹5 cr per MTPA aluminium.",
+      "tier": 2
+     },
+     {
+      "t": "Anode Baking Refractory & Section Monitoring",
+      "k": "cv",
+      "v": 1.5,
+      "basis": "MTPA aluminium",
+      "d": [
+       "Analyses thermal imaging of furnace sections, shell temperatures, refractory thickness models and gas leak detection.",
+       "Detects refractory thinning, section anomalies, and cross-pit hot/cold spots.",
+       "Provides location-tagged maintenance alerts and campaign life prediction."
+      ],
+      "p": [
+       "Refractory failure in a section halts furnace operation",
+       "Manual inspections miss developing damage",
+       "Section repair scheduling reactive",
+       "Difficult to plan major furnace overhaul timing"
+      ],
+      "kpi": [
+       "Refractory section life (years)",
+       "Hotspot detection lead time",
+       "Section repair downtime",
+       "Furnace campaign life"
+      ],
+      "calc": "Refractory campaign extension + unplanned shutdown avoidance. ₹1.5 cr per MTPA aluminium.",
+      "tier": 3
+     },
+     {
+      "t": "Baked Anode Defect & Crack Detection",
+      "k": "cv",
+      "v": 2.0,
+      "basis": "MTPA aluminium",
+      "d": [
+       "Analyses high-resolution camera feeds and acoustic resonance testing of baked anodes.",
+       "Detects cracks, voids, density variations and surface defects before rodding.",
+       "Provides quality classification and rejects defective anodes before potline charging."
+      ],
+      "p": [
+       "Defective anodes pass to potline causing anode effects (PFC emissions)",
+       "Manual visual inspection inconsistent operator-to-operator",
+       "Cracks and voids not always visible externally",
+       "High AE frequency from undetected anode quality issues"
+      ],
+      "kpi": [
+       "Defective anode rejection rate %",
+       "Anode effect frequency in pots downstream",
+       "Anode life in pot (days)",
+       "Anode lot rejection rate"
+      ],
+      "calc": "Anode effect reduction + defective anode rejection. ₹2 cr per MTPA aluminium.",
+      "tier": 3
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Aluminium Smelting",
+  "procs": [
+   {
+    "n": "Reduction Pots (Potline)",
+    "f": [
+     "Alumina feeding",
+     "Electrolysis in cryolite bath (~960°C)",
+     "Anode consumption",
+     "Metal tapping",
+     "Anode change cycle"
+    ],
+    "rm": "Alumina (smelter-grade), cryolite, AlF3 (additive)",
+    "ut": "DC power (massive: 200-500 kA, 4-4.5 V per pot), compressed air",
+    "out": "Molten aluminium (98-99.7% purity), CO2 + PFCs (anode gases)",
+    "q": "Current efficiency (CE%), specific energy (kWh/kg Al), pot voltage, bath temperature, AlF3%, alumina concentration%",
+    "uc": [
+     {
+      "t": "Pot Stability & Energy Optimization",
+      "k": "ai",
+      "v": 15.0,
+      "basis": "MTPA aluminium",
+      "d": [
+       "Analyses pot voltage, current, bath temperature, alumina concentration, AlF3 content, anode-cathode distance (ACD), and historical trends per pot.",
+       "Models pot electrochemistry and thermal balance; predicts current efficiency (CE) and specific energy versus operating conditions.",
+       "Provides advisory on voltage setpoint, beam raise, alumina feed and bath chemistry for maximum CE with stable thermal balance."
+      ],
+      "p": [
+       "Pot operations highly variable across potline (no uniform control)",
+       "Specific energy higher than design (₹56,000/t Al power cost)",
+       "Operator-dependent pot management",
+       "Limited visibility into individual pot performance trends",
+       "CE degradation often noticed only via lab gravimetry",
+       "Pot stability disturbed by alumina feeding or anode change events"
+      ],
+      "kpi": [
+       "Current efficiency (CE %)",
+       "Specific energy (kWh/kg Al)",
+       "Pot voltage (V)",
+       "Bath temperature (°C)",
+       "Daily Al production per pot (kg)"
+      ],
+      "calc": "Specific energy reduction 0.5-1% on 14 MWh/t Al × ₹4/kWh × 1 MTPA = ₹28-56 cr potential. Realistic capture ₹15 cr/MTPA Al. Plus CE improvement (kg Al per kAh).",
+      "tier": 1
+     },
+     {
+      "t": "Anode-Cathode Distance (ACD) Monitoring & Optimization",
+      "k": "ai",
+      "v": 6.0,
+      "basis": "MTPA aluminium",
+      "d": [
+       "Critical parameters monitored: anode beam position, individual anode current distribution, pot voltage signature, bath temperature, alumina concentration, bath height, and anode age within cycle.",
+       "Analyses these signals (optionally augmented with laser distance or vibration sensors) to build an inferential real-time estimate of anode-cathode distance (ACD) per pot.",
+       "Detects ACD drift over the anode cycle (driven by anode consumption + bath height changes + cathode wear) and identifies pots operating at sub-optimal ACD versus target.",
+       "Provides beam raise advisory and target ACD per pot, maintaining safety margin against anode-bath shorting while minimizing voltage drop in bath."
+      ],
+      "p": [
+       "Direct ACD measurement is difficult (~960°C, hostile environment)",
+       "ACD physically measured only during anode change (every 26-28 days)",
+       "Voltage proxy for ACD is imperfect (bath chemistry, temperature also affect voltage)",
+       "Operators run conservative high ACD to avoid shorting risk (energy penalty)",
+       "Each cm of unnecessary ACD costs ~1.5% in specific energy = ₹840/t Al",
+       "Pot-to-pot ACD variation not tracked systematically"
+      ],
+      "kpi": [
+       "ACD (cm) per pot, real-time estimate",
+       "Cell voltage (V) per pot",
+       "Specific energy (kWh/kg Al)",
+       "Anode-bath shorting events per month",
+       "Current efficiency (CE %) per pot",
+       "Pot-to-pot ACD variation"
+      ],
+      "calc": "Each cm ACD reduction = ~1.5% specific energy savings. At 14 MWh/t Al × ₹4/kWh = ₹56,000/t Al power cost. 0.5-1 cm reduction × 1.5%/cm = 0.75-1.5% × ₹56,000/t = ₹420-840/t Al = ₹4.2-8.4 cr/MTPA. Set conservatively at ₹6 cr per MTPA aluminium. Strong complement to Pot Stability & Energy Optimization.",
+      "tier": 2
+     },
+     {
+      "t": "Anode Effect Prediction & Prevention",
+      "k": "ai",
+      "v": 8.0,
+      "basis": "MTPA aluminium",
+      "d": [
+       "Analyses pot voltage trajectory, alumina concentration in bath, anode current distribution and feeder behavior.",
+       "Predicts anode effect (AE) onset 3-10 minutes in advance with target pot identification.",
+       "Provides corrective action advisory (alumina feed adjustment, beam movement) to prevent AE before it occurs."
+      ],
+      "p": [
+       "Anode effects emit PFCs (massive GHG) and waste energy",
+       "AE often unpredictable; operator surprise events",
+       "CBAM (EU exporters) makes PFCs a financial penalty post-2026",
+       "AE recovery disrupts pot stability for hours after the event",
+       "No real-time prediction model in current operations"
+      ],
+      "kpi": [
+       "AE frequency (AE/pot-day)",
+       "AE duration (minutes)",
+       "PFC emissions (kg CF4/t Al)",
+       "Pot disturbance events per shift"
+      ],
+      "calc": "AE frequency reduction 30-50% × 5-10 AE/pot-day × N pots × ₹10,000/event. Plus PFC emission reduction (carbon credit value). ₹8 cr per MTPA aluminium.",
+      "tier": 1
+     },
+     {
+      "t": "Bath Chemistry Optimization (Bath Ratio & AlF3)",
+      "k": "ai",
+      "v": 4.0,
+      "basis": "MTPA aluminium",
+      "d": [
+       "Analyses bath samples (NaF/AlF3 ratio, CaF2, MgF2 content), bath temperature, and AlF3 addition rates.",
+       "Models bath chemistry equilibrium and predicts impacts on CE, melting point and fluoride emissions.",
+       "Provides advisory on AlF3 addition rate and CaF2 management for target bath chemistry."
+      ],
+      "p": [
+       "Bath chemistry drifts; manual AlF3 additions",
+       "Bath ratio off-target degrades CE silently",
+       "Lab analysis lag (4-8 hr) prevents real-time response",
+       "AlF3 cost high; over-additions costly and common",
+       "Bath chemistry-CE relationship not transparent to operators"
+      ],
+      "kpi": [
+       "Bath ratio (NaF/AlF3)",
+       "AlF3 addition rate (kg/pot-day)",
+       "Bath excess fluoride",
+       "Pot-to-pot CE variation %"
+      ],
+      "calc": "Bath chemistry stability improves CE 0.3-0.5% + reduced AlF3 consumption. ₹4 cr per MTPA aluminium.",
+      "tier": 2
+     },
+     {
+      "t": "Pot Lining Life Prediction & Cathode Health",
+      "k": "ai",
+      "v": 5.0,
+      "basis": "MTPA aluminium",
+      "d": [
+       "Analyses cathode voltage drop trends, pot-to-pot voltage variation, cathode surface temperature and bath penetration patterns.",
+       "Predicts pot lining remaining-useful-life and identifies pots at risk of early failure (tap-out, lining failure).",
+       "Provides relining schedule advisory for planned shutdown vs unplanned failure."
+      ],
+      "p": [
+       "Pot tap-outs catastrophic and unplanned (₹2-5 cr/event)",
+       "Pot lining life varies wildly (1,500-3,000 days)",
+       "Relining schedule reactive, not planned",
+       "Cathode degradation patterns hidden until late",
+       "Difficult to coordinate relining campaigns across potline"
+      ],
+      "kpi": [
+       "Pot lining life (days/months)",
+       "Tap-out events per year",
+       "Average pot life (days)",
+       "Relining cost per pot (₹)"
+      ],
+      "calc": "Unplanned tap-out prevention (₹2-5 cr/event × 0.5-1/yr) + planned relining cost optimization. ₹5 cr per MTPA aluminium.",
+      "tier": 2
+     },
+     {
+      "t": "Pot Tapping & Metal Quality Monitoring",
+      "k": "ai",
+      "v": 2.0,
+      "basis": "MTPA aluminium",
+      "d": [
+       "Analyses tapping crucible weight, metal temperature, tapping duration, post-tap pot conditions and metal quality (Fe, Si pickup).",
+       "Detects tap quality issues (poor metal recovery, anode pieces in metal, temperature anomalies).",
+       "Provides tap operation advisory and quality flags for downstream casthouse."
+      ],
+      "p": [
+       "Tap weight variability affects casthouse planning",
+       "Metal Fe/Si pickup during tap affects downstream products",
+       "Operator-dependent tap quality",
+       "Crucible and transport schedule disruption from tap delays"
+      ],
+      "kpi": [
+       "Tap weight accuracy (%)",
+       "Metal Fe pickup (ppm)",
+       "Tap duration variance",
+       "Crucible temperature control"
+      ],
+      "calc": "Metal yield improvement + reduced downstream refining. ₹2 cr per MTPA aluminium.",
+      "tier": 3
+     },
+     {
+      "t": "Pot Surface & Crust Vision Monitoring",
+      "k": "cv",
+      "v": 1.5,
+      "basis": "MTPA aluminium",
+      "d": [
+       "Analyses overhead camera feeds of pot bath surface, crust integrity, and anode geometry.",
+       "Detects crust breakage, anode shape anomalies, sludge patterns and operator interventions.",
+       "Provides quality scoring of pot operations and intervention triggers."
+      ],
+      "p": [
+       "Pot disturbances detected late (after temperature/voltage drift)",
+       "Crust quality varies; operator visual judgment only",
+       "Sludge accumulation patterns not tracked systematically",
+       "Intervention timing reactive rather than predictive"
+      ],
+      "kpi": [
+       "Crust integrity score",
+       "Pot disturbance events per shift",
+       "Operator intervention frequency",
+       "Pot productivity (kg/day)"
+      ],
+      "calc": "Early intervention on pot disturbances + reduced AE. ₹1.5 cr per MTPA aluminium.",
+      "tier": 3
+     },
+     {
+      "t": "Cathode Voltage Drop & Current Distribution Optimization",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MTPA aluminium",
+      "d": [
+       "Analyses individual cathode collector bar voltages, current distribution across pots, and pot-to-pot voltage variation.",
+       "Detects current imbalance, cathode degradation patterns and energy hotspots.",
+       "Provides pot-specific advisory for current balancing and potline-wide energy efficiency."
+      ],
+      "p": [
+       "Current imbalance hides chronic energy losses",
+       "Cathode degradation not visible until tap-out",
+       "Pot-line wide imbalance not actively managed",
+       "Difficult to attribute energy losses to specific pots"
+      ],
+      "kpi": [
+       "Cathode voltage drop (mV per pot)",
+       "Current distribution variation %",
+       "Pot-to-pot CE variation",
+       "Energy losses (kWh/kg Al)"
+      ],
+      "calc": "Cathode voltage drop reduction × current × pots. ₹3 cr per MTPA aluminium.",
+      "tier": 2
+     },
+     {
+      "t": "Material Handling Health Monitoring",
+      "k": "cv",
+      "v": 0.5,
+      "basis": "MTPA aluminium",
+      "loc": [
+       "Alumina dense-phase conveying lines (silos to day bins, day bins to point feeders)",
+       "Crucible handling for hot metal tapping (heavy load + molten metal safety)",
+       "Anode handling cranes (heavy baked anodes to pots, anode butts return)"
+      ],
+      "d": [
+       "Analyses camera feeds, vibration on handling equipment and motor signals.",
+       "Detects belt/crane damage, alumina conveying anomalies and material handling jams.",
+       "Provides location-tagged alerts before downtime."
+      ],
+      "p": [
+       "Alumina dense-phase conveying lines can plug or wear",
+       "Crucible handling involves molten metal (safety + downtime)",
+       "Anode handling crane downtime stops anode changes",
+       "Material handling failures impact pot operation indirectly"
+      ],
+      "kpi": [
+       "Alumina conveying availability %",
+       "Crucible/anode crane uptime",
+       "Material handling incident count",
+       "Handling-related downtime hours"
+      ],
+      "calc": "Alumina conveying reliability + anode handling. ₹0.5 cr per MTPA aluminium.",
+      "tier": 3
+     }
+    ]
+   },
+   {
+    "n": "Pot Gas Collection & Hooding",
+    "f": [
+     "Pot gas generation",
+     "Hood capture",
+     "Manifold",
+     "GTC",
+     "Stack"
+    ],
+    "rm": "Pot gas (CO2, PFCs, HF, SO2, fluoride dust)",
+    "ut": "Power (ID fans), compressed air (cleaning)",
+    "out": "Captured pot gas to GTC, fugitive emissions (managed)",
+    "q": "Hood capture efficiency%, fugitive emissions, fluoride emission rate",
+    "uc": [
+     {
+      "t": "Pot Hooding & Fugitive Emission Monitoring",
+      "k": "cv",
+      "v": 2.0,
+      "basis": "MTPA aluminium",
+      "d": [
+       "Analyses thermal and visual camera feeds of pot hoods, fluoride sensors near pots, and ID fan duty.",
+       "Detects hood damage, poor sealing, fugitive emissions and unhooded pot operations.",
+       "Provides immediate alerts for hood repair and operational corrections."
+      ],
+      "p": [
+       "Damaged hoods leak fluoride (worker exposure + compliance risk)",
+       "Hood gasket failures not visible until inspection",
+       "Pots opened for crane access have temporary high emissions",
+       "Manual hood inspection coverage limited",
+       "GTC fluoride load varies due to inconsistent hood capture"
+      ],
+      "kpi": [
+       "Hood capture efficiency %",
+       "Fugitive HF emissions (mg/m³)",
+       "Fluoride at pot floor (μg/m³)",
+       "Hood repair frequency"
+      ],
+      "calc": "Hood capture improvement 2-5% × fluoride recovery value + compliance. ₹2 cr per MTPA aluminium.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Alumina Feeding System",
+    "f": [
+     "Alumina silo",
+     "Distribution piping",
+     "Day bins",
+     "Point feeders",
+     "Pot bath"
+    ],
+    "rm": "Calcined alumina (from calcination), fluoride additives",
+    "ut": "Compressed air (dense phase conveying), power",
+    "out": "Controlled alumina delivery to each pot (point feeders or central feeders)",
+    "q": "Feeding rate accuracy, dust generation, alumina concentration in bath",
+    "uc": [
+     {
+      "t": "Alumina Feeder Performance & Calibration",
+      "k": "ai",
+      "v": 2.0,
+      "basis": "MTPA aluminium",
+      "d": [
+       "Analyses point feeder cycle times, alumina delivery rates, dense-phase conveying pressure and bath alumina concentration.",
+       "Detects feeder under/over delivery, plugging events, and pots with chronic feeding issues.",
+       "Provides feeder calibration advisory and pot-specific feeding adjustments."
+      ],
+      "p": [
+       "Point feeders drift between calibrations",
+       "Plug events cause local bath alumina deficiency → anode effect risk",
+       "Manual feeder checks miss developing issues",
+       "Pot-to-pot feeding inconsistency"
+      ],
+      "kpi": [
+       "Feeder cycle accuracy",
+       "Alumina concentration in bath (%)",
+       "Feeder fault events per pot-month",
+       "Bath plug events per pot-year"
+      ],
+      "calc": "Feeder reliability reduces AE frequency + pot disturbance events. ₹2 cr per MTPA aluminium.",
+      "tier": 3
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Casthouse",
+  "procs": [
+   {
+    "n": "Holding Furnaces & Alloying",
+    "f": [
+     "Hot metal receiving",
+     "Melt analysis",
+     "Alloying additions",
+     "Degassing",
+     "Fluxing",
+     "Cast-ready metal"
+    ],
+    "rm": "Molten Al from pots, alloying additions (Si, Mg, Cu, Zn, Fe, Mn, Ti master alloys), recycled scrap",
+    "ut": "NG/HFO/induction power, refining chemicals (flux, Cl2 for degassing)",
+    "out": "Treated molten Al at target composition and quality",
+    "q": "Composition (per alloy spec), hydrogen content (Reduced Pressure Test), inclusion level, temperature",
+    "uc": [
+     {
+      "t": "Holding Furnace Energy & Combustion Optimization",
+      "k": "ai",
+      "v": 4.0,
+      "basis": "MTPA aluminium",
+      "d": [
+       "Analyses fuel firing rate, air ratio, furnace temperature profile, metal temperature and melt loss rates.",
+       "Models combustion versus melt quality and predicts fuel consumption per t metal treated.",
+       "Provides fuel/air setpoint advisory for target temperature with minimum fuel and minimum melt loss."
+      ],
+      "p": [
+       "Fuel consumption higher than design (no AI optimization)",
+       "Melt loss (oxide skim) varies and is direct revenue loss",
+       "Manual burner adjustments based on operator experience",
+       "Furnace efficiency degrades over campaign"
+      ],
+      "kpi": [
+       "Fuel consumption (GJ/t Al)",
+       "Melt loss (%)",
+       "Furnace cycle time (hours)",
+       "Holding furnace availability %"
+      ],
+      "calc": "Fuel savings 3-5% + melt loss reduction 0.1-0.2%. ₹4 cr per MTPA aluminium.",
+      "tier": 2
+     },
+     {
+      "t": "Alloying & Composition Control (Inferential)",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MTPA aluminium",
+      "d": [
+       "Analyses incoming metal composition, alloying material additions, mixing time and spectrometer feedback.",
+       "Builds soft sensor for in-process composition between spectrometer samples.",
+       "Provides real-time composition predictions and addition advisory to hit alloy spec with minimum corrective additions."
+      ],
+      "p": [
+       "Spectrometer sampling lag (10-20 min) drives over-additions",
+       "Master alloy overshoot common (operator caution)",
+       "Rework cycles delay casting schedule",
+       "Composition variance affects downstream rolling quality"
+      ],
+      "kpi": [
+       "Composition spec compliance %",
+       "Master alloy consumption (kg/t Al)",
+       "Spectrometer rework cycles",
+       "Casting delay events"
+      ],
+      "calc": "Alloying material savings + reduced rework. ₹3 cr per MTPA aluminium.",
+      "tier": 2
+     },
+     {
+      "t": "Degassing & Inclusion Control Optimization",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MTPA aluminium",
+      "d": [
+       "Analyses degasser rotor speed, Ar/Cl2 flow, melt hydrogen content (RPT, Alspek), and inclusion monitoring data.",
+       "Models degassing kinetics and predicts hydrogen and inclusion levels in cast metal.",
+       "Provides degasser setpoint advisory for target metal quality with minimum gas consumption."
+      ],
+      "p": [
+       "Degasser performance varies; operator-driven",
+       "Hydrogen and inclusion sampling slow (lab tests)",
+       "Gas overconsumption (cautious operation)",
+       "Downstream defects traced to inadequate degassing"
+      ],
+      "kpi": [
+       "Hydrogen content (cc/100g)",
+       "Inclusion count (PoDFA, k-mold)",
+       "Argon/Cl2 consumption",
+       "Rotor speed setpoint accuracy"
+      ],
+      "calc": "Gas consumption reduction + downstream defect reduction. ₹3 cr per MTPA aluminium.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "DC Casting",
+    "f": [
+     "Molten metal",
+     "Trough",
+     "Distribution",
+     "Mold",
+     "Solidification",
+     "Pit",
+     "Cast product handling"
+    ],
+    "rm": "Treated molten Al, casting molds, lubricants",
+    "ut": "Cooling water (high flow), power (mold motion)",
+    "out": "Cast products (sheet ingots, extrusion billets, T-bars, foundry ingots)",
+    "q": "Surface quality (cracks, segregation), internal defects, geometric tolerance, hot cracking",
+    "uc": [
+     {
+      "t": "DC Casting Surface Quality & Defect Detection",
+      "k": "cv",
+      "v": 4.0,
+      "basis": "MTPA aluminium",
+      "d": [
+       "Analyses high-resolution camera feeds of cast surface, infrared thermal feeds and casting process parameters (water flow, mold motion).",
+       "Detects surface cracks, cold shuts, segregation patterns and hot cracking in real time.",
+       "Provides immediate alerts to operators with corrective action advisory."
+      ],
+      "p": [
+       "Casting defects discovered post-cast (sometimes after machining)",
+       "Manual visual inspection inconsistent",
+       "Hot crack and cold shut defects expensive",
+       "Casting parameter drift hard to catch in real time"
+      ],
+      "kpi": [
+       "Cast product reject rate %",
+       "Surface crack detection lead time",
+       "Casting speed achievement",
+       "Defect cost per cast (₹/event)"
+      ],
+      "calc": "Reject reduction × cast product value. ₹4 cr per MTPA aluminium.",
+      "tier": 2
+     },
+     {
+      "t": "Cast Product Geometry & Dimensional Inspection",
+      "k": "cv",
+      "v": 2.0,
+      "basis": "MTPA aluminium",
+      "d": [
+       "Analyses camera feeds and laser scanner data of cast billets/slabs for dimensions and surface finish.",
+       "Detects out-of-spec dimensions, surface marks and machining requirements.",
+       "Provides quality scoring and routing decisions for downstream processing."
+      ],
+      "p": [
+       "Manual dimensional inspection slow",
+       "Out-of-spec product reaches downstream",
+       "Difficult to track gradual drift in dimensions",
+       "Manual measurement variability between inspectors"
+      ],
+      "kpi": [
+       "Dimensional spec compliance %",
+       "Inspection cycle time",
+       "Machining overhead (μm)",
+       "Out-of-spec lot count"
+      ],
+      "calc": "Automated inspection + downstream rework reduction. ₹2 cr per MTPA aluminium.",
+      "tier": 3
+     }
+    ]
+   },
+   {
+    "n": "Homogenization",
+    "f": [
+     "Charge into furnace",
+     "Heating ramp",
+     "Soak (4-24 hr)",
+     "Cooling",
+     "Discharge"
+    ],
+    "rm": "As-cast aluminium billets/slabs",
+    "ut": "NG/HFO/electric heating, cooling air",
+    "out": "Homogenized billets/slabs ready for downstream processing",
+    "q": "Homogenization temperature uniformity, soak time, surface oxidation, mechanical properties",
+    "uc": [
+     {
+      "t": "Homogenization Furnace Optimization",
+      "k": "ai",
+      "v": 2.0,
+      "basis": "MTPA aluminium",
+      "d": [
+       "Analyses furnace zone temperatures, soaking time, billet load and product property targets.",
+       "Models homogenization kinetics and predicts mechanical property achievement.",
+       "Provides cycle optimization for target properties at minimum energy and cycle time."
+      ],
+      "p": [
+       "Homogenization cycle conservative (long for safety margin)",
+       "Energy consumption high",
+       "Mechanical property variability",
+       "Schedule constraints from cycle uncertainty"
+      ],
+      "kpi": [
+       "Homogenization cycle time (hours)",
+       "Energy consumption (GJ/t)",
+       "Mechanical property compliance %",
+       "Furnace availability %"
+      ],
+      "calc": "Energy savings + cycle time reduction. ₹2 cr per MTPA aluminium.",
+      "tier": 3
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Downstream Processing",
+  "procs": [
+   {
+    "n": "Sheet Ingot Preheat Furnace",
+    "f": [
+     "Charge",
+     "Preheat ramp",
+     "Soak",
+     "Discharge",
+     "HRM"
+    ],
+    "rm": "Cast sheet ingots (homogenized, ~600mm thick)",
+    "ut": "NG/HFO/electric, combustion air",
+    "out": "Preheated ingots (~500-550°C) ready for hot rolling",
+    "q": "Temperature uniformity, scale formation %, soak time, surface oxidation",
+    "uc": [
+     {
+      "t": "Preheat Furnace Energy & Yield Optimization",
+      "k": "ai",
+      "v": 2.0,
+      "basis": "MTPA rolled product",
+      "d": [
+       "Analyses fuel firing rate, zone temperatures, sheet ingot surface temperature profile and scale formation data.",
+       "Models heating kinetics and predicts ingot core temperature uniformity and scale loss versus operating conditions.",
+       "Provides advisory on zone temperature setpoints and soak time for target uniformity at minimum fuel."
+      ],
+      "p": [
+       "Fuel cost rising; consumption above design specification",
+       "Scale loss is direct revenue loss (~1% yield)",
+       "Manual zone temperature control by operators",
+       "Cycle conservative for safety; longer than necessary",
+       "Energy consumption above benchmark"
+      ],
+      "kpi": [
+       "Fuel consumption (GJ/t)",
+       "Scale loss % (yield loss)",
+       "Temperature uniformity (°C across ingot)",
+       "Discharge temperature accuracy",
+       "Furnace cycle time (hours)"
+      ],
+      "calc": "Fuel savings 3-5% × ₹50-80 cr/MTPA preheat fuel + scale loss reduction 0.3-0.5%. ₹2 cr per MTPA rolled product.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Hot Rolling Mill (HRM)",
+    "f": [
+     "Preheated ingot",
+     "Reversing mill (or tandem)",
+     "Coiler",
+     "Hot band"
+    ],
+    "rm": "Preheated sheet ingots",
+    "ut": "Electric power (mill drives), cooling water (roll bite), lubricant",
+    "out": "Hot band coils (~3-6mm thick)",
+    "q": "Gauge, surface quality, profile, edge condition, microstructure",
+    "uc": [
+     {
+      "t": "HRM Quality & Throughput Optimization",
+      "k": "ai",
+      "v": 4.0,
+      "basis": "MTPA rolled product",
+      "d": [
+       "Analyses mill load distribution, rolling schedule, entry/exit temperatures, sheet ingot variability and downstream quality feedback.",
+       "Models rolling kinetics and predicts surface quality, gauge variance and throughput versus operating conditions.",
+       "Provides rolling schedule, pass reduction and speed advisory for target quality with maximum throughput."
+      ],
+      "p": [
+       "HRM throughput is often binding plant constraint",
+       "Quality variability causes downstream rework",
+       "Operator-dependent rolling schedules",
+       "Roll changes interrupt production",
+       "Manual process tuning per coil"
+      ],
+      "kpi": [
+       "Yield %",
+       "Pass time per coil",
+       "Coil quality compliance %",
+       "Mill speed adherence",
+       "Hot band gauge variance (μm)"
+      ],
+      "calc": "Throughput uplift 2-3% × rolling margin ₹40,000/t × 1 MTPA = ₹8-12 cr potential; capture 30-50% = ₹4 cr per MTPA rolled.",
+      "tier": 2
+     },
+     {
+      "t": "HRM Surface Defect Detection",
+      "k": "cv",
+      "v": 3.0,
+      "basis": "MTPA rolled product",
+      "d": [
+       "Analyses high-speed line scan camera feeds across the full strip width at multiple points along the mill.",
+       "Detects rolling marks, surface scratches, edge cracks, slivers and dirt embedded defects.",
+       "Provides defect classification with CD/MD location and triggers operator alerts for root cause investigation."
+      ],
+      "p": [
+       "Defects cause customer rejects (₹15,000-40,000/t)",
+       "Manual sampling insufficient",
+       "Defect root cause investigation slow",
+       "Mill condition issues hidden",
+       "Quality scoring inconsistent across operators"
+      ],
+      "kpi": [
+       "Defect rate per coil",
+       "Defect cost (₹/t)",
+       "Customer complaint rate",
+       "CD/MD defect patterns"
+      ],
+      "calc": "Reject reduction 0.5-1% × rolled product margin ₹40-60K/t. ₹3 cr per MTPA rolled.",
+      "tier": 2
+     },
+     {
+      "t": "HRM Roll Health & Wear Monitoring",
+      "k": "ai",
+      "v": 2.0,
+      "basis": "MTPA rolled product",
+      "d": [
+       "Analyses roll force trends, mill motor signatures, roll temperature profiles and surface quality correlation with roll life.",
+       "Predicts roll wear patterns and end-of-life for each work roll and back-up roll.",
+       "Provides roll change scheduling and roll life optimization advisory."
+      ],
+      "p": [
+       "Roll wear impacts surface quality",
+       "Manual roll inspection only during changes",
+       "Roll change scheduling reactive",
+       "Premature changes waste roll life",
+       "Grinding cost high"
+      ],
+      "kpi": [
+       "Roll life (campaigns)",
+       "Surface quality from roll condition",
+       "Roll change frequency",
+       "Roll grinding cost"
+      ],
+      "calc": "Roll life extension 10-15% + reduced surface defects from roll degradation. ₹2 cr per MTPA rolled.",
+      "tier": 3
+     }
+    ]
+   },
+   {
+    "n": "Cold Rolling Mill (CRM)",
+    "f": [
+     "Hot band",
+     "Multiple cold rolling passes",
+     "Intermediate anneal (where needed)",
+     "Final pass",
+     "Coil"
+    ],
+    "rm": "Hot band coils, rolling lubricant",
+    "ut": "Electric power (mill drives), cooling water, lubricant management",
+    "out": "Cold rolled coils (0.2-3mm gauge typical)",
+    "q": "Thickness variance (μm), profile, flatness (I-units), surface, yield%",
+    "uc": [
+     {
+      "t": "CRM Thickness, Profile & Flatness Optimization",
+      "k": "ai",
+      "v": 5.0,
+      "basis": "MTPA cold rolled product",
+      "d": [
+       "Analyses online X-ray gauge data, profile/flatness measurements, mill load profile, entry coil variability and lubricant condition.",
+       "Models cold rolling response and predicts thickness, profile and flatness deviations.",
+       "Provides rolling schedule, pass reduction and tension advisory for tighter quality."
+      ],
+      "p": [
+       "Off-spec thickness causes customer rejection",
+       "Profile/flatness defects expensive in cold rolled grades",
+       "Manual rolling parameter tuning per coil",
+       "Hot band entry variability hard to compensate",
+       "Quality root cause investigation slow"
+      ],
+      "kpi": [
+       "Thickness 2σ (μm)",
+       "Profile compliance %",
+       "Flatness (I-units)",
+       "Yield %",
+       "Cold rolled gauge accuracy"
+      ],
+      "calc": "Gauge reduction 1-2% achievable × cold rolled product margin ₹50,000-70,000/t. ₹5 cr per MTPA cold rolled.",
+      "tier": 2
+     },
+     {
+      "t": "CRM Surface Defect Detection",
+      "k": "cv",
+      "v": 4.0,
+      "basis": "MTPA cold rolled product",
+      "d": [
+       "Analyses high-resolution line scan camera feeds across the cold rolled strip.",
+       "Detects surface scratches, rolling marks, lube spots, edge cracks and inclusion defects.",
+       "Provides defect classification, location tracking and root cause analysis tools."
+      ],
+      "p": [
+       "Surface defects in CRM are expensive (₹50,000-70,000/t product)",
+       "Manual sampling slow",
+       "Defect investigation manual",
+       "Operator-dependent quality scoring",
+       "Customer audits frequent for cold rolled grades"
+      ],
+      "kpi": [
+       "Defect rate per coil",
+       "Customer rejection rate",
+       "Defect cost (₹/t)",
+       "Surface anomaly patterns"
+      ],
+      "calc": "Reject reduction 0.5-1% × cold rolled margin ₹60K/t = ₹3-6 cr/MTPA. ₹4 cr per MTPA cold rolled.",
+      "tier": 2
+     },
+     {
+      "t": "CRM Roll Health & Wear Monitoring",
+      "k": "ai",
+      "v": 2.0,
+      "basis": "MTPA cold rolled product",
+      "d": [
+       "Analyses roll force trends, mill motor signatures, surface quality correlation and lubricant degradation.",
+       "Predicts roll wear and surface degradation; recommends grinding cycles and roll changes.",
+       "Provides roll life optimization advisory."
+      ],
+      "p": [
+       "Cold mill roll quality is critical for surface finish",
+       "Manual roll inspection",
+       "Roll changes interrupt production",
+       "Premature changes waste roll life",
+       "Quality issues from roll wear hidden"
+      ],
+      "kpi": [
+       "Roll life (campaigns)",
+       "Surface quality from roll condition",
+       "Roll change frequency",
+       "Roll grinding cost"
+      ],
+      "calc": "Roll life extension + surface quality. ₹2 cr per MTPA cold rolled.",
+      "tier": 3
+     }
+    ]
+   },
+   {
+    "n": "Annealing Furnace",
+    "f": [
+     "Charge",
+     "Heating",
+     "Soak (340-420°C)",
+     "Cooling",
+     "Discharge"
+    ],
+    "rm": "Cold rolled coils (intermediate or final)",
+    "ut": "NG/electric, protective atmosphere (N2 for some grades)",
+    "out": "Annealed coils with target mechanical properties",
+    "q": "Mechanical properties (UTS, YS, elongation), gauge tolerance, surface, microstructure",
+    "uc": [
+     {
+      "t": "Annealing Cycle & Property Optimization",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MTPA annealed product",
+      "d": [
+       "Analyses furnace zone temperatures, soak time, coil load and mechanical property results from lab testing.",
+       "Models annealing kinetics and predicts mechanical property achievement.",
+       "Provides cycle optimization for target properties at minimum energy and cycle time."
+      ],
+      "p": [
+       "Annealing cycles conservative (long for safety margin)",
+       "Energy consumption high vs benchmark",
+       "Property variability between batches",
+       "Manual cycle setting per alloy",
+       "Cycle uncertainty creates schedule constraints"
+      ],
+      "kpi": [
+       "Annealing cycle time (hours)",
+       "Energy consumption (GJ/t)",
+       "Mechanical property compliance %",
+       "N2 gas consumption (Nm³/t)",
+       "Property variance between batches"
+      ],
+      "calc": "Energy reduction 5-10% + cycle time reduction 10-15%. ₹3 cr per MTPA annealed.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Foil Rolling Mill",
+    "f": [
+     "Foil precursor",
+     "Progressive rolling passes",
+     "Doubling (for thin gauge)",
+     "Slitting",
+     "Coiling"
+    ],
+    "rm": "Light gauge cold rolled coil, rolling oil",
+    "ut": "Electric power (high specific consumption), rolling oil management",
+    "out": "Aluminium foil (down to 6μm for capacitor/packaging)",
+    "q": "Pinhole density (#/m²), gauge variance, surface quality, mechanical properties",
+    "uc": [
+     {
+      "t": "Foil Quality & Pinhole Detection",
+      "k": "cv",
+      "v": 4.0,
+      "basis": "MTPA foil",
+      "d": [
+       "Analyses high-resolution line scan camera and laser/optical pinhole detection systems across foil strip.",
+       "Detects pinholes, gauge variations, surface streaks, oil stains and edge defects.",
+       "Provides defect classification with pinhole density mapping; triggers operator alerts and coil quality grading."
+      ],
+      "p": [
+       "Pinholes cause major customer rejection (food/pharma foil grades)",
+       "Manual sampling insufficient for foil products",
+       "Gauge variance affects yield",
+       "Foil products are premium (₹4-6 lakh/t)",
+       "Customer specs tight (especially for capacitor and pharma foil)"
+      ],
+      "kpi": [
+       "Pinhole density (#/m²)",
+       "Reject rate %",
+       "Gauge variance",
+       "Foil quality grade compliance",
+       "Customer complaint rate"
+      ],
+      "calc": "Reject reduction 1-2% × foil margin ₹2-3 lakh/t = ₹2-6 cr/MTPA. ₹4 cr per MTPA foil.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Billet Preheat Furnace",
+    "f": [
+     "Charge",
+     "Heating (often induction)",
+     "Soak",
+     "Discharge",
+     "Extrusion press"
+    ],
+    "rm": "Extrusion billets (6063, 6061, 7075 grades typical)",
+    "ut": "NG/electric, combustion air",
+    "out": "Preheated billets (~450-500°C) at target uniformity for extrusion",
+    "q": "Billet temperature uniformity, scale loss%, surface oxidation, soak time",
+    "uc": [
+     {
+      "t": "Billet Preheat Furnace Optimization",
+      "k": "ai",
+      "v": 2.0,
+      "basis": "MTPA extruded product",
+      "d": [
+       "Analyses billet entry temperature, zone temperatures (typically induction or gas-fired), soak time and billet exit temperature uniformity.",
+       "Models heating profile and predicts billet exit conditions for extrusion press readiness.",
+       "Provides zone setpoint advisory for target uniformity at minimum fuel."
+      ],
+      "p": [
+       "Manual zone control by operators",
+       "Fuel cost rising",
+       "Cycle conservative for safety",
+       "Temperature uniformity affects extrusion quality",
+       "Scale loss is direct yield loss"
+      ],
+      "kpi": [
+       "Fuel consumption (GJ/t)",
+       "Billet exit temperature uniformity (°C)",
+       "Scale loss %",
+       "Furnace cycle time"
+      ],
+      "calc": "Fuel savings 3-5% × billet preheat energy + yield improvement. ₹2 cr per MTPA extruded.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Extrusion Press",
+    "f": [
+     "Preheated billet",
+     "Container",
+     "Extrusion through die",
+     "Press quench",
+     "Stretcher",
+     "Saw",
+     "Aging"
+    ],
+    "rm": "Preheated extrusion billets, dies, lubricants",
+    "ut": "Hydraulic power, water (press quench), die heating",
+    "out": "Extruded shapes (profiles for automotive, architectural, structural)",
+    "q": "Surface finish, dimensional tolerance, mechanical properties, mechanical defects",
+    "uc": [
+     {
+      "t": "Extrusion Press Optimization (Speed, Quality, Yield)",
+      "k": "ai",
+      "v": 5.0,
+      "basis": "MTPA extruded product",
+      "d": [
+       "Analyses ram speed, press force, billet temperature, die exit temperature, profile dimensions and downstream quality.",
+       "Models extrusion kinetics and predicts press output, surface quality and yield versus operating conditions.",
+       "Provides advisory on ram speed, billet preheat target and die management for maximum output at target quality."
+      ],
+      "p": [
+       "Press speed conservatively set (safety + quality margin)",
+       "Yield variability across alloys and profiles",
+       "Die wear hidden until profile defects emerge",
+       "Manual ram speed control per profile",
+       "Quality vs throughput tradeoff manual"
+      ],
+      "kpi": [
+       "Press output (kg/h or m/h)",
+       "Yield %",
+       "Surface defect rate",
+       "Dimensional spec compliance %",
+       "Die life (kg per die)"
+      ],
+      "calc": "Throughput uplift 3-5% × extrusion margin ₹40-60K/t × 1 MTPA = ₹12-30 cr potential; capture 30% = ₹5 cr per MTPA extruded.",
+      "tier": 2
+     },
+     {
+      "t": "Extrusion Surface & Profile Defect Detection",
+      "k": "cv",
+      "v": 3.0,
+      "basis": "MTPA extruded product",
+      "d": [
+       "Analyses high-resolution camera and laser profile scanner feeds at the press exit and stretcher.",
+       "Detects surface defects (die marks, scratches, blister), dimensional anomalies and stretching issues.",
+       "Provides defect classification with profile-specific routing decisions."
+      ],
+      "p": [
+       "Extrusion defects cause customer rejection (architectural grade especially)",
+       "Manual inspection slow",
+       "Die marks hidden until customer audit",
+       "Dimensional tolerance compliance variable",
+       "Surface defects discovered downstream"
+      ],
+      "kpi": [
+       "Defect rate per profile",
+       "Dimensional accuracy compliance",
+       "Customer rejection rate",
+       "Die mark frequency"
+      ],
+      "calc": "Reject reduction × extrusion margin. ₹3 cr per MTPA extruded.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Aging Furnace",
+    "f": [
+     "Charge",
+     "Heating ramp",
+     "Aging soak (150-180°C for T5/T6)",
+     "Cooling",
+     "Discharge"
+    ],
+    "rm": "Extruded profiles (post-press, post-stretching)",
+    "ut": "NG/electric, cooling air",
+    "out": "Aged extrusions with final mechanical properties (T5/T6 tempers)",
+    "q": "Mechanical properties (UTS, YS, hardness), temper compliance, surface",
+    "uc": [
+     {
+      "t": "Aging Furnace Cycle & Property Optimization",
+      "k": "ai",
+      "v": 2.0,
+      "basis": "MTPA aged product",
+      "d": [
+       "Analyses aging furnace zone temperatures, soak time, load profile and resulting mechanical property data.",
+       "Models aging kinetics for different temper specifications (T5, T6).",
+       "Provides cycle optimization for target properties at minimum energy and time."
+      ],
+      "p": [
+       "Aging cycles conservative (long for safety)",
+       "Energy consumption high",
+       "Property variability between batches",
+       "Manual cycle setting per alloy/temper",
+       "Schedule constraints from cycle uncertainty"
+      ],
+      "kpi": [
+       "Aging cycle time (hours)",
+       "Energy consumption (GJ/t)",
+       "Mechanical property compliance %",
+       "Temper achievement (T5/T6)"
+      ],
+      "calc": "Energy reduction + cycle time. ₹2 cr per MTPA aged.",
+      "tier": 3
+     }
+    ]
+   },
+   {
+    "n": "Slitting & CTL",
+    "f": [
+     "Coil entry",
+     "Slitter knives",
+     "Edge trim",
+     "Recoil to customer specs"
+    ],
+    "rm": "Finished coils (cold rolled, foil, or coated)",
+    "ut": "Power (knife drives), compressed air",
+    "out": "Customer-spec rolls (slit width) or cut sheets",
+    "q": "Edge condition, slit accuracy, trim quality, dimensional tolerance",
+    "uc": [
+     {
+      "t": "Slitting & Edge Crack Detection",
+      "k": "cv",
+      "v": 2.0,
+      "basis": "MTPA finished product",
+      "d": [
+       "Analyses camera feeds of slit edges and side trim removal at the slitting line.",
+       "Detects edge cracks, ragged edges, knife wear effects and trim handling issues.",
+       "Provides knife change recommendations and quality alerts."
+      ],
+      "p": [
+       "Edge cracks from slit knives cause customer rejects",
+       "Knife change scheduling reactive",
+       "Trim handling jams",
+       "Edge quality varies operator to operator",
+       "Manual inspection inconsistent"
+      ],
+      "kpi": [
+       "Edge defect rate",
+       "Knife life (operating hours)",
+       "Trim waste %",
+       "Slit accuracy (mm)"
+      ],
+      "calc": "Edge defect reduction + knife optimization. ₹2 cr per MTPA finished.",
+      "tier": 3
+     }
+    ]
+   },
+   {
+    "n": "Coil Wrapping & Packaging",
+    "f": [
+     "Customer roll",
+     "Wrap line",
+     "Labels",
+     "End caps",
+     "Dispatch staging",
+     "Warehouse"
+    ],
+    "rm": "Finished customer rolls, wrapping materials, end caps, labels",
+    "ut": "Power (line drives), compressed air, packaging materials",
+    "out": "Wrapped and packaged rolls/extrusions ready for dispatch",
+    "q": "Wrap integrity, label accuracy, end cap quality, dispatch readiness",
+    "uc": [
+     {
+      "t": "Coil Wrapping & Packaging QC",
+      "k": "cv",
+      "v": 1.0,
+      "basis": "MTPA finished product",
+      "d": [
+       "Analyses camera feeds at the wrapping line, label scanners and packaging seal integrity sensors.",
+       "Detects wrapping defects, missing labels, damaged outer wrap and end cap issues.",
+       "Provides dispatch quality scoring and alerts before shipment."
+      ],
+      "p": [
+       "Packaging defects cause customer returns",
+       "Label mismatches lead to dispute",
+       "Manual quality checks slow",
+       "Wrap integrity variable",
+       "End cap defects cause transit damage"
+      ],
+      "kpi": [
+       "Wrap defect rate",
+       "Label accuracy %",
+       "Customer dispatch complaints",
+       "Packaging cost (₹/t)"
+      ],
+      "calc": "Customer claim reduction + dispatch quality. ₹1 cr per MTPA finished.",
+      "tier": 3
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Utilities",
+  "procs": [
+   {
+    "n": "Captive Power Plant (CPP)",
+    "f": [
+     "Coal handling",
+     "Boiler",
+     "Turbine-generator",
+     "Rectifier",
+     "Potline + auxiliary grid"
+    ],
+    "rm": "Coal (mostly), some biomass, makeup water",
+    "ut": "Combustion air, makeup water, chemicals (DM water treatment)",
+    "out": "DC power (after rectification) to potline, HP steam, ash",
+    "q": "Heat rate (kCal/kWh), generation cost (₹/kWh), availability%, emissions (NOx, SOx, PM)",
+    "uc": [
+     {
+      "t": "CPP Heat Rate & Generation Cost Optimization",
+      "k": "ai",
+      "v": 6.0,
+      "basis": "MTPA aluminium",
+      "d": [
+       "Analyses boiler combustion (coal quality, air/fuel ratio, flue gas), turbine performance (heat rate, vacuum), and rectifier efficiency.",
+       "Models plant-wide heat rate versus load and conditions; predicts generation cost (₹/kWh).",
+       "Provides operating advisory for optimal load distribution and emissions compliance."
+      ],
+      "p": [
+       "Heat rate drifts up over time (boiler/turbine fouling)",
+       "Generation cost not fully attributed to operating decisions",
+       "Coal quality variability impacts efficiency",
+       "Multiple units; load distribution suboptimal",
+       "Emission compliance margin shrinking"
+      ],
+      "kpi": [
+       "Plant heat rate (kCal/kWh)",
+       "Generation cost (₹/kWh)",
+       "CPP availability %",
+       "Emissions (NOx, SOx, PM)"
+      ],
+      "calc": "Heat rate improvement 1-2% × ₹100-150 cr/MTPA Al CPP fuel cost. ₹6 cr per MTPA aluminium.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Gas Treatment Centre (GTC)",
+    "f": [
+     "Pot gas",
+     "Reactor with alumina (dry scrubbing)",
+     "Bag filter",
+     "Clean gas",
+     "Stack | Loaded alumina",
+     "Pots"
+    ],
+    "rm": "Pot gases (CO2, HF, SO2, fluoride dust, PFCs)",
+    "ut": "Fresh alumina (for fluoride adsorption), power, compressed air",
+    "out": "Cleaned gas to stack (within emission limits), fluoride-loaded alumina back to potline",
+    "q": "HF emission (mg/Nm3), particulate emission, fluoride recovery%, alumina recirculation rate",
+    "uc": [
+     {
+      "t": "GTC Fluoride Capture & Alumina Reuse Optimization",
+      "k": "ai",
+      "v": 4.0,
+      "basis": "MTPA aluminium",
+      "d": [
+       "Analyses HF emissions, particulate emissions, alumina circulation rate, reactor pressure drop and bag filter performance.",
+       "Models fluoride adsorption kinetics and predicts capture efficiency.",
+       "Provides alumina circulation and reactor setpoint advisory for target emissions with minimum fresh alumina."
+      ],
+      "p": [
+       "Fluoride emission compliance limit getting tighter",
+       "GTC alumina circulation manually set",
+       "Pot gas variability not tracked into GTC operation",
+       "Reactor performance drops between maintenance",
+       "Bag filter performance not monitored proactively"
+      ],
+      "kpi": [
+       "HF emission (mg/Nm³)",
+       "Particulate emission (mg/Nm³)",
+       "Fluoride recovery %",
+       "Alumina circulation rate"
+      ],
+      "calc": "Fluoride recovery + compliance margin + AlF3 makeup reduction. ₹4 cr per MTPA aluminium.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Steam Network",
+    "f": [
+     "CPP boilers",
+     "HP header",
+     "PRDS",
+     "Bayer + auxiliaries",
+     "Condensate return",
+     "Deaerator"
+    ],
+    "rm": "HP/MP/LP steam from CPP + Bayer process",
+    "ut": "N/A (utility infrastructure)",
+    "out": "Steam delivered to Bayer digesters, calcination drying, holding furnaces, aux services",
+    "q": "Header pressures, flow distribution, condensate recovery%, venting losses",
+    "uc": [
+     {
+      "t": "Steam Network Optimization (Plant-Wide)",
+      "k": "ai",
+      "v": 2.0,
+      "basis": "MTPA aluminium",
+      "d": [
+       "Analyses steam flows, pressures and consumption across plant (CPP, Bayer digesters, calciner, holding furnaces).",
+       "Models steam balance and identifies inefficient consumers, venting losses and trap failures.",
+       "Provides plant-wide optimization advisory for steam distribution."
+      ],
+      "p": [
+       "Steam traps fail silently",
+       "Condensate flooding common in some sections",
+       "Vent losses during transients",
+       "PRDS sluggish in following load changes"
+      ],
+      "kpi": [
+       "Steam venting losses (t/h)",
+       "Trap failure events",
+       "Condensate recovery %",
+       "Network pressure stability"
+      ],
+      "calc": "Network optimization 2-3% on total steam value. ₹2 cr per MTPA aluminium.",
+      "tier": 2
+     },
+     {
+      "t": "Steam Trap Health Monitoring (Wireless Temperature)",
+      "k": "ai",
+      "v": 1.5,
+      "basis": "MTPA aluminium",
+      "loc": [
+       "Bayer digestion HP steam headers and drip legs (highest steam pressure, largest losses if failed)",
+       "Heat exchanger and process equipment drains across the refinery",
+       "Holding furnace and casthouse auxiliary steam consumers",
+       "Distribution and tracing line drainage points across the plant"
+      ],
+      "d": [
+       "Analyses inlet and outlet temperature signatures from wireless battery-powered sensors deployed at each steam trap.",
+       "Detects failed-open (steam passing through), failed-closed (condensate backup), and failed-cold (dead) conditions using temperature delta logic.",
+       "Provides location-tagged alerts to maintenance for proactive replacement, replacing annual audit cycles with continuous monitoring."
+      ],
+      "p": [
+       "10-25% of steam traps fail at any given time (industry baseline)",
+       "Annual ultrasonic audits cost time and labor, and miss interim failures",
+       "Failed-open traps waste ₹2-25 lakh per trap per year in steam",
+       "Failed-closed traps cause water hammer and equipment damage",
+       "No continuous monitoring at scale (plant has 1,000-3,000 traps)",
+       "Manual inspection rotation cannot cover the full trap population"
+      ],
+      "kpi": [
+       "Steam trap failure rate %",
+       "Steam loss from failed traps (t/yr or ₹/yr)",
+       "Mean time to detect failure (days)",
+       "Annual audit labor cost reduction",
+       "Condensate return %"
+      ],
+      "calc": "Trap failure rate 15% × 1,000 traps × ₹2 lakh/yr avg loss × 50% capture = ₹1.5 cr/MTPA aluminium. Plus equipment protection from water hammer events.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Effluent Treatment & Red Mud Handling",
+    "f": [
+     "Effluent",
+     "Equalization",
+     "pH correction",
+     "Settling/Filtration",
+     "Discharge | Red mud",
+     "Thickener",
+     "Dry-stacking/disposal"
+    ],
+    "rm": "Refinery effluent, red mud (high alkalinity), industrial wastewater",
+    "ut": "Power (pumps, agitators), chemicals (pH correction, polymer)",
+    "out": "Treated effluent (within state PCB limits), red mud to safe disposal",
+    "q": "Outlet pH, BOD, COD, TSS, heavy metals; red mud storage compliance",
+    "uc": [
+     {
+      "t": "ETP & Red Mud Handling Optimization",
+      "k": "ai",
+      "v": 2.0,
+      "basis": "MTPA aluminium",
+      "d": [
+       "Analyses inlet effluent (pH, alkalinity, TSS, heavy metals), treatment chemicals, red mud thickener performance and disposal yard conditions.",
+       "Models treatment kinetics and predicts compliance margins.",
+       "Provides chemical dosing and disposal operations advisory."
+      ],
+      "p": [
+       "Effluent quality varies; chemicals overdosed for safety",
+       "Red mud disposal logistics constrained",
+       "Regulatory inspection visits frequent",
+       "Treatment failures expensive (penalty + reputation)",
+       "Manual chemical dosing common"
+      ],
+      "kpi": [
+       "Effluent compliance margin",
+       "Treatment chemical consumption (₹/m³)",
+       "Red mud handling availability %",
+       "Solid waste disposal compliance"
+      ],
+      "calc": "Chemical optimization + compliance margin + disposal cost. ₹2 cr per MTPA aluminium.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Compressed Air & Cooling Water",
+    "f": [
+     "Inlet",
+     "Compressors",
+     "Dryers",
+     "Receivers",
+     "Headers",
+     "Consumers | Cooling tower",
+     "CW pumps",
+     "Heat exchangers"
+    ],
+    "rm": "Atmospheric air, raw water, makeup water",
+    "ut": "Power (compressors, cooling tower fans)",
+    "out": "Compressed air for actuators, instruments, alumina conveying; cooling water for casthouse, GTC",
+    "q": "Air dewpoint, pressure (bar), flow (Nm3/h), cooling water temp ΔT, conductivity",
+    "uc": [
+     {
+      "t": "Compressed Air & Cooling Water Network Optimization",
+      "k": "ai",
+      "v": 1.0,
+      "basis": "MTPA aluminium",
+      "d": [
+       "Analyses compressor load, network pressure, cooling water ΔT, pump efficiencies and consumer demand patterns.",
+       "Detects compressor cycling, leaks, cooling tower fouling and pump degradation.",
+       "Provides operating advisory for both networks."
+      ],
+      "p": [
+       "Compressed air leaks accumulate; never fully addressed",
+       "Cooling tower fouling reduces capacity over time",
+       "Pump efficiency drops gradually",
+       "Network demand variability not visible"
+      ],
+      "kpi": [
+       "Compressor specific energy (kWh/Nm³)",
+       "Network pressure (bar)",
+       "Cooling water ΔT (°C)",
+       "Network leak rate %"
+      ],
+      "calc": "Leak reduction + pump efficiency + cooling tower performance. ₹1 cr per MTPA aluminium.",
+      "tier": 3
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Cross-Cutting",
+  "procs": [
+   {
+    "n": "Digital Foundation",
+    "f": [
+     "Field devices",
+     "Edge",
+     "Historian",
+     "Unified namespace",
+     "Apps and AI models"
+    ],
+    "rm": "OT data (DCS/PLC tags), MES, ERP, lab data (LIMS), pot controllers (PMS), IoT streams",
+    "ut": "Edge gateways, network infrastructure, cloud compute, storage",
+    "out": "Unified data layer enabling all AI use cases; pot, refinery, casthouse contextual model",
+    "q": "Tag coverage%, data quality, latency, uptime, governance compliance",
+    "uc": [
+     {
+      "t": "IT-OT Integration & Data Foundation",
+      "k": "fd",
+      "v": null,
+      "basis": null,
+      "vt": "Enabler for all other use cases (no standalone ₹ impact)",
+      "d": [
+       "Foundational data layer: unified namespace, historian access, pot management system (PMS) integration, MES, ERP linkage.",
+       "Enables every other AI use case by providing reliable, tagged, contextual data across the plant.",
+       "Provides time-series storage, governance, role-based access and edge-to-cloud connectivity."
+      ],
+      "p": [
+       "Plant data scattered across DCS, PLC, lab, ERP systems",
+       "No single source of truth across the plant",
+       "Analytics projects start with data plumbing every time",
+       "Tag naming inconsistent across systems",
+       "Limited self-service for plant teams"
+      ],
+      "kpi": [
+       "Tag coverage %",
+       "Data uptime/latency",
+       "Number of use cases enabled",
+       "Time-to-deploy new analytics"
+      ],
+      "calc": "Enabler — value realized through downstream use cases.",
+      "tier": 1
+     }
+    ]
+   },
+   {
+    "n": "Quality Management",
+    "f": [
+     "Sample collection",
+     "Lab analysis",
+     "LIMS entry",
+     "SPC/dashboards",
+     "Customer COA",
+     "Audit"
+    ],
+    "rm": "Lab samples, online quality sensors (XRF, ICP-OES), customer specs, ASI standards",
+    "ut": "Lab instruments, LIMS infrastructure, calibration standards",
+    "out": "Quality intelligence dashboards, COA, traceability records, SPC charts",
+    "q": "Spec compliance%, lab turnaround time, COA accuracy, certified product%",
+    "uc": [
+     {
+      "t": "LIMS Integration & Quality Intelligence",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MTPA aluminium",
+      "d": [
+       "Integrates lab quality data (bauxite assays, liquor chemistry, alumina quality, anode quality, alloy composition) with online process data.",
+       "Builds quality intelligence dashboards, SPC charts and root cause analysis across all quality parameters.",
+       "Provides early warning on quality drift and faster lab-to-process feedback loops."
+      ],
+      "p": [
+       "Lab samples slow to process and integrate",
+       "Quality data in silos (Bayer, smelter, casthouse)",
+       "Quality trends not visible cross-functionally",
+       "Root cause analysis manual and slow",
+       "Customer audit prep labor-intensive"
+      ],
+      "kpi": [
+       "Lab data turnaround time",
+       "Quality spec compliance %",
+       "SPC out-of-control events",
+       "Customer complaint count"
+      ],
+      "calc": "Quality drift reduction + off-spec production reduction. ₹3 cr per MTPA aluminium.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Asset Reliability",
+    "f": [
+     "Sensor",
+     "Anomaly detection",
+     "Alert",
+     "Work order",
+     "Spare",
+     "Execution",
+     "Closure",
+     "KPI"
+    ],
+    "rm": "Sensor data (vibration, temp, oil, motor current), maintenance history, spare parts data",
+    "ut": "Edge processing, CBM platform, CMMS software, MRO inventory system",
+    "out": "Failure predictions, work orders, reliability KPIs (MTBF, MTTR), optimized spares",
+    "q": "Equipment availability%, MTBF, MTTR, maintenance cost/t Al, unplanned downtime hours",
+    "uc": [
+     {
+      "t": "Condition-Based Monitoring (CBM)",
+      "k": "ai",
+      "v": 15.0,
+      "basis": "MTPA aluminium",
+      "d": [
+       "Analyses vibration, temperature, oil quality, motor signature on critical rotating equipment (CPP turbines, mill drives, refinery pumps, ID/FD fans, conveyor drives, large agitators).",
+       "Predicts bearing failures, alignment issues, lubrication problems and impending breakdowns.",
+       "Provides location-tagged alerts and RUL estimates for planned interventions."
+      ],
+      "p": [
+       "Unplanned trips on CPP cascade to potline (catastrophic)",
+       "Maintenance largely reactive",
+       "Critical pumps and motors fail without warning",
+       "High maintenance + production loss cost",
+       "Aging asset base needs proactive management"
+      ],
+      "kpi": [
+       "Unplanned downtime hours/year",
+       "MTBF on critical assets",
+       "Maintenance cost (₹/t Al)",
+       "Predictive vs reactive maintenance ratio"
+      ],
+      "calc": "Unplanned downtime reduction × Al margin × hours saved. ₹15 cr per MTPA aluminium.",
+      "tier": 1
+     },
+     {
+      "t": "Computerised Maintenance Management System (CMMS)",
+      "k": "ai",
+      "v": 5.0,
+      "basis": "MTPA aluminium",
+      "d": [
+       "Workflow management for maintenance work orders, planned/unplanned work tracking, asset history and maintenance KPIs.",
+       "Integrates CBM alerts into work order generation and tracks closure with parts/labor/downtime.",
+       "Provides asset-level reliability metrics (MTBF, MTTR), maintenance cost reporting and compliance audit trails."
+      ],
+      "p": [
+       "Maintenance work tracked in spreadsheets",
+       "Work orders don't close on time",
+       "No structured asset history",
+       "Spare consumption not attributed accurately",
+       "Audit prep labor-intensive"
+      ],
+      "kpi": [
+       "Work order closure time (days)",
+       "Planned vs unplanned ratio",
+       "Maintenance cost reporting accuracy",
+       "MTBF/MTTR by asset class"
+      ],
+      "calc": "Work order closure reduction + maintenance cost transparency. ₹5 cr per MTPA aluminium.",
+      "tier": 1
+     },
+     {
+      "t": "MRO & Spare-Parts Optimization",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MTPA aluminium",
+      "d": [
+       "Analyses spare parts inventory, lead times, criticality, consumption patterns and supplier reliability for refinery + smelter + CPP spares.",
+       "Models optimal stocking levels, reorder points and consignment opportunities for critical spares.",
+       "Provides inventory optimization advisory and supplier performance dashboards."
+      ],
+      "p": [
+       "Excess inventory (₹50-100+ cr tied up)",
+       "Critical spares stockouts cause emergencies",
+       "Lead times not tracked systematically",
+       "Cataloging inconsistent",
+       "Supplier performance not tracked"
+      ],
+      "kpi": [
+       "Inventory value (₹ cr)",
+       "Stockout events",
+       "Emergency procurement %",
+       "Inventory turn ratio"
+      ],
+      "calc": "Inventory reduction 15-25% × cost of capital + emergency procurement savings. ₹3 cr per MTPA aluminium.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Safety",
+    "f": [
+     "CCTV",
+     "CV models",
+     "Violation detection",
+     "Control room alert",
+     "Field response",
+     "SCM logging"
+    ],
+    "rm": "CCTV feeds, gas detection (HF, SO2), access control, incident history",
+    "ut": "CV platform, edge inference, SCM integration, alert infrastructure",
+    "out": "Real-time safety alerts, compliance reports, near-miss analytics",
+    "q": "PPE compliance%, restricted-zone violations, molten metal incidents, near-misses",
+    "uc": [
+     {
+      "t": "AI Safety Monitoring",
+      "k": "cv",
+      "v": 3.0,
+      "basis": "MTPA aluminium",
+      "d": [
+       "Critical zones: potline floor (electrical, molten metal), tapping operations, casthouse molten metal areas, anode baking, refinery acid/alkali handling, CPP turbine hall.",
+       "Analyses CCTV feeds with computer vision models for PPE compliance, restricted-zone intrusion, hot zone approach, and molten metal handling violations.",
+       "Provides real-time alerts to control room and safety officers; integrates with site SCM."
+      ],
+      "p": [
+       "PPE compliance manual checks insufficient",
+       "Molten metal area safety risks (700-960°C exposure)",
+       "HF exposure events in potline area",
+       "Restricted zone access not monitored 24/7",
+       "Incident investigation slow"
+      ],
+      "kpi": [
+       "PPE compliance %",
+       "Restricted zone violation count",
+       "Near-miss frequency",
+       "LTI frequency rate (LTIFR)"
+      ],
+      "calc": "Incident avoidance + insurance + compliance audit. ₹3 cr per MTPA aluminium.",
+      "tier": 1
+     }
+    ]
+   },
+   {
+    "n": "Ops Intelligence",
+    "f": [
+     "Data ingestion",
+     "Contextualization",
+     "KPI computation",
+     "Dashboard",
+     "Decision",
+     "Action"
+    ],
+    "rm": "All plant data (production, quality, energy, maintenance, ERP)",
+    "ut": "Cloud compute, BI platform, scheduling engine",
+    "out": "Plant-wide OEE, KPI dashboards, schedule optimization, what-if scenarios",
+    "q": "OEE%, throughput, conversion cost (₹/t Al), schedule adherence, alloy mix margin",
+    "uc": [
+     {
+      "t": "Plant-Wide KPI & OEE Dashboarding",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MTPA aluminium",
+      "d": [
+       "Integrates production, quality, energy and downtime data across all sections into role-based dashboards.",
+       "Provides automated OEE, specific energy and conversion-cost calculation; root cause analysis tools.",
+       "Enables data-driven decision making at all levels."
+      ],
+      "p": [
+       "Multiple reporting systems; manual collation",
+       "KPIs not real-time",
+       "Drill-down to root cause manual and slow",
+       "Different definitions across sections",
+       "Management reviews backward-looking only"
+      ],
+      "kpi": [
+       "OEE %",
+       "Specific energy (kWh/kg Al)",
+       "Conversion cost (₹/t Al)",
+       "Schedule adherence %"
+      ],
+      "calc": "Systemic OEE + energy KPI tracking. ₹3 cr per MTPA aluminium.",
+      "tier": 1
+     },
+     {
+      "t": "Production Planning & Scheduling Optimization",
+      "k": "ai",
+      "v": 2.0,
+      "basis": "MTPA aluminium",
+      "d": [
+       "Analyses casthouse order book, alloy mix economics, casthouse equipment capability and downstream demand patterns.",
+       "Models grade campaign sequencing and predicts margin per scenario.",
+       "Provides optimal casthouse schedule and alloy sequence recommendations."
+      ],
+      "p": [
+       "Casthouse alloy changes manually planned",
+       "Alloy changeover cost not optimized",
+       "Demand variability not captured in plan",
+       "Order book to schedule gap labor-intensive"
+      ],
+      "kpi": [
+       "Schedule adherence %",
+       "Alloy changeover loss (t)",
+       "Grade mix margin (₹/t)",
+       "Casthouse utilization %"
+      ],
+      "calc": "Changeover reduction + alloy margin optimization. ₹2 cr per MTPA aluminium.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Sustainability & Carbon",
+    "f": [
+     "Energy + material flows",
+     "Carbon model",
+     "Scope reporting",
+     "Audit",
+     "CBAM filings",
+     "Customer ASI claims"
+    ],
+    "rm": "Energy data, emission data, supplier sustainability data, ASI audit data",
+    "ut": "Carbon accounting platform, ASI traceability infrastructure",
+    "out": "Scope 1/2/3 emissions, ASI certification reports, CBAM compliance data, green-Al traceability",
+    "q": "kgCO2e/t Al (Scope 1+2), ASI certified product%, CBAM declaration accuracy",
+    "uc": [
+     {
+      "t": "Carbon Accounting & ASI Traceability",
+      "k": "ai",
+      "v": 3.0,
+      "basis": "MTPA aluminium",
+      "d": [
+       "Tracks Scope 1, 2 and 3 emissions across bauxite, refining, smelting and casthouse with auditable provenance.",
+       "Integrates with ASI (Aluminium Stewardship Initiative) certification requirements and CBAM (EU export) declarations.",
+       "Provides green-aluminium traceability for premium markets and customer-specific CO2 claims."
+      ],
+      "p": [
+       "Carbon footprint calculation slow (audits annual)",
+       "CBAM filing complex and prone to error",
+       "Customer green-Al demand growing but unverifiable",
+       "Supplier sustainability data incomplete",
+       "Cannot dynamically respond to carbon pricing changes"
+      ],
+      "kpi": [
+       "Scope 1+2 emissions (kg CO2/t Al)",
+       "ASI certified product %",
+       "CBAM declaration accuracy",
+       "Green-Al premium captured (₹/t)"
+      ],
+      "calc": "Green-Al premium 50-100 USD/t × export share + CBAM filing accuracy. ₹3 cr per MTPA aluminium.",
+      "tier": 2
+     }
+    ]
+   }
+  ]
+ }
+]

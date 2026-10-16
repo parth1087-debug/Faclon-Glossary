@@ -1,0 +1,352 @@
+[
+ {
+  "s": "PV Array",
+  "procs": [
+   {
+    "n": "Module Cleaning",
+    "uc": [
+     {
+      "t": "Soiling Loss Detection & Cleaning Schedule Optimization",
+      "k": "ai",
+      "v": 1.5,
+      "basis": "100 MW per year",
+      "d": [
+       "Analyses soiling station data, string currents, irradiance and rainfall to estimate soiling loss per block in real time.",
+       "Models soiling accumulation rate vs weather/dust events and predicts energy loss trajectory per block.",
+       "Advises economically optimal cleaning schedule (which blocks, when) balancing cleaning cost, water use and recovered generation."
+      ],
+      "p": [
+       "Cleaning done on fixed calendar, not on measured soiling",
+       "Soiling loss varies 1-4% by block; uniform cleaning wastes money",
+       "Post-dust-storm response slow",
+       "Water cost and availability constraints not factored",
+       "No per-block soiling visibility"
+      ],
+      "kpi": [
+       "Soiling loss % (block-wise)",
+       "Cleaning cycles per year and cost per cycle",
+       "Energy recovered per cleaning (MWh)",
+       "Water consumption per MW cleaned",
+       "PR uplift post-cleaning"
+      ],
+      "calc": "Soiling loss reduction 1% × 100 MW × 20% CUF × 8,760 hr × ₹3/kWh ≈ ₹5.2 cr/yr gross; capture ~25% net of cleaning cost = ₹1.3-1.5 cr per 100 MW per year.",
+      "tier": 1
+     }
+    ]
+   },
+   {
+    "n": "String Monitoring",
+    "uc": [
+     {
+      "t": "String & Combiner-Level Underperformance Detection",
+      "k": "ai",
+      "v": 2.0,
+      "basis": "100 MW per year",
+      "d": [
+       "Analyses SMB/string currents, voltages and inverter data normalized against irradiance and temperature.",
+       "Detects underperforming, open or mismatched strings, blown fuses, connector degradation and MPPT clipping anomalies.",
+       "Ranks losses by ₹ impact and generates location-tagged work orders for field technicians."
+      ],
+      "p": [
+       "String faults hidden inside healthy inverter totals for weeks",
+       "Manual thermography/IV curve checks cover a small sample",
+       "Field teams chase alarms, not ₹-ranked losses",
+       "Connector burnouts detected only after fire/failure",
+       "0.5-2% of energy silently lost at string level"
+      ],
+      "kpi": [
+       "String availability %",
+       "Underperformance loss % vs expected",
+       "Mean time to detect string fault (days → hours)",
+       "Open/weak string count",
+       "PR gap closed (₹/month)"
+      ],
+      "calc": "Recoverable string losses 1% × 100 MW × 20% CUF × 8,760 × ₹3/kWh ≈ ₹5.2 cr; capture 35-40% = ₹2 cr per 100 MW per year.",
+      "tier": 1
+     }
+    ]
+   },
+   {
+    "n": "Module Health",
+    "uc": [
+     {
+      "t": "Aerial Thermography & Module Defect Detection",
+      "k": "cv",
+      "v": 1.0,
+      "basis": "100 MW per year",
+      "d": [
+       "Analyses drone IR/RGB imagery of the full array (quarterly or post-event flights).",
+       "Detects hotspots, bypass diode failures, PID, cracked/delaminated modules, shattered glass and vegetation shading with GPS-tagged defect maps.",
+       "Tracks defect growth across flights and prioritizes module replacement/warranty claims."
+      ],
+      "p": [
+       "Manual thermography covers <5% of modules",
+       "Diode failures and PID progress silently",
+       "Warranty claims fail for lack of documented evidence",
+       "Full-plant inspection takes months manually",
+       "Defect location records poor; repeat visits wasted"
+      ],
+      "kpi": [
+       "Defects per MW (by class)",
+       "Hotspot count and severity trend",
+       "Warranty claims raised and recovered (₹)",
+       "Time to inspect full plant (days)",
+       "Energy loss from module defects %"
+      ],
+      "calc": "Module defect losses 0.3-0.5% recovered + warranty recovery on defective lots (₹20-50 lakh/claim). ₹1 cr per 100 MW per year.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Tracker System",
+    "uc": [
+     {
+      "t": "Tracker Health & Misalignment Detection",
+      "k": "ai",
+      "v": 1.0,
+      "basis": "100 MW per year",
+      "d": [
+       "Analyses tracker motor currents, tilt-angle feedback vs astronomical setpoint, stow events and block-level generation deltas.",
+       "Detects stuck/lagging trackers, misalignment, backlash, drive wear and wrongly stowed rows.",
+       "Provides location-tagged repair lists and validates post-repair recovery."
+      ],
+      "p": [
+       "A few degrees of misalignment costs 1-3% on affected rows, invisible in plant totals",
+       "Stuck trackers found only on patrol rounds",
+       "Wind-stow failures risk structural damage",
+       "Drive wear unmonitored until seizure",
+       "Tracker OEM portal not integrated with SCADA analytics"
+      ],
+      "kpi": [
+       "Tracker availability %",
+       "Misalignment loss % (block-wise)",
+       "Stuck-tracker count and mean time to fix",
+       "Stow compliance during wind events",
+       "Motor/drive failure rate"
+      ],
+      "calc": "Tracker loss recovery 0.3-0.6% of generation + avoided structural damage from stow failures. ₹1 cr per 100 MW per year.",
+      "tier": 2
+     }
+    ]
+   },
+   {
+    "n": "Performance Analytics",
+    "uc": [
+     {
+      "t": "Plant PR & Degradation Analytics (Digital Twin)",
+      "k": "ai",
+      "v": 1.0,
+      "basis": "100 MW per year",
+      "d": [
+       "Builds a physics + ML expected-energy model (digital twin) from irradiance, temperature and as-built design.",
+       "Decomposes PR gap into soiling, downtime, clipping, degradation, curtailment and unexplained loss buckets.",
+       "Tracks module degradation rate per block against warranty curve and flags abnormal fade for claims."
+      ],
+      "p": [
+       "PR reported but not decomposed; teams argue causes",
+       "Degradation above warranty (>0.7%/yr) goes unnoticed for years",
+       "Loss accounting manual, inconsistent across sites",
+       "Underperformance disputes with O&M contractor unresolved",
+       "Board reporting lacks defensible loss waterfall"
+      ],
+      "kpi": [
+       "PR % and PR gap vs expected",
+       "Loss waterfall by category (MWh, ₹)",
+       "Degradation rate %/yr per block",
+       "Unexplained loss %",
+       "Warranty claim value raised (₹)"
+      ],
+      "calc": "Faster loss attribution recovers 0.2-0.4% energy + degradation warranty claims (₹50 lakh-2 cr episodic). ₹1 cr per 100 MW per year.",
+      "tier": 2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Power Conversion",
+  "procs": [
+   {
+    "n": "Inverter",
+    "uc": [
+     {
+      "t": "Inverter Predictive Maintenance & Availability Optimization",
+      "k": "ai",
+      "v": 1.5,
+      "basis": "100 MW per year",
+      "d": [
+       "Analyses inverter IGBT temperatures, fan speeds, DC/AC ripple, event logs and derating patterns.",
+       "Predicts fan/filter failures, IGBT degradation, cooling issues and impending trips; detects thermal derating before energy loss compounds.",
+       "Provides spare-part staging and intervention scheduling ahead of failure, prioritized by ₹ exposure."
+      ],
+      "p": [
+       "Inverter trips discovered on generation dip, not before",
+       "Fan/filter failures cause silent thermal derating in summer",
+       "Spares not staged; MTTR stretched by logistics",
+       "OEM AMC response times slow",
+       "Central inverter failure = 2-5 MW offline for days"
+      ],
+      "kpi": [
+       "Inverter availability %",
+       "Trips per inverter per month",
+       "Derating hours (thermal)",
+       "MTTR (hours)",
+       "Energy loss from inverter downtime (MWh)"
+      ],
+      "calc": "Availability improvement 0.3-0.5% × 100 MW × 20% CUF × ₹3/kWh ≈ ₹1.5-2.5 cr; plus derating recovery in summer months. Net ₹1.5 cr per 100 MW per year.",
+      "tier": 1
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Grid Interface",
+  "procs": [
+   {
+    "n": "Forecasting & Scheduling",
+    "uc": [
+     {
+      "t": "Generation Forecasting & DSM Penalty Reduction",
+      "k": "ai",
+      "v": 2.0,
+      "basis": "100 MW per year",
+      "d": [
+       "Analyses satellite/NWP weather feeds, sky cameras, plant telemetry and historical output to produce day-ahead and intra-day forecasts.",
+       "Optimizes revision strategy within DSM windows to minimize deviation penalties under state/CERC DSM regulations.",
+       "Provides automated schedule submission and penalty attribution dashboards."
+      ],
+      "p": [
+       "DSM penalties of ₹1-4 lakh/MW/yr common with poor forecasts",
+       "Manual forecasting/revision discipline weak",
+       "Cloud transients cause large intra-day deviations",
+       "Penalty attribution (forecast vs plant fault) unclear",
+       "Regulatory DSM bands tightening"
+      ],
+      "kpi": [
+       "Forecast error (MAPE/NMAE %) day-ahead and intra-day",
+       "DSM penalty (₹/month)",
+       "Revision utilization %",
+       "Schedule vs actual deviation bands",
+       "Penalty per MWh generated"
+      ],
+      "calc": "Baseline penalty ₹2-3 lakh/MW/yr × 100 MW = ₹2-3 cr; 50-60% reduction via better forecasts + revision optimization = ₹1.5-2 cr per 100 MW per year.",
+      "tier": 1
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Balance of Plant",
+  "procs": [
+   {
+    "n": "Substation & Evacuation",
+    "uc": [
+     {
+      "t": "Transformer & Switchyard Health Monitoring",
+      "k": "ai",
+      "v": 1.0,
+      "basis": "100 MW per year",
+      "d": [
+       "Analyses IDT/power transformer oil temperature, load, DGA (online/offline), OLTC operations and breaker signatures.",
+       "Predicts transformer hotspots, insulation ageing and OLTC/breaker mechanism issues.",
+       "Provides asset health index and maintenance prioritization for the evacuation path (single point of failure)."
+      ],
+      "p": [
+       "Evacuation transformer failure = full plant offline (weeks for replacement)",
+       "DGA sampling infrequent; incipient faults missed",
+       "OLTC issues found only on failure",
+       "Switchyard maintenance calendar-based",
+       "No health index across ICR/IDT fleet"
+      ],
+      "kpi": [
+       "Transformer health index",
+       "DGA gas trend (ppm)",
+       "Hotspot temperature vs load",
+       "OLTC operation count anomalies",
+       "Evacuation availability %"
+      ],
+      "calc": "Avoided transformer failure (₹3-8 cr replacement + 4-12 weeks × full plant revenue ₹4-5 cr/month) × probability reduction. Annualized ₹1 cr per 100 MW per year.",
+      "tier": 2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Site Operations",
+  "procs": [
+   {
+    "n": "Security & Surveillance",
+    "uc": [
+     {
+      "t": "Perimeter Intrusion & Theft Detection",
+      "k": "cv",
+      "v": 0.5,
+      "basis": "100 MW per year",
+      "d": [
+       "Analyses CCTV/thermal camera feeds along plant perimeter and inverter rooms with CV models.",
+       "Detects intrusion, cable/module theft attempts, unauthorized vehicle entry and after-hours movement.",
+       "Provides real-time alerts to control room and security response, replacing continuous manual monitoring."
+      ],
+      "p": [
+       "Copper cable and module theft endemic at remote sites",
+       "Guards cannot watch long perimeters 24/7",
+       "CCTV recorded but not monitored in real time",
+       "Theft discovered next morning; recovery rare",
+       "Insurance premiums rising with claims"
+      ],
+      "kpi": [
+       "Intrusion events detected/verified",
+       "Theft incidents per year",
+       "False alarm rate %",
+       "Response time (min)",
+       "Security manpower cost"
+      ],
+      "calc": "Theft losses ₹20-60 lakh/yr typical remote site + outage avoidance + manpower rationalization. ₹0.5 cr per 100 MW per year.",
+      "tier": 3
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "s": "Cross-Cutting",
+  "procs": [
+   {
+    "n": "Digital Foundation",
+    "uc": [
+     {
+      "t": "Unified SCADA-Historian & Data Foundation",
+      "k": "fd",
+      "v": null,
+      "basis": null,
+      "vt": "Enabler for all other use cases (no standalone ₹ impact)",
+      "d": [
+       "Foundational layer: unified data model across inverter OEMs, SMBs, trackers, WMS, meters and substation into one historian/namespace.",
+       "Enables every analytics use case with clean, tagged, contextual data across multi-OEM fleets.",
+       "Provides portfolio benchmarking, role-based dashboards and API access for AI models."
+      ],
+      "p": [
+       "Every OEM has its own portal; no single source of truth",
+       "Portfolio comparisons manual in Excel",
+       "Analytics projects stall on data plumbing",
+       "Historian gaps break ML models",
+       "New site onboarding takes months"
+      ],
+      "kpi": [
+       "Tag coverage % and data availability %",
+       "Multi-site benchmarking coverage",
+       "Time-to-deploy new analytics",
+       "Data latency and quality score"
+      ],
+      "calc": "Enabler — value realized through downstream use cases.",
+      "tier": 1
+     }
+    ]
+   }
+  ]
+ }
+]

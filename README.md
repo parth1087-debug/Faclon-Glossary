@@ -13,6 +13,13 @@ Customer-facing pages for Faclon Labs solution lines, published as a static webs
 | Cement AI Use Case Map | [`/cement-ai-use-case-map/`](cement-ai-use-case-map/index.html) | |
 | Pulp & Paper AI Use Case Map | [`/pulp-paper-ai-use-case-map/`](pulp-paper-ai-use-case-map/index.html) | |
 | Coal Mining AI Use Case Map | [`/coal-mining-ai-use-case-map/`](coal-mining-ai-use-case-map/index.html) | |
+| Aluminium Use Cases | [`/aluminium-use-cases/`](aluminium-use-cases/index.html) | |
+| Copper Use Cases | [`/copper-use-cases/`](copper-use-cases/index.html) | |
+| Pulp & Fibre Use Cases | [`/pulp-fibre-use-cases/`](pulp-fibre-use-cases/index.html) | |
+| Refinery & Petrochemicals Use Cases | [`/refinery-petrochemicals-use-cases/`](refinery-petrochemicals-use-cases/index.html) | |
+| Chemicals Use Cases | [`/chemicals-use-cases/`](chemicals-use-cases/index.html) | |
+| Solar Use Cases | [`/solar-use-cases/`](solar-use-cases/index.html) | |
+| Battery Energy Storage Use Cases | [`/bess-use-cases/`](bess-use-cases/index.html) | |
 | Steam Trap Failure Detection | [`/steam-trap-monitoring/`](steam-trap-monitoring/index.html) | |
 | Bus Bar Monitoring | [`/bus-bar-monitoring/`](bus-bar-monitoring/index.html) | |
 | Energy Management | [`/energy-management/`](energy-management/index.html) | |
@@ -51,6 +58,13 @@ python3 src/ai-closed-loop-soot-blowing/build_page.py   # writes ai-closed-loop-
 python3 src/cement-ai-use-case-map/build_page.py   # writes cement-ai-use-case-map/index.html (content in use_cases.json)
 python3 src/pulp-paper-ai-use-case-map/build_page.py  # writes pulp-paper-ai-use-case-map/index.html (content in use_cases.json)
 python3 src/coal-mining-ai-use-case-map/build_page.py  # writes coal-mining-ai-use-case-map/index.html (content in content.json)
+python3 src/aluminium-use-cases/build_page.py  # writes aluminium-use-cases/index.html (content in use_cases.json; shared builder src/shared/use_case_map.py)
+python3 src/copper-use-cases/build_page.py  # writes copper-use-cases/index.html (content in use_cases.json; shared builder src/shared/use_case_map.py)
+python3 src/pulp-fibre-use-cases/build_page.py  # writes pulp-fibre-use-cases/index.html (content in use_cases.json; shared builder src/shared/use_case_map.py)
+python3 src/refinery-petrochemicals-use-cases/build_page.py  # writes refinery-petrochemicals-use-cases/index.html (content in use_cases.json; shared builder src/shared/use_case_map.py)
+python3 src/chemicals-use-cases/build_page.py  # writes chemicals-use-cases/index.html (content in use_cases.json; shared builder src/shared/use_case_map.py)
+python3 src/solar-use-cases/build_page.py  # writes solar-use-cases/index.html (content in use_cases.json; shared builder src/shared/use_case_map.py)
+python3 src/bess-use-cases/build_page.py  # writes bess-use-cases/index.html (content in use_cases.json; shared builder src/shared/use_case_map.py)
 python3 src/faclon-overview/build_page.py         # writes faclon-overview/index.html (content in content.json)
 python3 src/steam-trap-monitoring/build_page.py   # writes steam-trap-monitoring/index.html (content in content.json, diagrams in diagrams.py)
 python3 src/bus-bar-monitoring/build_page.py      # writes bus-bar-monitoring/index.html (content in content.json, photos in assets/)
