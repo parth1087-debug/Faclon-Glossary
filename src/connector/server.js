@@ -122,6 +122,13 @@ function lightHTML(html) {
 
 /* ---------- files ---------- */
 function safeName(t) { return String(t).replace(/[\\/:*?"<>|\u0000-\u001f]+/g, "").replace(/\s+/g, " ").trim().slice(0, 120) || "page"; }
+var FAVICON = "__FAVICON__";
+function withIcon(html) {
+  // gives a saved page the Faclon icon in the browser tab, unless it already has one
+  if (/<link[^>]+rel=["']?(shortcut )?icon/i.test(html)) return html;
+  var tag = '<link rel="icon" type="image/png" href="' + FAVICON + '"><link rel="apple-touch-icon" href="' + FAVICON + '">';
+  return /<\/head>/i.test(html) ? html.replace(/<\/head>/i, tag + "</head>") : tag + html;
+}
 function writeOut(name, data) {
   var dir = downloadDir();
   nodeFs.mkdirSync(dir, { recursive: true });
@@ -194,7 +201,7 @@ var TOOLS = [
         var x = picked[i], base = safeName(x.title + " - Faclon Labs");
         if (!x.download) { skipped.push(x.title + ": downloads are off for you or for this solution"); continue; }
         try {
-          if (fmt === "html" || fmt === "both") done.push(writeOut(base + ".html", await pageHTML(c.acc, x.slug)));
+          if (fmt === "html" || fmt === "both") done.push(writeOut(base + ".html", withIcon(await pageHTML(c.acc, x.slug))));
           if (fmt === "pdf" || fmt === "both") {
             var k = await c.acc.dkey(x.slug);
             if (!k) throw new Error("downloads are off");
