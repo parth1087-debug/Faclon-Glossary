@@ -107,6 +107,10 @@
   {
    "slug": "steel-ai-use-case-map",
    "title": "Steel Use Cases"
+  },
+  {
+   "slug": "agrochemicals-use-cases-v2",
+   "title": "Agrochemicals Use Cases"
   }
  ],
  "users": [
@@ -215,6 +219,11 @@
   "steel-ai-use-case-map": {
    "iv": "8JbuMXUm+O8q80dh",
    "ct": "mrZprKIpVs1NSixbPtYlN9BNiiHQvzRp7kXJtTrC8/bIfz+6rDB8zISDmSGQoSYy+RKOhsw9U2oCXubp"
+  },
+  "agrochemicals-use-cases-v2": {
+   "e": "BG9w/6sOj1QyxIVGHzWI1KTlfd9lj5W12uggyQMau8B22B2UPmf7KIutBVklSlCP6enDHwi53IvUbAK8OKWrIC0=",
+   "iv": "QObkn/hbi4kb2m3n",
+   "ct": "9uGo60oR85qFcxwYoKW3Z6gicQ5xjCVWg1mN82RQKdFf9/2x4m1dt8PfZdM6r5/hFknrpm5zRAvqHfPU"
   }
  },
  "dvault": {
@@ -351,6 +360,13 @@
     "ct": "clkpvZKuYfkWI8nM1cBK7XDnXGB5QZUfLIN4tTI8M20S01wDrozdBHcNLFWsN3tma+b1V1lMeF3LutqFZaMLoHIzanWfO8Wb3tQO7uB37aQ9C3mSS5lQcWjPnqgBGzwRZRynoPim6lsNMqirynQcJ3vv34e3PuXij/uPXgNq0zpRaqZnDWE="
    },
    "at": "2026-10-17T07:52:44.609Z"
+  },
+  "agrochemicals-use-cases-v2": {
+   "meta": {
+    "iv": "K8/HdOyPv1f7hJnW",
+    "ct": "UKAQGw2bDla35+x8BsOJ3+1JVmGbVT7YhYzgWV45W8cLmIg9YBCdA2w5SE1PJVKTzKsC2c3EfpaASh/dmvyWhlhBVQziJaG2/vXJ9+PHgoWPdJ3PJw67bfdUcjmft0GbeNKrrNCuD+gocyQm4KC5db5SvT6vZLI/uzpldk1mVTJJsxwQr44rANAT8jz/JwtBzxQUEIblmA=="
+   },
+   "at": "2026-10-17T08:23:59.969Z"
   }
  },
  "policy": {
@@ -421,7 +437,7 @@
   },
   "faclon-ai-native-stack-platform-capability-referen": {
    "t": "Faclon AI Native Platform Capability",
-   "o": "Faclon AI-Native Stack \u00b7 Platform Capability Reference"
+   "o": "Faclon AI-Native Stack · Platform Capability Reference"
   },
   "power-plant-ai-use-cases-v2": {
    "t": "Power Plant AI",
@@ -435,6 +451,10 @@
   },
   "computer-vision-use-cases-v2": {
    "of": "io-vision",
+   "n": 2
+  },
+  "agrochemicals-use-cases-v2": {
+   "of": "agrochemicals-use-cases",
    "n": 2
   }
  },
@@ -464,6 +484,7 @@
   "refinery-petrochemicals-use-cases": "maps",
   "solar-use-cases": "maps",
   "steam-trap-monitoring": "solution",
-  "steel-ai-use-case-map": "maps"
+  "steel-ai-use-case-map": "maps",
+  "agrochemicals-use-cases-v2": "maps"
  }
 }
