@@ -147,6 +147,10 @@
   {
    "slug": "faclon-ai-native-platform-capability-v2",
    "title": "Faclon AI Native Platform Capability"
+  },
+  {
+   "slug": "it-ot-integration-and-security-v2",
+   "title": "IT-OT Integration and Security"
   }
  ],
  "users": [
@@ -305,6 +309,11 @@
    "e": "BFS1drvuavIu6WPABOa4Ql48dBbQFxLXVcUn/3CIC9iSIjUnlT9unDKSUC7G56at0r35nfNlIBLJ/sNm2LoxRew=",
    "iv": "cPLUhCIEtpk6DIls",
    "ct": "KXmK4xKHU4qYVxm/UFRnpUtsypzFz/eeDdjTpqnQyde5d5CkL62tlUteEqaC/Dpg0zxwP3uiRCGi6MND"
+  },
+  "it-ot-integration-and-security-v2": {
+   "e": "BL1q3s4F9qAMAA261fhTBBfhL+dV7Be56QRDZpi7l+ANi79EwF38LzEayuDIbfIeSWcb3Jd4+hxjSfF9vF7CWUM=",
+   "iv": "zFBi6AgLh02wG9Rc",
+   "ct": "plsFOrRPhypmzEpGCp990VqooqmWQj98+h8vcJWAUwB1cYLD320dd2YXTnPYRD1IY/c8IlcplRXpSYg+"
   }
  },
  "dvault": {
@@ -511,6 +520,13 @@
     "ct": "t2c5/7aMUVjgARpJ5PK8Tn/aKroMHrcMFB/bF97aegZqbgDIfTU1bA/3K7TCVNygKGI+RtQK6p1aTOvpgrsS1hURrVM8cgx/QOqlEYt5UqwCCps3a24oUwG3vM3FiaprNxIytaVbq7PxKWGqxQS5VF4jZ8Qd6XFtbic1CVd1DPY3mYJptGWqmngFf3a0KNXGuYdkjQSBmDooiTTxikpDa9qJdUk="
    },
    "at": "2026-10-17T08:25:12.963Z"
+  },
+  "it-ot-integration-and-security-v2": {
+   "meta": {
+    "iv": "nmwXo6bsf8o9iPSN",
+    "ct": "v27hObY52geUGcSk7ugKkDWq/Xxi43ZILxdt3UFg7J8a4zgrtgLIbQ6hcxt92tX/uEyCvdq5/m0+B9fUkMt8FdU8Db6iPJZbyUa/bKrQDuuwoDlahoWS/3Pntl1kQi2Xo3yw7iX3Y0gv5VZVSe2qZpTwEE4ZVwni4PD3CdXYZxy1pdzGQ7rQuzfRBT9zCixAdAHnlvlffIG5JHfX3A8="
+   },
+   "at": "2026-10-17T08:25:16.791Z"
   }
  },
  "policy": {
@@ -636,6 +652,10 @@
   "faclon-ai-native-platform-capability-v2": {
    "of": "faclon-ai-native-stack-platform-capability-referen",
    "n": 2
+  },
+  "it-ot-integration-and-security-v2": {
+   "of": "it-ot-integration",
+   "n": 2
   }
  },
  "cats": {
@@ -674,6 +694,7 @@
   "coal-mining-use-cases-v2": "maps",
   "copper-use-cases-v2": "maps",
   "discrete-manufacturing-use-cases-v2": "maps",
-  "faclon-ai-native-platform-capability-v2": "technical"
+  "faclon-ai-native-platform-capability-v2": "technical",
+  "it-ot-integration-and-security-v2": "technical"
  }
 }
