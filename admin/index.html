@@ -252,7 +252,8 @@ main{padding:24px 0 80px}
      guides      = GUIDES (the Read me): not solutions. Encrypted with the landing-page key so every signed-in
                    user can open them; never in solutions, keyrings, vaults or downloads. Mirror of GUIDES in protect.py.
      versions[slug] = {of: first version's slug, n: version number}. A newer version of a solution is a
-                   separate page; the first version has no entry (it is v1). Uploads add entries; the User
+                   separate page with the same name; the first version has no entry (it is v1). The version
+                   number is shown next to the name (chip, "Name v2" in lists) and can't be edited. Uploads add entries; the User
                    Manager's "use latest" turns Read off for older versions and gives users the newest.
      keyring     = {n, p:{slug:page key}, d:{slug:pdf key}, c?: contrib key, all?/a?/da?: super user}
      user key    = PBKDF2-SHA256(user password, user.s, users.iter)  (encrypts the user's keyring)
@@ -409,23 +410,28 @@ var FA = (function () {
       dkey: function (slug) { return Promise.resolve(d[slug] ? u8(d[slug]) : null); }
     };
   }
-  /* Solution names must be unique. Two names clash when they match ignoring case, spaces, punctuation,
-     "&" vs "and" and a trailing "· Faclon Labs". Mirror of name_key in protect.py. */
+  /* Solution names must be unique, except that versions of one solution share its name. Two names clash
+     when they match ignoring case, spaces, punctuation, "&" vs "and" and a trailing "· Faclon Labs".
+     Mirror of name_key / duplicate_names in protect.py. */
   function nameKey(t) {
     return String(t || "").toLowerCase().replace(/\s*[\u00b7|\u2013\u2014-]\s*faclon labs\s*$/, "").replace(/&/g, " and ")
       .normalize("NFKD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "");
   }
-  /* The existing solution name that t clashes with (ignoring solution `except`), or null. */
-  function nameClash(U, t, except) {
-    var k = nameKey(t), names = U.names || {}, sols = U.solutions || [];
+  /* The existing solution name that t clashes with, or null. Ignores solution `except` and every version of
+     the solution `family` (a slug of any of its versions). */
+  function nameClash(U, t, except, family) {
+    var k = nameKey(t), names = U.names || {}, sols = U.solutions || [], fr = family ? rootOf(U, family) : null;
     if (!k) return null;
     for (var i = 0; i < sols.length; i++) {
-      var s = sols[i]; if (s.slug === except) continue;
+      var s = sols[i]; if (s.slug === except || (fr && rootOf(U, s.slug) === fr)) continue;
       var shown = names[s.slug] && names[s.slug].t ? names[s.slug].t : s.title;
       if (nameKey(shown) === k || nameKey(s.title) === k) return shown;
     }
     return null;
   }
+  function rootOf(U, slug) { var v = (U.versions || {})[slug]; return v ? v.of : slug; }
+  /* " v2" for a solution with several versions, "" otherwise: added after the name in lists, tabs and file names. */
+  function versionLabel(U, slug) { var f = family(U, slug); return f ? " v" + f.n : ""; }
   /* Versions. family(U, slug) -> {root, members:[{slug, n}] oldest first, n (this slug's number), latest slug};
      null when the solution has only one version. Only solutions still listed in U.solutions count. */
   function family(U, slug) {
@@ -464,7 +470,7 @@ var FA = (function () {
   function clearSession() { try { localStorage.removeItem(SESSION); sessionStorage.removeItem(SESSION); localStorage.removeItem("faclon-glossary-key"); } catch (e) {} }
   return {
     u8: u8, b64: b64, pbkdf2: pbkdf2, hmac: hmac, encrypt: encrypt, decrypt: decrypt, decryptBytes: decryptBytes, sha256hex: sha256hex,
-    norm: norm, userId: userId, pageKey: pageKey, allKey: allKey, dallKey: dallKey, contribKey: contribKey, uploadKey: uploadKey, isUpload: isUpload, isGuide: isGuide, keyFor: keyFor, wrapForSuper: wrapForSuper, nameKey: nameKey, nameClash: nameClash, family: family, families: families, nextVersion: nextVersion, addVersion: addVersion, pdfKey: pdfKey, canRead: canRead, canDownload: canDownload, syncVault: syncVault, fillVault: fillVault, buildRing: buildRing, loadUsers: loadUsers, adminMaster: adminMaster,
+    norm: norm, userId: userId, pageKey: pageKey, allKey: allKey, dallKey: dallKey, contribKey: contribKey, uploadKey: uploadKey, isUpload: isUpload, isGuide: isGuide, keyFor: keyFor, wrapForSuper: wrapForSuper, nameKey: nameKey, nameClash: nameClash, family: family, families: families, rootOf: rootOf, versionLabel: versionLabel, nextVersion: nextVersion, addVersion: addVersion, pdfKey: pdfKey, canRead: canRead, canDownload: canDownload, syncVault: syncVault, fillVault: fillVault, buildRing: buildRing, loadUsers: loadUsers, adminMaster: adminMaster,
     login: login, access: access, getSession: getSession, setSession: setSession, clearSession: clearSession
   };
 })();
@@ -576,18 +582,23 @@ async function useLatest(fams){
 // Rename: U.names[slug] = {t: shown name, o: the page's own title}. protect.py keeps it; the site shows t everywhere.
 var renaming=null;
 function startRename(slug){renaming=slug;renderPolicy();var i=$("renIn");if(i){i.focus();i.select()}}
+// Versions of a solution share its name, so a rename applies to every version.
 function renameSol(slug,t){
   t=String(t||"").replace(/\s+/g," ").trim().slice(0,80);
   var s=(U.solutions||[]).filter(function(x){return x.slug===slug})[0];renaming=null;
   if(!s){render();return}
   U.names=U.names||{};var cur=U.names[slug],orig=cur?cur.o:s.title,before=s.title;
-  var clash=FA.nameClash(U,t||orig,slug);
+  var clash=FA.nameClash(U,t||orig,slug,slug);
   if(clash){render();toast("“"+clash+"” is already the name of another solution. Solution names must be unique.",6000);return}
-  if(!t||t===orig){if(!cur){render();return}delete U.names[slug];s.title=orig}
-  else{if(cur&&cur.t===t){render();return}U.names[slug]={t:t,o:orig};s.title=t}
+  var f=FA.family(U,slug),all=f?f.members.map(function(m){return m.slug}):[slug];
+  if((!t||t===orig)&&!all.some(function(sl){return U.names[sl]})){render();return}
+  if(t&&t!==orig&&cur&&cur.t===t&&all.every(function(sl){return U.names[sl]&&U.names[sl].t===t})){render();return}
+  all.forEach(function(sl){var x=(U.solutions||[]).filter(function(y){return y.slug===sl})[0];if(!x)return;
+    var c=U.names[sl],o=c?c.o:x.title;
+    if(!t||t===orig){delete U.names[sl];x.title=o}else{U.names[sl]={t:t,o:o};x.title=t}});
   if(!Object.keys(U.names).length)delete U.names;
   dirty++;render();
-  toast(s.title===orig&&before!==orig?"Name reset to “"+orig+"”. Publish to apply it.":"Renamed to “"+s.title+"”. Publish to apply it.");
+  toast((s.title===orig&&before!==orig?"Name reset to “"+orig+"”":"Renamed to “"+s.title+"”")+(all.length>1?" for all "+all.length+" versions":"")+". Publish to apply it.");
 }
 function render(){
   renderPolicy();
@@ -596,7 +607,7 @@ function render(){
   if(!rows.length){l.innerHTML='<div class="empty">No users yet. Add one to share selected solutions with a customer or partner.</div>'}
   else l.innerHTML=rows.map(function(e){var m=metas[e.id];
     var roles=(m.contrib?'<span class="chip role">Contributor</span>':'')+(m.download===false?'<span class="chip nodl">No downloads</span>':'');
-    var chips=roles+(m.all?'<span class="chip super">Super user · all solutions, incl. future</span>':(m.pages||[]).filter(function(p){return p!=="home"}).map(function(p){var off=!FA.canRead(U,p);return '<span class="chip'+(off?' off':'')+'"'+(off?' title="Read is switched off for this solution"':'')+'>'+esc(title(p))+(off?' · off':'')+'</span>'}).join("")||'<span class="chip none">Landing page only</span>');
+    var chips=roles+(m.all?'<span class="chip super">Super user · all solutions, incl. future</span>':(m.pages||[]).filter(function(p){return p!=="home"}).map(function(p){var off=!FA.canRead(U,p);return '<span class="chip'+(off?' off':'')+'"'+(off?' title="Read is switched off for this solution"':'')+'>'+esc(title(p)+FA.versionLabel(U,p))+(off?' · off':'')+'</span>'}).join("")||'<span class="chip none">Landing page only</span>');
     return '<div class="user"><div class="who"><b>'+esc(m.name)+'</b><span>'+esc(m.username)+'</span><div class="chips">'+chips+'</div></div>'+
       '<div class="acts"><button class="sec small" data-edit="'+e.id+'" type="button">Edit</button><button class="danger small" data-del="'+e.id+'" type="button">Remove</button></div></div>'}).join("");
   var b=$("bar");b.classList.toggle("dirty",dirty>0);

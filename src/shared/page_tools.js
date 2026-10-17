@@ -68,6 +68,8 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
     '.drop b{color:#3D63F5}.drop input{display:none}.drop.has{border-style:solid;border-color:#11875F;background:#E5F5EE}' +
     '.st a{color:#3D63F5;font-weight:600}' +
     'select.in{appearance:auto}.vh{font-size:12px;color:#6B7A90;margin-top:6px}' +
+    '.vt{display:inline-block;margin-left:6px;font-size:11px;font-weight:700;letter-spacing:.04em;padding:2px 8px;border-radius:999px;background:#E5F5EE;color:#11875F}' +
+    '.in[readonly]{background:#F6F8FB;color:#3A4A5F}' +
     '.dlink{display:inline-block;text-decoration:none;font:600 14px Inter,system-ui,sans-serif;padding:10px 16px;border-radius:9px;background:#3D63F5;color:#fff}' +
     'ol.steps,ul.tips{margin:8px 0 0;padding-left:20px;font-size:13px;line-height:1.55;color:#3A4A5F}ol.steps li,ul.tips li{margin:0 0 7px}' +
     'ul.tips q{quotes:"\u201c" "\u201d";color:#0F1B2D}' +
@@ -99,8 +101,8 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
     '<h2 id="uh">Upload a solution page</h2><p>Add a self-contained HTML page (styles and images inside the file). It goes live straight away for admin, super users and contributors; the admin can share it with other users. Building one? Follow the <a href="' + B + 'designskill.md" download="designskill.md" style="color:#3D63F5;font-weight:600">design guide</a> so it matches the site. You can also upload from Claude with the <a href="#" id="conUp">Claude connector</a>.</p>' +
     '<label class="drop" id="drop"><input type="file" id="uf" accept=".html,.htm,text/html"><span id="ufl"><b>Choose an HTML file</b> or drop it here</span></label>' +
     '<span class="fl">Is this a newer version of an existing solution?</span><select class="in" id="uv"><option value="">No, it\u2019s a new solution</option></select>' +
-    '<p class="vh" id="uvh" hidden>Both versions stay on the site, marked v1, v2\u2026 with the newest labelled Latest. The admin can hide older versions.</p>' +
-    '<span class="fl">Title</span><input class="in" id="ut" maxlength="80" placeholder="e.g. Cooling Tower Optimisation">' +
+    '<p class="vh" id="uvh" hidden>It keeps the same name and gets the next version number automatically. Both versions stay on the site, marked v1, v2\u2026 with the newest labelled Latest; the admin can hide older versions.</p>' +
+    '<span class="fl">Title <span class="vt" id="utv" hidden></span></span><input class="in" id="ut" maxlength="80" placeholder="e.g. Cooling Tower Optimisation">' +
     '<span class="fl">Category <em>(optional)</em></span><input class="in" id="uc" maxlength="40" placeholder="e.g. Power, Metals, Utilities">' +
     '<span class="fl">Short description <em>(optional)</em></span><textarea class="in" id="ud" maxlength="240" placeholder="One or two lines shown on the solution card"></textarea>' +
     '<span class="fl">Your name <em>(optional, shown as \u201cContributed by\u201d)</em></span><input class="in" id="un" maxlength="60">' +
@@ -213,7 +215,7 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
     if (!accP) accP = FA.loadUsers(B).then(function (U) { return FA.access(U, FA.getSession()); });
     return accP;
   }
-  function title(slug) { var s = SOL.filter(function (x) { return x.slug === slug; })[0]; return s ? s.title : "Faclon Labs"; }
+  function title(slug) { var s = SOL.filter(function (x) { return x.slug === slug; })[0]; return s ? (NAMES[slug] || s.title) + (VU ? FA.versionLabel(VU, slug) : "") : "Faclon Labs"; }
 
   // contributor uploads: cards on the landing page + the Upload button
   function cardHTML(slug, m) {
@@ -254,6 +256,9 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
     var n = U.names || {}; for (var k in n) if (n[k] && n[k].t) NAMES[k] = n[k].t;
     rename(document, NAMES, SLUG);
     VU = U; versionChips(document);
+    var vl = FA.versionLabel(U, SLUG);
+    if (vl) document.title = (NAMES[SLUG] || title(SLUG).replace(/ v\d+$/, "")).replace(/\s*\u00b7\s*Faclon Labs$/, "") + vl + " \u00b7 Faclon Labs";
+    root.querySelectorAll("#sols label").forEach(function (l) { var i = l.querySelector("input"); l.lastChild.textContent = title(i.value); });
   }).catch(function () {});
   // versions (users.json "versions"): a v1 / v2 · Latest chip on every card of a solution with several versions
   var VU = null;
@@ -312,12 +317,12 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
     f.text().then(function (t) { var m = t.match(/<title[^>]*>([\s\S]*?)<\/title>/i); if (m && !$("ut").value) $("ut").value = m[1].replace(/\s+/g, " ").trim().slice(0, 80); });
   }
   $("uf").onchange = function () { pick(this.files[0]); };
-  var autoTitle = "";
+  // a newer version keeps the solution's name (locked) and gets the next version number automatically
+  function familyName(U, b) { var r = FA.rootOf(U, b), s = (U.solutions || []).filter(function (x) { return x.slug === r; })[0]; return NAMES[r] || (s ? s.title : title(b)); }
   $("uv").onchange = async function () {
-    var b = this.value, U = await usersP; $("uvh").hidden = !b;
-    if (!b) { if ($("ut").value === autoTitle) $("ut").value = ""; autoTitle = ""; return; }
-    var f = FA.family(U, b), root = f ? f.root : b, name = (NAMES[root] || title(root)).replace(/\s+v\d+$/i, "");
-    if (!$("ut").value.trim() || $("ut").value === autoTitle) { autoTitle = (name + " v" + FA.nextVersion(U, b)).slice(0, 80); $("ut").value = autoTitle; }
+    var b = this.value, U = await usersP; $("uvh").hidden = !b; $("utv").hidden = !b; $("ut").readOnly = !!b;
+    if (!b) { $("ut").value = ""; return; }
+    $("ut").value = familyName(U, b); $("utv").textContent = "v" + FA.nextVersion(U, b) + " \u00b7 added automatically";
   };
   $("drop").ondragover = function (e) { e.preventDefault(); };
   $("drop").ondrop = function (e) { e.preventDefault(); pick(e.dataTransfer.files[0]); };
@@ -343,12 +348,15 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
       if (U.contrib && U.contrib.tok) token = await FA.decrypt(C, U.contrib.tok.iv, U.contrib.tok.ct);
       if (!token && ADM) { try { token = localStorage.getItem("faclon-glossary-gh-token"); } catch (e) {} }
       if (!token) throw new Error("the admin hasn't set up contributor GitHub access yet");
-      var clash = FA.nameClash(U, t);
+      var vbase = $("uv").value || null, vn = 0;
+      if (vbase) { if (!(U.solutions || []).some(function (x) { return x.slug === vbase; })) throw new Error("the solution you picked as the earlier version no longer exists"); t = familyName(U, vbase); }
+      var clash = FA.nameClash(U, t, null, vbase);
       if (clash) throw new Error("a solution called \u201c" + clash + "\u201d already exists. Give your page a different title");
       var html = await upFile.text();
       var taken = {}; (U.solutions || []).forEach(function (x) { taken[x.slug] = 1; }); Object.keys(U.uploads || {}).forEach(function (x) { taken[x] = 1; });
       ["home", "admin", "src", "connector", "readme"].forEach(function (x) { taken[x] = 1; });
-      var slug = slugify(t), n = 2; while (taken[slug]) slug = slugify(t).slice(0, 46) + "-" + n++;
+      var stem = vbase ? slugify(t).slice(0, 44) + "-v" + FA.nextVersion(U, vbase) : slugify(t);
+      var slug = stem, n = 2; while (taken[slug]) slug = stem.slice(0, 46) + "-" + n++;
       var K = await FA.uploadKey(C, slug), box = await FA.encrypt(K, html);
       var content = (await FA.sha256hex(html)).slice(0, 16);
       var tpl = (U.solutions || []).filter(function (x) { return !(U.uploads || {})[x.slug]; })[0];
@@ -360,9 +368,8 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
                  .replace(/<meta name="faclon-content" content="[^"]*">/, function () { return '<meta name="faclon-content" content="' + content + '">'; });
       var g0 = await gh(token, "/contents/users.json?ref=main&t=" + Date.now(), { cache: "no-store" });
       if (g0.ok) { var live = JSON.parse(new TextDecoder().decode(FA.u8((await g0.json()).content.replace(/\s/g, ""))));
-        clash = FA.nameClash(live, t); if (clash) throw new Error("a solution called \u201c" + clash + "\u201d already exists. Give your page a different title"); }
-      var by = $("un").value.trim(), vbase = $("uv").value || null, vn = 0;
-      if (vbase && !(U.solutions || []).some(function (x) { return x.slug === vbase; })) throw new Error("the solution you picked as the earlier version no longer exists");
+        clash = FA.nameClash(live, t, null, vbase); if (clash) throw new Error("a solution called \u201c" + clash + "\u201d already exists. Give your page a different title"); }
+      var by = $("un").value.trim();
       var meta = await FA.encrypt(K, JSON.stringify({ title: t, sector: $("uc").value.trim(), blurb: $("ud").value.trim(), by: by, user: N, at: new Date().toISOString() }));
       var sup = await FA.wrapForSuper(U, K);
       st.textContent = "Publishing the page…";
@@ -385,8 +392,8 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
         if ((pr.status === 409 || pr.status === 422) && tries < 4) { await new Promise(function (ok) { setTimeout(ok, 800 * (tries + 1)); }); continue; }
         throw new Error("couldn't register the page (" + pr.status + ")");
       }
-      st.innerHTML = 'Published' + (vn ? ' as version ' + vn : '') + '. It will be live in about a minute: <a href="' + esc(B + slug + "/") + '">open ' + esc(t) + '</a>';
-      $("uv").value = ""; $("uvh").hidden = true; autoTitle = "";
+      st.innerHTML = 'Published' + (vn ? ' as version ' + vn : '') + '. It will be live in about a minute: <a href="' + esc(B + slug + "/") + '">open ' + esc(t + (vn ? " v" + vn : "")) + '</a>';
+      $("uv").value = ""; $("uvh").hidden = true; $("utv").hidden = true; $("ut").readOnly = false;
       upFile = null; $("drop").classList.remove("has"); $("ufl").innerHTML = "<b>Choose an HTML file</b> or drop it here"; $("ut").value = ""; $("uc").value = ""; $("ud").value = ""; $("uf").value = "";
     } catch (e) { st.className = "st err"; st.textContent = "Couldn't upload: " + e.message; }
     b.disabled = false;

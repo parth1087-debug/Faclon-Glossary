@@ -133,13 +133,17 @@ def name_key(t):
     return re.sub(r"[^a-z0-9]+", "", t)
 
 
-def duplicate_names(solutions):
+def duplicate_names(solutions, versions=None):
+    """Pairs of solutions with the same name. Versions of one solution (users.json "versions") share its
+    name on purpose and don't count. Mirror of FA.nameClash in auth_core.js."""
+    versions = versions or {}
+    root = lambda slug: (versions.get(slug) or {}).get("of") or slug
     seen, dups = {}, []
     for s in solutions:
         k = name_key(s["title"])
-        if k in seen:
+        if k in seen and root(seen[k]["slug"]) != root(s["slug"]):
             dups.append((seen[k], s))
-        else:
+        elif k not in seen:
             seen[k] = s
     return dups
 
@@ -398,7 +402,7 @@ def main():
         else:
             u = json.loads(USERS.read_text(encoding="utf-8"))
             vault = u.get("vault") or {}
-            for a, b in duplicate_names(u.get("solutions") or []):
+            for a, b in duplicate_names(u.get("solutions") or [], u.get("versions")):
                 print(f'DUPLICATE NAME: {a["slug"]} and {b["slug"]} are both called "{b["title"]}"')
                 bad.append(USERS)
             for slug, _ in targets:
@@ -446,7 +450,7 @@ def main():
         path.write_text(gate_html(slug, base, iv, ct, core, gate_ver, content, slug in (users.get("uploads") or {})), encoding="utf-8")
         print("protected", path.relative_to(ROOT))
 
-    dups = duplicate_names(solutions)
+    dups = duplicate_names(solutions, users.get("versions"))
     if dups:
         for a, b in dups:
             print(f'DUPLICATE NAME: {a["slug"]} and {b["slug"]} are both called "{b["title"]}"')

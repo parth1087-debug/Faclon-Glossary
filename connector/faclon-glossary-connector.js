@@ -23,7 +23,8 @@
      guides      = GUIDES (the Read me): not solutions. Encrypted with the landing-page key so every signed-in
                    user can open them; never in solutions, keyrings, vaults or downloads. Mirror of GUIDES in protect.py.
      versions[slug] = {of: first version's slug, n: version number}. A newer version of a solution is a
-                   separate page; the first version has no entry (it is v1). Uploads add entries; the User
+                   separate page with the same name; the first version has no entry (it is v1). The version
+                   number is shown next to the name (chip, "Name v2" in lists) and can't be edited. Uploads add entries; the User
                    Manager's "use latest" turns Read off for older versions and gives users the newest.
      keyring     = {n, p:{slug:page key}, d:{slug:pdf key}, c?: contrib key, all?/a?/da?: super user}
      user key    = PBKDF2-SHA256(user password, user.s, users.iter)  (encrypts the user's keyring)
@@ -180,23 +181,28 @@ var FA = (function () {
       dkey: function (slug) { return Promise.resolve(d[slug] ? u8(d[slug]) : null); }
     };
   }
-  /* Solution names must be unique. Two names clash when they match ignoring case, spaces, punctuation,
-     "&" vs "and" and a trailing "· Faclon Labs". Mirror of name_key in protect.py. */
+  /* Solution names must be unique, except that versions of one solution share its name. Two names clash
+     when they match ignoring case, spaces, punctuation, "&" vs "and" and a trailing "· Faclon Labs".
+     Mirror of name_key / duplicate_names in protect.py. */
   function nameKey(t) {
     return String(t || "").toLowerCase().replace(/\s*[\u00b7|\u2013\u2014-]\s*faclon labs\s*$/, "").replace(/&/g, " and ")
       .normalize("NFKD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "");
   }
-  /* The existing solution name that t clashes with (ignoring solution `except`), or null. */
-  function nameClash(U, t, except) {
-    var k = nameKey(t), names = U.names || {}, sols = U.solutions || [];
+  /* The existing solution name that t clashes with, or null. Ignores solution `except` and every version of
+     the solution `family` (a slug of any of its versions). */
+  function nameClash(U, t, except, family) {
+    var k = nameKey(t), names = U.names || {}, sols = U.solutions || [], fr = family ? rootOf(U, family) : null;
     if (!k) return null;
     for (var i = 0; i < sols.length; i++) {
-      var s = sols[i]; if (s.slug === except) continue;
+      var s = sols[i]; if (s.slug === except || (fr && rootOf(U, s.slug) === fr)) continue;
       var shown = names[s.slug] && names[s.slug].t ? names[s.slug].t : s.title;
       if (nameKey(shown) === k || nameKey(s.title) === k) return shown;
     }
     return null;
   }
+  function rootOf(U, slug) { var v = (U.versions || {})[slug]; return v ? v.of : slug; }
+  /* " v2" for a solution with several versions, "" otherwise: added after the name in lists, tabs and file names. */
+  function versionLabel(U, slug) { var f = family(U, slug); return f ? " v" + f.n : ""; }
   /* Versions. family(U, slug) -> {root, members:[{slug, n}] oldest first, n (this slug's number), latest slug};
      null when the solution has only one version. Only solutions still listed in U.solutions count. */
   function family(U, slug) {
@@ -235,7 +241,7 @@ var FA = (function () {
   function clearSession() { try { localStorage.removeItem(SESSION); sessionStorage.removeItem(SESSION); localStorage.removeItem("faclon-glossary-key"); } catch (e) {} }
   return {
     u8: u8, b64: b64, pbkdf2: pbkdf2, hmac: hmac, encrypt: encrypt, decrypt: decrypt, decryptBytes: decryptBytes, sha256hex: sha256hex,
-    norm: norm, userId: userId, pageKey: pageKey, allKey: allKey, dallKey: dallKey, contribKey: contribKey, uploadKey: uploadKey, isUpload: isUpload, isGuide: isGuide, keyFor: keyFor, wrapForSuper: wrapForSuper, nameKey: nameKey, nameClash: nameClash, family: family, families: families, nextVersion: nextVersion, addVersion: addVersion, pdfKey: pdfKey, canRead: canRead, canDownload: canDownload, syncVault: syncVault, fillVault: fillVault, buildRing: buildRing, loadUsers: loadUsers, adminMaster: adminMaster,
+    norm: norm, userId: userId, pageKey: pageKey, allKey: allKey, dallKey: dallKey, contribKey: contribKey, uploadKey: uploadKey, isUpload: isUpload, isGuide: isGuide, keyFor: keyFor, wrapForSuper: wrapForSuper, nameKey: nameKey, nameClash: nameClash, family: family, families: families, rootOf: rootOf, versionLabel: versionLabel, nextVersion: nextVersion, addVersion: addVersion, pdfKey: pdfKey, canRead: canRead, canDownload: canDownload, syncVault: syncVault, fillVault: fillVault, buildRing: buildRing, loadUsers: loadUsers, adminMaster: adminMaster,
     login: login, access: access, getSession: getSession, setSession: setSession, clearSession: clearSession
   };
 })();
@@ -247,7 +253,7 @@ var FA = (function () {
    connector only talks to the public site and the GitHub API.
    Env: FACLON_USERNAME, FACLON_PASSWORD, FACLON_DOWNLOAD_DIR (optional), FACLON_SITE (optional). */
 /* eslint-disable no-var */
-var VERSION = "1.1.0";
+var VERSION = "1.1.1";
 var REPO = "parth1087-debug/Faclon-Glossary";
 var nodeFs = require("fs"), nodePath = require("path"), nodeOs = require("os");
 
@@ -468,20 +474,20 @@ var TOOLS = [
   {
     name: "upload_page",
     title: "Upload a new solution page",
-    description: "Publishes a self-contained HTML file (styles and images inside the file) as a new Faclon solution page. It goes live on the site in about a minute for the admin, super users and contributors; the admin can then share it with other users. Give either file_path (a file on this computer) or html. Every solution needs a unique title (an upload whose title matches an existing solution is refused). To publish an updated page as a newer version of an existing solution, set new_version_of to that solution's slug or title: both versions stay on the site, marked v1, v2… with the newest labelled Latest, and the admin can hide older versions; give it a title such as \"Cooling Tower Optimisation v2\". Confirm the title with the user before uploading, and follow get_design_skill so the page matches the site.",
+    description: "Publishes a self-contained HTML file (styles and images inside the file) as a new Faclon solution page. It goes live on the site in about a minute for the admin, super users and contributors; the admin can then share it with other users. Give either file_path (a file on this computer) or html. Every solution needs a unique title (an upload whose title matches an existing solution is refused). To publish an updated page as a newer version of an existing solution, set new_version_of to that solution's slug or title instead of giving a title: the new version keeps the solution's name and gets the next version number (v2, v3…) automatically; both versions stay on the site with the newest labelled Latest, and the admin can hide older versions. Confirm the title with the user before uploading, and follow get_design_skill so the page matches the site.",
     inputSchema: { type: "object", properties: {
-      title: { type: "string", description: "Page title shown on the solution card, e.g. \"Cooling Tower Optimisation\"" },
+      title: { type: "string", description: "Page title shown on the solution card, e.g. \"Cooling Tower Optimisation\". Required for a new solution; ignored with new_version_of (a version keeps its solution's name)" },
       file_path: { type: "string", description: "Full path of the HTML file on this computer" },
       html: { type: "string", description: "The full HTML of the page, if there is no file" },
       category: { type: "string", description: "Optional card category, e.g. Power, Metals, Utilities" },
       description: { type: "string", description: "Optional one or two lines shown on the solution card" },
       contributor_name: { type: "string", description: "Optional name shown as \"Contributed by\"; defaults to the signed-in user's name" },
       new_version_of: { type: "string", description: "Optional: slug or title (from list_solutions) of the existing solution this page is a newer version of" } },
-      required: ["title"], additionalProperties: false },
+      required: [], additionalProperties: false },
     annotations: { readOnlyHint: false, destructiveHint: false, idempotentHint: false, openWorldHint: true },
     run: async function (a) {
       var t = String(a.title || "").trim().slice(0, 80);
-      if (!t) throw new Error("Give the page a title.");
+      if (!t && !a.new_version_of) throw new Error("Give the page a title, or new_version_of for a newer version of an existing solution.");
       var html = a.html;
       if (!html && a.file_path) {
         var fp = a.file_path.charAt(0) === "~" ? nodePath.join(nodeOs.homedir(), a.file_path.slice(1)) : a.file_path;
@@ -492,14 +498,19 @@ var TOOLS = [
       if (Buffer.byteLength(html) > 20 * 1048576) throw new Error("That page is over 20 MB. Compress its images and try again.");
       if (!/<html[\s>]/i.test(html) || !/<body[\s>]/i.test(html)) throw new Error("That doesn't look like a complete HTML page (it needs <html> and <body>).");
       var s = await signIn(), C = s.acc.contrib, U = await users(true), vbase = null, vn = 0;
-      if (a.new_version_of) vbase = find((await catalogue()).list, a.new_version_of).slug;
-      var clash = FA.nameClash(U, t);
+      if (a.new_version_of) {
+        vbase = find((await catalogue()).list, a.new_version_of).slug;
+        var vroot = FA.rootOf(U, vbase), vs = (U.solutions || []).filter(function (x) { return x.slug === vroot; })[0];
+        t = (U.names && U.names[vroot] && U.names[vroot].t) || (vs ? vs.title : t);
+      }
+      var clash = FA.nameClash(U, t, null, vbase);
       if (clash) throw new Error("A solution called \u201c" + clash + "\u201d already exists. Choose a different title.");
       var token = U.contrib && U.contrib.tok ? await FA.decrypt(C, U.contrib.tok.iv, U.contrib.tok.ct) : null;
       if (!token) throw new Error("The admin hasn't set up contributor GitHub access yet (User Manager → Contributor GitHub access).");
       var taken = { home: 1, admin: 1, src: 1, connector: 1, readme: 1 };
       (U.solutions || []).forEach(function (x) { taken[x.slug] = 1; }); Object.keys(U.uploads || {}).forEach(function (x) { taken[x] = 1; });
-      var slug = slugify(t), n = 2; while (taken[slug]) slug = slugify(t).slice(0, 46) + "-" + n++;
+      var stem = vbase ? slugify(t).slice(0, 44) + "-v" + FA.nextVersion(U, vbase) : slugify(t);
+      var slug = stem, n = 2; while (taken[slug]) slug = stem.slice(0, 46) + "-" + n++;
       var K = await FA.uploadKey(C, slug), box = await FA.encrypt(K, html);
       var content = (await FA.sha256hex(html)).slice(0, 16);
       var tpl = (U.solutions || []).filter(function (x) { return !(U.uploads || {})[x.slug]; })[0];
@@ -510,7 +521,7 @@ var TOOLS = [
       gate = gate.replace(dLine, function () { return '\nvar D={up:1,slug:"' + slug + '",base:"../",iv:"' + box.iv + '",ct:"' + box.ct + '"};'; })
                  .replace(/<meta name="faclon-content" content="[^"]*">/, function () { return '<meta name="faclon-content" content="' + content + '">'; });
       var g0 = await gh(token, "/contents/users.json?ref=main&t=" + Date.now());
-      if (g0.ok) { clash = FA.nameClash(JSON.parse(Buffer.from((await g0.json()).content.replace(/\s/g, ""), "base64").toString("utf8")), t);
+      if (g0.ok) { clash = FA.nameClash(JSON.parse(Buffer.from((await g0.json()).content.replace(/\s/g, ""), "base64").toString("utf8")), t, null, vbase);
         if (clash) throw new Error("A solution called \u201c" + clash + "\u201d already exists. Choose a different title."); }
       var by = String(a.contributor_name || s.acc.name || "").trim().slice(0, 60);
       var meta = await FA.encrypt(K, JSON.stringify({ title: t, sector: String(a.category || "").trim().slice(0, 40), blurb: String(a.description || "").trim().slice(0, 240), by: by, user: s.acc.name, at: new Date().toISOString(), via: "connector" }));
@@ -534,7 +545,7 @@ var TOOLS = [
         throw new Error("the page was published but couldn't be registered (" + pr.status + "); ask the admin to check users.json");
       }
       usersCache = null;
-      return "Published \"" + t + "\"" + (vn ? " as version " + vn + " of " + vbase : "") + ". It will be live in about a minute at " + SITE + slug + "/ (sign in with your Faclon login). " +
+      return "Published \"" + t + "\"" + (vn ? " as version " + vn : "") + ". It will be live in about a minute at " + SITE + slug + "/ (sign in with your Faclon login). " +
         "It shows on the landing page for the admin, super users and contributors; the admin can share it with other users in the User Manager. Its PDF download appears after the next site build.";
     }
   }
