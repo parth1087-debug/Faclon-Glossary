@@ -67,6 +67,7 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
     '.drop{display:block;border:1.5px dashed #C9D2DF;border-radius:12px;padding:16px;text-align:center;font-size:13px;color:#3A4A5F;cursor:pointer;margin-top:12px}' +
     '.drop b{color:#3D63F5}.drop input{display:none}.drop.has{border-style:solid;border-color:#11875F;background:#E5F5EE}' +
     '.st a{color:#3D63F5;font-weight:600}' +
+    'select.in{appearance:auto}.vh{font-size:12px;color:#6B7A90;margin-top:6px}' +
     '.dlink{display:inline-block;text-decoration:none;font:600 14px Inter,system-ui,sans-serif;padding:10px 16px;border-radius:9px;background:#3D63F5;color:#fff}' +
     'ol.steps,ul.tips{margin:8px 0 0;padding-left:20px;font-size:13px;line-height:1.55;color:#3A4A5F}ol.steps li,ul.tips li{margin:0 0 7px}' +
     'ul.tips q{quotes:"\u201c" "\u201d";color:#0F1B2D}' +
@@ -76,7 +77,7 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
     '[hidden]{display:none!important}' +
     '@media (max-width:560px){.bar{flex-wrap:wrap;justify-content:flex-end;row-gap:6px;border-radius:18px}}' +
     '</style>' +
-    '<div class="bar"><span class="who"></span><button id="fsb" type="button" hidden>Full screen</button><button class="pri" id="dl" type="button">Download</button><button id="upb" type="button" hidden>Upload</button>' +
+    '<div class="bar"><span class="who"></span><button id="fsb" type="button" hidden>Full screen</button><button id="nv" type="button" hidden></button><button class="pri" id="dl" type="button">Download</button><button id="upb" type="button" hidden>Upload</button>' +
     (ADM ? '<button id="mu" type="button">Manage users</button>' : '') +
     '<button id="so" type="button">Sign out</button></div>' +
     '<div class="scrim" id="scrim" hidden><div class="dlg" role="dialog" aria-modal="true" aria-labelledby="dh">' +
@@ -97,6 +98,8 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
     '<div class="scrim" id="uscrim" hidden><div class="dlg" role="dialog" aria-modal="true" aria-labelledby="uh">' +
     '<h2 id="uh">Upload a solution page</h2><p>Add a self-contained HTML page (styles and images inside the file). It goes live straight away for admin, super users and contributors; the admin can share it with other users. Building one? Follow the <a href="' + B + 'designskill.md" download="designskill.md" style="color:#3D63F5;font-weight:600">design guide</a> so it matches the site. You can also upload from Claude with the <a href="#" id="conUp">Claude connector</a>.</p>' +
     '<label class="drop" id="drop"><input type="file" id="uf" accept=".html,.htm,text/html"><span id="ufl"><b>Choose an HTML file</b> or drop it here</span></label>' +
+    '<span class="fl">Is this a newer version of an existing solution?</span><select class="in" id="uv"><option value="">No, it\u2019s a new solution</option></select>' +
+    '<p class="vh" id="uvh" hidden>Both versions stay on the site, marked v1, v2\u2026 with the newest labelled Latest. The admin can hide older versions.</p>' +
     '<span class="fl">Title</span><input class="in" id="ut" maxlength="80" placeholder="e.g. Cooling Tower Optimisation">' +
     '<span class="fl">Category <em>(optional)</em></span><input class="in" id="uc" maxlength="40" placeholder="e.g. Power, Metals, Utilities">' +
     '<span class="fl">Short description <em>(optional)</em></span><textarea class="in" id="ud" maxlength="240" placeholder="One or two lines shown on the solution card"></textarea>' +
@@ -250,11 +253,50 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
   usersP.then(function (U) {
     var n = U.names || {}; for (var k in n) if (n[k] && n[k].t) NAMES[k] = n[k].t;
     rename(document, NAMES, SLUG);
+    VU = U; versionChips(document);
   }).catch(function () {});
+  // versions (users.json "versions"): a v1 / v2 · Latest chip on every card of a solution with several versions
+  var VU = null;
+  function chip(f) {
+    var latest = f.n === f.members[f.members.length - 1].n;
+    var t = document.createElement("span");
+    t.className = "fa-ver"; t.textContent = "v" + f.n + (latest ? " \u00b7 Latest" : " \u00b7 Older version");
+    t.setAttribute("style", "display:inline-block;margin:0 6px 8px 0;font:600 11px Inter,system-ui,sans-serif;letter-spacing:.04em;padding:3px 8px;border-radius:999px;" +
+      (latest ? "background:#E5F5EE;color:#11875F" : "background:#EEF1F5;color:#6B7A90"));
+    return t;
+  }
+  function versionChips(doc) {
+    if (!VU) return;
+    doc.querySelectorAll("article.card a.main[href]").forEach(function (a) {
+      if (a.querySelector(".fa-ver")) return;
+      var u; try { u = new URL(a.getAttribute("href"), location.href); } catch (e) { return; }
+      var f = FA.family(VU, u.pathname.slice(base.length).split("/")[0]);
+      if (f) a.insertBefore(chip(f), a.firstChild);
+    });
+  }
   access().then(async function (acc) {
     var U = await usersP;
     if (acc.contrib) { $("upb").hidden = false; $("conSec").hidden = false; $("dl").hidden = FA.isGuide(SLUG); }
-    if (SLUG === "home") placeCards(document, await uploadCards(acc, U));
+    if (SLUG === "home") { placeCards(document, await uploadCards(acc, U)); VU = U; versionChips(document); }
+    // on an older version, point to the newest version this user can open
+    var f = FA.family(U, SLUG);
+    if (f && SLUG !== f.latest) {
+      for (var i = f.members.length - 1; i >= 0 && f.members[i].n > f.n; i--) {
+        var m = f.members[i];
+        if ((acc.admin || FA.canRead(U, m.slug)) && await acc.key(m.slug)) {
+          $("nv").hidden = false; $("nv").textContent = "Newer version (v" + m.n + ") \u2192";
+          $("nv").onclick = (function (sl) { return function () { location.href = B + sl + "/"; }; })(m.slug);
+          break;
+        }
+      }
+    }
+    // the version picker in the Upload dialog lists the solutions this user can open
+    if (acc.contrib) {
+      var opts = SOL.filter(function (x) { return !FA.isGuide(x.slug) && (!A || A.indexOf(x.slug) >= 0); })
+        .map(function (x) { var fv = FA.family(U, x.slug); return { slug: x.slug, label: (NAMES[x.slug] || x.title) + (fv ? " (v" + fv.n + ")" : "") }; })
+        .sort(function (a, b) { return a.label.localeCompare(b.label); });
+      $("uv").insertAdjacentHTML("beforeend", opts.map(function (o) { return '<option value="' + esc(o.slug) + '">' + esc(o.label) + '</option>'; }).join(""));
+    }
   }).catch(function () {});
   $("ccmd").textContent = "claude mcp add faclon -e FACLON_USERNAME=\"your username\" -e FACLON_PASSWORD=\"your password\" -- node /path/to/faclon-glossary-connector.js";
   function conOpen(e) { if (e) e.preventDefault(); $("scrim").hidden = true; $("uscrim").hidden = true; $("cscrim").hidden = false; }
@@ -270,6 +312,13 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
     f.text().then(function (t) { var m = t.match(/<title[^>]*>([\s\S]*?)<\/title>/i); if (m && !$("ut").value) $("ut").value = m[1].replace(/\s+/g, " ").trim().slice(0, 80); });
   }
   $("uf").onchange = function () { pick(this.files[0]); };
+  var autoTitle = "";
+  $("uv").onchange = async function () {
+    var b = this.value, U = await usersP; $("uvh").hidden = !b;
+    if (!b) { if ($("ut").value === autoTitle) $("ut").value = ""; autoTitle = ""; return; }
+    var f = FA.family(U, b), root = f ? f.root : b, name = (NAMES[root] || title(root)).replace(/\s+v\d+$/i, "");
+    if (!$("ut").value.trim() || $("ut").value === autoTitle) { autoTitle = (name + " v" + FA.nextVersion(U, b)).slice(0, 80); $("ut").value = autoTitle; }
+  };
   $("drop").ondragover = function (e) { e.preventDefault(); };
   $("drop").ondrop = function (e) { e.preventDefault(); pick(e.dataTransfer.files[0]); };
   function slugify(t) { return t.toLowerCase().normalize("NFKD").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 50) || "solution"; }
@@ -312,12 +361,13 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
       var g0 = await gh(token, "/contents/users.json?ref=main&t=" + Date.now(), { cache: "no-store" });
       if (g0.ok) { var live = JSON.parse(new TextDecoder().decode(FA.u8((await g0.json()).content.replace(/\s/g, ""))));
         clash = FA.nameClash(live, t); if (clash) throw new Error("a solution called \u201c" + clash + "\u201d already exists. Give your page a different title"); }
-      var by = $("un").value.trim();
+      var by = $("un").value.trim(), vbase = $("uv").value || null, vn = 0;
+      if (vbase && !(U.solutions || []).some(function (x) { return x.slug === vbase; })) throw new Error("the solution you picked as the earlier version no longer exists");
       var meta = await FA.encrypt(K, JSON.stringify({ title: t, sector: $("uc").value.trim(), blurb: $("ud").value.trim(), by: by, user: N, at: new Date().toISOString() }));
       var sup = await FA.wrapForSuper(U, K);
       st.textContent = "Publishing the page…";
       var r = await gh(token, "/contents/" + slug + "/index.html", { method: "PUT", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: "Add " + t + " (uploaded by " + (by || N) + ")", content: FA.b64(new TextEncoder().encode(gate)), branch: "main" }) });
+        body: JSON.stringify({ message: "Add " + t + (vbase ? " (new version of " + vbase + ")" : "") + " (uploaded by " + (by || N) + ")", content: FA.b64(new TextEncoder().encode(gate)), branch: "main" }) });
       if (r.status === 401 || r.status === 403) throw new Error("GitHub didn't accept the contributor access token; ask the admin to renew it");
       if (!r.ok) throw new Error("GitHub said " + r.status);
       st.textContent = "Adding it to the site…";
@@ -328,13 +378,15 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
         J.solutions = (J.solutions || []).filter(function (x) { return x.slug !== slug; }).concat([{ slug: slug, title: t }]);
         J.uploads = J.uploads || {}; J.uploads[slug] = { meta: meta, at: new Date().toISOString() };
         if (sup) { J.vault = J.vault || {}; J.vault[slug] = sup; }
+        if (vbase) vn = FA.addVersion(J, slug, vbase);
         var pr = await gh(token, "/contents/users.json", { method: "PUT", headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ message: "Register uploaded page " + t, content: FA.b64(new TextEncoder().encode(JSON.stringify(J, null, 1) + "\n")), sha: gj.sha, branch: "main" }) });
         if (pr.ok) break;
         if ((pr.status === 409 || pr.status === 422) && tries < 4) { await new Promise(function (ok) { setTimeout(ok, 800 * (tries + 1)); }); continue; }
         throw new Error("couldn't register the page (" + pr.status + ")");
       }
-      st.innerHTML = 'Published. It will be live in about a minute: <a href="' + esc(B + slug + "/") + '">open ' + esc(t) + '</a>';
+      st.innerHTML = 'Published' + (vn ? ' as version ' + vn : '') + '. It will be live in about a minute: <a href="' + esc(B + slug + "/") + '">open ' + esc(t) + '</a>';
+      $("uv").value = ""; $("uvh").hidden = true; autoTitle = "";
       upFile = null; $("drop").classList.remove("has"); $("ufl").innerHTML = "<b>Choose an HTML file</b> or drop it here"; $("ut").value = ""; $("uc").value = ""; $("ud").value = ""; $("uf").value = "";
     } catch (e) { st.className = "st err"; st.textContent = "Couldn't upload: " + e.message; }
     b.disabled = false;

@@ -47,7 +47,7 @@ ROLES = [
     ("Can download", "Also gets the Download button: a PDF of a page, or one HTML file of chosen solutions.", "Set per user, and per solution in Solution access."),
     ("Contributor", "Also gets the Upload button and the Claude connector, and sees every uploaded page.", "Contributors upload straight to the live site, so give this only to people you trust."),
     ("Super user", "Sees every solution, including new ones, without being ticked for each.", ""),
-    ("Admin", "Runs the User Manager: users, passwords, rights, solution access and renames.", "Manage users button in the bar."),
+    ("Admin", "Runs the User Manager: users, passwords, rights, solution access, renames and versions.", "Manage users button in the bar."),
 ]
 
 HTML = f"""<!doctype html>
@@ -229,6 +229,7 @@ kbd{{display:inline-block;font:600 12px Inter,system-ui,sans-serif;background:va
       {steps([
           ("Build the page as one HTML file.", "Styles and images go inside the file. Follow the design skill so it looks like every other page."),
           ("Press Upload and choose the file.", "The title is read from the page; change it if you need to."),
+          ("Updating a page? Pick the solution it replaces.", "Choose it under “Is this a newer version of an existing solution?”. The title becomes, for example, “Steel Use Cases v2”."),
           ("Give it a unique title.", "No two solutions can have the same name, so an upload with a title that's already taken is refused."),
           ("Add a category, a one-line description and your name.", "They appear on the solution card, with “Contributed by” and your name."),
           ("Publish.", "It's live in about a minute."),
@@ -238,7 +239,8 @@ kbd{{display:inline-block;font:600 12px Inter,system-ui,sans-serif;background:va
       <h3>After you upload</h3>
       {tips([
           "<b>Who sees it:</b> the admin, super users and contributors straight away. The admin can share it with other users in the User Manager.",
-          "<b>Changes:</b> you can't edit or delete an uploaded page yourself. Ask the admin, or upload a corrected version with a new title.",
+          "<b>Changes:</b> you can't edit or delete an uploaded page yourself. Upload it again as a newer version of the same solution, or ask the admin.",
+          "<b>Versions:</b> both versions stay on the site, marked v1, v2… with the newest labelled Latest. Older versions show a “Newer version” button. The admin decides when to hide the older ones.",
           "<b>Sandbox:</b> uploaded pages run in a protected frame, so browser storage and pop-ups don't work in them.",
           "<b>Content:</b> only use figures you are allowed to share. See Good practice below.",
       ])}

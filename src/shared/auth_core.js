@@ -20,6 +20,9 @@
                    leaves every keyring and the dvault, and download options are hidden.
      guides      = GUIDES (the Read me): not solutions. Encrypted with the landing-page key so every signed-in
                    user can open them; never in solutions, keyrings, vaults or downloads. Mirror of GUIDES in protect.py.
+     versions[slug] = {of: first version's slug, n: version number}. A newer version of a solution is a
+                   separate page; the first version has no entry (it is v1). Uploads add entries; the User
+                   Manager's "use latest" turns Read off for older versions and gives users the newest.
      keyring     = {n, p:{slug:page key}, d:{slug:pdf key}, c?: contrib key, all?/a?/da?: super user}
      user key    = PBKDF2-SHA256(user password, user.s, users.iter)  (encrypts the user's keyring)
      user id     = SHA-256(users.salt + "|" + lower(username)) as hex
@@ -192,12 +195,45 @@ var FA = (function () {
     }
     return null;
   }
+  /* Versions. family(U, slug) -> {root, members:[{slug, n}] oldest first, n (this slug's number), latest slug};
+     null when the solution has only one version. Only solutions still listed in U.solutions count. */
+  function family(U, slug) {
+    var V = U.versions || {}, listed = {};
+    (U.solutions || []).forEach(function (x) { listed[x.slug] = 1; });
+    var root = V[slug] ? V[slug].of : slug, m = [];
+    if (listed[root]) m.push({ slug: root, n: 1 });
+    Object.keys(V).forEach(function (k) { if (V[k].of === root && listed[k]) m.push({ slug: k, n: V[k].n }); });
+    if (m.length < 2 || !m.some(function (x) { return x.slug === slug; })) return null;
+    m.sort(function (a, b) { return a.n - b.n; });
+    return { root: root, members: m, n: m.filter(function (x) { return x.slug === slug; })[0].n, latest: m[m.length - 1].slug };
+  }
+  /* Number the next version of base's family would get. */
+  function nextVersion(U, base) {
+    var V = U.versions || {}, root = V[base] ? V[base].of : base, n = 1;
+    Object.keys(V).forEach(function (k) { if (V[k].of === root && V[k].n > n) n = V[k].n; });
+    return n + 1;
+  }
+  /* Registers slug as the newest version of base's family in J (a fresh users.json); returns its number. */
+  function addVersion(J, slug, base) {
+    var V = J.versions = J.versions || {}, root = V[base] ? V[base].of : base, n = nextVersion(J, base);
+    V[slug] = { of: root, n: n };
+    return n;
+  }
+  /* Every family with more than one version: [{root, members, latest}]. */
+  function families(U) {
+    var seen = {}, out = [];
+    (U.solutions || []).forEach(function (x) {
+      var f = family(U, x.slug); if (!f || seen[f.root]) return;
+      seen[f.root] = 1; out.push(f);
+    });
+    return out;
+  }
   function getSession() { try { return JSON.parse(localStorage.getItem(SESSION) || sessionStorage.getItem(SESSION) || "null"); } catch (e) { return null; } }
   function setSession(v) { var j = JSON.stringify(v); try { localStorage.setItem(SESSION, j); } catch (e) { try { sessionStorage.setItem(SESSION, j); } catch (e2) {} } }
   function clearSession() { try { localStorage.removeItem(SESSION); sessionStorage.removeItem(SESSION); localStorage.removeItem("faclon-glossary-key"); } catch (e) {} }
   return {
     u8: u8, b64: b64, pbkdf2: pbkdf2, hmac: hmac, encrypt: encrypt, decrypt: decrypt, decryptBytes: decryptBytes, sha256hex: sha256hex,
-    norm: norm, userId: userId, pageKey: pageKey, allKey: allKey, dallKey: dallKey, contribKey: contribKey, uploadKey: uploadKey, isUpload: isUpload, isGuide: isGuide, keyFor: keyFor, wrapForSuper: wrapForSuper, nameKey: nameKey, nameClash: nameClash, pdfKey: pdfKey, canRead: canRead, canDownload: canDownload, syncVault: syncVault, fillVault: fillVault, buildRing: buildRing, loadUsers: loadUsers, adminMaster: adminMaster,
+    norm: norm, userId: userId, pageKey: pageKey, allKey: allKey, dallKey: dallKey, contribKey: contribKey, uploadKey: uploadKey, isUpload: isUpload, isGuide: isGuide, keyFor: keyFor, wrapForSuper: wrapForSuper, nameKey: nameKey, nameClash: nameClash, family: family, families: families, nextVersion: nextVersion, addVersion: addVersion, pdfKey: pdfKey, canRead: canRead, canDownload: canDownload, syncVault: syncVault, fillVault: fillVault, buildRing: buildRing, loadUsers: loadUsers, adminMaster: adminMaster,
     login: login, access: access, getSession: getSession, setSession: setSession, clearSession: clearSession
   };
 })();
