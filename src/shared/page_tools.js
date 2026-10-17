@@ -21,7 +21,7 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
     if (!p || (p.read !== false && p.download !== false)) return;
     var t = document.createElement("span");
     t.textContent = p.read === false ? "Hidden from users" : "Download off";
-    t.setAttribute("style", "display:inline-block;margin:0 0 8px;font:600 11px Inter,system-ui,sans-serif;letter-spacing:.04em;padding:3px 8px;border-radius:999px;" +
+    t.setAttribute("style", "display:inline-block;align-self:flex-start;margin:0 0 8px;font:600 11px Inter,system-ui,sans-serif;letter-spacing:.04em;padding:3px 8px;border-radius:999px;" +
       (p.read === false ? "background:#FCECEA;color:#C0392B" : "background:#FDF3E1;color:#B7791F"));
     a.insertBefore(t, a.firstChild);
   });
@@ -67,7 +67,7 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
     '.drop{display:block;border:1.5px dashed #C9D2DF;border-radius:12px;padding:16px;text-align:center;font-size:13px;color:#3A4A5F;cursor:pointer;margin-top:12px}' +
     '.drop b{color:#3D63F5}.drop input{display:none}.drop.has{border-style:solid;border-color:#11875F;background:#E5F5EE}' +
     '.st a{color:#3D63F5;font-weight:600}' +
-    'select.in{appearance:auto}.vh{font-size:12px;color:#6B7A90;margin-top:6px}' +
+    'select.in{appearance:auto}select.in:disabled{background:#F6F8FB;color:#3A4A5F;opacity:1}.vh{font-size:12px;color:#6B7A90;margin-top:6px}' +
     '.vt{display:inline-block;margin-left:6px;font-size:11px;font-weight:700;letter-spacing:.04em;padding:2px 8px;border-radius:999px;background:#E5F5EE;color:#11875F}' +
     '.in[readonly]{background:#F6F8FB;color:#3A4A5F}' +
     '.dlink{display:inline-block;text-decoration:none;font:600 14px Inter,system-ui,sans-serif;padding:10px 16px;border-radius:9px;background:#3D63F5;color:#fff}' +
@@ -103,8 +103,10 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
     '<span class="fl">Is this a newer version of an existing solution?</span><select class="in" id="uv"><option value="">No, it\u2019s a new solution</option></select>' +
     '<p class="vh" id="uvh" hidden>It keeps the same name and gets the next version number automatically. Both versions stay on the site, marked v1, v2\u2026 with the newest labelled Latest; the admin can hide older versions.</p>' +
     '<span class="fl">Title <span class="vt" id="utv" hidden></span></span><input class="in" id="ut" maxlength="80" placeholder="e.g. Cooling Tower Optimisation">' +
-    '<span class="fl">Category <em>(optional)</em></span><input class="in" id="uc" maxlength="40" placeholder="e.g. Power, Metals, Utilities">' +
-    '<span class="fl">Short description <em>(optional)</em></span><textarea class="in" id="ud" maxlength="240" placeholder="One or two lines shown on the solution card"></textarea>' +
+    '<span class="fl">Category <span class="vt" id="ugv" hidden>Same as the earlier version</span></span><select class="in" id="ug"><option value="">Choose a category\u2026</option>' +
+    FA.CATS.map(function (c) { return '<option value="' + c[0] + '">' + c[1] + '</option>'; }).join("") + '</select>' +
+    '<p class="vh">The group it is listed under on the main menu.</p>' +
+    '<span class="fl">Industry or area <em>(optional, shown above the name)</em></span><input class="in" id="uc" maxlength="40" placeholder="e.g. Power, Metals, Utilities">' +
     '<span class="fl">Your name <em>(optional, shown as \u201cContributed by\u201d)</em></span><input class="in" id="un" maxlength="60">' +
     '<div class="st" id="ust" style="margin-top:12px"></div>' +
     '<div class="row" style="justify-content:flex-end"><button id="ucancel" type="button">Cancel</button><button class="pri big" id="ugo" type="button">Upload and publish</button></div>' +
@@ -121,7 +123,7 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
     '<li><q>Summarise the Steam Trap page for a plant head.</q></li>' +
     '<li><q>Save the I/O Vision and Energy Management pages as PDF.</q></li>' +
     '<li><q>Get the Faclon design skill and build a solution page on cooling tower optimisation from my notes.</q></li>' +
-    '<li><q>Upload cooling-tower.html from my Desktop as Cooling Tower Optimisation, category Utilities.</q></li></ul>' +
+    '<li><q>Upload cooling-tower.html from my Desktop as Cooling Tower Optimisation, under Solution documents.</q></li></ul>' +
     '<div class="eb">Good to know</div><ul class="tips">' +
     '<li>You get the same pages and download rights as on this site. Uploads go live straight away, as with the Upload button, so Claude checks with you before publishing.</li>' +
     '<li>If your password or access changes, update it in Claude under <b>Settings \u2192 Extensions \u2192 Faclon Labs solutions</b>.</li>' +
@@ -218,12 +220,34 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
   function title(slug) { var s = SOL.filter(function (x) { return x.slug === slug; })[0]; return s ? (NAMES[slug] || s.title) + (VU ? FA.versionLabel(VU, slug) : "") : "Faclon Labs"; }
 
   // contributor uploads: cards on the landing page + the Upload button
-  function cardHTML(slug, m) {
+  function cardHTML(slug, m, cat) {
     var tags = m.by ? '<div class="tags"><span>Contributed by ' + esc(m.by) + '</span></div>' : '';
-    return '<article class="card live b" data-upload="' + esc(slug) + '"><a class="main" href="' + esc(slug) + '/">' +
+    return '<article class="card live b" data-upload="' + esc(slug) + '" data-cat="' + esc(cat || "others") + '"><a class="main" href="' + esc(slug) + '/">' +
       '<div class="top"><span class="sec">' + esc(m.sector || "Contributed") + '</span><span class="pill on">Live</span></div>' +
-      '<h3>' + esc(NAMES[slug] || m.title) + '</h3>' + (m.blurb ? '<p>' + esc(m.blurb) + '</p>' : '') + tags +
+      '<h3>' + esc(NAMES[slug] || m.title) + '</h3>' + tags +
       '<span class="open">Open solution →</span></a></article>';
+  }
+  // categories (users.json "cats", FA.CATS): group each landing-page card under its solution's category
+  function catFor(U, slug, fallback) {
+    var c = U.cats || {}, r = FA.rootOf(U, slug);
+    return (FA.catLabel(c[slug]) && c[slug]) || (FA.catLabel(c[r]) && c[r]) || fallback || "others";
+  }
+  function regroup(doc, U) {
+    var G = doc.defaultView && doc.defaultView.faGroups; if (!G) return;
+    doc.querySelectorAll("article.card").forEach(function (c) {
+      var slug = c.getAttribute("data-slug") || c.getAttribute("data-upload"); if (!slug) return;
+      G.place(c, catFor(U, slug, c.getAttribute("data-cat")));
+    });
+    // versions of one solution sit together, oldest first
+    FA.families(U).forEach(function (f) {
+      var prev = null;
+      f.members.forEach(function (m) {
+        var c = doc.querySelector('article.card[data-slug="' + m.slug + '"],article.card[data-upload="' + m.slug + '"]');
+        if (c && prev && prev.parentNode === c.parentNode && prev.nextElementSibling !== c) prev.parentNode.insertBefore(c, prev.nextElementSibling);
+        if (c) prev = c;
+      });
+    });
+    G.refresh();
   }
   async function uploadCards(acc, U, only) {
     var out = [], ups = U.uploads || {};
@@ -231,15 +255,21 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
       if (only && only.indexOf(slug) < 0) continue;
       try {
         var k = await acc.key(slug); if (!k) continue;
-        out.push({ slug: slug, html: cardHTML(slug, JSON.parse(await FA.decrypt(k, ups[slug].meta.iv, ups[slug].meta.ct))) });
+        var cat = catFor(U, slug);
+        out.push({ slug: slug, cat: cat, html: cardHTML(slug, JSON.parse(await FA.decrypt(k, ups[slug].meta.iv, ups[slug].meta.ct)), cat) });
       } catch (e) {}
     }
     return out;
   }
   function placeCards(doc, cards) {
     var first = doc.querySelector("article.card"); if (!first || !cards.length) return;
-    var box = first.parentNode;
-    cards.forEach(function (c) { if (!doc.querySelector('[data-upload="' + c.slug + '"]')) box.insertAdjacentHTML("beforeend", c.html); });
+    var G = doc.defaultView && doc.defaultView.faGroups;
+    cards.forEach(function (c) {
+      if (doc.querySelector('[data-upload="' + c.slug + '"]')) return;
+      var g = doc.querySelector('.grp[data-cat="' + (c.cat || "others") + '"] .grid') || first.parentNode;
+      g.insertAdjacentHTML("beforeend", c.html);
+    });
+    if (G) G.refresh();
   }
   var usersP = FA.loadUsers(B);
   // names the admin changed in the User Manager (users.json "names"): cards and the browser tab follow them
@@ -255,7 +285,7 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
   usersP.then(function (U) {
     var n = U.names || {}; for (var k in n) if (n[k] && n[k].t) NAMES[k] = n[k].t;
     rename(document, NAMES, SLUG);
-    VU = U; versionChips(document);
+    VU = U; versionChips(document); regroup(document, U);
     var vl = FA.versionLabel(U, SLUG);
     if (vl) document.title = (NAMES[SLUG] || title(SLUG).replace(/ v\d+$/, "")).replace(/\s*\u00b7\s*Faclon Labs$/, "") + vl + " \u00b7 Faclon Labs";
     root.querySelectorAll("#sols label").forEach(function (l) { var i = l.querySelector("input"); l.lastChild.textContent = title(i.value); });
@@ -266,7 +296,7 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
     var latest = f.n === f.members[f.members.length - 1].n;
     var t = document.createElement("span");
     t.className = "fa-ver"; t.textContent = "v" + f.n + (latest ? " \u00b7 Latest" : " \u00b7 Older version");
-    t.setAttribute("style", "display:inline-block;margin:0 6px 8px 0;font:600 11px Inter,system-ui,sans-serif;letter-spacing:.04em;padding:3px 8px;border-radius:999px;" +
+    t.setAttribute("style", "display:inline-block;align-self:flex-start;margin:0 6px 8px 0;font:600 11px Inter,system-ui,sans-serif;letter-spacing:.04em;padding:3px 8px;border-radius:999px;" +
       (latest ? "background:#E5F5EE;color:#11875F" : "background:#EEF1F5;color:#6B7A90"));
     return t;
   }
@@ -282,7 +312,7 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
   access().then(async function (acc) {
     var U = await usersP;
     if (acc.contrib) { $("upb").hidden = false; $("conSec").hidden = false; $("dl").hidden = FA.isGuide(SLUG); }
-    if (SLUG === "home") { placeCards(document, await uploadCards(acc, U)); VU = U; versionChips(document); }
+    if (SLUG === "home") { placeCards(document, await uploadCards(acc, U)); VU = U; versionChips(document); regroup(document, U); }
     // on an older version, point to the newest version this user can open
     var f = FA.family(U, SLUG);
     if (f && SLUG !== f.latest) {
@@ -320,7 +350,8 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
   // a newer version keeps the solution's name (locked) and gets the next version number automatically
   function familyName(U, b) { var r = FA.rootOf(U, b), s = (U.solutions || []).filter(function (x) { return x.slug === r; })[0]; return NAMES[r] || (s ? s.title : title(b)); }
   $("uv").onchange = async function () {
-    var b = this.value, U = await usersP; $("uvh").hidden = !b; $("utv").hidden = !b; $("ut").readOnly = !!b;
+    var b = this.value, U = await usersP; $("ust").textContent = ""; $("uvh").hidden = !b; $("utv").hidden = !b; $("ut").readOnly = !!b;
+    $("ug").disabled = !!b; $("ugv").hidden = !b; $("ug").value = b ? catFor(U, b) : "";
     if (!b) { $("ut").value = ""; return; }
     $("ut").value = familyName(U, b); $("utv").textContent = "v" + FA.nextVersion(U, b) + " \u00b7 added automatically";
   };
@@ -338,6 +369,7 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
     var t = $("ut").value.trim();
     if (!upFile) { st.className = "st err"; st.textContent = "Choose an HTML file first."; return; }
     if (!t) { st.className = "st err"; st.textContent = "Give the page a title."; return; }
+    if (!$("uv").value && !$("ug").value) { st.className = "st err"; st.textContent = "Choose a category for the new solution."; $("ug").focus(); return; }
     if (upFile.size > 20 * 1048576) { st.className = "st err"; st.textContent = "That file is over 20 MB. Compress its images and try again."; return; }
     b.disabled = true;
     try {
@@ -371,7 +403,9 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
       if (g0.ok) { var live = JSON.parse(new TextDecoder().decode(FA.u8((await g0.json()).content.replace(/\s/g, ""))));
         clash = FA.nameClash(live, t, null, vbase); if (clash) throw new Error("a solution called \u201c" + clash + "\u201d already exists. Give your page a different title"); }
       var by = $("un").value.trim();
-      var meta = await FA.encrypt(K, JSON.stringify({ title: t, sector: $("uc").value.trim(), blurb: $("ud").value.trim(), by: by, user: N, at: new Date().toISOString() }));
+      var cat = vbase ? catFor(U, vbase) : FA.catId($("ug").value);
+      if (!cat) throw new Error("choose a category");
+      var meta = await FA.encrypt(K, JSON.stringify({ title: t, sector: $("uc").value.trim(), by: by, user: N, at: new Date().toISOString() }));
       var sup = await FA.wrapForSuper(U, K);
       st.textContent = "Publishing the page…";
       var r = await gh(token, "/contents/" + slug + "/index.html", { method: "PUT", headers: { "Content-Type": "application/json" },
@@ -387,6 +421,7 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
         J.uploads = J.uploads || {}; J.uploads[slug] = { meta: meta, at: new Date().toISOString() };
         if (sup) { J.vault = J.vault || {}; J.vault[slug] = sup; }
         if (vbase) vn = FA.addVersion(J, slug, vbase);
+        J.cats = J.cats || {}; J.cats[slug] = vbase ? catFor(J, vbase, cat) : cat;
         var pr = await gh(token, "/contents/users.json", { method: "PUT", headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ message: "Register uploaded page " + t, content: FA.b64(new TextEncoder().encode(JSON.stringify(J, null, 1) + "\n")), sha: gj.sha, branch: "main" }) });
         if (pr.ok) break;
@@ -394,8 +429,8 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
         throw new Error("couldn't register the page (" + pr.status + ")");
       }
       st.innerHTML = 'Published' + (vn ? ' as version ' + vn : '') + '. It will be live in about a minute: <a href="' + esc(B + slug + "/") + '">open ' + esc(t + (vn ? " v" + vn : "")) + '</a>';
-      $("uv").value = ""; $("uvh").hidden = true; $("utv").hidden = true; $("ut").readOnly = false;
-      upFile = null; $("drop").classList.remove("has"); $("ufl").innerHTML = "<b>Choose an HTML file</b> or drop it here"; $("ut").value = ""; $("uc").value = ""; $("ud").value = ""; $("uf").value = "";
+      $("uv").value = ""; $("uvh").hidden = true; $("utv").hidden = true; $("ut").readOnly = false; $("ug").disabled = false; $("ugv").hidden = true; $("ug").value = "";
+      upFile = null; $("drop").classList.remove("has"); $("ufl").innerHTML = "<b>Choose an HTML file</b> or drop it here"; $("ut").value = ""; $("uc").value = ""; $("uf").value = "";
     } catch (e) { st.className = "st err"; st.textContent = "Couldn't upload: " + e.message; }
     b.disabled = false;
   };
@@ -439,8 +474,9 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
       for (var i = 0; i < picked.length; i++) { st.textContent = "Adding " + title(picked[i]) + "…"; pages[picked[i]] = await pageHTML(acc, picked[i]); }
       var start = picked.length === 1 ? picked[0] : "home";
       var name = picked.length === 1 ? title(picked[0]) + " - Faclon Labs" : "Faclon Labs Solutions";
-      var cards = await uploadCards(acc, await usersP, picked);
-      var json = JSON.stringify({ pages: pages, picked: picked, all: slugs, start: start, site: siteURL, cards: cards, names: NAMES }).replace(/</g, "\\u003c");
+      var UU = await usersP, cards = await uploadCards(acc, UU, picked), cats = {};
+      slugs.forEach(function (sl) { var c = catFor(UU, sl, null); if (c !== "others" || (UU.cats || {})[sl]) cats[sl] = c; });
+      var json = JSON.stringify({ pages: pages, picked: picked, all: slugs, start: start, site: siteURL, cards: cards, names: NAMES, cats: cats }).replace(/</g, "\\u003c");
       var html = '<!doctype html>\n<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">' +
         '<meta name="robots" content="noindex"><title>' + esc(name) + '</title>' +
         '<link rel="icon" type="image/png" href="__FAVICON__"><link rel="apple-touch-icon" href="__FAVICON__">' +
@@ -482,7 +518,12 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
         });
         if (p === "home" && D.cards && D.cards.length) {
           var first = doc.querySelector("article.card");
-          if (first) D.cards.forEach(function (c) { first.parentNode.insertAdjacentHTML("beforeend", c.html); });
+          if (first) D.cards.forEach(function (c) { (doc.querySelector('.grp[data-cat="' + (c.cat || "others") + '"] .grid') || first.parentNode).insertAdjacentHTML("beforeend", c.html); });
+        }
+        var G = v.contentWindow && v.contentWindow.faGroups;
+        if (p === "home" && G) {
+          doc.querySelectorAll("article.card").forEach(function (c) { var k = (D.cats || {})[c.getAttribute("data-slug") || c.getAttribute("data-upload")]; if (k) G.place(c, k); });
+          G.refresh();
         }
         doc.querySelectorAll("a[href]").forEach(function (a) {
           var t = target(a.getAttribute("href"), p); if (!t) return;

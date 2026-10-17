@@ -430,5 +430,32 @@
    "of": "power-plant-ai",
    "n": 2
   }
+ },
+ "cats": {
+  "agrochemicals-use-cases": "maps",
+  "ai-closed-loop-soot-blowing": "cases",
+  "aluminium-use-cases": "maps",
+  "bess-use-cases": "maps",
+  "bus-bar-monitoring": "solution",
+  "cement-ai-use-case-map": "maps",
+  "chemicals-use-cases": "maps",
+  "coal-mining-ai-use-case-map": "maps",
+  "condition-based-monitoring": "solution",
+  "copper-use-cases": "maps",
+  "discrete-manufacturing-use-cases": "maps",
+  "energy-management": "solution",
+  "faclon-ai-native-stack-platform-capability-referen": "technical",
+  "faclon-overview": "core",
+  "io-vision": "solution",
+  "it-ot-integration": "technical",
+  "power-plant-ai": "solution",
+  "power-plant-ai-use-cases-v2": "solution",
+  "pulp-fibre-use-cases": "maps",
+  "pulp-paper-ai-use-case-map": "maps",
+  "pulp-paper-use-cases-2": "maps",
+  "refinery-petrochemicals-use-cases": "maps",
+  "solar-use-cases": "maps",
+  "steam-trap-monitoring": "solution",
+  "steel-ai-use-case-map": "maps"
  }
 }

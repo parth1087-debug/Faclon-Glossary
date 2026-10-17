@@ -19,9 +19,17 @@ E = html.escape
 # accent : "blue" (insight, analytics) or "green" (control, outcomes)
 # live   : True once /<slug>/index.html exists; False shows a "Coming soon" card
 # links  : extra downloads shown on live cards, as (label, file inside the slug folder)
+# cat    : landing-page group, an id from CATS. users.json "cats" (set at upload or in the User Manager)
+#          overrides it on the live site; protect.py copies it there for pages that have none.
+#          blurb is kept for reference but no longer shown on cards.
+# Mirror of CATS in src/shared/auth_core.js and protect.py
+CATS = [("core", "Core documents"), ("solution", "Solution documents"), ("maps", "Industry use case maps"),
+        ("cases", "Case studies"), ("technical", "Technical documents"), ("others", "Others")]
+
 SOLUTIONS = [
     {
         "slug": "faclon-overview",
+        "cat": "core",
         "name": "Faclon Labs Overview",
         "sector": "Company",
         "accent": "blue",
@@ -33,6 +41,7 @@ SOLUTIONS = [
     },
     {
         "slug": "power-plant-ai",
+        "cat": "solution",
         "name": "Power Plant AI",
         "sector": "Power",
         "accent": "green",
@@ -44,6 +53,7 @@ SOLUTIONS = [
     },
     {
         "slug": "ai-closed-loop-soot-blowing",
+        "cat": "cases",
         "name": "AI Closed-Loop Soot Blowing",
         "sector": "Boilers · Pulp & paper",
         "accent": "green",
@@ -55,6 +65,7 @@ SOLUTIONS = [
     },
     {
         "slug": "steel-ai-use-case-map",
+        "cat": "maps",
         "name": "Steel AI Use Case Map",
         "sector": "Metals",
         "accent": "blue",
@@ -66,6 +77,7 @@ SOLUTIONS = [
     },
     {
         "slug": "cement-ai-use-case-map",
+        "cat": "maps",
         "name": "Cement AI Use Case Map",
         "sector": "Cement",
         "accent": "blue",
@@ -77,6 +89,7 @@ SOLUTIONS = [
     },
     {
         "slug": "pulp-paper-ai-use-case-map",
+        "cat": "maps",
         "name": "Pulp & Paper AI Use Case Map",
         "sector": "Pulp & Paper",
         "accent": "blue",
@@ -88,6 +101,7 @@ SOLUTIONS = [
     },
     {
         "slug": "coal-mining-ai-use-case-map",
+        "cat": "maps",
         "name": "Coal Mining AI Use Case Map",
         "sector": "Mining",
         "accent": "blue",
@@ -99,6 +113,7 @@ SOLUTIONS = [
     },
     {
         "slug": "aluminium-use-cases",
+        "cat": "maps",
         "name": "Aluminium Use Cases",
         "sector": "Metals",
         "accent": "blue",
@@ -109,6 +124,7 @@ SOLUTIONS = [
     },
     {
         "slug": "copper-use-cases",
+        "cat": "maps",
         "name": "Copper Use Cases",
         "sector": "Metals",
         "accent": "blue",
@@ -119,6 +135,7 @@ SOLUTIONS = [
     },
     {
         "slug": "pulp-fibre-use-cases",
+        "cat": "maps",
         "name": "Pulp & Fibre Use Cases",
         "sector": "Pulp & Fibre",
         "accent": "blue",
@@ -129,6 +146,7 @@ SOLUTIONS = [
     },
     {
         "slug": "refinery-petrochemicals-use-cases",
+        "cat": "maps",
         "name": "Refinery & Petrochemicals Use Cases",
         "sector": "Oil & Gas",
         "accent": "blue",
@@ -139,6 +157,7 @@ SOLUTIONS = [
     },
     {
         "slug": "chemicals-use-cases",
+        "cat": "maps",
         "name": "Chemicals Use Cases",
         "sector": "Chemicals",
         "accent": "blue",
@@ -149,6 +168,7 @@ SOLUTIONS = [
     },
     {
         "slug": "agrochemicals-use-cases",
+        "cat": "maps",
         "name": "Agrochemicals Use Cases",
         "sector": "Chemicals",
         "accent": "blue",
@@ -159,6 +179,7 @@ SOLUTIONS = [
     },
     {
         "slug": "solar-use-cases",
+        "cat": "maps",
         "name": "Solar Use Cases",
         "sector": "Renewables",
         "accent": "blue",
@@ -169,6 +190,7 @@ SOLUTIONS = [
     },
     {
         "slug": "bess-use-cases",
+        "cat": "maps",
         "name": "Battery Energy Storage Use Cases",
         "sector": "Renewables",
         "accent": "blue",
@@ -179,6 +201,7 @@ SOLUTIONS = [
     },
     {
         "slug": "bus-bar-monitoring",
+        "cat": "solution",
         "name": "Bus Bar Monitoring",
         "sector": "Electrical · All industries",
         "accent": "blue",
@@ -190,6 +213,7 @@ SOLUTIONS = [
     },
     {
         "slug": "condition-based-monitoring",
+        "cat": "solution",
         "name": "Condition Based Monitoring",
         "sector": "All industries",
         "accent": "blue",
@@ -201,6 +225,7 @@ SOLUTIONS = [
     },
     {
         "slug": "it-ot-integration",
+        "cat": "technical",
         "name": "IT-OT Integration",
         "sector": "All industries",
         "accent": "blue",
@@ -212,6 +237,7 @@ SOLUTIONS = [
     },
     {
         "slug": "io-vision",
+        "cat": "solution",
         "name": "I/O Vision",
         "sector": "Computer vision",
         "accent": "blue",
@@ -223,6 +249,7 @@ SOLUTIONS = [
     },
     {
         "slug": "metals-ai",
+        "cat": "solution",
         "name": "Metals AI",
         "sector": "Metals",
         "accent": "green",
@@ -234,6 +261,7 @@ SOLUTIONS = [
     },
     {
         "slug": "energy-management",
+        "cat": "solution",
         "name": "Energy Management",
         "sector": "All industries",
         "accent": "blue",
@@ -245,6 +273,7 @@ SOLUTIONS = [
     },
     {
         "slug": "steam-trap-monitoring",
+        "cat": "solution",
         "name": "Steam Trap Failure Detection",
         "sector": "Process industries",
         "accent": "blue",
@@ -256,6 +285,7 @@ SOLUTIONS = [
     },
     {
         "slug": "oee-monitoring",
+        "cat": "solution",
         "name": "OEE Monitoring",
         "sector": "Manufacturing",
         "accent": "blue",
@@ -267,6 +297,7 @@ SOLUTIONS = [
     },
     {
         "slug": "airports",
+        "cat": "solution",
         "name": "Airports",
         "sector": "Infrastructure",
         "accent": "blue",
@@ -287,22 +318,20 @@ def card(s):
             f'<a class="dl" href="{E(s["slug"])}/{E(f)}">{E(label)} ↓</a>' for label, f in s["links"]
         )
         return f"""
-  <article class="card live {accent}">
+  <article class="card live {accent}" data-slug="{E(s['slug'])}" data-cat="{E(s['cat'])}">
     <a class="main" href="{E(s['slug'])}/">
       <div class="top"><span class="sec">{E(s['sector'])}</span><span class="pill on">Live</span></div>
       <h3>{E(s['name'])}</h3>
-      <p>{E(s['blurb'])}</p>
       {tags_html}
       <span class="open">Open solution →</span>
     </a>
     {f'<div class="extra">{extra}</div>' if extra else ''}
   </article>"""
     return f"""
-  <article class="card soon {accent}" aria-disabled="true">
+  <article class="card soon {accent}" aria-disabled="true" data-slug="{E(s['slug'])}" data-cat="{E(s['cat'])}">
     <div class="main">
       <div class="top"><span class="sec">{E(s['sector'])}</span><span class="pill">Coming soon</span></div>
       <h3>{E(s['name'])}</h3>
-      <p>{E(s['blurb'])}</p>
       {tags_html}
     </div>
   </article>"""
@@ -312,7 +341,56 @@ live = [s for s in SOLUTIONS if s["live"]]
 soon = [s for s in SOLUTIONS if not s["live"]]
 # "Coming soon" cards are hidden for now; set SHOW_COMING_SOON = True to list them again.
 SHOW_COMING_SOON = False
-cards = "".join(card(s) for s in live + (soon if SHOW_COMING_SOON else []))
+shown = live + (soon if SHOW_COMING_SOON else [])
+
+
+def group(cid, label):
+    inner = "".join(card(s) for s in shown if s["cat"] == cid)
+    return f"""
+  <section class="grp" data-cat="{cid}" data-label="{E(label)}">
+    <h3 class="gh"><button type="button" aria-expanded="true"><span class="chev" aria-hidden="true"></span><span class="gl">{E(label)}</span><span class="n"></span></button></h3>
+    <div class="grid">{inner}
+    </div>
+  </section>"""
+
+
+groups = "".join(group(c, l) for c, l in CATS)
+
+# Groups: expand/collapse each or all (all open on load), search by name, sector, tags or group.
+# Cards hidden by access (style.display none, page_tools.js) or moved between groups are picked up
+# by the observer, so empty groups disappear and counts stay right.
+SCRIPT = r"""<script>
+(function(){
+  var box=document.getElementById('groups');if(!box)return;
+  var groups=[].slice.call(box.querySelectorAll('.grp')),q=document.getElementById('q'),none=document.getElementById('none');
+  var low=function(x){return String(x||'').toLowerCase()};
+  function text(c){var o='';['h3','.sec','.tags','.fa-ver'].forEach(function(k){c.querySelectorAll(k).forEach(function(e){o+=' '+e.textContent})});return low(o)}
+  function refresh(){
+    var t=low(q&&q.value).trim(),total=0;
+    groups.forEach(function(g){
+      var n=0,lab=low(g.getAttribute('data-label'));
+      g.querySelectorAll('article.card').forEach(function(c){
+        var allowed=c.style.display!=='none',ok=allowed&&(!t||lab.indexOf(t)>=0||text(c).indexOf(t)>=0);
+        c.classList.toggle('nomatch',allowed&&!ok);if(ok)n++;
+      });
+      g.hidden=!n;g.classList.toggle('searching',!!t);
+      var e=g.querySelector('.n');if(e&&e.textContent!==String(n))e.textContent=n;total+=n;
+    });
+    if(none){none.hidden=!(t&&!total);var w=none.querySelector('b');if(w)w.textContent=q.value.trim()}
+  }
+  function setOpen(g,on){g.classList.toggle('closed',!on);g.querySelector('.gh button').setAttribute('aria-expanded',on?'true':'false')}
+  groups.forEach(function(g){g.querySelector('.gh button').addEventListener('click',function(){setOpen(g,g.classList.contains('closed'))})});
+  var ea=document.getElementById('ea'),ca=document.getElementById('ca');
+  if(ea)ea.onclick=function(){groups.forEach(function(g){setOpen(g,true)})};
+  if(ca)ca.onclick=function(){groups.forEach(function(g){setOpen(g,false)})};
+  if(q){q.addEventListener('input',refresh);q.addEventListener('keydown',function(e){if(e.key==='Escape'){q.value='';refresh()}})}
+  var pend=0;function soon(){if(pend)return;pend=1;(window.requestAnimationFrame||setTimeout)(function(){pend=0;refresh()})}
+  if(window.MutationObserver)groups.forEach(function(g){new MutationObserver(soon).observe(g.querySelector('.grid'),{childList:true,subtree:true,attributes:true,attributeFilter:['style']})});
+  /* moves a card to its group (used by the signed-in tools and the offline viewer) */
+  window.faGroups={refresh:refresh,place:function(card,cat){var g=box.querySelector('.grp[data-cat="'+cat+'"]')||box.querySelector('.grp[data-cat="others"]');if(g&&card.parentNode!==g.querySelector('.grid'))g.querySelector('.grid').appendChild(card)}};
+  refresh();
+})();
+</script>"""
 
 HTML = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -334,15 +412,13 @@ h1,h2,h3{{letter-spacing:-.015em;line-height:1.2}}
 
 .hero{{background:var(--navy);color:#fff;position:relative;overflow:hidden}}
 .hero:before{{content:"";position:absolute;right:-180px;top:-220px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(124,149,255,.3),rgba(124,149,255,0) 68%)}}
-.hero .wrap{{position:relative;padding-top:34px;padding-bottom:64px}}
+.hero .wrap{{position:relative;padding-top:34px;padding-bottom:56px}}
 .brand{{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#9FB0CC}}
 .brand b{{color:#fff;letter-spacing:.22em}}
 .hero h1{{font-size:clamp(34px,5.4vw,56px);font-weight:700;margin:72px 0 18px;max-width:800px;text-wrap:balance}}
 .hero h1 em{{font-style:normal;color:var(--blue2)}}
 .lede{{font-size:clamp(16px,1.8vw,19px);color:#C5D0E3;max-width:660px}}
 .sectors{{display:flex;flex-wrap:wrap;gap:8px;margin-top:30px}}
-.heroact{{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}}
-.btn.ghost{{background:transparent;border:1px solid rgba(255,255,255,.3)}}
 .btn:hover,.btn:focus-visible{{filter:brightness(1.1)}}
 .navlink{{color:#fff;text-decoration:none;letter-spacing:.12em;font-weight:600}}
 .navlink:hover{{color:var(--blue2)}}
@@ -350,14 +426,14 @@ h1,h2,h3{{letter-spacing:-.015em;line-height:1.2}}
 #solutions{{scroll-margin-top:24px}}
 .sectors span{{font-size:13px;color:#D5DEEE;border:1px solid rgba(255,255,255,.16);border-radius:20px;padding:4px 12px}}
 
-main .wrap{{padding-top:64px;padding-bottom:80px}}
+main .wrap{{padding-top:56px;padding-bottom:80px}}
 h2{{font-size:32px;font-weight:700;margin:8px 0 10px}}
 .sub{{color:var(--ink2);font-size:17px;max-width:640px;margin-bottom:32px}}
 .grid{{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-flow:dense;gap:18px}}
 .card{{border:1px solid var(--line);border-radius:16px;background:#fff;display:flex;flex-direction:column;overflow:hidden;position:relative}}
 .card:before{{content:"";position:absolute;left:0;top:0;right:0;height:4px;background:var(--line)}}
 .card.live.g:before{{background:var(--green)}} .card.live.b:before{{background:var(--blue)}}
-.card .main{{display:flex;flex-direction:column;padding:24px 22px 22px;flex:1;color:inherit;text-decoration:none}}
+.card .main{{display:flex;flex-direction:column;padding:22px 20px 18px;flex:1;color:inherit;text-decoration:none}}
 .card.live{{grid-column:{"span 2" if SHOW_COMING_SOON else "auto"};transition:border-color .15s,box-shadow .15s}}
 .card.live:hover,.card.live:focus-within{{border-color:#C9D3E3;box-shadow:0 10px 28px rgba(15,27,45,.08)}}
 .card .main:focus-visible{{outline:2px solid var(--blue);outline-offset:-4px;border-radius:14px}}
@@ -367,15 +443,32 @@ h2{{font-size:32px;font-weight:700;margin:8px 0 10px}}
 .pill.on{{background:var(--greenBg);color:var(--green)}}
 .card.b .pill.on{{background:var(--blueBg);color:var(--blue)}}
 .card h3{{font-size:21px;font-weight:700;margin-bottom:6px}}
-.card.live h3{{font-size:28px}}
-.card p{{color:var(--ink2);font-size:14.5px;max-width:560px}}
+.card.live h3{{font-size:22px}}
 .card.soon h3{{color:var(--ink2)}}
 .card.soon p{{color:var(--mute)}}
 .tags{{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}}
 .tags span{{font-size:12px;font-weight:600;border-radius:20px;padding:3px 10px;border:1px solid var(--line);color:var(--ink2)}}
-.open{{margin-top:auto;padding-top:20px;font-weight:600;font-size:14.5px;color:var(--green)}}
+.open{{margin-top:auto;padding-top:16px;font-weight:600;font-size:14.5px;color:var(--green)}}
 .card.b .open{{color:var(--blue)}}
 .extra{{border-top:1px solid var(--line);background:var(--bg);padding:12px 22px;display:flex;flex-wrap:wrap;gap:16px}}
+.card.nomatch{{display:none}}
+.tools{{position:sticky;top:0;z-index:3;background:#fff;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 0;margin-bottom:8px;border-bottom:1px solid var(--line)}}
+.srch{{position:relative;flex:1 1 320px;max-width:460px}}
+.srch svg{{position:absolute;left:13px;top:50%;width:18px;height:18px;transform:translateY(-50%);fill:none;stroke:var(--mute);stroke-width:2;stroke-linecap:round}}
+.srch input{{width:100%;font:inherit;font-size:15px;padding:11px 14px 11px 40px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);outline:none}}
+.srch input:focus{{border-color:var(--blue);background:#fff}}
+.all{{display:flex;gap:8px}}
+.all button{{font:inherit;font-size:13.5px;font-weight:600;color:var(--blue);background:var(--blueBg);border:0;border-radius:9px;padding:9px 13px;cursor:pointer;white-space:nowrap}}
+.all button:hover,.all button:focus-visible{{filter:brightness(.97)}}
+.none{{color:var(--ink2);font-size:15px;padding:28px 0}}
+.grp{{margin-top:18px}}
+.gh{{margin:0 0 12px;font-size:inherit}}
+.gh button{{display:flex;align-items:center;gap:10px;width:100%;text-align:left;font:inherit;font-size:19px;font-weight:700;letter-spacing:-.01em;color:var(--ink);background:none;border:0;border-radius:8px;padding:10px 4px;cursor:pointer}}
+.gh button:focus-visible{{outline:2px solid var(--blue);outline-offset:2px}}
+.chev{{width:9px;height:9px;border-right:2px solid var(--mute);border-bottom:2px solid var(--mute);transform:rotate(45deg) translate(-2px,-2px);transition:transform .15s;flex:none}}
+.grp.closed .chev{{transform:rotate(-45deg)}}
+.n{{font-size:12.5px;font-weight:600;color:var(--mute);background:var(--bg);border-radius:20px;padding:2px 9px}}
+.grp.closed:not(.searching) .grid{{display:none}}
 .dl{{font-size:13.5px;font-weight:600;color:var(--ink2);text-decoration:none}}
 .dl:hover,.dl:focus-visible{{color:var(--blue)}}
 
@@ -390,7 +483,8 @@ h2{{font-size:32px;font-weight:700;margin:8px 0 10px}}
 @media (max-width:900px){{.grid{{grid-template-columns:1fr 1fr}}}}
 @media (max-width:640px){{
   .wrap{{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}}
-  .grid{{grid-template-columns:1fr}} .card.live{{grid-column:auto}} .card.live h3{{font-size:24px}}
+  .grid{{grid-template-columns:1fr}} .card.live{{grid-column:auto}} .card.live h3{{font-size:20px}}
+  .tools{{gap:8px}} .srch{{flex-basis:100%;max-width:none}} .gh button{{font-size:17px}}
   .hero h1{{margin-top:48px}} main .wrap{{padding-top:44px;padding-bottom:56px}} h2{{font-size:26px}}
 }}
 </style></head>
@@ -401,14 +495,18 @@ h2{{font-size:32px;font-weight:700;margin:8px 0 10px}}
   <h1>Industrial AI that turns plant data into <em>better operations</em></h1>
   <p class="lede">Solutions built on the Faclon AI platform for heavy industry: connecting plant systems, giving every team clear insight, and closing the loop on control.</p>
   <div class="sectors"><span>Cement</span><span>Metals</span><span>Power</span><span>Paper</span><span>Chemicals</span><span>Discrete manufacturing</span></div>
-  <div class="heroact"><a class="btn" href="faclon-overview/">Open Faclon Labs Overview →</a><a class="btn ghost" href="#solutions">Explore solutions ↓</a></div>
 </div></header>
 
 <main><div class="wrap">
   <div class="eyebrow" id="solutions">Solutions</div>
   <h2>Explore a solution</h2>
   <p class="sub">Each solution has its own page with the use cases, architecture and customer results.</p>
-  <div class="grid">{cards}
+  <div class="tools" role="search">
+    <div class="srch"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q" type="search" placeholder="Search solutions" aria-label="Search solutions" autocomplete="off"></div>
+    <div class="all"><button type="button" id="ea">Expand all</button><button type="button" id="ca">Collapse all</button></div>
+  </div>
+  <p class="none" id="none" hidden>No solutions match “<b></b>”.</p>
+  <div id="groups">{groups}
   </div>
 </div></main>
 
@@ -417,6 +515,7 @@ h2{{font-size:32px;font-weight:700;margin:8px 0 10px}}
   {CTA_BUTTONS}
 </div></div>
 <div class="foot"><div class="wrap"><span>Faclon Labs</span><span>Industrial AI solutions</span></div></div>
+{SCRIPT}
 </body></html>"""
 
 OUT.write_text(HTML, encoding="utf-8")

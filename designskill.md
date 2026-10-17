@@ -427,5 +427,5 @@ Save this as `my-solution.html`, replace the bracketed text, and paste the token
 
 **Upload**
 - [ ] Pick a title no other solution on the site already uses. Uploads with a duplicate name are refused.
-- [ ] Use the site's **Upload** button. Give a short category ("Power", "Utilities"), a one-line description for the card, and your name if you want the "Contributed by" credit.
-- [ ] Working in the Claude desktop app with the **Claude connector** (Download dialog → Claude connector)? Ask Claude to upload the file instead: it takes the same title, category, description and name, and checks with you before publishing. Claude can also fetch this skill and read existing pages through the connector.
+- [ ] Use the site's **Upload** button. Choose the category it's listed under on the main menu (Core documents, Solution documents, Industry use case maps, Case studies, Technical documents or Others; a newer version keeps its solution's category), optionally an industry ("Power", "Utilities") shown on the card, and your name if you want the "Contributed by" credit.
+- [ ] Working in the Claude desktop app with the **Claude connector** (Download dialog → Claude connector)? Ask Claude to upload the file instead: it takes the same title, category, industry and name, and checks with you before publishing. Claude can also fetch this skill and read existing pages through the connector.

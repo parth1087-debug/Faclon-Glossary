@@ -98,6 +98,8 @@ def field(html, name):
     return m.group(1) if m else None
 
 
+# landing-page groups: mirror of CATS in auth_core.js and src/home/build_home.py
+CAT_IDS = ["core", "solution", "maps", "cases", "technical", "others"]
 GUIDES = {"readme"}  # guide pages, not solutions: mirror of GUIDES in auth_core.js
 
 
@@ -109,6 +111,30 @@ def key_for(users, master, slug):
     if slug in (users.get("uploads") or {}):
         return mac(mac(master, "contrib"), "page:" + slug)
     return mac(master, "page:" + slug)
+
+
+def home_cats(plain):
+    """{slug: category id} from the landing page's cards (data-slug / data-cat set by build_home.py)."""
+    out = {}
+    for m in re.finditer(r'<article class="card[^"]*"[^>]*>', plain or ""):
+        a, c = re.search(r'data-slug="([^"]+)"', m.group(0)), re.search(r'data-cat="([^"]+)"', m.group(0))
+        if a and c and c.group(1) in CAT_IDS:
+            out[a.group(1)] = c.group(1)
+    return out
+
+
+def sync_cats(users, solutions, home):
+    """users["cats"]: keep each solution's category; give pages without one their solution's
+    (first version's) category, else the landing page's data-cat, else "others"."""
+    old, versions, out = users.get("cats") or {}, users.get("versions") or {}, {}
+    for x in solutions:
+        sl = x["slug"]
+        c = old.get(sl)
+        if c not in CAT_IDS:
+            r = (versions.get(sl) or {}).get("of", sl)
+            c = old.get(r) if old.get(r) in CAT_IDS else (home.get(r) or home.get(sl) or "others")
+        out[sl] = c
+    users["cats"] = out
 
 
 def plaintext(html, slug, master, users=None):
@@ -255,6 +281,7 @@ function after(html,acc,U){
 function show(html){function go(){document.open();document.write(html);document.close()}if(document.readyState==="complete")go();else window.addEventListener("load",go)}
 async function open(U,acc){
   var k=await acc.key(D.slug);
+  if(!k&&!(U.solutions||[]).some(function(x){return x.slug===D.slug})){pending(acc);return}
   if(!k){gate.hidden=true;$("who").textContent=acc.name;if(!FA.canRead(U,D.slug)){$("nah").textContent="This solution isn't available right now";$("nap").textContent="It has been switched off for all users. Ask your Faclon contact if you need it."}$("home").href=D.base||"./";noacc.hidden=false;return}
   var html=await FA.decrypt(k,D.iv,D.ct);
   show(after(D.up?sandboxed(html):html,acc,U));
@@ -274,13 +301,20 @@ function sandboxed(html){
 $("out").onclick=function(){FA.clearSession();noacc.hidden=true;gate.hidden=false;gate.style.visibility="visible";$("u").focus()};
 var U;
 try{U=await FA.loadUsers(D.base)}catch(e){gate.style.visibility="visible";err.textContent="Couldn't reach the site. Check your connection and reload.";$("go").disabled=true;return}
+/* A page that can't be unlocked yet (just uploaded: the user list on the site catches up within a minute)
+   must not sign anyone out; only a session the user list rejects does. */
+function pending(acc){gate.hidden=true;$("who").textContent=acc.name;$("nah").textContent="This page is still being published";
+  $("nap").textContent="It was added a moment ago and will open in about a minute. Reload the page to try again; you stay signed in.";
+  $("home").href=D.base||"./";$("out").textContent="Reload";$("out").onclick=function(){location.reload()};noacc.hidden=false}
 var s=FA.getSession();
-if(s){try{await open(U,await FA.access(U,s));return}catch(e){FA.clearSession();if(e.message==="removed")$("lead").textContent="Your access has changed. Please sign in again."}}
+if(s){var acc=null;try{acc=await FA.access(U,s)}catch(e){FA.clearSession();if(e.message==="removed")$("lead").textContent="Your access has changed. Please sign in again."}
+  if(acc){try{await open(U,acc)}catch(e){pending(acc)}return}}
 gate.style.visibility="visible";$("u").focus();
 $("f").addEventListener("submit",async function(e){
   e.preventDefault();var b=$("go");b.disabled=true;b.textContent="Checking…";err.textContent="";
-  try{var s=await FA.login(U,$("u").value,$("pw").value);var acc=await FA.access(U,s);FA.setSession(s);await open(U,acc)}
-  catch(x){err.textContent="That username and password didn't match. Try again.";b.disabled=false;b.textContent="Sign in"}
+  try{var s=await FA.login(U,$("u").value,$("pw").value);var acc=await FA.access(U,s);FA.setSession(s)}
+  catch(x){err.textContent="That username and password didn't match. Try again.";b.disabled=false;b.textContent="Sign in";return}
+  try{await open(U,acc)}catch(x){pending(acc)}
 });
 })();
 </script>
@@ -434,6 +468,11 @@ def main():
             for a, b in duplicate_names(u.get("solutions") or [], u.get("versions")):
                 print(f'DUPLICATE NAME: {a["slug"]} and {b["slug"]} are both called "{b["title"]}"')
                 bad.append(USERS)
+            cats = u.get("cats") or {}
+            for x in u.get("solutions") or []:
+                if cats.get(x["slug"]) not in CAT_IDS:
+                    print("MISSING CATEGORY:", x["slug"], "(re-run protect.py)")
+                    bad.append(USERS)
             for slug, _ in targets:
                 if slug not in vault and slug not in GUIDES and can_read(u, slug):
                     print("MISSING VAULT KEY:", slug, "(re-run protect.py)")
@@ -457,10 +496,12 @@ def main():
 
     gate_ver = hashlib.sha256((GATE + core + tools_js()).encode()).hexdigest()[:16]
     force_pdf = "--force-pdf" in sys.argv
-    solutions, need_pdf = [], []
+    solutions, need_pdf, home = [], [], {}
     for slug, path in targets:
         raw = path.read_text(encoding="utf-8")
         plain = plaintext(raw, slug, master, users)
+        if slug == "home":
+            home = home_cats(plain)
         if slug in (users.get("uploads") or {}):
             inner = unbundle(plain)
             if inner:
@@ -507,6 +548,7 @@ def main():
             r.close()
 
     users["solutions"] = solutions
+    sync_cats(users, solutions, home)
     migrate_pdfs(targets, master, [x[0] for x in need_pdf], users)
     all_key = mac(master, "all")
     users["vault"] = sync_box(users.get("vault") or {}, all_key,

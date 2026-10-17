@@ -161,7 +161,7 @@ kbd{{display:inline-block;font:600 12px Inter,system-ui,sans-serif;background:va
 <section id="start"><div class="wrap">
   <div class="eyebrow">Start here</div>
   <h2>Three things you can do</h2>
-  <p class="sub">The landing page lists the solutions you have access to. Open any of them to see its use cases, architecture and customer results.</p>
+  <p class="sub">The landing page lists the solutions you have access to, grouped into Core documents, Solution documents, Industry use case maps, Case studies, Technical documents and Others. Search by name, open or close each group (or all at once), and open any solution to see its use cases, architecture and customer results.</p>
   <div class="grid3">
     <div class="card top"><div class="ic">{icon("present")}</div><h3>Present</h3><p>Open a solution in full screen and walk the customer through it, section by section. This is what the site is for.</p><a class="more" href="#present">Presenting →</a></div>
     <div class="card top g"><div class="ic">{icon("share")}</div><h3>Share</h3><p>After the meeting, download one HTML file with only the solutions that customer cares about: their own glossary.</p><a class="more" href="#downloads">Downloads →</a></div>
@@ -229,9 +229,10 @@ kbd{{display:inline-block;font:600 12px Inter,system-ui,sans-serif;background:va
       {steps([
           ("Build the page as one HTML file.", "Styles and images go inside the file. Follow the design skill so it looks like every other page. A page saved with Download → HTML also works: the page inside it is uploaded."),
           ("Press Upload and choose the file.", "The title is read from the page; change it if you need to."),
-          ("Updating a page? Pick the solution it replaces.", "Choose it under “Is this a newer version of an existing solution?”. It keeps the same name and gets the next version number, v2, v3…, automatically."),
+          ("Updating a page? Pick the solution it replaces.", "Choose it under “Is this a newer version of an existing solution?”. It keeps the same name and category and gets the next version number, v2, v3…, automatically."),
           ("For a new solution, give it a unique title.", "No two solutions can have the same name (only versions of one solution share a name), so an upload with a title that's already taken is refused."),
-          ("Add a category, a one-line description and your name.", "They appear on the solution card, with “Contributed by” and your name."),
+          ("For a new solution, choose its category.", "It decides which group on the landing page lists it. The admin can move it later in the User Manager."),
+          ("Add an industry and your name if you like.", "They appear on the solution card, with “Contributed by” and your name."),
           ("Publish.", "It's live in about a minute."),
       ])}
     </div>
@@ -288,7 +289,7 @@ kbd{{display:inline-block;font:600 12px Inter,system-ui,sans-serif;background:va
         <div class="prompt">Which Faclon solutions can I open?</div>
         <div class="prompt">Summarise the Steam Trap page for a plant head.</div>
         <div class="prompt">Save the I/O Vision and Energy Management pages as PDF.</div>
-        <div class="prompt">Upload cooling-tower.html from my Desktop as Cooling Tower Optimisation, category Utilities.</div>
+        <div class="prompt">Upload cooling-tower.html from my Desktop as Cooling Tower Optimisation, under Solution documents.</div>
       </div>
       <p style="margin-top:12px;font-size:14px">You get the same pages and download rights as on the site. Claude checks with you before it publishes anything.</p>
     </div>

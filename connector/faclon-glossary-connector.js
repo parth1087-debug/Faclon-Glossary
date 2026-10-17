@@ -26,6 +26,10 @@
                    separate page with the same name; the first version has no entry (it is v1). The version
                    number is shown next to the name (chip, "Name v2" in lists) and can't be edited. Uploads add entries; the User
                    Manager's "use latest" turns Read off for older versions and gives users the newest.
+     cats[slug]  = category id from CATS: groups solutions on the landing page. A version always has its
+                   solution's category. Set at upload (required for a new solution, copied for a version), changed
+                   in the User Manager, filled in by protect.py (from the landing page's data-cat) for pages without
+                   one. Mirror of CATS in protect.py and src/home/build_home.py.
      keyring     = {n, p:{slug:page key}, d:{slug:pdf key}, c?: contrib key, all?/a?/da?: super user}
      user key    = PBKDF2-SHA256(user password, user.s, users.iter)  (encrypts the user's keyring)
      user id     = SHA-256(users.salt + "|" + lower(username)) as hex
@@ -212,6 +216,20 @@ var FA = (function () {
     if (d.picked.length !== 1 || !d.pages[d.picked[0]]) throw new Error("that file is a download of several solutions. Upload one page at a time (open it, then save just that page)");
     return d.pages[d.picked[0]];
   }
+  var CATS = [["core", "Core documents"], ["solution", "Solution documents"], ["maps", "Industry use case maps"],
+              ["cases", "Case studies"], ["technical", "Technical documents"], ["others", "Others"]];
+  function catLabel(id) { for (var i = 0; i < CATS.length; i++) if (CATS[i][0] === id) return CATS[i][1]; return null; }
+  /* Category id for slug: its own, else its solution's (first version), else "others". */
+  function catOf(U, slug) {
+    var c = U.cats || {}, r = rootOf(U, slug);
+    return (catLabel(c[slug]) && c[slug]) || (catLabel(c[r]) && c[r]) || "others";
+  }
+  /* Accepts a category id or label (any case); returns the id or null. */
+  function catId(v) {
+    var k = String(v || "").trim().toLowerCase();
+    for (var i = 0; i < CATS.length; i++) if (CATS[i][0] === k || CATS[i][1].toLowerCase() === k) return CATS[i][0];
+    return null;
+  }
   function rootOf(U, slug) { var v = (U.versions || {})[slug]; return v ? v.of : slug; }
   /* " v2" for a solution with several versions, "" otherwise: added after the name in lists, tabs and file names. */
   function versionLabel(U, slug) { var f = family(U, slug); return f ? " v" + f.n : ""; }
@@ -253,7 +271,7 @@ var FA = (function () {
   function clearSession() { try { localStorage.removeItem(SESSION); sessionStorage.removeItem(SESSION); localStorage.removeItem("faclon-glossary-key"); } catch (e) {} }
   return {
     u8: u8, b64: b64, pbkdf2: pbkdf2, hmac: hmac, encrypt: encrypt, decrypt: decrypt, decryptBytes: decryptBytes, sha256hex: sha256hex,
-    norm: norm, userId: userId, pageKey: pageKey, allKey: allKey, dallKey: dallKey, contribKey: contribKey, uploadKey: uploadKey, isUpload: isUpload, isGuide: isGuide, keyFor: keyFor, wrapForSuper: wrapForSuper, nameKey: nameKey, nameClash: nameClash, family: family, families: families, rootOf: rootOf, versionLabel: versionLabel, unbundle: unbundle, nextVersion: nextVersion, addVersion: addVersion, pdfKey: pdfKey, canRead: canRead, canDownload: canDownload, syncVault: syncVault, fillVault: fillVault, buildRing: buildRing, loadUsers: loadUsers, adminMaster: adminMaster,
+    norm: norm, userId: userId, pageKey: pageKey, allKey: allKey, dallKey: dallKey, contribKey: contribKey, uploadKey: uploadKey, isUpload: isUpload, isGuide: isGuide, keyFor: keyFor, wrapForSuper: wrapForSuper, nameKey: nameKey, nameClash: nameClash, family: family, families: families, rootOf: rootOf, versionLabel: versionLabel, unbundle: unbundle, CATS: CATS, catLabel: catLabel, catOf: catOf, catId: catId, nextVersion: nextVersion, addVersion: addVersion, pdfKey: pdfKey, canRead: canRead, canDownload: canDownload, syncVault: syncVault, fillVault: fillVault, buildRing: buildRing, loadUsers: loadUsers, adminMaster: adminMaster,
     login: login, access: access, getSession: getSession, setSession: setSession, clearSession: clearSession
   };
 })();
@@ -265,7 +283,7 @@ var FA = (function () {
    connector only talks to the public site and the GitHub API.
    Env: FACLON_USERNAME, FACLON_PASSWORD, FACLON_DOWNLOAD_DIR (optional), FACLON_SITE (optional). */
 /* eslint-disable no-var */
-var VERSION = "1.1.3";
+var VERSION = "1.2.0";
 var REPO = "parth1087-debug/Faclon-Glossary";
 var nodeFs = require("fs"), nodePath = require("path"), nodeOs = require("os");
 
@@ -322,7 +340,7 @@ async function catalogue() {
   for (var i = 0; i < sols.length; i++) {
     var slug = sols[i].slug;
     if (!(await canOpen(acc, slug))) continue;
-    var item = { slug: slug, title: sols[i].title, url: SITE + slug + "/", download: canSave(U, acc, slug) };
+    var item = { slug: slug, title: sols[i].title, url: SITE + slug + "/", download: canSave(U, acc, slug), category: FA.catLabel(FA.catOf(U, slug)) };
     var fam = FA.family(U, slug);
     if (fam) { item.version = fam.n; item.latest = fam.latest === slug; }
     var up = (U.uploads || {})[slug];
@@ -331,8 +349,7 @@ async function catalogue() {
       try {
         var m = JSON.parse(await FA.decrypt(await acc.key(slug), up.meta.iv, up.meta.ct));
         item.title = (U.names && U.names[slug] && U.names[slug].t) || m.title || item.title;
-        if (m.sector) item.category = m.sector;
-        if (m.blurb) item.description = m.blurb;
+        if (m.sector) item.industry = m.sector;
         if (m.by) item.contributedBy = m.by;
       } catch (e) {}
     }
@@ -419,10 +436,10 @@ var TOOLS = [
       var c = await catalogue();
       if (!c.list.length) return "No solution pages are shared with this user yet. Ask the Faclon admin to tick some in the User Manager.";
       var lines = c.list.map(function (x) {
-        return "- " + x.title + " (slug: " + x.slug + ")" + (x.category ? " · " + x.category : "") +
+        return "- " + x.title + " (slug: " + x.slug + ")" + (x.category ? " · " + x.category : "") + (x.industry ? " · " + x.industry : "") +
           (x.version ? " · v" + x.version + (x.latest ? " (latest)" : " (older version)") : "") +
           (x.uploaded ? " · uploaded" + (x.contributedBy ? " by " + x.contributedBy : "") : "") +
-          " · " + (x.download ? "can download" : "view only") + "\n  " + x.url + (x.description ? "\n  " + x.description : "");
+          " · " + (x.download ? "can download" : "view only") + "\n  " + x.url;
       });
       return "Signed in as " + c.acc.name + ". " + c.list.length + " solution page" + (c.list.length === 1 ? "" : "s") + " you can open:\n\n" + lines.join("\n") +
         "\n\nThe site and every page need the same Faclon sign-in in a browser.";
@@ -493,13 +510,13 @@ var TOOLS = [
   {
     name: "upload_page",
     title: "Upload a new solution page",
-    description: "Publishes a self-contained HTML file (styles and images inside the file) as a new Faclon solution page. It goes live on the site in about a minute for the admin, super users and contributors; the admin can then share it with other users. Give either file_path (a file on this computer) or html. Every solution needs a unique title (an upload whose title matches an existing solution is refused). To publish an updated page as a newer version of an existing solution, set new_version_of to that solution's slug or title instead of giving a title: the new version keeps the solution's name and gets the next version number (v2, v3…) automatically; both versions stay on the site with the newest labelled Latest, and the admin can hide older versions. Confirm the title with the user before uploading, and follow get_design_skill so the page matches the site.",
+    description: "Publishes a self-contained HTML file (styles and images inside the file) as a new Faclon solution page. It goes live on the site in about a minute for the admin, super users and contributors; the admin can then share it with other users. Give either file_path (a file on this computer) or html. Every solution needs a unique title (an upload whose title matches an existing solution is refused) and a category, the group it is listed under on the site's main menu: Core documents, Solution documents, Industry use case maps, Case studies, Technical documents or Others. Ask the user which one if they haven't said. To publish an updated page as a newer version of an existing solution, set new_version_of to that solution's slug or title instead of giving a title: the new version keeps the solution's name and category and gets the next version number (v2, v3…) automatically; both versions stay on the site with the newest labelled Latest, and the admin can hide older versions. Confirm the title with the user before uploading, and follow get_design_skill so the page matches the site.",
     inputSchema: { type: "object", properties: {
       title: { type: "string", description: "Page title shown on the solution card, e.g. \"Cooling Tower Optimisation\". Required for a new solution; ignored with new_version_of (a version keeps its solution's name)" },
       file_path: { type: "string", description: "Full path of the HTML file on this computer" },
       html: { type: "string", description: "The full HTML of the page, if there is no file" },
-      category: { type: "string", description: "Optional card category, e.g. Power, Metals, Utilities" },
-      description: { type: "string", description: "Optional one or two lines shown on the solution card" },
+      category: { type: "string", enum: FA.CATS.map(function (c) { return c[1]; }), description: "Group on the site's main menu. Required for a new solution; ignored with new_version_of (a version keeps its solution's category)" },
+      industry: { type: "string", description: "Optional industry or area shown above the name on the card, e.g. Power, Metals, Utilities" },
       contributor_name: { type: "string", description: "Optional name shown as \"Contributed by\"; defaults to the signed-in user's name" },
       new_version_of: { type: "string", description: "Optional: slug or title (from list_solutions) of the existing solution this page is a newer version of" } },
       required: [], additionalProperties: false },
@@ -507,6 +524,8 @@ var TOOLS = [
     run: async function (a) {
       var t = String(a.title || "").trim().slice(0, 80);
       if (!t && !a.new_version_of) throw new Error("Give the page a title, or new_version_of for a newer version of an existing solution.");
+      var cat = FA.catId(a.category);
+      if (!a.new_version_of && !cat) throw new Error("Give a category for the new solution: " + FA.CATS.map(function (c) { return c[1]; }).join(", ") + ".");
       var html = a.html;
       if (!html && a.file_path) {
         var fp = a.file_path.charAt(0) === "~" ? nodePath.join(nodeOs.homedir(), a.file_path.slice(1)) : a.file_path;
@@ -545,7 +564,8 @@ var TOOLS = [
       if (g0.ok) { clash = FA.nameClash(JSON.parse(Buffer.from((await g0.json()).content.replace(/\s/g, ""), "base64").toString("utf8")), t, null, vbase);
         if (clash) throw new Error("A solution called \u201c" + clash + "\u201d already exists. Choose a different title."); }
       var by = String(a.contributor_name || s.acc.name || "").trim().slice(0, 60);
-      var meta = await FA.encrypt(K, JSON.stringify({ title: t, sector: String(a.category || "").trim().slice(0, 40), blurb: String(a.description || "").trim().slice(0, 240), by: by, user: s.acc.name, at: new Date().toISOString(), via: "connector" }));
+      if (vbase) cat = FA.catOf(U, vbase);
+      var meta = await FA.encrypt(K, JSON.stringify({ title: t, sector: String(a.industry || "").trim().slice(0, 40), by: by, user: s.acc.name, at: new Date().toISOString(), via: "connector" }));
       var sup = await FA.wrapForSuper(U, K);
       var r = await gh(token, "/contents/" + slug + "/index.html", { method: "PUT", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: "Add " + t + (vbase ? " (new version of " + vbase + ")" : "") + " (uploaded by " + (by || s.acc.name) + " via Claude connector)", content: Buffer.from(gate, "utf8").toString("base64"), branch: "main" }) });
@@ -559,6 +579,7 @@ var TOOLS = [
         J.uploads = J.uploads || {}; J.uploads[slug] = { meta: meta, at: new Date().toISOString() };
         if (sup) { J.vault = J.vault || {}; J.vault[slug] = sup; }
         if (vbase) vn = FA.addVersion(J, slug, vbase);
+        J.cats = J.cats || {}; J.cats[slug] = vbase ? FA.catOf(J, vbase) : cat;
         var pr = await gh(token, "/contents/users.json", { method: "PUT", headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ message: "Register uploaded page " + t, content: Buffer.from(JSON.stringify(J, null, 1) + "\n", "utf8").toString("base64"), sha: gj.sha, branch: "main" }) });
         if (pr.ok) break;
@@ -566,7 +587,7 @@ var TOOLS = [
         throw new Error("the page was published but couldn't be registered (" + pr.status + "); ask the admin to check users.json");
       }
       usersCache = null;
-      return "Published \"" + t + "\"" + (vn ? " as version " + vn : "") + ". It will be live in about a minute at " + SITE + slug + "/ (sign in with your Faclon login). " +
+      return "Published \"" + t + "\"" + (vn ? " as version " + vn : "") + " under " + FA.catLabel(cat) + ". It will be live in about a minute at " + SITE + slug + "/ (sign in with your Faclon login). " +
         "It shows on the landing page for the admin, super users and contributors; the admin can share it with other users in the User Manager. Its PDF download appears after the next site build.";
     }
   }

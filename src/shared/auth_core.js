@@ -24,6 +24,10 @@
                    separate page with the same name; the first version has no entry (it is v1). The version
                    number is shown next to the name (chip, "Name v2" in lists) and can't be edited. Uploads add entries; the User
                    Manager's "use latest" turns Read off for older versions and gives users the newest.
+     cats[slug]  = category id from CATS: groups solutions on the landing page. A version always has its
+                   solution's category. Set at upload (required for a new solution, copied for a version), changed
+                   in the User Manager, filled in by protect.py (from the landing page's data-cat) for pages without
+                   one. Mirror of CATS in protect.py and src/home/build_home.py.
      keyring     = {n, p:{slug:page key}, d:{slug:pdf key}, c?: contrib key, all?/a?/da?: super user}
      user key    = PBKDF2-SHA256(user password, user.s, users.iter)  (encrypts the user's keyring)
      user id     = SHA-256(users.salt + "|" + lower(username)) as hex
@@ -210,6 +214,20 @@ var FA = (function () {
     if (d.picked.length !== 1 || !d.pages[d.picked[0]]) throw new Error("that file is a download of several solutions. Upload one page at a time (open it, then save just that page)");
     return d.pages[d.picked[0]];
   }
+  var CATS = [["core", "Core documents"], ["solution", "Solution documents"], ["maps", "Industry use case maps"],
+              ["cases", "Case studies"], ["technical", "Technical documents"], ["others", "Others"]];
+  function catLabel(id) { for (var i = 0; i < CATS.length; i++) if (CATS[i][0] === id) return CATS[i][1]; return null; }
+  /* Category id for slug: its own, else its solution's (first version), else "others". */
+  function catOf(U, slug) {
+    var c = U.cats || {}, r = rootOf(U, slug);
+    return (catLabel(c[slug]) && c[slug]) || (catLabel(c[r]) && c[r]) || "others";
+  }
+  /* Accepts a category id or label (any case); returns the id or null. */
+  function catId(v) {
+    var k = String(v || "").trim().toLowerCase();
+    for (var i = 0; i < CATS.length; i++) if (CATS[i][0] === k || CATS[i][1].toLowerCase() === k) return CATS[i][0];
+    return null;
+  }
   function rootOf(U, slug) { var v = (U.versions || {})[slug]; return v ? v.of : slug; }
   /* " v2" for a solution with several versions, "" otherwise: added after the name in lists, tabs and file names. */
   function versionLabel(U, slug) { var f = family(U, slug); return f ? " v" + f.n : ""; }
@@ -251,7 +269,7 @@ var FA = (function () {
   function clearSession() { try { localStorage.removeItem(SESSION); sessionStorage.removeItem(SESSION); localStorage.removeItem("faclon-glossary-key"); } catch (e) {} }
   return {
     u8: u8, b64: b64, pbkdf2: pbkdf2, hmac: hmac, encrypt: encrypt, decrypt: decrypt, decryptBytes: decryptBytes, sha256hex: sha256hex,
-    norm: norm, userId: userId, pageKey: pageKey, allKey: allKey, dallKey: dallKey, contribKey: contribKey, uploadKey: uploadKey, isUpload: isUpload, isGuide: isGuide, keyFor: keyFor, wrapForSuper: wrapForSuper, nameKey: nameKey, nameClash: nameClash, family: family, families: families, rootOf: rootOf, versionLabel: versionLabel, unbundle: unbundle, nextVersion: nextVersion, addVersion: addVersion, pdfKey: pdfKey, canRead: canRead, canDownload: canDownload, syncVault: syncVault, fillVault: fillVault, buildRing: buildRing, loadUsers: loadUsers, adminMaster: adminMaster,
+    norm: norm, userId: userId, pageKey: pageKey, allKey: allKey, dallKey: dallKey, contribKey: contribKey, uploadKey: uploadKey, isUpload: isUpload, isGuide: isGuide, keyFor: keyFor, wrapForSuper: wrapForSuper, nameKey: nameKey, nameClash: nameClash, family: family, families: families, rootOf: rootOf, versionLabel: versionLabel, unbundle: unbundle, CATS: CATS, catLabel: catLabel, catOf: catOf, catId: catId, nextVersion: nextVersion, addVersion: addVersion, pdfKey: pdfKey, canRead: canRead, canDownload: canDownload, syncVault: syncVault, fillVault: fillVault, buildRing: buildRing, loadUsers: loadUsers, adminMaster: adminMaster,
     login: login, access: access, getSession: getSession, setSession: setSession, clearSession: clearSession
   };
 })();
