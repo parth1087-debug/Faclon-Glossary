@@ -197,6 +197,14 @@
    "kr": "oukKne2bDFeb+uL+Bz+yL2VRA5wPe8DPDHiCFq2T71/WjbGlg9c/7IRorO9WMX5BTVQjExDAp+hm+BUxDJbqdlbErKuDrq6QeB8EoLkJyrXV6wIrfcUO3a3D7CYY59mVpQHvjLbBnS0DrNHZzEMZk4GGbNfWPJ+zfYh0f8WAnHAhVaHRffBfL1632mbeVuqs57NdBtKov+Ij5fhQ487Qjn4iQYsUGuLwEqm23zAErQ+hvSvQB2XjpQRwjuIg3aDZSN2bhH3FmgNQClE19YNMApakPmR/KefAvOlkhVBFq5JsHhCkE0xM0pLxMBggFQVXyZTkHNsSOYOFjuBwUPF1vOL1pjAH8LI=",
    "miv": "Nckz6Q27UYsLEpbk",
    "meta": "KATsaEYU/3BeQpkrwIoWmrcRxZ7uI8y5vFtBEDvfx5mL3QJX5A1qlB7/cT3ABpjbutBta07hr1E8wb/aA96Pp7EJKMRZReMfX9Wsl0AqQ62d9x+hHC5x1grmTwH2HGYs0mJl1rmeZm1u1GH3izsuaCXmm3csLE+Cc56E4cNOpj+HfLa9WD2SKVJNqAautENz9uwYnT/cYYYXtEvLHQsHz0tsaM6zZjVHNXaQoYia21cEHLul63J1F0DsqIhB351/IfuB3nB+oNWxMcou04GOaEgq3+pPeE6i7ByVsQ46CL5VlpLefr+A119uHjYl5Mmp"
+  },
+  {
+   "id": "a28cc78d4afc71d82f1e10dc3b0b4e7eb27a44072b270a0be8000a7f8f7ae8b5",
+   "s": "WiWXiMT4Z0uSmiNJesso3g==",
+   "iv": "ZPkx8wv8yBuIZkqa",
+   "kr": "TVCqPqSNpNnTWwiiWAK0emeNLrkmE6iRwaK5np2eJUKALhwnnuq0ak5LWlMz2Bdwrni/XeIP+Jw5gwfsrhJk7vF/ug7XDRO+swurPTL+rJkktkiFgqN5fwov/UqY3Ic2EHF6rlZ/NjdzFVyZMJ/7GyhX50ErqJwjk82AIoYh8nzlOz06Mu/YSaCKp98zY1iCJbxOovqRtgab5Y1cm5mDyzLkoGOlALKeAsbtClb29xvuYTxkXgqZZiorbbn62o14Ovlhow8rJ31zEkI4DoxOPzcBI1S6",
+   "miv": "C8s/h71vTGxV+3Yh",
+   "meta": "598mfSPEbBGm1OH+660jCwoJz4eiJOq2CDYI4uggHxX9e5N75GWBIjkhGtqP7W6yuxr2+pXIGMehns3wMRBSfazj9oLe3LC4ZEnv6eKh/QwrutTa98FRqUI0NEi4vkmXBakd8+9f91u7YVq2ij8wCSa/tb8uVcUAtIOTUDxL/Q/hU+prarvSpOMNSbneYSP9DDBz611a12QOeQqKpOkAqlr+JmzedGSZRT4RrvBE0I6CRh65wL8tZcleQoiBeV0u20ZQU8XozNmH188h7TOdRUtN3m60UIVb3SnpDbioEFNfz9yHPRUttQSwOA4k7hUOptAN"
   }
  ],
  "vault": {
@@ -489,6 +497,86 @@
   "steel-ai-use-case-map": {
    "iv": "egDdVtRb+O+dIKob",
    "ct": "9ywBww4rA85c1sAmNvgFVxqvOX8XbQgPM5hXv+0ukjUDhv+9/uXgATBAF0TBiipI4TFPUTnYZamtZR3w"
+  },
+  "agrochemicals-use-cases-v2": {
+   "iv": "FWAPFroDDYKLL0Qp",
+   "ct": "/k24UUqgs5ZGzYRgGpmCqSnLxAtBAHxi55Fxu2Z6Eb0+7ATRR8FKAXYJT453NyokttHFaCgc6oJKHnPE"
+  },
+  "aluminium-use-cases-v2": {
+   "iv": "7bHhMa/4oy/Za775",
+   "ct": "iSIMIElYd06oJIL2bz7Gj9nmYTSiSYtIp/vBOJ2u5XcdcBW4o8cOnLxgipppalkfKBxIvC+wwoODzNIg"
+  },
+  "battery-energy-storage-use-cases-v2": {
+   "iv": "1H/Z9u/XZVivoeFF",
+   "ct": "l5JG4WoWi1W54vks7HVFk4FVd7CJM1Ihs98MmiIfoGK5OR9chDeWwwg80YyKlKTSxJS2eT+2V6KA9gLC"
+  },
+  "bus-bar-temperature-monitoring-v2": {
+   "iv": "N0lbma9SgBx2PEeL",
+   "ct": "a5YkDsk6+WcSGPJ+YodZ/M1fKzB0edbYc4Co1uUYk8EQfnB4K+NlefuZogpmgY+jXurEHVnmc6IxsL4y"
+  },
+  "cement-use-cases-v2": {
+   "iv": "5yaNkaXte/Uor9cb",
+   "ct": "u+ieF7giwSvOl8JElpbS4ROOh9C8rxW61qtlq+rT1vO9JFVsbg84Hq4vbsPRppdZfrGHjkDQlchwx/iV"
+  },
+  "chemicals-use-cases-v2": {
+   "iv": "arLFd7UdPCool6dK",
+   "ct": "bo5pnNucunLgSV2XJ2fOmUEI8k3dv6qeu02QroLbm8l3bwnYERiFg3OjUxjZL9p9z0voMV1Q70STKbe/"
+  },
+  "coal-mining-use-cases-v2": {
+   "iv": "/zQ/RLhcFNo6NWPv",
+   "ct": "3VTanQcyrCXketGbTatDWTZqdcwpm1EvksMWRJOEQQ9eDCIHg8B/yZc9Swt4cGWedZ+re292bFq51NAn"
+  },
+  "copper-use-cases-v2": {
+   "iv": "qOA6Ln3o8xVScy4K",
+   "ct": "NPTpeaJ9BwdplrLHmH6LtjDsfq6FHvVv8nznn29TTr4GK5nCZh8wnGQjSqlYSKRuT7og6YcUNBS1CkAt"
+  },
+  "discrete-manufacturing-use-cases-v2": {
+   "iv": "2NUUDmLRvrG6YFKG",
+   "ct": "09q2GZnqCZbhJZp3gIoskfj3z/6gyqgCwzkM5swM5xQkSZVGplazuxKhR4s3FAlJEuVgR/2p0rxTJKo2"
+  },
+  "faclon-ai-native-platform-capability-v2": {
+   "iv": "LItFncxoL1e47oCH",
+   "ct": "h1232XUTtbQTsw85sxahHDYxZbMi/CPuS1AcG4gtijTRrO4I5droJnGRhJ3X4uvJTkAmMKQoUtR1I+ZP"
+  },
+  "it-ot-integration-and-security-v2": {
+   "iv": "hIUEJfVYXbHpAaT8",
+   "ct": "jB4OTdf+oCAp0qga28jReoa5Ct1nlYgp763UBs/DKbG9+s65H0HhzA7NjgxPH0n6nKdTYS2cCMby+yzM"
+  },
+  "power-plant-ai-v3": {
+   "iv": "ZNU/w0S9aY7uxNaj",
+   "ct": "nBlwkIAIIjN7P4myZj5kQsY6R/5zsldxcjUuHMEGLg+njOlTrHc3yl+SXSEZfFaibKmy1691qPOajzlW"
+  },
+  "refinery-petrochemicals-use-cases-v2": {
+   "iv": "6yaKkbNyXbj/eDAs",
+   "ct": "E5g2tOy21gcWq7Fq1hUgWENx2Vly6N6cmhhjFaN22eaBHL1PTSM7Cwyt37BLG0hnRKTEVzuSFcLCxxBZ"
+  },
+  "ai-closed-loop-soot-blowing-v2": {
+   "iv": "cdrxa+ZG9J4qOVD0",
+   "ct": "AzjCnp98hfYVZtQh5M7exi9qEGqiqaWqwIDPLR8I3h76p4jF0EQNqSqWYtgxVgUlUv9Fqz4HmTLezUFa"
+  },
+  "solar-use-cases-v2": {
+   "iv": "h0K9dHr6yD+epT29",
+   "ct": "JvaFfhYsKlgvWFcgUTxQMvLeYm9SrCYxSjHdXwcWiDHRT2Mqx8C+5jD/ZhbS3chBxOov1W+wln9iCYlv"
+  },
+  "steel-use-cases-v2": {
+   "iv": "xtvP5nN4Ffzko3HR",
+   "ct": "kAImvjA5u2aGncEZ4uXJkZy8gPLzXY2rp2PqpxlOisQeTztJ0uV4BBxoYuW6AjzNkWZQRLftyA4q9jT9"
+  },
+  "computer-vision-use-cases-v3": {
+   "iv": "9RrEjZ8OGhU1ZWr2",
+   "ct": "2Y++TMX3xt1pPKsPS6rbN0WoJC7EOt05NXgaL6VQVPTyZNHHFxk7YqsOsw8dl9wgWL57E62dhPvgeVH4"
+  },
+  "energy-management-system-v2": {
+   "iv": "4WLVzBICxcjjZcCA",
+   "ct": "VFo9zQ8NiZsLeSLJtRZ6n8gRYYRew3RH9lYw/7pbEkvijbYWbtrEnCMQVy/WZ+NLS5Q7huktAtSL2ne2"
+  },
+  "pulp-fibre-use-cases-v2": {
+   "iv": "lzxg7jEp9vcXWdBX",
+   "ct": "2KBXoln5PWdvvqIfJlhLA9gFT4tk03xQELKXgfRMTSoCkCwdETBWMVtmi3k03qc8/TNmsV+7QXcYxiWD"
+  },
+  "pulp-paper-use-cases-v2": {
+   "iv": "snI3E20D+cnlNbJk",
+   "ct": "TPZOJIQUpg3HwnrR37X0jw9831cDGMb8MJDmxGTjqQqH9xea/XfT4zGdfsEwkz2HD0+wRM/+fTkB8Jdi"
   }
  },
  "spub": "BMFlEHG8VeKaoZzX/tBnB9aYE16JfJJ50GUqfMMUaCSUaPyqyuZvvBNizSdpecehSsy1IWg9fzYTAZW+62Oqpxg=",
