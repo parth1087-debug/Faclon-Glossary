@@ -21,7 +21,8 @@
      guides      = GUIDES (the Read me): not solutions. Encrypted with the landing-page key so every signed-in
                    user can open them; never in solutions, keyrings, vaults or downloads. Mirror of GUIDES in protect.py.
      versions[slug] = {of: first version's slug, n: version number}. A newer version of a solution is a
-                   separate page; the first version has no entry (it is v1). Uploads add entries; the User
+                   separate page with the same name; the first version has no entry (it is v1). The version
+                   number is shown next to the name (chip, "Name v2" in lists) and can't be edited. Uploads add entries; the User
                    Manager's "use latest" turns Read off for older versions and gives users the newest.
      keyring     = {n, p:{slug:page key}, d:{slug:pdf key}, c?: contrib key, all?/a?/da?: super user}
      user key    = PBKDF2-SHA256(user password, user.s, users.iter)  (encrypts the user's keyring)
@@ -178,23 +179,28 @@ var FA = (function () {
       dkey: function (slug) { return Promise.resolve(d[slug] ? u8(d[slug]) : null); }
     };
   }
-  /* Solution names must be unique. Two names clash when they match ignoring case, spaces, punctuation,
-     "&" vs "and" and a trailing "· Faclon Labs". Mirror of name_key in protect.py. */
+  /* Solution names must be unique, except that versions of one solution share its name. Two names clash
+     when they match ignoring case, spaces, punctuation, "&" vs "and" and a trailing "· Faclon Labs".
+     Mirror of name_key / duplicate_names in protect.py. */
   function nameKey(t) {
     return String(t || "").toLowerCase().replace(/\s*[\u00b7|\u2013\u2014-]\s*faclon labs\s*$/, "").replace(/&/g, " and ")
       .normalize("NFKD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "");
   }
-  /* The existing solution name that t clashes with (ignoring solution `except`), or null. */
-  function nameClash(U, t, except) {
-    var k = nameKey(t), names = U.names || {}, sols = U.solutions || [];
+  /* The existing solution name that t clashes with, or null. Ignores solution `except` and every version of
+     the solution `family` (a slug of any of its versions). */
+  function nameClash(U, t, except, family) {
+    var k = nameKey(t), names = U.names || {}, sols = U.solutions || [], fr = family ? rootOf(U, family) : null;
     if (!k) return null;
     for (var i = 0; i < sols.length; i++) {
-      var s = sols[i]; if (s.slug === except) continue;
+      var s = sols[i]; if (s.slug === except || (fr && rootOf(U, s.slug) === fr)) continue;
       var shown = names[s.slug] && names[s.slug].t ? names[s.slug].t : s.title;
       if (nameKey(shown) === k || nameKey(s.title) === k) return shown;
     }
     return null;
   }
+  function rootOf(U, slug) { var v = (U.versions || {})[slug]; return v ? v.of : slug; }
+  /* " v2" for a solution with several versions, "" otherwise: added after the name in lists, tabs and file names. */
+  function versionLabel(U, slug) { var f = family(U, slug); return f ? " v" + f.n : ""; }
   /* Versions. family(U, slug) -> {root, members:[{slug, n}] oldest first, n (this slug's number), latest slug};
      null when the solution has only one version. Only solutions still listed in U.solutions count. */
   function family(U, slug) {
@@ -233,7 +239,7 @@ var FA = (function () {
   function clearSession() { try { localStorage.removeItem(SESSION); sessionStorage.removeItem(SESSION); localStorage.removeItem("faclon-glossary-key"); } catch (e) {} }
   return {
     u8: u8, b64: b64, pbkdf2: pbkdf2, hmac: hmac, encrypt: encrypt, decrypt: decrypt, decryptBytes: decryptBytes, sha256hex: sha256hex,
-    norm: norm, userId: userId, pageKey: pageKey, allKey: allKey, dallKey: dallKey, contribKey: contribKey, uploadKey: uploadKey, isUpload: isUpload, isGuide: isGuide, keyFor: keyFor, wrapForSuper: wrapForSuper, nameKey: nameKey, nameClash: nameClash, family: family, families: families, nextVersion: nextVersion, addVersion: addVersion, pdfKey: pdfKey, canRead: canRead, canDownload: canDownload, syncVault: syncVault, fillVault: fillVault, buildRing: buildRing, loadUsers: loadUsers, adminMaster: adminMaster,
+    norm: norm, userId: userId, pageKey: pageKey, allKey: allKey, dallKey: dallKey, contribKey: contribKey, uploadKey: uploadKey, isUpload: isUpload, isGuide: isGuide, keyFor: keyFor, wrapForSuper: wrapForSuper, nameKey: nameKey, nameClash: nameClash, family: family, families: families, rootOf: rootOf, versionLabel: versionLabel, nextVersion: nextVersion, addVersion: addVersion, pdfKey: pdfKey, canRead: canRead, canDownload: canDownload, syncVault: syncVault, fillVault: fillVault, buildRing: buildRing, loadUsers: loadUsers, adminMaster: adminMaster,
     login: login, access: access, getSession: getSession, setSession: setSession, clearSession: clearSession
   };
 })();

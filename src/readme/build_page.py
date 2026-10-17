@@ -229,8 +229,8 @@ kbd{{display:inline-block;font:600 12px Inter,system-ui,sans-serif;background:va
       {steps([
           ("Build the page as one HTML file.", "Styles and images go inside the file. Follow the design skill so it looks like every other page."),
           ("Press Upload and choose the file.", "The title is read from the page; change it if you need to."),
-          ("Updating a page? Pick the solution it replaces.", "Choose it under “Is this a newer version of an existing solution?”. The title becomes, for example, “Steel Use Cases v2”."),
-          ("Give it a unique title.", "No two solutions can have the same name, so an upload with a title that's already taken is refused."),
+          ("Updating a page? Pick the solution it replaces.", "Choose it under “Is this a newer version of an existing solution?”. It keeps the same name and gets the next version number, v2, v3…, automatically."),
+          ("For a new solution, give it a unique title.", "No two solutions can have the same name (only versions of one solution share a name), so an upload with a title that's already taken is refused."),
           ("Add a category, a one-line description and your name.", "They appear on the solution card, with “Contributed by” and your name."),
           ("Publish.", "It's live in about a minute."),
       ])}
