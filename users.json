@@ -111,6 +111,10 @@
   {
    "slug": "agrochemicals-use-cases-v2",
    "title": "Agrochemicals Use Cases"
+  },
+  {
+   "slug": "aluminium-use-cases-v2",
+   "title": "Aluminium Use Cases"
   }
  ],
  "users": [
@@ -224,6 +228,11 @@
    "e": "BG9w/6sOj1QyxIVGHzWI1KTlfd9lj5W12uggyQMau8B22B2UPmf7KIutBVklSlCP6enDHwi53IvUbAK8OKWrIC0=",
    "iv": "QObkn/hbi4kb2m3n",
    "ct": "9uGo60oR85qFcxwYoKW3Z6gicQ5xjCVWg1mN82RQKdFf9/2x4m1dt8PfZdM6r5/hFknrpm5zRAvqHfPU"
+  },
+  "aluminium-use-cases-v2": {
+   "e": "BGjZSavRxI/pxe2grN6LXgeURgNeXRWB0zl5h29LQqq9dQXBKNXTkq/YrH+h35c0hrXYUJ9OvcrfzGKneg8w5cA=",
+   "iv": "trAn1G1tU0OMRyRs",
+   "ct": "+i273ygodhTkziI3J+o9MvpiAdKBdZYcW/uaHVv//uUZcj8J3uPbUhE6/Afi2UZwVRGY2aTqU5/Vt4fc"
   }
  },
  "dvault": {
@@ -367,6 +376,13 @@
     "ct": "UKAQGw2bDla35+x8BsOJ3+1JVmGbVT7YhYzgWV45W8cLmIg9YBCdA2w5SE1PJVKTzKsC2c3EfpaASh/dmvyWhlhBVQziJaG2/vXJ9+PHgoWPdJ3PJw67bfdUcjmft0GbeNKrrNCuD+gocyQm4KC5db5SvT6vZLI/uzpldk1mVTJJsxwQr44rANAT8jz/JwtBzxQUEIblmA=="
    },
    "at": "2026-10-17T08:23:59.969Z"
+  },
+  "aluminium-use-cases-v2": {
+   "meta": {
+    "iv": "emzVsIpATNd2a51M",
+    "ct": "dbUPVJy+/b5UCr5eju0ICr5hnZyKTvCJKsKJNT/mkp1aIrRDXbJVYn3c4NQJtVhFW+/kTCWbGNDEsoCdZ/7YPNxlaRNY/HmzzEUnH8MAVQGC570Z5lDUIQ4pMexcDJxzwhPOQ9n6YjOLnR+x0uKZmvAFSSJqsvArXA6Bi6/RE1ERyloAb+PTohya2NXJ+kwca5Bk"
+   },
+   "at": "2026-10-17T08:24:40.699Z"
   }
  },
  "policy": {
@@ -456,6 +472,10 @@
   "agrochemicals-use-cases-v2": {
    "of": "agrochemicals-use-cases",
    "n": 2
+  },
+  "aluminium-use-cases-v2": {
+   "of": "aluminium-use-cases",
+   "n": 2
   }
  },
  "cats": {
@@ -485,6 +505,7 @@
   "solar-use-cases": "maps",
   "steam-trap-monitoring": "solution",
   "steel-ai-use-case-map": "maps",
-  "agrochemicals-use-cases-v2": "maps"
+  "agrochemicals-use-cases-v2": "maps",
+  "aluminium-use-cases-v2": "maps"
  }
 }
