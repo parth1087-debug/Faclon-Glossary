@@ -54,7 +54,7 @@
   },
   {
    "slug": "faclon-ai-native-stack-platform-capability-referen",
-   "title": "Faclon AI-Native Stack \u00b7 Platform Capability Reference"
+   "title": "Faclon AI-Native Stack · Platform Capability Reference"
   },
   {
    "slug": "faclon-overview",
@@ -103,6 +103,10 @@
   {
    "slug": "steel-ai-use-case-map",
    "title": "Steel Use Cases"
+  },
+  {
+   "slug": "computer-vision-use-cases-v2",
+   "title": "Computer Vision Use Cases"
   }
  ],
  "users": [
@@ -231,6 +235,11 @@
   "steel-ai-use-case-map": {
    "iv": "8JbuMXUm+O8q80dh",
    "ct": "mrZprKIpVs1NSixbPtYlN9BNiiHQvzRp7kXJtTrC8/bIfz+6rDB8zISDmSGQoSYy+RKOhsw9U2oCXubp"
+  },
+  "computer-vision-use-cases-v2": {
+   "e": "BLqpCRcECPypeOnVzybWLBPMrvWsoNmXy8dV1AWHX8bf74RltkFzvK73y/AP6iSLqq9uthYOthZXJy7o225AJ4c=",
+   "iv": "s/6ef7w2AvvpiQuJ",
+   "ct": "tCb5mdzlO6N+4j92gB+2sE7B17FNJf+xuM6Qm7+MfuSCnBad4AgTwpW4kT/sVr5wOms0SOVCQIhIf2du"
   }
  },
  "dvault": {
@@ -364,6 +373,13 @@
     "ct": "fBH/PRHrKbB55lXmSbr3koAULlgzowOETJ97ne17m5UH5FRo4nsKBaZdezQwVLDZZnuA9nrSMTImj/uBxvPa+a97dj5ItTem3BElNucr++CfqJZfhDQdS6N/JutyNwPf0+QTQKTeXmCmIYaMfIoCffffLtXG1FPgSfeZfvpRrlzMZcke2aUaetE="
    },
    "at": "2026-10-17T07:02:38.634Z"
+  },
+  "computer-vision-use-cases-v2": {
+   "meta": {
+    "iv": "v1hGvwwfAtOqsBRS",
+    "ct": "clkpvZKuYfkWI8nM1cBK7XDnXGB5QZUfLIN4tTI8M20S01wDrozdBHcNLFWsN3tma+b1V1lMeF3LutqFZaMLoHIzanWfO8Wb3tQO7uB37aQ9C3mSS5lQcWjPnqgBGzwRZRynoPim6lsNMqirynQcJ3vv34e3PuXij/uPXgNq0zpRaqZnDWE="
+   },
+   "at": "2026-10-17T07:52:44.609Z"
   }
  },
  "policy": {
@@ -429,6 +445,10 @@
   "power-plant-ai-use-cases-v2": {
    "of": "power-plant-ai",
    "n": 2
+  },
+  "computer-vision-use-cases-v2": {
+   "of": "io-vision",
+   "n": 2
   }
  },
  "cats": {
@@ -456,6 +476,7 @@
   "refinery-petrochemicals-use-cases": "maps",
   "solar-use-cases": "maps",
   "steam-trap-monitoring": "solution",
-  "steel-ai-use-case-map": "maps"
+  "steel-ai-use-case-map": "maps",
+  "computer-vision-use-cases-v2": "solution"
  }
 }
