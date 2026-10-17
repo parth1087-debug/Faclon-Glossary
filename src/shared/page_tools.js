@@ -443,6 +443,7 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
       var json = JSON.stringify({ pages: pages, picked: picked, all: slugs, start: start, site: siteURL, cards: cards, names: NAMES }).replace(/</g, "\\u003c");
       var html = '<!doctype html>\n<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">' +
         '<meta name="robots" content="noindex"><title>' + esc(name) + '</title>' +
+        '<link rel="icon" type="image/png" href="__FAVICON__"><link rel="apple-touch-icon" href="__FAVICON__">' +
         '<style>html,body{margin:0;height:100%;background:#fff}iframe{border:0;width:100%;height:100%;display:block}</style></head>' +
         '<body><iframe id="v" title="' + esc(name) + '"></iframe>' +
         '<script type="application/json" id="data">' + json + '<\/script>' +

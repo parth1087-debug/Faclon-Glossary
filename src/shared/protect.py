@@ -50,6 +50,7 @@ HERE = Path(__file__).resolve().parent
 SALT_FILE = HERE / "protect_salt.txt"
 AUTH_CORE = HERE / "auth_core.js"
 TOOLS_JS = HERE / "page_tools.js"
+FAVICON = HERE / "favicon.png"  # icon for downloaded HTML files (also used by the connector)
 PDF_NAME = "page-pdf.bin"
 ADMIN_SRC = ROOT / "src" / "admin" / "index.html"
 ADMIN_OUT = ROOT / "admin" / "index.html"
@@ -183,6 +184,16 @@ def title_of(html):
     return re.sub(r"\s*·\s*Faclon Labs$", "", t) or "Faclon Labs"
 
 
+
+def favicon_uri():
+    return "data:image/png;base64," + base64.b64encode(FAVICON.read_bytes()).decode()
+
+
+def tools_js():
+    """page_tools.js with the download icon filled in."""
+    return TOOLS_JS.read_text(encoding="utf-8").replace("__FAVICON__", favicon_uri())
+
+
 GATE = r"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 __MARKER__
@@ -278,7 +289,7 @@ $("f").addEventListener("submit",async function(e){
 
 
 def gate_html(slug, base, iv, ct, core, gate_ver, content, up=False):
-    tools = json.dumps(TOOLS_JS.read_text(encoding="utf-8")).replace("</", "<\\/")
+    tools = json.dumps(tools_js()).replace("</", "<\\/")
     gate = GATE.replace('var D={slug:"__SLUG__"', 'var D={up:1,slug:"__SLUG__"') if up else GATE
     return (gate.replace("__MARKER__", MARKER + f'\n<meta name="faclon-gate" content="{gate_ver}"><meta name="faclon-content" content="{content}">')
                 .replace("__TOOLS__", tools)
@@ -444,7 +455,7 @@ def main():
     if users.get("check") != check or users.get("salt") != b64(s):
         sys.exit("That password doesn't match this site's admin password (users.json check failed).")
 
-    gate_ver = hashlib.sha256((GATE + core + TOOLS_JS.read_text(encoding="utf-8")).encode()).hexdigest()[:16]
+    gate_ver = hashlib.sha256((GATE + core + tools_js()).encode()).hexdigest()[:16]
     force_pdf = "--force-pdf" in sys.argv
     solutions, need_pdf = [], []
     for slug, path in targets:
