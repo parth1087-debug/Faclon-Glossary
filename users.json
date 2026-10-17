@@ -123,6 +123,10 @@
   {
    "slug": "bus-bar-temperature-monitoring-v2",
    "title": "Bus Bar Temperature Monitoring"
+  },
+  {
+   "slug": "cement-use-cases-v2",
+   "title": "Cement Use Cases"
   }
  ],
  "users": [
@@ -251,6 +255,11 @@
    "e": "BMulK8MMBu0QpjdgbM8jkX7vH1IftcHSVakNAmERIzmEpqGas+N6gDf87quIycZOOoYcouzpagfTv2D+POG9EfE=",
    "iv": "vEEzQZHhPeIqpIkU",
    "ct": "CUhasA/a0cn+IiL/NSYTqYs2u37S9kr+VZNOw8hBgyQYM3wjWfmHQ2iGS5VoDSczyzWsrfrPUisi09dd"
+  },
+  "cement-use-cases-v2": {
+   "e": "BIUImR3ImZhtSzrFLFffYFJ7lJsNNBULczSCkW8SkeP7O2f9IDlXAuxJ9s0YxIfz8UgPEfW8knE52OXN+GS7YzI=",
+   "iv": "XJdCi29jVZgfgqyt",
+   "ct": "YLUUWmwpbiVSqpXlkAQHZHo/BgMG65W9+r+LSfYzPF9OPiSw05x7uhebRx6BjSjr+wqepqcwnjQUf8nV"
   }
  },
  "dvault": {
@@ -415,6 +424,13 @@
     "ct": "IWnP/oKbjx8Xe6xN61C4eMdoTwdWOKQOHWs5PIPXtciBM8v9ObVpchSzavODD05CqJv86nbjqLlQreVtE/RCqURjzW5QihqaHtlPcIqPuOAAv2Y9CDxL4Y93XyljpYWNR0vv5blJoMKMpiAw21oLe7srnGRHp55oflMrKEeBF4EO7rCGnAVHc4Oc0DDL+v8sJ84oChP8rmV2ngEWMec="
    },
    "at": "2026-10-17T08:24:49.902Z"
+  },
+  "cement-use-cases-v2": {
+   "meta": {
+    "iv": "Ft5eh5IfapbJZMXV",
+    "ct": "u2Qb/SOx/Yt+cGdIvTjlLjL8VemvrKBK3puPgb3TSiQbRNeQUbumRQF3UydBlgLd9sRS8vz8ZWuzSfgUSlftrOjz4Nen4nG2JgE/u8TmlRms2H73zn/hpyYud8Tr4ZuYxOPNbYElJ03GQTJOzhKXAcMe+gtYfLJh3LvDDoytCVmHJ8V7w8kSdAB834Bdf0sc"
+   },
+   "at": "2026-10-17T08:24:53.817Z"
   }
  },
  "policy": {
@@ -516,6 +532,10 @@
   "bus-bar-temperature-monitoring-v2": {
    "of": "bus-bar-monitoring",
    "n": 2
+  },
+  "cement-use-cases-v2": {
+   "of": "cement-ai-use-case-map",
+   "n": 2
   }
  },
  "cats": {
@@ -548,6 +568,7 @@
   "agrochemicals-use-cases-v2": "maps",
   "aluminium-use-cases-v2": "maps",
   "battery-energy-storage-use-cases-v2": "maps",
-  "bus-bar-temperature-monitoring-v2": "solution"
+  "bus-bar-temperature-monitoring-v2": "solution",
+  "cement-use-cases-v2": "maps"
  }
 }
