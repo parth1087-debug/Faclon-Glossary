@@ -201,16 +201,16 @@
   {
    "id": "d86fb9d96f3be5cdd2439f00d96e9d43d8367ead19798b3d49bac9327e910369",
    "s": "7TJxSIVsn717oPRkK3A6fQ==",
-   "iv": "foYwLlLeNvm7/Eoc",
-   "kr": "HqYsgn3l8bzoRgDk9Wg+X9pDYTQtqI0o+63RYSk1Egv0PR0nUnGkDJ2Z6S+PdINAAN5niyeb8MIr1Ig0GmHRBOPD4mhyikdvC8TyGpNqKXLSxVC/mub4WwbCEy/2zvG2WsSqfLo+f3D/vV6VYIEhZ3QCdGNdYoMzl/ze/SIHQem57d8Jla8ExGivKwV5nMab4K9rrUXDV4RsGGdZZEnLFrKco579TVV26tOq6oRaX+hFK5qYdP6szmrzvIldU7hof1SPlvJwjYIUwyodsrvmHoK8YLNVO6J/VcYRmr+1TL1CVdtw0SQWpefRPjF6MG7+JW0PiA795s5mdHM3uMAcxA6yfeFiLtI=",
+   "iv": "8WYPDJlRrTIALGNu",
+   "kr": "8QPo3vm8cENfDeP053ofChK3qnAN/WCFkEjaqTCrUZuRqY3mphTSo+xP9R0P9kgUJDyAGlsgD4lWftW8Mu5Tz+NPoWISJPHYpW2Kytyf8P/jX7RNHL8dl29VXSADPhSMZ1VmUw6K57tmevUC+aW0ES7i/zpMOUHzwhFJ8dTf3WintCbqssm/W/SfJsEo8rYNttt7TzWjKDif8PG1Q+Ta5pSCz1ZyHyClgjJfdhi78wxQFDK5uaa4hVMx03tKgJiTvvTl75tJxlsDUM9e498jEaiUg6O1C5tCIm1Q5Qc20ngn/5aWQ4x5l9jmVrqvSK7AoCIWxMYPbpvLM+DpUG9XAKaMoIttwkA=",
    "miv": "Nckz6Q27UYsLEpbk",
    "meta": "KATsaEYU/3BeQpkrwIoWmrcRxZ7uI8y5vFtBEDvfx5mL3QJX5A1qlB7/cT3ABpjbutBta07hr1E8wb/aA96Pp7EJKMRZReMfX9Wsl0AqQ62d9x+hHC5x1grmTwH2HGYs0mJl1rmeZm1u1GH3izsuaCXmm3csLE+Cc56E4cNOpj+HfLa9WD2SKVJNqAautENz9uwYnT/cYYYXtEvLHQsHz0tsaM6zZjVHNXaQoYia21cEHLul63J1F0DsqIhB351/IfuB3nB+oNWxMcou04GOaEgq3+pPeE6i7ByVsQ46CL5VlpLefr+A119uHjYl5Mmp"
   },
   {
    "id": "a28cc78d4afc71d82f1e10dc3b0b4e7eb27a44072b270a0be8000a7f8f7ae8b5",
    "s": "WiWXiMT4Z0uSmiNJesso3g==",
-   "iv": "2V5X3qjXI/PEBEO4",
-   "kr": "izs1JvpMMOnyI8Aj4D/q9uVamh2sxrHGlQacT6R5dzQEQfkBgBGBPxcKlcDVFhHSGetCWR9ZSJDgkYM8qj1BHlNYQ4TW/0ADlpqiINMSfpnhlguNzwZ3TW9I9WnpaqJnSd2cysnbnkVJgvB4CG3DQTp+EeKjlpN8RKUhRjHucZqRAQbYr92G6vU8Bn2HjxmQSm09I7DaI2MIx4VYq146NLtxhdMzRpu+zah8wMVRl/bJBw/ee+OqIwFpMJDytdVF3tHccRMl7pIoj+hUum6tH01dr0nt",
+   "iv": "PNtcGVH7N5xol6JX",
+   "kr": "MxoNEurL2V00smjm7LwK2SRQ8U+Gjlr251Xxjc1YOtYVSsbJ02RPQMpn7u0qTzXJDZWwgCoJjw/E9JtSghrmAe6UudxuGausCnsEwFfN7mb+5JWYrsMQ1/TOCxWTbxyL7BnK32JsiE9VmXiI/kq7hF75hIQAvoDfTykCao56RMIedFdlIF2JMpQY4wOPnoT5h47inRVAgn3EOiiHEUlhfjSEJxSdr6alX+F6jSTZxJ3lsveT9HE87rOdDNaL8KK29YGQS83i5GfOU1tqNSAB/MQi9RW/",
    "miv": "C8s/h71vTGxV+3Yh",
    "meta": "598mfSPEbBGm1OH+660jCwoJz4eiJOq2CDYI4uggHxX9e5N75GWBIjkhGtqP7W6yuxr2+pXIGMehns3wMRBSfazj9oLe3LC4ZEnv6eKh/QwrutTa98FRqUI0NEi4vkmXBakd8+9f91u7YVq2ij8wCSa/tb8uVcUAtIOTUDxL/Q/hU+prarvSpOMNSbneYSP9DDBz611a12QOeQqKpOkAqlr+JmzedGSZRT4RrvBE0I6CRh65wL8tZcleQoiBeV0u20ZQU8XozNmH188h7TOdRUtN3m60UIVb3SnpDbioEFNfz9yHPRUttQSwOA4k7hUOptAN"
   }
@@ -220,17 +220,9 @@
    "iv": "t9ZfQ7YU2Vokx7zt",
    "ct": "ulBanmeGxUpbnU7PlIOIm/ryaBLiK51o/gMhMeAbBU37mlnRplr5Rr/6R546JrwEdo9R5g2qSwNPkbqy"
   },
-  "condition-based-monitoring": {
-   "iv": "GhRYO04MtQZs/ajA",
-   "ct": "gw0rStdRmqjCXp05XJpvi1fql7M2PucK8tAMDaaLzhLwkhhw2ZiujjnklkztPfbeLffQeXQC/htXA3Ue"
-  },
   "faclon-overview": {
    "iv": "xSXNUnAUMVKuB9sQ",
    "ct": "HZY2Z7RezCM/GgBuNfCm7wZ4gmmv+AsuZP7RmztK8Gu3dhna1LMp4Y8/EtQclrx8qhTxnctjThqZQMeg"
-  },
-  "steam-trap-monitoring": {
-   "iv": "jzPX3sC3K52ymyoA",
-   "ct": "Uro/Q+uLaOidLNl4OccWo3OPBtO/VmLUN2rb/w1ltPFEqu2CdGlvqaYsnrG1mj2XCscxSpuxy0wCL8R2"
   },
   "agrochemicals-use-cases-v2": {
    "e": "BG9w/6sOj1QyxIVGHzWI1KTlfd9lj5W12uggyQMau8B22B2UPmf7KIutBVklSlCP6enDHwi53IvUbAK8OKWrIC0=",
@@ -344,17 +336,9 @@
   }
  },
  "dvault": {
-  "condition-based-monitoring": {
-   "iv": "axSttDBByxRrAaon",
-   "ct": "iOVVc0HS/17Mfhw+CvcmWEtQM1ns5Q/mkeZBsT/BY/qAIO4d/SYFTBx0/DcT4CLOsC+nsfDsERffwyNQ"
-  },
   "faclon-overview": {
    "iv": "A3GK6DiwzgvHBGJ/",
    "ct": "TYgyAq8nk/Z6OQyi0gPPLUHvigJb4KxFW1ftyAfVDxs0qPnsc2KQcuTK/83tdyqL/K2JctMSZ0170bbM"
-  },
-  "steam-trap-monitoring": {
-   "iv": "Ltz5tZxZYhvFlzCz",
-   "ct": "U86i07y5A6MB4JihT3iX2iknP217VHRdz0B9kNY4yMMqgNlYhz7SiTzv5Ni22m3eEn8f1qnaN0wg9jUS"
   },
   "agrochemicals-use-cases-v2": {
    "iv": "FWAPFroDDYKLL0Qp",
@@ -435,6 +419,14 @@
   "pulp-paper-use-cases-v2": {
    "iv": "snI3E20D+cnlNbJk",
    "ct": "TPZOJIQUpg3HwnrR37X0jw9831cDGMb8MJDmxGTjqQqH9xea/XfT4zGdfsEwkz2HD0+wRM/+fTkB8Jdi"
+  },
+  "predictive-maintenanace-v2": {
+   "iv": "DJh76VNKsc7mJJbi",
+   "ct": "xbYBIyil/94v4Z6nOhL9+XfjdWp2evHzFlUIm85vfXEr/sKviKG3NpDlQbPrLcVkxTYcJscAc3SyM0jy"
+  },
+  "online-steam-trap-failure-detection-v2": {
+   "iv": "icnlAesCH7qY21ma",
+   "ct": "XpqVLV8MyKOuZZ4jj5sUVe4Xwu8YFyNLrw3C2pN/DjKNe3MEG4AhngyjnBvaKRgBQG2Qs4K2unZq6lPl"
   }
  },
  "spub": "BMFlEHG8VeKaoZzX/tBnB9aYE16JfJJ50GUqfMMUaCSUaPyqyuZvvBNizSdpecehSsy1IWg9fzYTAZW+62Oqpxg=",
@@ -723,6 +715,14 @@
    "download": true
   },
   "steel-ai-use-case-map": {
+   "read": false,
+   "download": true
+  },
+  "condition-based-monitoring": {
+   "read": false,
+   "download": true
+  },
+  "steam-trap-monitoring": {
    "read": false,
    "download": true
   }
