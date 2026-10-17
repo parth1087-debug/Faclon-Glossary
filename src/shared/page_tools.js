@@ -352,7 +352,8 @@ function FTOOLS(A, N, ADM, B, SOL, SLUG, DL, POL) {
       if (vbase) { if (!(U.solutions || []).some(function (x) { return x.slug === vbase; })) throw new Error("the solution you picked as the earlier version no longer exists"); t = familyName(U, vbase); }
       var clash = FA.nameClash(U, t, null, vbase);
       if (clash) throw new Error("a solution called \u201c" + clash + "\u201d already exists. Give your page a different title");
-      var html = await upFile.text();
+      var html = await upFile.text(), inner = FA.unbundle(html);
+      if (inner) html = inner; // a file saved with Download → HTML: upload the page inside, not the frozen copy of the site
       var taken = {}; (U.solutions || []).forEach(function (x) { taken[x.slug] = 1; }); Object.keys(U.uploads || {}).forEach(function (x) { taken[x] = 1; });
       ["home", "admin", "src", "connector", "readme"].forEach(function (x) { taken[x] = 1; });
       var stem = vbase ? slugify(t).slice(0, 44) + "-v" + FA.nextVersion(U, vbase) : slugify(t);

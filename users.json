@@ -54,7 +54,7 @@
   },
   {
    "slug": "faclon-ai-native-stack-platform-capability-referen",
-   "title": "Faclon AI-Native Stack · Platform Capability Reference"
+   "title": "Faclon AI-Native Stack \u00b7 Platform Capability Reference"
   },
   {
    "slug": "faclon-overview",
@@ -70,6 +70,10 @@
   },
   {
    "slug": "power-plant-ai",
+   "title": "Power Plant AI Use Cases"
+  },
+  {
+   "slug": "power-plant-ai-use-cases-v2",
    "title": "Power Plant AI Use Cases"
   },
   {
@@ -99,10 +103,6 @@
   {
    "slug": "steel-ai-use-case-map",
    "title": "Steel Use Cases"
-  },
-  {
-   "slug": "power-plant-ai-use-cases-v2",
-   "title": "Power Plant AI Use Cases"
   }
  ],
  "users": [
@@ -200,6 +200,10 @@
    "iv": "qdL9ZnoF2eV7PKNw",
    "ct": "oZJLq9vfWXtwUREX2LtK9uWE8QWDKOsySbjT+3aS3S12l5ClKYFTeWuG5g1IUcqy0fqLajUBvs5dfYo3"
   },
+  "power-plant-ai-use-cases-v2": {
+   "iv": "5x7v4wBXPW326LZE",
+   "ct": "zh7uBTM+pOmg8tyZ2sLplx9j9QijCPWJIeO8ZMXmjuNhhQGRVh87QheKlpUKOi5oUDvqCznymAPrXPGa"
+  },
   "pulp-fibre-use-cases": {
    "iv": "zJj0Jt2BToFuRbgt",
    "ct": "iWMbTmq3YYr7+WneC816+oTCc/3XqqvSoTkHWzDKR3i916uiSsFXoiKRgsTf7+/e0dwEDOCCTDa6znU7"
@@ -227,11 +231,6 @@
   "steel-ai-use-case-map": {
    "iv": "8JbuMXUm+O8q80dh",
    "ct": "mrZprKIpVs1NSixbPtYlN9BNiiHQvzRp7kXJtTrC8/bIfz+6rDB8zISDmSGQoSYy+RKOhsw9U2oCXubp"
-  },
-  "power-plant-ai-use-cases-v2": {
-   "e": "BGOoCtWxs0QncTFRT4O5JMspk9nJz/InJQqu/JY0Xo2gnIwTZPFGb1VPuhLS9X1EENoWpa2mAqLOCMQxBF5YEcs=",
-   "iv": "nphGo5Wn/RqkTm5O",
-   "ct": "EEMMePdi7Zz4Sc1IN1iJU/uJvY0NxdLEe5+VWoVMAAYgwETb3B/TM3L07eX+v9/OoJDE8ZRB6EruJT8O"
   }
  },
  "dvault": {
@@ -299,6 +298,10 @@
    "iv": "80Z2LtwA6kAgrZec",
    "ct": "YeSgGqCVTPSEDJQ/eO4dwuyTbAEzpF+BA/rMOSesmYo3CRR6KJVOlOLmIINuaubOMynfrfJ0UNqz6y7K"
   },
+  "power-plant-ai-use-cases-v2": {
+   "iv": "6dhh7K/NtgrpFCAX",
+   "ct": "AMKwbcbX9soDayMZuJ3xGlPTSqRMiGXtvs9OmwFqexLE1QEQX8s0JD9U8qLRsO0V7ODvqXSd5wKoauMd"
+  },
   "pulp-fibre-use-cases": {
    "iv": "WmREvzrpsCXd+XZi",
    "ct": "WqpX4LyaXt+fV5RudpJ/5njKjuJb5Aa+Elf5kDj4RfYK+fcPRy3K76IfZ8Ixs1Cfi1m82afNO33X1GP5"
@@ -326,10 +329,6 @@
   "steel-ai-use-case-map": {
    "iv": "egDdVtRb+O+dIKob",
    "ct": "9ywBww4rA85c1sAmNvgFVxqvOX8XbQgPM5hXv+0ukjUDhv+9/uXgATBAF0TBiipI4TFPUTnYZamtZR3w"
-  },
-  "power-plant-ai-use-cases-v2": {
-   "iv": "6dhh7K/NtgrpFCAX",
-   "ct": "AMKwbcbX9soDayMZuJ3xGlPTSqRMiGXtvs9OmwFqexLE1QEQX8s0JD9U8qLRsO0V7ODvqXSd5wKoauMd"
   }
  },
  "spub": "BMFlEHG8VeKaoZzX/tBnB9aYE16JfJJ50GUqfMMUaCSUaPyqyuZvvBNizSdpecehSsy1IWg9fzYTAZW+62Oqpxg=",

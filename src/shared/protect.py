@@ -121,6 +121,24 @@ def plaintext(html, slug, master, users=None):
     return AESGCM(key).decrypt(unb64(field(html, "iv")), unb64(field(html, "ct")), None).decode("utf-8")
 
 
+def unbundle(html):
+    """A contributor upload that is a file saved with Download → HTML (pages behind the offline viewer, with a
+    frozen copy of the landing page) is replaced by the one page inside it, so its links reach the live site.
+    Returns that page's HTML, or None. Mirror of FA.unbundle in auth_core.js."""
+    m = re.search(r'<script type="application/json" id="data">(.*?)</script>', html or "", re.S | re.I)
+    if not m:
+        return None
+    try:
+        d = json.loads(m.group(1))
+    except ValueError:
+        return None
+    if not isinstance(d, dict) or not isinstance(d.get("pages"), dict) or not d.get("start") or not isinstance(d.get("picked"), list):
+        return None
+    if len(d["picked"]) != 1 or not d["pages"].get(d["picked"][0]):
+        return None
+    return d["pages"][d["picked"][0]]
+
+
 def meta(html, name):
     m = re.search(r'<meta name="%s" content="([^"]*)">' % name, html)
     return m.group(1) if m else None
@@ -432,6 +450,11 @@ def main():
     for slug, path in targets:
         raw = path.read_text(encoding="utf-8")
         plain = plaintext(raw, slug, master, users)
+        if slug in (users.get("uploads") or {}):
+            inner = unbundle(plain)
+            if inner:
+                plain = inner
+                print("unbundled", slug, "(it was a file saved with Download → HTML; now the page inside)")
         content = hashlib.sha256(plain.encode("utf-8")).hexdigest()[:16]
         if slug != "home" and slug not in GUIDES:
             own = upload_title(users, master, slug) or title_of(plain)

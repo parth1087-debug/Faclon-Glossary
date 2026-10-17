@@ -11,7 +11,7 @@ import json
 import zipfile
 from pathlib import Path
 
-VERSION = "1.1.1"
+VERSION = "1.1.2"
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 OUT = ROOT / "connector"
