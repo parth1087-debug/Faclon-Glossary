@@ -139,6 +139,10 @@
   {
    "slug": "copper-use-cases-v2",
    "title": "Copper Use Cases"
+  },
+  {
+   "slug": "discrete-manufacturing-use-cases-v2",
+   "title": "Discrete Manufacturing Use Cases"
   }
  ],
  "users": [
@@ -287,6 +291,11 @@
    "e": "BI9LSO5j5/4y5QLz862douLzGdG86N+Aa54AYss81pVIBSHBknmI/9ZL30QOA68s3CEDXLk8eW6ApbegVMar+uk=",
    "iv": "G5OWG6xSuXZWScs6",
    "ct": "l4gCHpScbwXVcYUpW8MLbWxC5UwUT5i8STkQLFQfuE8Uh1cbgJTmOVGxhfLT/+V7Zb9UTSLyMEUeGYfO"
+  },
+  "discrete-manufacturing-use-cases-v2": {
+   "e": "BMkXRQVF79AdYj7vnX6wdh21i5S6khKM5Z+AGWVLyYQjvtMq2pyGHSbMzrJ4KEErhTs3J25O7TSvtwAdc+zyUoo=",
+   "iv": "hXgRlxXgVoSqEDn8",
+   "ct": "/tHx4TfydjFKOpZdiKy69Du7PLZlZsvO0ZlrMue2h3kFYs6hS6ak24J+KZFA/uI/WTrziCsPcQtUMa+5"
   }
  },
  "dvault": {
@@ -479,6 +488,13 @@
     "ct": "6TcG1vcSCv2BlXdmFNXuMXtrsOTnkov4wl5Em0qO8rWKP5KU0liZ2z9+6wNhp40WJI+TFSMk2Cy/rnrkS65zauVXeBuOoCie4g/Lx/oNQTFC2PN2ndNgqH+RC3CWv6j5s0AkgP1qiV72oWWfkiDYlfH+QFmUgOzjgor3F9ytZHjnTfWue5I13LupSjExfF7E"
    },
    "at": "2026-10-17T08:25:04.752Z"
+  },
+  "discrete-manufacturing-use-cases-v2": {
+   "meta": {
+    "iv": "jGrCRm2dDdayg71a",
+    "ct": "mC0i5dAf5kv3p/6RC1iX0DFQP1f1mgnO3wXKcHnG6aFdlZ9Qat+heKvKt93OHJxLTeLs/68H3W//IKrkhK0257JjuXnMOdWOVl9GwoxpZg+UxJEmV4N4FTVspw9rTGU5xJjPufDGAVzZJpJEQP9D273xTnxpXjUBulGs3t7ZeyNAa00XH3pePN4ozJ3mRFNpghLDemJ6B0cQeifWmaerfg=="
+   },
+   "at": "2026-10-17T08:25:08.661Z"
   }
  },
  "policy": {
@@ -596,6 +612,10 @@
   "copper-use-cases-v2": {
    "of": "copper-use-cases",
    "n": 2
+  },
+  "discrete-manufacturing-use-cases-v2": {
+   "of": "discrete-manufacturing-use-cases",
+   "n": 2
   }
  },
  "cats": {
@@ -632,6 +652,7 @@
   "cement-use-cases-v2": "maps",
   "chemicals-use-cases-v2": "maps",
   "coal-mining-use-cases-v2": "maps",
-  "copper-use-cases-v2": "maps"
+  "copper-use-cases-v2": "maps",
+  "discrete-manufacturing-use-cases-v2": "maps"
  }
 }
