@@ -179,6 +179,10 @@
   {
    "slug": "energy-management-system-v2",
    "title": "Energy Management System"
+  },
+  {
+   "slug": "pulp-fibre-use-cases-v2",
+   "title": "Pulp & Fibre Use Cases"
   }
  ],
  "users": [
@@ -377,6 +381,11 @@
    "e": "BCm5PpNVNCnPIkq1RrzPMehNncmd3bi7MAAr1zCPsL9CMxzdk/kaFK1PkRd6WA3bOVagvlVJ3WnEDLtpA6letdU=",
    "iv": "sdF1nW7asdsfvVlV",
    "ct": "lHH2tUuKfWqyfAP6dALMt9/6HYEc93ltWGX8QJTA8RvZkJ2qxukRLngjStbKBfP34ZegRa45AWfixJKr"
+  },
+  "pulp-fibre-use-cases-v2": {
+   "e": "BD8t4hmrVaYOsNvn2b3w0cO/4SYAWU1DhOJIC0fYsnoBil0iBhnjfcZTTnDWKYTU1k5CoTyWKwHRf4UCPMxn8mY=",
+   "iv": "a8kkYY7vlLiq4rJp",
+   "ct": "55rXYnzJaO9pG7bRIArEdtqzHDBHx4p6F9xm9kvGE80vrRcY2YbXLbJuQmES6LN/Q65T/6/S4dmI+och"
   }
  },
  "dvault": {
@@ -639,6 +648,13 @@
     "ct": "haCXwvYlNK9Dj4xJ2ZSfotdNH8pdAdjJUTD07nji47b1dtzUOq8cJg2ZX0cesbjAtHa0pENkABEFzpXSv0pmXLQvAIK0esvtfPqK66yMofOVGj6Xoqt9Vnx8QD9a0eKYXmFFFha2DXbPDCtlasjuPpO0Q4O9PSQRGb8TwORQZDQgpAjjU0DwoYccepu1WwOv7zFVfIJR7og="
    },
    "at": "2026-10-17T08:26:10.338Z"
+  },
+  "pulp-fibre-use-cases-v2": {
+   "meta": {
+    "iv": "IA45tXe4UdTKJvbE",
+    "ct": "uo4Lw6NWv9hRG9JN8Di6cWFksB1mo1mxc3TzM1AADITN0dzQH2NVm2cXjkfw4UjJFN0vOh7K4TgcaqkOFn7hDgkfPJ7TErQ6SQBlqtAqKVy90saIunRsfZ/Wr91mILRTW46YtFoTwhwx4Hx27jRAd6OJFyZL045bklG5ZENDOr6CnGnuNoN5TP83yduk0TmTq8cUQs1I"
+   },
+   "at": "2026-10-17T08:26:15.400Z"
   }
  },
  "policy": {
@@ -796,6 +812,10 @@
   "energy-management-system-v2": {
    "of": "energy-management",
    "n": 2
+  },
+  "pulp-fibre-use-cases-v2": {
+   "of": "pulp-fibre-use-cases",
+   "n": 2
   }
  },
  "cats": {
@@ -842,6 +862,7 @@
   "solar-use-cases-v2": "maps",
   "steel-use-cases-v2": "maps",
   "computer-vision-use-cases-v3": "solution",
-  "energy-management-system-v2": "solution"
+  "energy-management-system-v2": "solution",
+  "pulp-fibre-use-cases-v2": "maps"
  }
 }
