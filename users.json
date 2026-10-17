@@ -54,7 +54,7 @@
   },
   {
    "slug": "faclon-ai-native-stack-platform-capability-referen",
-   "title": "Faclon AI-Native Stack · Platform Capability Reference"
+   "title": "Faclon AI Native Platform Capability"
   },
   {
    "slug": "faclon-overview",
@@ -82,11 +82,11 @@
   },
   {
    "slug": "pulp-paper-ai-use-case-map",
-   "title": "Pulp & Paper Use Cases"
+   "title": "Pulp & Paper AI Use Case Map"
   },
   {
    "slug": "pulp-paper-use-cases-2",
-   "title": "Pulp & Paper Use Cases 2"
+   "title": "Pulp & Paper Use Cases"
   },
   {
    "slug": "refinery-petrochemicals-use-cases",
@@ -113,24 +113,24 @@
   {
    "id": "778b892729b99c02f192c5b44ffff6c0329040f8eb5820af5a761396da513fe6",
    "s": "F3+PhSpAIEOXc+QdU28NOw==",
-   "iv": "VccxvFqrYf+vZE8K",
-   "kr": "fw7HxwfMUzHrAY787jFVELy4x2nAoDsKrUXIrHs+EwNCSK3g0OZpyui4FgN2rfP1TNymTEd5c2jKk0Bawmy32bQQFN4GAVE9mqP+3cwNj9IFy0ONp19hytr8qavf/XcNaVchLhfEDeUpzjojQN8e+f9c0yf4sz30pe78lYkG9H9qlPh53HQGDqPlHaKDqpPt48JUd+hNjshzxp35K8RiiFeHKUQ4p5GvSVoIsdYiz6fRmyvYLfA+N7ebIADstgPkO1v3sBL4mFsOZmc6I8rX",
+   "iv": "I/VOmJeg6P9AZ8sk",
+   "kr": "/6XG+yNuEIp8o87AyebvHhLrErSJ+VNH1UrNd4WByIuO+RyM2IHmSJw0mroffthODpLGRjL3Ar8ykm23iNz8WPpKeMdS79LUy48WvdevuGtDcCObyZghF6BR56tu2WluaxMAI+X/Yug7Q6pDQFRRPe56za6oCw+sT1J4KBqx5oiRxn6tVQLpL9yJjkQPzVt51+uzDZHPWHeV/KnhFKEYzzu+YKGpMyyQ35jjEXuvVWjcrSBzxx6YPg9N+Vg7KZZNMSJ4UoCbfzt0ib+oFHI6",
    "miv": "vii8y5aOjszNOrmN",
    "meta": "hMBc/qhD5kZamG1knk9VXftMjtzVFf4z2E7PM6EuQ7bgSY1JrnTpfHGcpEJ4KfB8DZ5EVlQXvwC4UtL52IVvrBuRQedVsG1ej2Sp4WWALlxTu2LatCBHoi0TiUUMYvHJyKfwzP7bKEXZ3U1Si6I9gDckbH9s8EbrCHL/fsfXypUrAUw1CQllrZT3qNjqXYyI5iV05pRKtAbC1Z2Jx3X8UeXklhDBDWuRp2EUbmnFUobIJNVUMk68E5jtGTHvmVeGZF6n1YL71w=="
   },
   {
    "id": "23620265b7b97fb218bc476a4b50e18e27125feaa999ad90d8930dfc7804b70c",
    "s": "qP4SHEFs1DN6RuEqTxk62Q==",
-   "iv": "zkyKLt4R9owh4cId",
-   "kr": "23xKKclNSD6b4Bukj/okKlvToaX1LveBf/DhcdnV27InLsw8/nNk4/j8n5NnXBS5RFgYgr8Sl+hNXD93Tpq1wNdwkbd6KsR6buWpR7XQlL07hb2wnSGnaYsFys3iw0o2RWW8O4m5JK7cVdi9shbGyjzgi2Z7boYBdEex49qpJqnd6qHIErrFOAT0LV2s/TMmIf2/bjMXSqzBAGVmMGVv1kmH9dr1R7xV9h1YcVnb2XZI8ey8D7oimNxV2CqpL9E04aIHgtfJ427p5V0qzWPiw8VdLLj80oezwQaMgCgrvUPaFptVQxtxBu7kNiUJYPGYc8Ihou5djSAzyqg4Yplf8X4OTw==",
+   "iv": "BBbgPgF9F8cMxUOT",
+   "kr": "Jcv+ijRY0Tx1XTlJMZkq3/HNgT0Kf9Bo0l3PPcPN4wLLY+XiQJuAWdXpRivY+S6ATMqgKjM1mZJIKtc/IEKufSm6mNJPqhupMBknIWGJgBCkcEP3L+wOfmhJcO63jDgb9PEeRybH7xSQM9fQUZ+/ax0NutTLaCUG+NNmraQfwkTKWZwxyUlPYm3jYg7aavw56Wg3VNfeExH9FZRkDAGlpQghazjOT+XP+IXgU8hohYZR/lLNItGN1gpQz6Q0MogNpD62f+S374OyMl+W3iyPTUBCmiT4WEPu1AsJb0DRkygG0+uUpbgQ58RUcnq2Swfy2LLkVmbNpcvvOMbFR2MpVdWlmw==",
    "miv": "rKMW4DpKuzEvW8tu",
    "meta": "uuE/9Qo6nsdhY9dGwj3/MnwXQIQGafI9zcI260S45qA1RcBmAWzGm3EGZqeXb7ig3PQo3XFA9mzuLPxBqDNqZ60WVolyOQ4bsj3yJotkrP0dbpyiJjdccnsu3i9W5/dlptviDzs4/ufP8miWCPzt6EnDEr1R+9EJ9vo+PpGjk2jiZQrHGQmm3ipBWvSQOe0q8MT9gfnlSddxOdPYLRxVkcdV2UCqgRpZ8t+i+WExPTLHb25pnmfk0y7sFqH3LZj3GGleGkMJ1KLjFU8WH1H3Po4oQQqJTMzMjfQ+EuW5K8QWytAeRWyyFA=="
   },
   {
    "id": "d86fb9d96f3be5cdd2439f00d96e9d43d8367ead19798b3d49bac9327e910369",
    "s": "7TJxSIVsn717oPRkK3A6fQ==",
-   "iv": "HGpuqYYt6IonUaum",
-   "kr": "u3qIwHauAIx1w+9+pqw2b/5LscsSiNH4bpeiT37mnTrhXL0snDtycokZVAgZmEVLdTopmZ0gbC1u7KbtwgwtNaHohDN0p4qyZKkV11Te6Tkgzf6msejaSUfSEHV0g8zFqv0vqtT744z/tjWsFCp9WhIrPzANgSAvomBSqV+Zw2dz3icRtGNg4+nz1wwVr4KfgamnaLNAQy+Xi6AiO+/2XC/youm2zUpXX89XRE7n61fmO1EUKrpEcdf8IIP4A8h8oFmdrQ5m9tx3L09Wzomp5mgF73wgZSbNeEkv0LXlL4jzGPHfs4Fu4Z3czN/cWg3zJt2cUaZzYRrvb19e9SV6F74Lp+liH18=",
+   "iv": "gOoIpT3KNqiREh6q",
+   "kr": "oukKne2bDFeb+uL+Bz+yL2VRA5wPe8DPDHiCFq2T71/WjbGlg9c/7IRorO9WMX5BTVQjExDAp+hm+BUxDJbqdlbErKuDrq6QeB8EoLkJyrXV6wIrfcUO3a3D7CYY59mVpQHvjLbBnS0DrNHZzEMZk4GGbNfWPJ+zfYh0f8WAnHAhVaHRffBfL1632mbeVuqs57NdBtKov+Ij5fhQ487Qjn4iQYsUGuLwEqm23zAErQ+hvSvQB2XjpQRwjuIg3aDZSN2bhH3FmgNQClE19YNMApakPmR/KefAvOlkhVBFq5JsHhCkE0xM0pLxMBggFQVXyZTkHNsSOYOFjuBwUPF1vOL1pjAH8LI=",
    "miv": "Nckz6Q27UYsLEpbk",
    "meta": "KATsaEYU/3BeQpkrwIoWmrcRxZ7uI8y5vFtBEDvfx5mL3QJX5A1qlB7/cT3ABpjbutBta07hr1E8wb/aA96Pp7EJKMRZReMfX9Wsl0AqQ62d9x+hHC5x1grmTwH2HGYs0mJl1rmeZm1u1GH3izsuaCXmm3csLE+Cc56E4cNOpj+HfLa9WD2SKVJNqAautENz9uwYnT/cYYYXtEvLHQsHz0tsaM6zZjVHNXaQoYia21cEHLul63J1F0DsqIhB351/IfuB3nB+oNWxMcou04GOaEgq3+pPeE6i7ByVsQ46CL5VlpLefr+A119uHjYl5Mmp"
   }
@@ -212,10 +212,6 @@
    "iv": "zJj0Jt2BToFuRbgt",
    "ct": "iWMbTmq3YYr7+WneC816+oTCc/3XqqvSoTkHWzDKR3i916uiSsFXoiKRgsTf7+/e0dwEDOCCTDa6znU7"
   },
-  "pulp-paper-ai-use-case-map": {
-   "iv": "VmeufVYukgjdfRxQ",
-   "ct": "jhwLCBagXGZ0pNxxOhL8p+2sPARiq2IrbxriDH01Ruu+VmxXV+NYWDv4uYv3/p9b9jVndwaWvbQkWpta"
-  },
   "pulp-paper-use-cases-2": {
    "iv": "xX5LfhCGbpdxs30I",
    "ct": "W50oNSpnf6G0ocMPVmEigQE269ip31MUQmI6Scg83rXP4E4IBKY0YeCCshvBeG0MsBFKk7DPZ8k5E1yu"
@@ -235,11 +231,6 @@
   "steel-ai-use-case-map": {
    "iv": "8JbuMXUm+O8q80dh",
    "ct": "mrZprKIpVs1NSixbPtYlN9BNiiHQvzRp7kXJtTrC8/bIfz+6rDB8zISDmSGQoSYy+RKOhsw9U2oCXubp"
-  },
-  "computer-vision-use-cases-v2": {
-   "e": "BLqpCRcECPypeOnVzybWLBPMrvWsoNmXy8dV1AWHX8bf74RltkFzvK73y/AP6iSLqq9uthYOthZXJy7o225AJ4c=",
-   "iv": "s/6ef7w2AvvpiQuJ",
-   "ct": "tCb5mdzlO6N+4j92gB+2sE7B17FNJf+xuM6Qm7+MfuSCnBad4AgTwpW4kT/sVr5wOms0SOVCQIhIf2du"
   }
  },
  "dvault": {
@@ -315,10 +306,6 @@
    "iv": "WmREvzrpsCXd+XZi",
    "ct": "WqpX4LyaXt+fV5RudpJ/5njKjuJb5Aa+Elf5kDj4RfYK+fcPRy3K76IfZ8Ixs1Cfi1m82afNO33X1GP5"
   },
-  "pulp-paper-ai-use-case-map": {
-   "iv": "6XeClMBeq47UbqCC",
-   "ct": "A3FKscqu2IZsa9O0G/VUzAvRLRUYrjC7MliCBHjMzKzV4cOvtiHZigmsgyoWyjgMxe+ev60kVNfn3Brq"
-  },
   "pulp-paper-use-cases-2": {
    "iv": "0CIA6FKsv2+UJsaK",
    "ct": "2nRVUHNqLw/rNAfIoerHlFx8HhB6qjvWri/y2mYYtpy9Lhqix4sflbcY/BeyAXfDGDtDRsQUIznZH4D/"
@@ -386,6 +373,14 @@
   "power-plant-ai": {
    "read": false,
    "download": true
+  },
+  "pulp-paper-ai-use-case-map": {
+   "read": false,
+   "download": true
+  },
+  "computer-vision-use-cases-v2": {
+   "read": false,
+   "download": true
   }
  },
  "contrib": {
@@ -428,10 +423,6 @@
    "t": "Power Plant AI Use Cases",
    "o": "Power Plant AI"
   },
-  "pulp-paper-ai-use-case-map": {
-   "t": "Pulp & Paper Use Cases",
-   "o": "Pulp & Paper AI Use Case Map"
-  },
   "steam-trap-monitoring": {
    "t": "Online Steam Trap Failure Detection",
    "o": "Steam Trap Failure Detection"
@@ -439,6 +430,14 @@
   "steel-ai-use-case-map": {
    "t": "Steel Use Cases",
    "o": "Steel AI Use Case Map"
+  },
+  "pulp-paper-use-cases-2": {
+   "t": "Pulp & Paper Use Cases",
+   "o": "Pulp & Paper Use Cases 2"
+  },
+  "faclon-ai-native-stack-platform-capability-referen": {
+   "t": "Faclon AI Native Platform Capability",
+   "o": "Faclon AI-Native Stack · Platform Capability Reference"
   }
  },
  "versions": {
