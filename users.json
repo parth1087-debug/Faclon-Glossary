@@ -155,6 +155,10 @@
   {
    "slug": "power-plant-ai-v3",
    "title": "Power Plant AI"
+  },
+  {
+   "slug": "refinery-petrochemicals-use-cases-v2",
+   "title": "Refinery & Petrochemicals Use Cases"
   }
  ],
  "users": [
@@ -323,6 +327,11 @@
    "e": "BPunQsh4mjYQMN+CC+rxBXDfGD8/GVRFB5UL3SATVGK6iBbzOmrLuAmI7uYdtjaJvGBdZ1fD4ErWZIIXduF9lrQ=",
    "iv": "H60H52NZXibFws9N",
    "ct": "UIy9bL7KMty1AcM4xSXb4IHiavS8kadCJE4sDMwr6yWZ8cjV1B4QtWVjtZSDuIYwwXjyORjURyXgUVs8"
+  },
+  "refinery-petrochemicals-use-cases-v2": {
+   "e": "BNc3g3ne1mBhPC3kRsOag6JaTpAG9uTk5EUv3brxh7Nndnp0lYrIF1l23Cbawq8xD1Ab5bRIDBtKdcrX/xZ9iAI=",
+   "iv": "8Ybu9wssWtkYN6zJ",
+   "ct": "2Nl1ZEuXXxfXgxgt1jYTBnmQoZPGNXbgz8RCncoT+D+7HTOc/QWLlcR0FYQD4DeflwA3do3qAZ0W5CxZ"
   }
  },
  "dvault": {
@@ -543,6 +552,13 @@
     "ct": "iQr6sQRrdi34USQZ+OwnohnUH3DX9WJyPfcVRMxdg2iQa7NaHoha8RMhSLi+OSUvuNbzjFkJeBBl0hq7PSqxYOxANznSvVSoxf85YsDQRlf1HTOfFkSsUg8Eq+jULfgob4UzUvgpWKBmHxNuyvvCCPx7ZERHSPvzLIy2XjD80HyN2hahnKEm3efj8lVbZA=="
    },
    "at": "2026-10-17T08:25:20.864Z"
+  },
+  "refinery-petrochemicals-use-cases-v2": {
+   "meta": {
+    "iv": "kHLBZBU4W9trjmDV",
+    "ct": "uqRH5WgLc7kAearCaGvIQyjNbq3ZeQl/Xg0Grn0QxFWQzNOhLazSiqjUHMcVjZodz5uzBG91F1ZSNeLckJrUD+fcjz3Oyvyp7ZaLlM3EjDxKW6YC3jOJ32QUicUiONB1/NTHvKPQekJULzuJB/vYHPwZkgYYu8SIcGeYC24d0a9/5N8f6S4Zfu48gGIbWZ6RqXU8lGqIXo09Gv+CuvxXNPXfrg=="
+   },
+   "at": "2026-10-17T08:25:36.248Z"
   }
  },
  "policy": {
@@ -676,6 +692,10 @@
   "power-plant-ai-v3": {
    "of": "power-plant-ai",
    "n": 3
+  },
+  "refinery-petrochemicals-use-cases-v2": {
+   "of": "refinery-petrochemicals-use-cases",
+   "n": 2
   }
  },
  "cats": {
@@ -716,6 +736,7 @@
   "discrete-manufacturing-use-cases-v2": "maps",
   "faclon-ai-native-platform-capability-v2": "technical",
   "it-ot-integration-and-security-v2": "technical",
-  "power-plant-ai-v3": "solution"
+  "power-plant-ai-v3": "solution",
+  "refinery-petrochemicals-use-cases-v2": "maps"
  }
 }
