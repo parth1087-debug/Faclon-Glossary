@@ -167,6 +167,10 @@
   {
    "slug": "solar-use-cases-v2",
    "title": "Solar Use Cases"
+  },
+  {
+   "slug": "steel-use-cases-v2",
+   "title": "Steel Use Cases"
   }
  ],
  "users": [
@@ -350,6 +354,11 @@
    "e": "BNWbIAoCQxA3gcR1PAU0V6zH/REBAPHkYz8go1oNxGHGx9RkrWs6A1DDpQRmBCIJYMYrCc/KKukHJpvErahpfGE=",
    "iv": "glvfgX576EsiqPzi",
    "ct": "jjIMo+7dIpxINqXWdp3VL6NLG3R1zMSfsoxnAJ3kFBlkkjQwgQy9wvFbicHibn9MortYNTqi7Qzwp/15"
+  },
+  "steel-use-cases-v2": {
+   "e": "BIe6ZF8PfmGB+abetYXTGlE9yaUm0vrxKSIxE2zxuADuilOmKR6sajyIHuqczCQ3DJGjnAthYG0K3CY2gHJ53X4=",
+   "iv": "pdnPawV8VE/7XSjo",
+   "ct": "ETppu2//X70WF7hPyfilkOhO8+LSYBY0od/EcXPcDNTwNIX0U/qRxde13O+bYS3M+5zRp7FVUdQAO1yn"
   }
  },
  "dvault": {
@@ -591,6 +600,13 @@
     "ct": "zqlBHP97JlrLKAgE8LRv3vRE3SvKXR6nxB0UOYgp7uoJiHs5hjwkWC8chXa4ivLgQO8f+OnKB7rM683IXNcShj+H1zmn6lRixtVXgYtqHrvEj+8ULGayX9pgG5/xlMkyT+qrAdpUdI4R+lRCeP4Ab9bAv1TskGe+UPk0BTR/yxLNC4JEFmphvcikTqQf7Ew="
    },
    "at": "2026-10-17T08:25:50.578Z"
+  },
+  "steel-use-cases-v2": {
+   "meta": {
+    "iv": "qfuz9gnHRy35lcZ8",
+    "ct": "cly2QzUJ7XO3APA6y/0xC0VLMe/j7GlHrNqw9jy/FBFW1rvuE94AwDctfjzjaWz0U+Bf2MSmXGhKtZQd0gup5cYl+7qk0Nnssz7pmQqpSrNnurDvN0Lx12Kg/HZM0APZ0sKHcPWThHBWy3pf8JsSEU7WFhaaLK62PG1WS96P6IbGO//RUXZ3+F0aGUR32cs="
+   },
+   "at": "2026-10-17T08:25:55.012Z"
   }
  },
  "policy": {
@@ -736,6 +752,10 @@
   "solar-use-cases-v2": {
    "of": "solar-use-cases",
    "n": 2
+  },
+  "steel-use-cases-v2": {
+   "of": "steel-ai-use-case-map",
+   "n": 2
   }
  },
  "cats": {
@@ -779,6 +799,7 @@
   "power-plant-ai-v3": "solution",
   "refinery-petrochemicals-use-cases-v2": "maps",
   "ai-closed-loop-soot-blowing-v2": "cases",
-  "solar-use-cases-v2": "maps"
+  "solar-use-cases-v2": "maps",
+  "steel-use-cases-v2": "maps"
  }
 }
