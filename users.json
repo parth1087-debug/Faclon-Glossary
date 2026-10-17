@@ -187,6 +187,10 @@
   {
    "slug": "pulp-paper-use-cases-v2",
    "title": "Pulp & Paper Use Cases"
+  },
+  {
+   "slug": "predictive-maintenanace-v2",
+   "title": "Predictive Maintenanace"
   }
  ],
  "users": [
@@ -323,6 +327,11 @@
    "e": "BL3ogq4/6bKUfQN9dsZkqiwMCQAI6/kp99JeTjzRkXxZ5YeBh6BLPZYDQDTm6/2fKB8bNJjN0KJYFuLS4DSopqg=",
    "iv": "+c0E2vYr1dssC4Zx",
    "ct": "/ruCWnh+8M87cv9dQIvfzgchsV//KA3KmodtgAlmJrw3VlRungUffmG8SzM9NOQqdH+cJxYPK2iFRCbX"
+  },
+  "predictive-maintenanace-v2": {
+   "e": "BBIfhFB0rbZ4JyCxOHmQUWMKsYpUdz3Lg3l5kpaTm6oeMfInsqh6iULjrxUkPZEj20kwdb4e+4u7CXmhSTJgEqg=",
+   "iv": "mQnaxgSSZrMIiXrR",
+   "ct": "0Vl0/PAlgXFb6fWEmNDJJp8nOgLPKLsHPKWqrOxiSavjShwfwB2EL+I3qYJa1V8WBhpNX6cRW/B8yH2M"
   }
  },
  "dvault": {
@@ -599,6 +608,13 @@
     "ct": "oDai9Zr8XagDWMSrhTUGub8fyZcxcvUvdVku5b3Heh3P3sTpPvu0qlx+qHvBIjY+ddKpsnvTRb2BUazwQVmudFcTaxWfnojEhFq2S8w8vbFQjvSUGYuAH/7dwY6ZCcLflz+yXMH26PrIkPZBITHfcaHqGOxRiWkJcWrjw2LztEhhsM01d5VvJfvsZWWiW1ejJ1ZHS7ZN"
    },
    "at": "2026-10-17T08:26:19.207Z"
+  },
+  "predictive-maintenanace-v2": {
+   "meta": {
+    "iv": "ewtPoJXFQDCE6WXI",
+    "ct": "47YlAYWX145NzMQ6caib8pLYv5U3ngNjizt86OZ1oBp4Y9/XtubtzrAi1ChopFJOdCdoOGn5EJz60zQ4vWaz28jio2cgqeukOTirNOcMsaUJvkfFUNhBbfWF6BT1y0L1PtVnzftun7VaeMAt+6hC8OOXDKWTLR6HYv7BVoy1NalvJSMimwqKOqn+EgXy3XZGHCKioxvzrw=="
+   },
+   "at": "2026-10-17T09:48:28.699Z"
   }
  },
  "policy": {
@@ -844,6 +860,10 @@
   "pulp-paper-use-cases-v2": {
    "of": "pulp-paper-use-cases-2",
    "n": 2
+  },
+  "predictive-maintenanace-v2": {
+   "of": "condition-based-monitoring",
+   "n": 2
   }
  },
  "cats": {
@@ -892,6 +912,7 @@
   "computer-vision-use-cases-v3": "solution",
   "energy-management-system-v2": "solution",
   "pulp-fibre-use-cases-v2": "maps",
-  "pulp-paper-use-cases-v2": "maps"
+  "pulp-paper-use-cases-v2": "maps",
+  "predictive-maintenanace-v2": "solution"
  }
 }
