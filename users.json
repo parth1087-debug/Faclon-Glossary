@@ -151,6 +151,10 @@
   {
    "slug": "it-ot-integration-and-security-v2",
    "title": "IT-OT Integration and Security"
+  },
+  {
+   "slug": "power-plant-ai-v3",
+   "title": "Power Plant AI"
   }
  ],
  "users": [
@@ -314,6 +318,11 @@
    "e": "BL1q3s4F9qAMAA261fhTBBfhL+dV7Be56QRDZpi7l+ANi79EwF38LzEayuDIbfIeSWcb3Jd4+hxjSfF9vF7CWUM=",
    "iv": "zFBi6AgLh02wG9Rc",
    "ct": "plsFOrRPhypmzEpGCp990VqooqmWQj98+h8vcJWAUwB1cYLD320dd2YXTnPYRD1IY/c8IlcplRXpSYg+"
+  },
+  "power-plant-ai-v3": {
+   "e": "BPunQsh4mjYQMN+CC+rxBXDfGD8/GVRFB5UL3SATVGK6iBbzOmrLuAmI7uYdtjaJvGBdZ1fD4ErWZIIXduF9lrQ=",
+   "iv": "H60H52NZXibFws9N",
+   "ct": "UIy9bL7KMty1AcM4xSXb4IHiavS8kadCJE4sDMwr6yWZ8cjV1B4QtWVjtZSDuIYwwXjyORjURyXgUVs8"
   }
  },
  "dvault": {
@@ -527,6 +536,13 @@
     "ct": "v27hObY52geUGcSk7ugKkDWq/Xxi43ZILxdt3UFg7J8a4zgrtgLIbQ6hcxt92tX/uEyCvdq5/m0+B9fUkMt8FdU8Db6iPJZbyUa/bKrQDuuwoDlahoWS/3Pntl1kQi2Xo3yw7iX3Y0gv5VZVSe2qZpTwEE4ZVwni4PD3CdXYZxy1pdzGQ7rQuzfRBT9zCixAdAHnlvlffIG5JHfX3A8="
    },
    "at": "2026-10-17T08:25:16.791Z"
+  },
+  "power-plant-ai-v3": {
+   "meta": {
+    "iv": "hGpZjudaOlxJq2M7",
+    "ct": "iQr6sQRrdi34USQZ+OwnohnUH3DX9WJyPfcVRMxdg2iQa7NaHoha8RMhSLi+OSUvuNbzjFkJeBBl0hq7PSqxYOxANznSvVSoxf85YsDQRlf1HTOfFkSsUg8Eq+jULfgob4UzUvgpWKBmHxNuyvvCCPx7ZERHSPvzLIy2XjD80HyN2hahnKEm3efj8lVbZA=="
+   },
+   "at": "2026-10-17T08:25:20.864Z"
   }
  },
  "policy": {
@@ -656,6 +672,10 @@
   "it-ot-integration-and-security-v2": {
    "of": "it-ot-integration",
    "n": 2
+  },
+  "power-plant-ai-v3": {
+   "of": "power-plant-ai",
+   "n": 3
   }
  },
  "cats": {
@@ -695,6 +715,7 @@
   "copper-use-cases-v2": "maps",
   "discrete-manufacturing-use-cases-v2": "maps",
   "faclon-ai-native-platform-capability-v2": "technical",
-  "it-ot-integration-and-security-v2": "technical"
+  "it-ot-integration-and-security-v2": "technical",
+  "power-plant-ai-v3": "solution"
  }
 }
