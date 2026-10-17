@@ -143,6 +143,10 @@
   {
    "slug": "discrete-manufacturing-use-cases-v2",
    "title": "Discrete Manufacturing Use Cases"
+  },
+  {
+   "slug": "faclon-ai-native-platform-capability-v2",
+   "title": "Faclon AI Native Platform Capability"
   }
  ],
  "users": [
@@ -296,6 +300,11 @@
    "e": "BMkXRQVF79AdYj7vnX6wdh21i5S6khKM5Z+AGWVLyYQjvtMq2pyGHSbMzrJ4KEErhTs3J25O7TSvtwAdc+zyUoo=",
    "iv": "hXgRlxXgVoSqEDn8",
    "ct": "/tHx4TfydjFKOpZdiKy69Du7PLZlZsvO0ZlrMue2h3kFYs6hS6ak24J+KZFA/uI/WTrziCsPcQtUMa+5"
+  },
+  "faclon-ai-native-platform-capability-v2": {
+   "e": "BFS1drvuavIu6WPABOa4Ql48dBbQFxLXVcUn/3CIC9iSIjUnlT9unDKSUC7G56at0r35nfNlIBLJ/sNm2LoxRew=",
+   "iv": "cPLUhCIEtpk6DIls",
+   "ct": "KXmK4xKHU4qYVxm/UFRnpUtsypzFz/eeDdjTpqnQyde5d5CkL62tlUteEqaC/Dpg0zxwP3uiRCGi6MND"
   }
  },
  "dvault": {
@@ -495,6 +504,13 @@
     "ct": "mC0i5dAf5kv3p/6RC1iX0DFQP1f1mgnO3wXKcHnG6aFdlZ9Qat+heKvKt93OHJxLTeLs/68H3W//IKrkhK0257JjuXnMOdWOVl9GwoxpZg+UxJEmV4N4FTVspw9rTGU5xJjPufDGAVzZJpJEQP9D273xTnxpXjUBulGs3t7ZeyNAa00XH3pePN4ozJ3mRFNpghLDemJ6B0cQeifWmaerfg=="
    },
    "at": "2026-10-17T08:25:08.661Z"
+  },
+  "faclon-ai-native-platform-capability-v2": {
+   "meta": {
+    "iv": "dt5ENQPZC/skM9hz",
+    "ct": "t2c5/7aMUVjgARpJ5PK8Tn/aKroMHrcMFB/bF97aegZqbgDIfTU1bA/3K7TCVNygKGI+RtQK6p1aTOvpgrsS1hURrVM8cgx/QOqlEYt5UqwCCps3a24oUwG3vM3FiaprNxIytaVbq7PxKWGqxQS5VF4jZ8Qd6XFtbic1CVd1DPY3mYJptGWqmngFf3a0KNXGuYdkjQSBmDooiTTxikpDa9qJdUk="
+   },
+   "at": "2026-10-17T08:25:12.963Z"
   }
  },
  "policy": {
@@ -616,6 +632,10 @@
   "discrete-manufacturing-use-cases-v2": {
    "of": "discrete-manufacturing-use-cases",
    "n": 2
+  },
+  "faclon-ai-native-platform-capability-v2": {
+   "of": "faclon-ai-native-stack-platform-capability-referen",
+   "n": 2
   }
  },
  "cats": {
@@ -653,6 +673,7 @@
   "chemicals-use-cases-v2": "maps",
   "coal-mining-use-cases-v2": "maps",
   "copper-use-cases-v2": "maps",
-  "discrete-manufacturing-use-cases-v2": "maps"
+  "discrete-manufacturing-use-cases-v2": "maps",
+  "faclon-ai-native-platform-capability-v2": "technical"
  }
 }
