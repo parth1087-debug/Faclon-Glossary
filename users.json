@@ -115,6 +115,10 @@
   {
    "slug": "aluminium-use-cases-v2",
    "title": "Aluminium Use Cases"
+  },
+  {
+   "slug": "battery-energy-storage-use-cases-v2",
+   "title": "Battery Energy Storage Use Cases"
   }
  ],
  "users": [
@@ -233,6 +237,11 @@
    "e": "BGjZSavRxI/pxe2grN6LXgeURgNeXRWB0zl5h29LQqq9dQXBKNXTkq/YrH+h35c0hrXYUJ9OvcrfzGKneg8w5cA=",
    "iv": "trAn1G1tU0OMRyRs",
    "ct": "+i273ygodhTkziI3J+o9MvpiAdKBdZYcW/uaHVv//uUZcj8J3uPbUhE6/Afi2UZwVRGY2aTqU5/Vt4fc"
+  },
+  "battery-energy-storage-use-cases-v2": {
+   "e": "BPFKtnocSmVpsfJfloflLMplthjDcu07OgaaDAC92zTjOU0Gs9o6Pm1AHLI4l3rdR9dKMHDfq/I3ARDV0Q2py8g=",
+   "iv": "aQs+wYVC/lHBWcHi",
+   "ct": "2uaKd0ybS/D2NTJttuRcdIGoW24RV6fDr6KACm4mjoMMpj39E8FxPPfFy05FA6WcI2vtaVtQ2NubNcnh"
   }
  },
  "dvault": {
@@ -383,6 +392,13 @@
     "ct": "dbUPVJy+/b5UCr5eju0ICr5hnZyKTvCJKsKJNT/mkp1aIrRDXbJVYn3c4NQJtVhFW+/kTCWbGNDEsoCdZ/7YPNxlaRNY/HmzzEUnH8MAVQGC570Z5lDUIQ4pMexcDJxzwhPOQ9n6YjOLnR+x0uKZmvAFSSJqsvArXA6Bi6/RE1ERyloAb+PTohya2NXJ+kwca5Bk"
    },
    "at": "2026-10-17T08:24:40.699Z"
+  },
+  "battery-energy-storage-use-cases-v2": {
+   "meta": {
+    "iv": "sTm97dXaUpKwSwzC",
+    "ct": "7vbZLPI3neRy9B+3dFp39z8ZK2JDXZr+CxicRueE6NgvmF7KW4NyIrhNAc+S2/vYDzMnk3794zDOdjWYpVM5gtFN1c67UEhM7AYE4R1UNdc2InGHI5BNpSIVEMTAaI2UKpUD+r2EVkKZxPjssxJfM3M2CI4EFtG9UtIPs2ynzUI4nT7LAl77Co8MDiWXuPGdBh21KWeGf/VMzblCKODeDA=="
+   },
+   "at": "2026-10-17T08:24:44.636Z"
   }
  },
  "policy": {
@@ -476,6 +492,10 @@
   "aluminium-use-cases-v2": {
    "of": "aluminium-use-cases",
    "n": 2
+  },
+  "battery-energy-storage-use-cases-v2": {
+   "of": "bess-use-cases",
+   "n": 2
   }
  },
  "cats": {
@@ -506,6 +526,7 @@
   "steam-trap-monitoring": "solution",
   "steel-ai-use-case-map": "maps",
   "agrochemicals-use-cases-v2": "maps",
-  "aluminium-use-cases-v2": "maps"
+  "aluminium-use-cases-v2": "maps",
+  "battery-energy-storage-use-cases-v2": "maps"
  }
 }
