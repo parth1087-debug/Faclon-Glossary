@@ -226,6 +226,7 @@ GATE = r"""<!doctype html>
 __MARKER__
 <meta name="robots" content="noindex">
 <title>Faclon Glossary</title>
+<link rel="icon" type="image/png" href="__FAVICON__"><link rel="apple-touch-icon" href="__FAVICON__">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -277,6 +278,9 @@ var D={slug:"__SLUG__",base:"__BASE__",iv:"__IV__",ct:"__CT__"};
 var $=function(i){return document.getElementById(i)};
 var gate=$("gate"),noacc=$("noacc"),err=$("err");
 function after(html,acc,U){
+  /* the Faclon icon in the browser tab, on every page (pages have none of their own) */
+  var ic=document.querySelector('link[rel="icon"]');
+  if(ic&&!/<link[^>]+rel=["']?(shortcut )?icon/i.test(html)){var tag='<link rel="icon" type="image/png" href="'+ic.getAttribute("href")+'">',h=/<head[^>]*>/i.exec(html);html=h?html.slice(0,h.index+h[0].length)+tag+html.slice(h.index+h[0].length):tag+html}
   var args=[acc.allowed,acc.name,acc.admin,D.base,U.solutions||[],D.slug,acc.downloadable,U.policy||{}].map(function(v){return JSON.stringify(v).replace(/</g,"\\u003c")}).join(",");
   var js='<script>'+$("fa-core").textContent+'\n'+TOOLS+'\nFTOOLS('+args+')<\/script>';
   var i=html.toLowerCase().lastIndexOf("</body>");
@@ -329,7 +333,8 @@ $("f").addEventListener("submit",async function(e){
 def gate_html(slug, base, iv, ct, core, gate_ver, content, up=False):
     tools = json.dumps(tools_js()).replace("</", "<\\/")
     gate = GATE.replace('var D={slug:"__SLUG__"', 'var D={up:1,slug:"__SLUG__"') if up else GATE
-    return (gate.replace("__LOGO__", "data:image/png;base64," + base64.b64encode(LOGO.read_bytes()).decode())
+    return (gate.replace("__FAVICON__", favicon_uri())
+                .replace("__LOGO__", "data:image/png;base64," + base64.b64encode(LOGO.read_bytes()).decode())
                 .replace("__MARKER__", MARKER + f'\n<meta name="faclon-gate" content="{gate_ver}"><meta name="faclon-content" content="{content}">')
                 .replace("__TOOLS__", tools)
                 .replace("__AUTH_CORE__", core)
@@ -350,6 +355,7 @@ def build_admin(core):
     if not ADMIN_SRC.exists():
         return None
     out = ADMIN_SRC.read_text(encoding="utf-8").replace("/*__AUTH_CORE__*/", core)
+    out = out.replace("<title>", f'<link rel="icon" type="image/png" href="{favicon_uri()}"><title>', 1)
     return out
 
 
@@ -499,7 +505,7 @@ def main():
     if users.get("check") != check or users.get("salt") != b64(s):
         sys.exit("That password doesn't match this site's admin password (users.json check failed).")
 
-    gate_ver = hashlib.sha256((GATE + core + tools_js()).encode() + LOGO.read_bytes()).hexdigest()[:16]
+    gate_ver = hashlib.sha256((GATE + core + tools_js()).encode() + LOGO.read_bytes() + FAVICON.read_bytes()).hexdigest()[:16]
     force_pdf = "--force-pdf" in sys.argv
     solutions, need_pdf, home = [], [], {}
     for slug, path in targets:
