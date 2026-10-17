@@ -78,6 +78,13 @@ main{padding:24px 0 80px}
 .user .acts{display:flex;gap:6px;flex:none}
 .chip.off{background:var(--bg);color:var(--mute);text-decoration:line-through}
 .polbox{margin-bottom:30px}
+.vbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border:1px solid #BFE3D2;background:var(--greenBg);border-radius:12px;padding:12px 16px;margin-bottom:10px;font-size:14px}
+.vbar b{color:var(--green)}
+.vchip{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;border-radius:999px;padding:2px 8px;margin-left:8px;vertical-align:1px;background:var(--bg);color:var(--mute)}
+.vchip.latest{background:var(--greenBg);color:var(--green)}
+.prow.older .pt{padding-left:18px;position:relative}
+.prow.older .pt:before{content:"";position:absolute;left:4px;top:2px;bottom:50%;width:8px;border-left:1.5px solid #C9D2DF;border-bottom:1.5px solid #C9D2DF;border-bottom-left-radius:4px}
+.vub{flex:none;font-size:12px;padding:5px 10px}
 .pol{border:1px solid var(--line);border-radius:12px;overflow:hidden}
 .pol.busy{opacity:.6;pointer-events:none}
 .prow{display:flex;align-items:center;gap:18px;padding:11px 16px;border-top:1px solid var(--line)}
@@ -186,7 +193,8 @@ main{padding:24px 0 80px}
     </section>
 
     <section class="polbox">
-      <div class="head" style="margin-bottom:8px"><div><h2>Solution access</h2><p class="hint">Global switches that apply to every user. <b>Read</b> off: nobody can open or download that solution. <b>Download</b> off: people can still view it but can't download it as PDF or HTML. Users keep their assignments, so switching back on restores access. Admin always sees everything.</p></div></div>
+      <div class="head" style="margin-bottom:8px"><div><h2>Solution access</h2><p class="hint">Global switches that apply to every user. <b>Read</b> off: nobody can open or download that solution. <b>Download</b> off: people can still view it but can't download it as PDF or HTML. Users keep their assignments, so switching back on restores access. Admin always sees everything. When a contributor uploads a newer version of a solution, both versions show, marked v1, v2…; <b>Use latest</b> hides the older ones and gives their users the newest.</p></div></div>
+      <div class="vbar" id="vbar" hidden><span id="vtxt"></span><button class="small" id="vall" type="button">Switch all to latest versions</button></div>
       <div class="pol" id="pol"></div>
       <div class="cbox"><div><b>Contributor GitHub access</b><p class="hint" id="cstat"></p></div><button class="sec small" id="cset" type="button">Set access token</button></div>
     </section>
@@ -243,6 +251,9 @@ main{padding:24px 0 80px}
                    leaves every keyring and the dvault, and download options are hidden.
      guides      = GUIDES (the Read me): not solutions. Encrypted with the landing-page key so every signed-in
                    user can open them; never in solutions, keyrings, vaults or downloads. Mirror of GUIDES in protect.py.
+     versions[slug] = {of: first version's slug, n: version number}. A newer version of a solution is a
+                   separate page; the first version has no entry (it is v1). Uploads add entries; the User
+                   Manager's "use latest" turns Read off for older versions and gives users the newest.
      keyring     = {n, p:{slug:page key}, d:{slug:pdf key}, c?: contrib key, all?/a?/da?: super user}
      user key    = PBKDF2-SHA256(user password, user.s, users.iter)  (encrypts the user's keyring)
      user id     = SHA-256(users.salt + "|" + lower(username)) as hex
@@ -415,12 +426,45 @@ var FA = (function () {
     }
     return null;
   }
+  /* Versions. family(U, slug) -> {root, members:[{slug, n}] oldest first, n (this slug's number), latest slug};
+     null when the solution has only one version. Only solutions still listed in U.solutions count. */
+  function family(U, slug) {
+    var V = U.versions || {}, listed = {};
+    (U.solutions || []).forEach(function (x) { listed[x.slug] = 1; });
+    var root = V[slug] ? V[slug].of : slug, m = [];
+    if (listed[root]) m.push({ slug: root, n: 1 });
+    Object.keys(V).forEach(function (k) { if (V[k].of === root && listed[k]) m.push({ slug: k, n: V[k].n }); });
+    if (m.length < 2 || !m.some(function (x) { return x.slug === slug; })) return null;
+    m.sort(function (a, b) { return a.n - b.n; });
+    return { root: root, members: m, n: m.filter(function (x) { return x.slug === slug; })[0].n, latest: m[m.length - 1].slug };
+  }
+  /* Number the next version of base's family would get. */
+  function nextVersion(U, base) {
+    var V = U.versions || {}, root = V[base] ? V[base].of : base, n = 1;
+    Object.keys(V).forEach(function (k) { if (V[k].of === root && V[k].n > n) n = V[k].n; });
+    return n + 1;
+  }
+  /* Registers slug as the newest version of base's family in J (a fresh users.json); returns its number. */
+  function addVersion(J, slug, base) {
+    var V = J.versions = J.versions || {}, root = V[base] ? V[base].of : base, n = nextVersion(J, base);
+    V[slug] = { of: root, n: n };
+    return n;
+  }
+  /* Every family with more than one version: [{root, members, latest}]. */
+  function families(U) {
+    var seen = {}, out = [];
+    (U.solutions || []).forEach(function (x) {
+      var f = family(U, x.slug); if (!f || seen[f.root]) return;
+      seen[f.root] = 1; out.push(f);
+    });
+    return out;
+  }
   function getSession() { try { return JSON.parse(localStorage.getItem(SESSION) || sessionStorage.getItem(SESSION) || "null"); } catch (e) { return null; } }
   function setSession(v) { var j = JSON.stringify(v); try { localStorage.setItem(SESSION, j); } catch (e) { try { sessionStorage.setItem(SESSION, j); } catch (e2) {} } }
   function clearSession() { try { localStorage.removeItem(SESSION); sessionStorage.removeItem(SESSION); localStorage.removeItem("faclon-glossary-key"); } catch (e) {} }
   return {
     u8: u8, b64: b64, pbkdf2: pbkdf2, hmac: hmac, encrypt: encrypt, decrypt: decrypt, decryptBytes: decryptBytes, sha256hex: sha256hex,
-    norm: norm, userId: userId, pageKey: pageKey, allKey: allKey, dallKey: dallKey, contribKey: contribKey, uploadKey: uploadKey, isUpload: isUpload, isGuide: isGuide, keyFor: keyFor, wrapForSuper: wrapForSuper, nameKey: nameKey, nameClash: nameClash, pdfKey: pdfKey, canRead: canRead, canDownload: canDownload, syncVault: syncVault, fillVault: fillVault, buildRing: buildRing, loadUsers: loadUsers, adminMaster: adminMaster,
+    norm: norm, userId: userId, pageKey: pageKey, allKey: allKey, dallKey: dallKey, contribKey: contribKey, uploadKey: uploadKey, isUpload: isUpload, isGuide: isGuide, keyFor: keyFor, wrapForSuper: wrapForSuper, nameKey: nameKey, nameClash: nameClash, family: family, families: families, nextVersion: nextVersion, addVersion: addVersion, pdfKey: pdfKey, canRead: canRead, canDownload: canDownload, syncVault: syncVault, fillVault: fillVault, buildRing: buildRing, loadUsers: loadUsers, adminMaster: adminMaster,
     login: login, access: access, getSession: getSession, setSession: setSession, clearSession: clearSession
   };
 })();
@@ -466,13 +510,21 @@ function renderContrib(){
 }
 function renderPolicy(){
   renderContrib();
-  var rows=(U.solutions||[]).slice().sort(function(a,b){return a.title.localeCompare(b.title)});
-  $("pol").innerHTML=rows.map(function(x){var p=pol(x.slug),rn=(U.names||{})[x.slug];
+  // solutions with several versions sit together, newest first, older ones indented under it
+  var key=function(x){var f=FA.family(U,x.slug);return f?[title(f.latest),-f.n]:[x.title,0]};
+  var rows=(U.solutions||[]).slice().sort(function(a,b){var A=key(a),B=key(b);return A[0].localeCompare(B[0])||A[1]-B[1]});
+  var fams=FA.families(U),pend=fams.filter(needsLatest);
+  $("vbar").hidden=!fams.length;
+  $("vtxt").innerHTML=!fams.length?"":pend.length?'<b>'+pend.length+' solution'+(pend.length>1?'s have':' has')+' older versions showing.</b> Switching to latest hides older versions and gives their users the newest one.':'<b>All solutions with several versions show only the latest.</b> Switch an older one back on with its Read switch.';
+  $("vall").disabled=!pend.length;
+  $("pol").innerHTML=rows.map(function(x){var p=pol(x.slug),rn=(U.names||{})[x.slug],f=FA.family(U,x.slug),isL=f&&f.latest===x.slug;
+    var vc=f?'<span class="vchip'+(isL?' latest':'')+'">v'+f.n+(isL?' · Latest':'')+'</span>':'';
+    var vb=isL&&needsLatest(f)?'<button class="small vub" type="button" data-latest="'+esc(f.root)+'">Use latest</button>':'';
     if(renaming===x.slug)return '<div class="prow"><form class="rform" data-ren="'+esc(x.slug)+'"><input id="renIn" maxlength="80" value="'+esc(x.title)+'" aria-label="New name for '+esc(x.title)+'">'+
       '<button class="small" type="submit">Save</button><button class="sec small" type="button" data-rencancel="1">Cancel</button></form></div>';
-    return '<div class="prow'+(p.read?'':' dim')+'"><span class="pt">'+esc(x.title)+((U.uploads||{})[x.slug]?'<span class="upl">Uploaded</span>':'')+
+    return '<div class="prow'+(p.read?'':' dim')+(f&&!isL?' older':'')+'"><span class="pt">'+esc(x.title)+vc+((U.uploads||{})[x.slug]?'<span class="upl">Uploaded</span>':'')+
       (rn?'<span class="ren">Renamed · was “'+esc(rn.o)+'”<button type="button" data-renreset="'+esc(x.slug)+'">Reset name</button></span>':'')+'</span>'+
-      '<button class="sec small rnb" type="button" data-rename="'+esc(x.slug)+'">Rename</button>'+
+      vb+'<button class="sec small rnb" type="button" data-rename="'+esc(x.slug)+'">Rename</button>'+
       '<label class="sw"><input type="checkbox" data-pol="read" data-slug="'+esc(x.slug)+'"'+(p.read?' checked':'')+'><span class="tr"></span><span class="sl">Read</span></label>'+
       '<label class="sw"><input type="checkbox" data-pol="download" data-slug="'+esc(x.slug)+'"'+(p.read&&p.download?' checked':'')+(p.read?'':' disabled')+'><span class="tr"></span><span class="sl">Download</span></label></div>'}).join("");
 }
@@ -490,6 +542,37 @@ async function setPolicy(slug,field,on){
   finally{$("pol").classList.remove("busy")}
 }
 function title(slug){var s=(U.solutions||[]).filter(function(x){return x.slug===slug})[0];return s?s.title:slug}
+// Versions (U.versions, see auth_core.js). A family still needs "use latest" while an older version is readable,
+// the latest is switched off, or a user who has an older version doesn't have the latest.
+function olderOf(f){return f.members.filter(function(m){return m.slug!==f.latest}).map(function(m){return m.slug})}
+function needsLatest(f){
+  var old=olderOf(f);
+  if(old.some(function(sl){return pol(sl).read})||!pol(f.latest).read)return true;
+  return U.users.some(function(e){var m=metas[e.id];return m&&!m.all&&(m.pages||[]).indexOf(f.latest)<0&&old.some(function(sl){return (m.pages||[]).indexOf(sl)>=0})});
+}
+function setPol(slug,p){U.policy=U.policy||{};if(p.read&&p.download)delete U.policy[slug];else U.policy[slug]={read:p.read,download:p.download}}
+async function useLatest(fams){
+  fams=fams.filter(needsLatest);if(!fams.length)return;
+  $("pol").classList.add("busy");$("vall").disabled=true;
+  try{
+    var hidden=0,given={};
+    fams.forEach(function(f){
+      var lp=pol(f.latest);if(!lp.read){lp.read=true;setPol(f.latest,lp)}
+      olderOf(f).forEach(function(sl){var p=pol(sl);if(p.read){p.read=false;setPol(sl,p);hidden++}});
+      U.users.forEach(function(e){var m=metas[e.id];if(!m||m.all||!m.uk)return;var pg=m.pages||[];
+        if(pg.indexOf(f.latest)<0&&olderOf(f).some(function(sl){return pg.indexOf(sl)>=0})){m.pages=pg.concat([f.latest]);given[e.id]=1}});
+    });
+    await FA.syncVault(U,master,allSlugs());
+    for(var i=0;i<U.users.length;i++){var e=U.users[i],m=metas[e.id];if(!m||!m.uk)continue;
+      var kr=await FA.encrypt(FA.u8(m.uk),JSON.stringify(await FA.buildRing(U,master,m)));e.iv=kr.iv;e.kr=kr.ct;
+      if(given[e.id]){m.updated=new Date().toISOString();var me=await FA.encrypt(adminKey,JSON.stringify(m));e.miv=me.iv;e.meta=me.ct}}
+    var nu=Object.keys(given).length;
+    dirty++;render();
+    toast((fams.length===1?"Switched "+title(fams[0].latest)+" to its latest version":"Switched "+fams.length+" solutions to their latest versions")+
+      (hidden?": "+hidden+" older version"+(hidden>1?"s":"")+" hidden":"")+(nu?", "+nu+" user"+(nu>1?"s":"")+" given the latest":"")+". Publish to apply it.",6000);
+  }catch(x){toast("Couldn't switch versions: "+x.message,6000)}
+  finally{$("pol").classList.remove("busy");renderPolicy()}
+}
 // Rename: U.names[slug] = {t: shown name, o: the page's own title}. protect.py keeps it; the site shows t everywhere.
 var renaming=null;
 function startRename(slug){renaming=slug;renderPolicy();var i=$("renIn");if(i){i.focus();i.select()}}
@@ -522,7 +605,8 @@ function render(){
 }
 
 function solChecklist(sel){
-  $("sols").innerHTML=(U.solutions||[]).map(function(s){return '<label class="sol"><input type="checkbox" value="'+esc(s.slug)+'"'+(sel.indexOf(s.slug)>=0?" checked":"")+'>'+esc(s.title)+'</label>'}).join("");
+  $("sols").innerHTML=(U.solutions||[]).map(function(s){var f=FA.family(U,s.slug),v=f?' <span class="vchip'+(f.latest===s.slug?' latest':'')+'">v'+f.n+(f.latest===s.slug?' · Latest':'')+'</span>':'';
+    return '<label class="sol"><input type="checkbox" value="'+esc(s.slug)+'"'+(sel.indexOf(s.slug)>=0?" checked":"")+'><span>'+esc(s.title)+v+'</span></label>'}).join("");
 }
 function genPw(){var c="abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789",a=crypto.getRandomValues(new Uint8Array(12)),s="";for(var i=0;i<12;i++)s+=c[a[i]%c.length];return s.slice(0,4)+"-"+s.slice(4,8)+"-"+s.slice(8)}
 function openEditor(id){
@@ -585,6 +669,7 @@ async function mergeFresh(F){
     if(sol&&!(U.solutions||[]).some(function(x){return x.slug===slug}))(U.solutions=U.solutions||[]).push(sol);
     if(F.vault&&F.vault[slug]&&FA.canRead(U,slug)){U.vault=U.vault||{};U.vault[slug]=F.vault[slug]}
   }
+  var fv=F.versions||{};for(var k in fv){if(!(U.versions||{})[k]){U.versions=U.versions||{};U.versions[k]=fv[k];added.push(k)}}
   if(added.length)render();
 }
 function serialized(){return JSON.stringify(U,null,1)+"\n"}
@@ -635,12 +720,14 @@ $("all").onclick=function(){var b=$("sols").querySelectorAll("input"),on=Array.p
 $("ef").addEventListener("submit",saveUser);
 $("pol").addEventListener("change",function(e){var t=e.target;if(t.dataset.pol)setPolicy(t.dataset.slug,t.dataset.pol,t.checked)});
 $("pol").addEventListener("click",function(e){var t=e.target.closest("button");if(!t)return;
-  if(t.dataset.rename)startRename(t.dataset.rename);
+  if(t.dataset.latest){var f=FA.family(U,t.dataset.latest);if(f)useLatest([f])}
+  else if(t.dataset.rename)startRename(t.dataset.rename);
   else if(t.dataset.renreset){var r=(U.names||{})[t.dataset.renreset];if(r)renameSol(t.dataset.renreset,r.o)}
   else if(t.dataset.rencancel){renaming=null;renderPolicy()}});
 $("pol").addEventListener("submit",function(e){var f=e.target.closest("form[data-ren]");if(!f)return;e.preventDefault();renameSol(f.dataset.ren,$("renIn").value)});
 $("pol").addEventListener("keydown",function(e){if(e.key==="Escape"&&renaming){renaming=null;renderPolicy()}});
 $("eSuper").onchange=function(){setSuper(this.checked)};
+$("vall").onclick=function(){useLatest(FA.families(U))};
 $("cset").onclick=async function(){
   var v=prompt("Paste a fine-grained GitHub token for contributors (Contents: Read and write on Faclon-Glossary only). It is stored encrypted so only contributors and admin can use it. Leave empty to remove it.");
   if(v===null)return;v=v.trim();

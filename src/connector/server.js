@@ -63,6 +63,8 @@ async function catalogue() {
     var slug = sols[i].slug;
     if (!(await canOpen(acc, slug))) continue;
     var item = { slug: slug, title: sols[i].title, url: SITE + slug + "/", download: canSave(U, acc, slug) };
+    var fam = FA.family(U, slug);
+    if (fam) { item.version = fam.n; item.latest = fam.latest === slug; }
     var up = (U.uploads || {})[slug];
     if (up) {
       item.uploaded = true;
@@ -151,6 +153,7 @@ var TOOLS = [
       if (!c.list.length) return "No solution pages are shared with this user yet. Ask the Faclon admin to tick some in the User Manager.";
       var lines = c.list.map(function (x) {
         return "- " + x.title + " (slug: " + x.slug + ")" + (x.category ? " · " + x.category : "") +
+          (x.version ? " · v" + x.version + (x.latest ? " (latest)" : " (older version)") : "") +
           (x.uploaded ? " · uploaded" + (x.contributedBy ? " by " + x.contributedBy : "") : "") +
           " · " + (x.download ? "can download" : "view only") + "\n  " + x.url + (x.description ? "\n  " + x.description : "");
       });
@@ -223,14 +226,15 @@ var TOOLS = [
   {
     name: "upload_page",
     title: "Upload a new solution page",
-    description: "Publishes a self-contained HTML file (styles and images inside the file) as a new Faclon solution page. It goes live on the site in about a minute for the admin, super users and contributors; the admin can then share it with other users. Give either file_path (a file on this computer) or html. Every solution needs a unique title (an upload whose title matches an existing solution is refused). Confirm the title with the user before uploading, and follow get_design_skill so the page matches the site.",
+    description: "Publishes a self-contained HTML file (styles and images inside the file) as a new Faclon solution page. It goes live on the site in about a minute for the admin, super users and contributors; the admin can then share it with other users. Give either file_path (a file on this computer) or html. Every solution needs a unique title (an upload whose title matches an existing solution is refused). To publish an updated page as a newer version of an existing solution, set new_version_of to that solution's slug or title: both versions stay on the site, marked v1, v2… with the newest labelled Latest, and the admin can hide older versions; give it a title such as \"Cooling Tower Optimisation v2\". Confirm the title with the user before uploading, and follow get_design_skill so the page matches the site.",
     inputSchema: { type: "object", properties: {
       title: { type: "string", description: "Page title shown on the solution card, e.g. \"Cooling Tower Optimisation\"" },
       file_path: { type: "string", description: "Full path of the HTML file on this computer" },
       html: { type: "string", description: "The full HTML of the page, if there is no file" },
       category: { type: "string", description: "Optional card category, e.g. Power, Metals, Utilities" },
       description: { type: "string", description: "Optional one or two lines shown on the solution card" },
-      contributor_name: { type: "string", description: "Optional name shown as \"Contributed by\"; defaults to the signed-in user's name" } },
+      contributor_name: { type: "string", description: "Optional name shown as \"Contributed by\"; defaults to the signed-in user's name" },
+      new_version_of: { type: "string", description: "Optional: slug or title (from list_solutions) of the existing solution this page is a newer version of" } },
       required: ["title"], additionalProperties: false },
     annotations: { readOnlyHint: false, destructiveHint: false, idempotentHint: false, openWorldHint: true },
     run: async function (a) {
@@ -245,7 +249,8 @@ var TOOLS = [
       if (!html) throw new Error("Give either file_path or html.");
       if (Buffer.byteLength(html) > 20 * 1048576) throw new Error("That page is over 20 MB. Compress its images and try again.");
       if (!/<html[\s>]/i.test(html) || !/<body[\s>]/i.test(html)) throw new Error("That doesn't look like a complete HTML page (it needs <html> and <body>).");
-      var s = await signIn(), C = s.acc.contrib, U = await users(true);
+      var s = await signIn(), C = s.acc.contrib, U = await users(true), vbase = null, vn = 0;
+      if (a.new_version_of) vbase = find((await catalogue()).list, a.new_version_of).slug;
       var clash = FA.nameClash(U, t);
       if (clash) throw new Error("A solution called \u201c" + clash + "\u201d already exists. Choose a different title.");
       var token = U.contrib && U.contrib.tok ? await FA.decrypt(C, U.contrib.tok.iv, U.contrib.tok.ct) : null;
@@ -269,7 +274,7 @@ var TOOLS = [
       var meta = await FA.encrypt(K, JSON.stringify({ title: t, sector: String(a.category || "").trim().slice(0, 40), blurb: String(a.description || "").trim().slice(0, 240), by: by, user: s.acc.name, at: new Date().toISOString(), via: "connector" }));
       var sup = await FA.wrapForSuper(U, K);
       var r = await gh(token, "/contents/" + slug + "/index.html", { method: "PUT", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: "Add " + t + " (uploaded by " + (by || s.acc.name) + " via Claude connector)", content: Buffer.from(gate, "utf8").toString("base64"), branch: "main" }) });
+        body: JSON.stringify({ message: "Add " + t + (vbase ? " (new version of " + vbase + ")" : "") + " (uploaded by " + (by || s.acc.name) + " via Claude connector)", content: Buffer.from(gate, "utf8").toString("base64"), branch: "main" }) });
       if (r.status === 401 || r.status === 403) throw new Error("GitHub didn't accept the contributor access token; ask the admin to renew it.");
       if (!r.ok) throw new Error("GitHub said " + r.status + " while publishing the page.");
       for (var tries = 0; ; tries++) {
@@ -279,6 +284,7 @@ var TOOLS = [
         J.solutions = (J.solutions || []).filter(function (x) { return x.slug !== slug; }).concat([{ slug: slug, title: t }]);
         J.uploads = J.uploads || {}; J.uploads[slug] = { meta: meta, at: new Date().toISOString() };
         if (sup) { J.vault = J.vault || {}; J.vault[slug] = sup; }
+        if (vbase) vn = FA.addVersion(J, slug, vbase);
         var pr = await gh(token, "/contents/users.json", { method: "PUT", headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ message: "Register uploaded page " + t, content: Buffer.from(JSON.stringify(J, null, 1) + "\n", "utf8").toString("base64"), sha: gj.sha, branch: "main" }) });
         if (pr.ok) break;
@@ -286,7 +292,7 @@ var TOOLS = [
         throw new Error("the page was published but couldn't be registered (" + pr.status + "); ask the admin to check users.json");
       }
       usersCache = null;
-      return "Published \"" + t + "\". It will be live in about a minute at " + SITE + slug + "/ (sign in with your Faclon login). " +
+      return "Published \"" + t + "\"" + (vn ? " as version " + vn + " of " + vbase : "") + ". It will be live in about a minute at " + SITE + slug + "/ (sign in with your Faclon login). " +
         "It shows on the landing page for the admin, super users and contributors; the admin can share it with other users in the User Manager. Its PDF download appears after the next site build.";
     }
   }
@@ -294,7 +300,7 @@ var TOOLS = [
 
 /* ---------- MCP over stdio (newline-delimited JSON-RPC) ---------- */
 var INSTRUCTIONS = "Faclon Labs solution library. list_solutions shows the pages this user can open; read_page returns a page as text or HTML; " +
-  "download_pages saves pages as HTML or PDF; get_design_skill returns the design rules to follow before building a new page; upload_page publishes a new page " +
+  "download_pages saves pages as HTML or PDF; get_design_skill returns the design rules to follow before building a new page; upload_page publishes a new page or a newer version of an existing one " +
   "(it goes live straight away, so confirm the title and file with the user first). Pages are confidential to Faclon and its customers.";
 function send(o) { process.stdout.write(JSON.stringify(o) + "\n"); }
 async function handle(m) {
