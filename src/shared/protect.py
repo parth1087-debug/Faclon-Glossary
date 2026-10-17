@@ -50,6 +50,7 @@ HERE = Path(__file__).resolve().parent
 SALT_FILE = HERE / "protect_salt.txt"
 AUTH_CORE = HERE / "auth_core.js"
 TOOLS_JS = HERE / "page_tools.js"
+LOGO = HERE / "logo.png"  # Faclon Labs wordmark on the sign-in card (shown white)
 FAVICON = HERE / "favicon.png"  # icon for downloaded HTML files (also used by the connector)
 PDF_NAME = "page-pdf.bin"
 ADMIN_SRC = ROOT / "src" / "admin" / "index.html"
@@ -224,7 +225,7 @@ GATE = r"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 __MARKER__
 <meta name="robots" content="noindex">
-<title>Faclon Labs</title>
+<title>Faclon Glossary</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -233,6 +234,7 @@ html,body{height:100%}
 body{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;background:#0B1A30;color:#fff;display:flex;align-items:center;justify-content:center;padding:16px;-webkit-font-smoothing:antialiased}
 .card{width:100%;max-width:380px;background:#13264A;border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:32px 28px}
 .eyebrow{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7C95FF}
+.logo{display:block;height:34px;width:auto;margin:0 0 22px;filter:brightness(0) invert(1)}
 h1{font-size:22px;letter-spacing:-.015em;line-height:1.25;margin:10px 0 6px}
 p{font-size:14px;color:#B6C2D6;line-height:1.5}
 form{margin-top:22px;display:flex;flex-direction:column;gap:10px}
@@ -247,8 +249,9 @@ button:disabled{opacity:.6;cursor:default}
 </style></head>
 <body>
 <div class="card" id="gate" style="visibility:hidden">
-  <div class="eyebrow">Faclon Labs</div>
-  <h1>Sign in</h1>
+  <img class="logo" src="__LOGO__" alt="Faclon Labs" width="163" height="34">
+  <div class="eyebrow">Sign in</div>
+  <h1>Faclon Glossary</h1>
   <p id="lead">These solution pages are shared privately. Sign in with the username and password you were given.</p>
   <form id="f" autocomplete="on">
     <input id="u" type="text" placeholder="Username" aria-label="Username" autocomplete="username" autocapitalize="none" spellcheck="false" required>
@@ -258,7 +261,8 @@ button:disabled{opacity:.6;cursor:default}
   </form>
 </div>
 <div class="card" id="noacc" hidden>
-  <div class="eyebrow">Faclon Labs</div>
+  <img class="logo" src="__LOGO__" alt="Faclon Labs" width="163" height="34">
+  <div class="eyebrow">Faclon Glossary</div>
   <h1 id="nah">No access to this page</h1>
   <p id="nap">You're signed in as <b id="who"></b>, but this solution hasn't been shared with you. Ask your Faclon contact if you need it.</p>
   <div class="acts"><a class="btn" id="home" href="#">See your solutions</a><button class="ghost" id="out" type="button">Sign in as someone else</button></div>
@@ -325,7 +329,8 @@ $("f").addEventListener("submit",async function(e){
 def gate_html(slug, base, iv, ct, core, gate_ver, content, up=False):
     tools = json.dumps(tools_js()).replace("</", "<\\/")
     gate = GATE.replace('var D={slug:"__SLUG__"', 'var D={up:1,slug:"__SLUG__"') if up else GATE
-    return (gate.replace("__MARKER__", MARKER + f'\n<meta name="faclon-gate" content="{gate_ver}"><meta name="faclon-content" content="{content}">')
+    return (gate.replace("__LOGO__", "data:image/png;base64," + base64.b64encode(LOGO.read_bytes()).decode())
+                .replace("__MARKER__", MARKER + f'\n<meta name="faclon-gate" content="{gate_ver}"><meta name="faclon-content" content="{content}">')
                 .replace("__TOOLS__", tools)
                 .replace("__AUTH_CORE__", core)
                 .replace("__SLUG__", slug)
@@ -494,7 +499,7 @@ def main():
     if users.get("check") != check or users.get("salt") != b64(s):
         sys.exit("That password doesn't match this site's admin password (users.json check failed).")
 
-    gate_ver = hashlib.sha256((GATE + core + tools_js()).encode()).hexdigest()[:16]
+    gate_ver = hashlib.sha256((GATE + core + tools_js()).encode() + LOGO.read_bytes()).hexdigest()[:16]
     force_pdf = "--force-pdf" in sys.argv
     solutions, need_pdf, home = [], [], {}
     for slug, path in targets:
