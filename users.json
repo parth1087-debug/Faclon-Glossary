@@ -191,6 +191,10 @@
   {
    "slug": "predictive-maintenanace-v2",
    "title": "Predictive Maintenanace"
+  },
+  {
+   "slug": "online-steam-trap-failure-detection-v2",
+   "title": "Online Steam Trap Failure Detection"
   }
  ],
  "users": [
@@ -332,6 +336,11 @@
    "e": "BBIfhFB0rbZ4JyCxOHmQUWMKsYpUdz3Lg3l5kpaTm6oeMfInsqh6iULjrxUkPZEj20kwdb4e+4u7CXmhSTJgEqg=",
    "iv": "mQnaxgSSZrMIiXrR",
    "ct": "0Vl0/PAlgXFb6fWEmNDJJp8nOgLPKLsHPKWqrOxiSavjShwfwB2EL+I3qYJa1V8WBhpNX6cRW/B8yH2M"
+  },
+  "online-steam-trap-failure-detection-v2": {
+   "e": "BDpY3FwnTQ4O2pYfaM2/HH3E/ySSnqD3wjInCHoUpYyqvbEzjpHuEJZcPOdGoDssaMAkG+jaNNpj8WCaiFdQ0HM=",
+   "iv": "xGBTe4kcIGWzCvJY",
+   "ct": "kP3Ijjij2vPrOAuNYC4KzmdJA4BCJX0tLAhr1Fj+sbRDbFyv1cpEP1+TaQY6dQgOO7+taXAm3wBtpm6P"
   }
  },
  "dvault": {
@@ -615,6 +624,13 @@
     "ct": "47YlAYWX145NzMQ6caib8pLYv5U3ngNjizt86OZ1oBp4Y9/XtubtzrAi1ChopFJOdCdoOGn5EJz60zQ4vWaz28jio2cgqeukOTirNOcMsaUJvkfFUNhBbfWF6BT1y0L1PtVnzftun7VaeMAt+6hC8OOXDKWTLR6HYv7BVoy1NalvJSMimwqKOqn+EgXy3XZGHCKioxvzrw=="
    },
    "at": "2026-10-17T09:48:28.699Z"
+  },
+  "online-steam-trap-failure-detection-v2": {
+   "meta": {
+    "iv": "goDQHzbFD161z+Iq",
+    "ct": "WW22MbwGyVOUAt07zckoYopQ3U9kDPAa7gRmzHYM/oMS6MhwM2oTlY48xRBf8rWrdnpzGpGhLoNdL9Cc5uh7JCd8uzu60mzozWyJ6NRrk57gPr4F7CA40zgJpAXUTE+HDMR4LU7xyqAXhIRAvQNuBXLKMNG8jjLQVLZu2Smw+hh6rTxy8Bsuf7rNoa7beCOeXuiCX3doz1o8YQydGg7keF+LiQ=="
+   },
+   "at": "2026-10-17T10:40:10.419Z"
   }
  },
  "policy": {
@@ -864,6 +880,10 @@
   "predictive-maintenanace-v2": {
    "of": "condition-based-monitoring",
    "n": 2
+  },
+  "online-steam-trap-failure-detection-v2": {
+   "of": "steam-trap-monitoring",
+   "n": 2
   }
  },
  "cats": {
@@ -913,6 +933,7 @@
   "energy-management-system-v2": "solution",
   "pulp-fibre-use-cases-v2": "maps",
   "pulp-paper-use-cases-v2": "maps",
-  "predictive-maintenanace-v2": "solution"
+  "predictive-maintenanace-v2": "solution",
+  "online-steam-trap-failure-detection-v2": "solution"
  }
 }
