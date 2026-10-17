@@ -119,6 +119,10 @@
   {
    "slug": "battery-energy-storage-use-cases-v2",
    "title": "Battery Energy Storage Use Cases"
+  },
+  {
+   "slug": "bus-bar-temperature-monitoring-v2",
+   "title": "Bus Bar Temperature Monitoring"
   }
  ],
  "users": [
@@ -242,6 +246,11 @@
    "e": "BPFKtnocSmVpsfJfloflLMplthjDcu07OgaaDAC92zTjOU0Gs9o6Pm1AHLI4l3rdR9dKMHDfq/I3ARDV0Q2py8g=",
    "iv": "aQs+wYVC/lHBWcHi",
    "ct": "2uaKd0ybS/D2NTJttuRcdIGoW24RV6fDr6KACm4mjoMMpj39E8FxPPfFy05FA6WcI2vtaVtQ2NubNcnh"
+  },
+  "bus-bar-temperature-monitoring-v2": {
+   "e": "BMulK8MMBu0QpjdgbM8jkX7vH1IftcHSVakNAmERIzmEpqGas+N6gDf87quIycZOOoYcouzpagfTv2D+POG9EfE=",
+   "iv": "vEEzQZHhPeIqpIkU",
+   "ct": "CUhasA/a0cn+IiL/NSYTqYs2u37S9kr+VZNOw8hBgyQYM3wjWfmHQ2iGS5VoDSczyzWsrfrPUisi09dd"
   }
  },
  "dvault": {
@@ -399,6 +408,13 @@
     "ct": "7vbZLPI3neRy9B+3dFp39z8ZK2JDXZr+CxicRueE6NgvmF7KW4NyIrhNAc+S2/vYDzMnk3794zDOdjWYpVM5gtFN1c67UEhM7AYE4R1UNdc2InGHI5BNpSIVEMTAaI2UKpUD+r2EVkKZxPjssxJfM3M2CI4EFtG9UtIPs2ynzUI4nT7LAl77Co8MDiWXuPGdBh21KWeGf/VMzblCKODeDA=="
    },
    "at": "2026-10-17T08:24:44.636Z"
+  },
+  "bus-bar-temperature-monitoring-v2": {
+   "meta": {
+    "iv": "raF7P6/vEPo3TxE9",
+    "ct": "IWnP/oKbjx8Xe6xN61C4eMdoTwdWOKQOHWs5PIPXtciBM8v9ObVpchSzavODD05CqJv86nbjqLlQreVtE/RCqURjzW5QihqaHtlPcIqPuOAAv2Y9CDxL4Y93XyljpYWNR0vv5blJoMKMpiAw21oLe7srnGRHp55oflMrKEeBF4EO7rCGnAVHc4Oc0DDL+v8sJ84oChP8rmV2ngEWMec="
+   },
+   "at": "2026-10-17T08:24:49.902Z"
   }
  },
  "policy": {
@@ -496,6 +512,10 @@
   "battery-energy-storage-use-cases-v2": {
    "of": "bess-use-cases",
    "n": 2
+  },
+  "bus-bar-temperature-monitoring-v2": {
+   "of": "bus-bar-monitoring",
+   "n": 2
   }
  },
  "cats": {
@@ -527,6 +547,7 @@
   "steel-ai-use-case-map": "maps",
   "agrochemicals-use-cases-v2": "maps",
   "aluminium-use-cases-v2": "maps",
-  "battery-energy-storage-use-cases-v2": "maps"
+  "battery-energy-storage-use-cases-v2": "maps",
+  "bus-bar-temperature-monitoring-v2": "solution"
  }
 }
