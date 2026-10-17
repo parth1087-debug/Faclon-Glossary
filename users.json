@@ -175,6 +175,10 @@
   {
    "slug": "computer-vision-use-cases-v3",
    "title": "Computer Vision Use Cases"
+  },
+  {
+   "slug": "energy-management-system-v2",
+   "title": "Energy Management System"
   }
  ],
  "users": [
@@ -368,6 +372,11 @@
    "e": "BIffVmLc842w+q5qcicQtMDBOyMMYwO/9G59AtDslv+tszXi3WXxdmKmBLYOyDfeucfFvJaZKB/poAL5eIiS28s=",
    "iv": "6LHuLKdwzPlbCt2q",
    "ct": "RjeDRigIkvumPRLcrWcPh2WU+uuVbkkWkM77ccREtqRXJ22iFCXqEzVYF+oQINjX1DQT5vusAh2n69mR"
+  },
+  "energy-management-system-v2": {
+   "e": "BCm5PpNVNCnPIkq1RrzPMehNncmd3bi7MAAr1zCPsL9CMxzdk/kaFK1PkRd6WA3bOVagvlVJ3WnEDLtpA6letdU=",
+   "iv": "sdF1nW7asdsfvVlV",
+   "ct": "lHH2tUuKfWqyfAP6dALMt9/6HYEc93ltWGX8QJTA8RvZkJ2qxukRLngjStbKBfP34ZegRa45AWfixJKr"
   }
  },
  "dvault": {
@@ -623,6 +632,13 @@
     "ct": "2CkvLKo76Ev99yUjdf4je4M8QDBQmokoqiAwfIgxLTvWA3gjPq13Li9y+NsaRBL7lOuiEkCT/lA/V7g5MBD6C7sUtFA3iDzPy3EiuT9aMr9olxMvrac7NIi2nPa9KgaBwSqd3r1tYiTL2FKi3OPDTngAelXDwgIHV01J0hsgkmYQO88kd6vQiS6xp9dZJh5Wlo0U7YJ2gDir"
    },
    "at": "2026-10-17T08:26:04.588Z"
+  },
+  "energy-management-system-v2": {
+   "meta": {
+    "iv": "9GYkA1LdmD19bZqz",
+    "ct": "haCXwvYlNK9Dj4xJ2ZSfotdNH8pdAdjJUTD07nji47b1dtzUOq8cJg2ZX0cesbjAtHa0pENkABEFzpXSv0pmXLQvAIK0esvtfPqK66yMofOVGj6Xoqt9Vnx8QD9a0eKYXmFFFha2DXbPDCtlasjuPpO0Q4O9PSQRGb8TwORQZDQgpAjjU0DwoYccepu1WwOv7zFVfIJR7og="
+   },
+   "at": "2026-10-17T08:26:10.338Z"
   }
  },
  "policy": {
@@ -776,6 +792,10 @@
   "computer-vision-use-cases-v3": {
    "of": "io-vision",
    "n": 3
+  },
+  "energy-management-system-v2": {
+   "of": "energy-management",
+   "n": 2
   }
  },
  "cats": {
@@ -821,6 +841,7 @@
   "ai-closed-loop-soot-blowing-v2": "cases",
   "solar-use-cases-v2": "maps",
   "steel-use-cases-v2": "maps",
-  "computer-vision-use-cases-v3": "solution"
+  "computer-vision-use-cases-v3": "solution",
+  "energy-management-system-v2": "solution"
  }
 }
