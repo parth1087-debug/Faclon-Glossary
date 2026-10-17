@@ -159,6 +159,10 @@
   {
    "slug": "refinery-petrochemicals-use-cases-v2",
    "title": "Refinery & Petrochemicals Use Cases"
+  },
+  {
+   "slug": "ai-closed-loop-soot-blowing-v2",
+   "title": "AI Closed-Loop Soot Blowing"
   }
  ],
  "users": [
@@ -332,6 +336,11 @@
    "e": "BNc3g3ne1mBhPC3kRsOag6JaTpAG9uTk5EUv3brxh7Nndnp0lYrIF1l23Cbawq8xD1Ab5bRIDBtKdcrX/xZ9iAI=",
    "iv": "8Ybu9wssWtkYN6zJ",
    "ct": "2Nl1ZEuXXxfXgxgt1jYTBnmQoZPGNXbgz8RCncoT+D+7HTOc/QWLlcR0FYQD4DeflwA3do3qAZ0W5CxZ"
+  },
+  "ai-closed-loop-soot-blowing-v2": {
+   "e": "BMWCsX4WKh801XFOBAkBT8aHBFzztqaVyEkAUa6E7ZRkTOTkiz4bENrmTC6Gb8TDRqR0sscs5h4j77Y0rgZVlVE=",
+   "iv": "r9pokIVOt/mQpvi7",
+   "ct": "t1gc0STNIHOmhNxUCydgxJ/c29InOSsVMuGZfa/xeotKNe6iwls4g/jqYqoLD+ThNwkCTfwuBr7Ovy67"
   }
  },
  "dvault": {
@@ -559,6 +568,13 @@
     "ct": "uqRH5WgLc7kAearCaGvIQyjNbq3ZeQl/Xg0Grn0QxFWQzNOhLazSiqjUHMcVjZodz5uzBG91F1ZSNeLckJrUD+fcjz3Oyvyp7ZaLlM3EjDxKW6YC3jOJ32QUicUiONB1/NTHvKPQekJULzuJB/vYHPwZkgYYu8SIcGeYC24d0a9/5N8f6S4Zfu48gGIbWZ6RqXU8lGqIXo09Gv+CuvxXNPXfrg=="
    },
    "at": "2026-10-17T08:25:36.248Z"
+  },
+  "ai-closed-loop-soot-blowing-v2": {
+   "meta": {
+    "iv": "A1PLU1A0lr8f7kmZ",
+    "ct": "sKsGvsVddet1RgQgc7cl8uvdwwbg23lZKrJrQso4RCCTqadgRp5XMrJX6Nf7k7tftIZcKQeBrOLGXfJVd3cpvS3t6+0UF1cTPFvtYncbSKEB508bkAcwnHCr0Qzi6MW79v7oJvV+ccqrkgxs7JdVAINIl+6KxyOGAOZiY7KnEDi4wBpNsRn1dwjmzELR4Cudj2bN/CQomS1aKfA="
+   },
+   "at": "2026-10-17T08:25:43.254Z"
   }
  },
  "policy": {
@@ -696,6 +712,10 @@
   "refinery-petrochemicals-use-cases-v2": {
    "of": "refinery-petrochemicals-use-cases",
    "n": 2
+  },
+  "ai-closed-loop-soot-blowing-v2": {
+   "of": "ai-closed-loop-soot-blowing",
+   "n": 2
   }
  },
  "cats": {
@@ -737,6 +757,7 @@
   "faclon-ai-native-platform-capability-v2": "technical",
   "it-ot-integration-and-security-v2": "technical",
   "power-plant-ai-v3": "solution",
-  "refinery-petrochemicals-use-cases-v2": "maps"
+  "refinery-petrochemicals-use-cases-v2": "maps",
+  "ai-closed-loop-soot-blowing-v2": "cases"
  }
 }
