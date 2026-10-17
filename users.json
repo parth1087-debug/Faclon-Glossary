@@ -54,7 +54,7 @@
   },
   {
    "slug": "faclon-ai-native-stack-platform-capability-referen",
-   "title": "Faclon AI-Native Stack \u00b7 Platform Capability Reference"
+   "title": "Faclon AI-Native Stack · Platform Capability Reference"
   },
   {
    "slug": "faclon-overview",
@@ -99,6 +99,10 @@
   {
    "slug": "steel-ai-use-case-map",
    "title": "Steel Use Cases"
+  },
+  {
+   "slug": "power-plant-ai-use-cases-v2",
+   "title": "Power Plant AI Use Cases"
   }
  ],
  "users": [
@@ -227,6 +231,11 @@
   "steel-ai-use-case-map": {
    "iv": "8JbuMXUm+O8q80dh",
    "ct": "mrZprKIpVs1NSixbPtYlN9BNiiHQvzRp7kXJtTrC8/bIfz+6rDB8zISDmSGQoSYy+RKOhsw9U2oCXubp"
+  },
+  "power-plant-ai-use-cases-v2": {
+   "e": "BGOoCtWxs0QncTFRT4O5JMspk9nJz/InJQqu/JY0Xo2gnIwTZPFGb1VPuhLS9X1EENoWpa2mAqLOCMQxBF5YEcs=",
+   "iv": "nphGo5Wn/RqkTm5O",
+   "ct": "EEMMePdi7Zz4Sc1IN1iJU/uJvY0NxdLEe5+VWoVMAAYgwETb3B/TM3L07eX+v9/OoJDE8ZRB6EruJT8O"
   }
  },
  "dvault": {
@@ -353,6 +362,13 @@
     "ct": "/rYu2iUDTQWdAtwR+TL5iLHLxE62ofYGD+XORTC0NbVWKeq+ghpWZIsFqaiFjfaZ1LG9Txj5hoJlmAlIn7lmLYoVa0E7qlpQLQwuD2F2P2ITuRx43q/lGt6iFgMXhQAz4QkDiSR+HNWH2oDdUqpQicPaLpTxJhef/Vcu5TlkDcY6qxIJXzcBUO4cTC4HlLBqvArbvk2x+RgLd6qQLkjWseD1sgx5fXNUUpApZBxxuCJ1MW0a9FuWv6IJjSPRziVKOA/ov43waEqVWTloaTuAAKYzVsCqWbwyYchQ7S1Wye0DmZXPa2Su1E36MxV1J5e8WtBWjhAwprNZ14RQ2Xj/2u5AacFzEjjfyasXOgyjKIqDBFAeZpxlA6S+Dg4="
    },
    "at": "2026-10-16T07:27:55.708Z"
+  },
+  "power-plant-ai-use-cases-v2": {
+   "meta": {
+    "iv": "0KOkHX8tbe+bVKG8",
+    "ct": "fBH/PRHrKbB55lXmSbr3koAULlgzowOETJ97ne17m5UH5FRo4nsKBaZdezQwVLDZZnuA9nrSMTImj/uBxvPa+a97dj5ItTem3BElNucr++CfqJZfhDQdS6N/JutyNwPf0+QTQKTeXmCmIYaMfIoCffffLtXG1FPgSfeZfvpRrlzMZcke2aUaetE="
+   },
+   "at": "2026-10-17T07:02:38.634Z"
   }
  },
  "policy": {},
@@ -407,6 +423,12 @@
   "steel-ai-use-case-map": {
    "t": "Steel Use Cases",
    "o": "Steel AI Use Case Map"
+  }
+ },
+ "versions": {
+  "power-plant-ai-use-cases-v2": {
+   "of": "power-plant-ai",
+   "n": 2
   }
  }
 }
