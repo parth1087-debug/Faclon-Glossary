@@ -135,6 +135,10 @@
   {
    "slug": "coal-mining-use-cases-v2",
    "title": "Coal Mining Use Cases"
+  },
+  {
+   "slug": "copper-use-cases-v2",
+   "title": "Copper Use Cases"
   }
  ],
  "users": [
@@ -278,6 +282,11 @@
    "e": "BACuV3Q+xx4tECd0OnD+L5Miwrwt/Bx56tIcCZBHiIUdNBq7dy0E8gfr9YIzH5VFFP22sKjg86usXyg5uko2lRQ=",
    "iv": "8XzA1a2eo017ih7t",
    "ct": "rRgO2IKgL86G+J6FhHxXLszhDLO0EzEA300KkzDc0ajk7c7DqJl6I9XzEo4/hwAuF9hL29qSEnZgTI0r"
+  },
+  "copper-use-cases-v2": {
+   "e": "BI9LSO5j5/4y5QLz862douLzGdG86N+Aa54AYss81pVIBSHBknmI/9ZL30QOA68s3CEDXLk8eW6ApbegVMar+uk=",
+   "iv": "G5OWG6xSuXZWScs6",
+   "ct": "l4gCHpScbwXVcYUpW8MLbWxC5UwUT5i8STkQLFQfuE8Uh1cbgJTmOVGxhfLT/+V7Zb9UTSLyMEUeGYfO"
   }
  },
  "dvault": {
@@ -463,6 +472,13 @@
     "ct": "phRaeT4K13Lpzm7O44n+d7+v6VYvB6flT5dvmoBDnWgRM1ubAmpQM+aO8nkIZfLiWgGz0M5HIJEPb5VISuuSj/jaShVUBERdhbChObDqBVuy2b0WwRnh8kv9cp6iqVo+6BSsIJ4AxSy9UKa0HL0gjpbiNiO7ptJBPvL4LZ/aCxlkyBWMTk6h3gPDDUHTNxfFc9TDs8Q="
    },
    "at": "2026-10-17T08:25:00.903Z"
+  },
+  "copper-use-cases-v2": {
+   "meta": {
+    "iv": "ldV2rJomlNS1tJ4t",
+    "ct": "6TcG1vcSCv2BlXdmFNXuMXtrsOTnkov4wl5Em0qO8rWKP5KU0liZ2z9+6wNhp40WJI+TFSMk2Cy/rnrkS65zauVXeBuOoCie4g/Lx/oNQTFC2PN2ndNgqH+RC3CWv6j5s0AkgP1qiV72oWWfkiDYlfH+QFmUgOzjgor3F9ytZHjnTfWue5I13LupSjExfF7E"
+   },
+   "at": "2026-10-17T08:25:04.752Z"
   }
  },
  "policy": {
@@ -576,6 +592,10 @@
   "coal-mining-use-cases-v2": {
    "of": "coal-mining-ai-use-case-map",
    "n": 2
+  },
+  "copper-use-cases-v2": {
+   "of": "copper-use-cases",
+   "n": 2
   }
  },
  "cats": {
@@ -611,6 +631,7 @@
   "bus-bar-temperature-monitoring-v2": "solution",
   "cement-use-cases-v2": "maps",
   "chemicals-use-cases-v2": "maps",
-  "coal-mining-use-cases-v2": "maps"
+  "coal-mining-use-cases-v2": "maps",
+  "copper-use-cases-v2": "maps"
  }
 }
