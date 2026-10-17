@@ -70,11 +70,11 @@
   },
   {
    "slug": "power-plant-ai",
-   "title": "Power Plant AI Use Cases"
+   "title": "Power Plant AI"
   },
   {
    "slug": "power-plant-ai-use-cases-v2",
-   "title": "Power Plant AI Use Cases"
+   "title": "Power Plant AI"
   },
   {
    "slug": "pulp-fibre-use-cases",
@@ -420,7 +420,7 @@
    "o": "Condition Based Monitoring"
   },
   "power-plant-ai": {
-   "t": "Power Plant AI Use Cases",
+   "t": "Power Plant AI",
    "o": "Power Plant AI"
   },
   "steam-trap-monitoring": {
@@ -438,6 +438,10 @@
   "faclon-ai-native-stack-platform-capability-referen": {
    "t": "Faclon AI Native Platform Capability",
    "o": "Faclon AI-Native Stack · Platform Capability Reference"
+  },
+  "power-plant-ai-use-cases-v2": {
+   "t": "Power Plant AI",
+   "o": "Power Plant AI Use Cases"
   }
  },
  "versions": {
