@@ -248,6 +248,8 @@ var TOOLS = [
       }
       if (!html) throw new Error("Give either file_path or html.");
       if (Buffer.byteLength(html) > 20 * 1048576) throw new Error("That page is over 20 MB. Compress its images and try again.");
+      var inner = FA.unbundle(html);
+      if (inner) html = inner; // a file saved with Download → HTML: upload the page inside, not the frozen copy of the site
       if (!/<html[\s>]/i.test(html) || !/<body[\s>]/i.test(html)) throw new Error("That doesn't look like a complete HTML page (it needs <html> and <body>).");
       var s = await signIn(), C = s.acc.contrib, U = await users(true), vbase = null, vn = 0;
       if (a.new_version_of) {

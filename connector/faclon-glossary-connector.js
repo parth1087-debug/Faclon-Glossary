@@ -200,6 +200,18 @@ var FA = (function () {
     }
     return null;
   }
+  /* A file saved with the site's Download → HTML button bundles pages (and a frozen copy of the landing page)
+     behind its own viewer. Uploading one would make its links open those frozen copies, so uploads use the
+     page inside instead. Returns that page's HTML, or null if html isn't such a file. Throws when the file
+     holds several solutions. Mirror of unbundle in protect.py. */
+  function unbundle(html) {
+    var m = /<script type="application\/json" id="data">([\s\S]*?)<\/script>/i.exec(String(html || ""));
+    if (!m) return null;
+    var d; try { d = JSON.parse(m[1]); } catch (e) { return null; }
+    if (!d || typeof d.pages !== "object" || !d.start || !Array.isArray(d.picked)) return null;
+    if (d.picked.length !== 1 || !d.pages[d.picked[0]]) throw new Error("that file is a download of several solutions. Upload one page at a time (open it, then save just that page)");
+    return d.pages[d.picked[0]];
+  }
   function rootOf(U, slug) { var v = (U.versions || {})[slug]; return v ? v.of : slug; }
   /* " v2" for a solution with several versions, "" otherwise: added after the name in lists, tabs and file names. */
   function versionLabel(U, slug) { var f = family(U, slug); return f ? " v" + f.n : ""; }
@@ -241,7 +253,7 @@ var FA = (function () {
   function clearSession() { try { localStorage.removeItem(SESSION); sessionStorage.removeItem(SESSION); localStorage.removeItem("faclon-glossary-key"); } catch (e) {} }
   return {
     u8: u8, b64: b64, pbkdf2: pbkdf2, hmac: hmac, encrypt: encrypt, decrypt: decrypt, decryptBytes: decryptBytes, sha256hex: sha256hex,
-    norm: norm, userId: userId, pageKey: pageKey, allKey: allKey, dallKey: dallKey, contribKey: contribKey, uploadKey: uploadKey, isUpload: isUpload, isGuide: isGuide, keyFor: keyFor, wrapForSuper: wrapForSuper, nameKey: nameKey, nameClash: nameClash, family: family, families: families, rootOf: rootOf, versionLabel: versionLabel, nextVersion: nextVersion, addVersion: addVersion, pdfKey: pdfKey, canRead: canRead, canDownload: canDownload, syncVault: syncVault, fillVault: fillVault, buildRing: buildRing, loadUsers: loadUsers, adminMaster: adminMaster,
+    norm: norm, userId: userId, pageKey: pageKey, allKey: allKey, dallKey: dallKey, contribKey: contribKey, uploadKey: uploadKey, isUpload: isUpload, isGuide: isGuide, keyFor: keyFor, wrapForSuper: wrapForSuper, nameKey: nameKey, nameClash: nameClash, family: family, families: families, rootOf: rootOf, versionLabel: versionLabel, unbundle: unbundle, nextVersion: nextVersion, addVersion: addVersion, pdfKey: pdfKey, canRead: canRead, canDownload: canDownload, syncVault: syncVault, fillVault: fillVault, buildRing: buildRing, loadUsers: loadUsers, adminMaster: adminMaster,
     login: login, access: access, getSession: getSession, setSession: setSession, clearSession: clearSession
   };
 })();
@@ -253,7 +265,7 @@ var FA = (function () {
    connector only talks to the public site and the GitHub API.
    Env: FACLON_USERNAME, FACLON_PASSWORD, FACLON_DOWNLOAD_DIR (optional), FACLON_SITE (optional). */
 /* eslint-disable no-var */
-var VERSION = "1.1.1";
+var VERSION = "1.1.2";
 var REPO = "parth1087-debug/Faclon-Glossary";
 var nodeFs = require("fs"), nodePath = require("path"), nodeOs = require("os");
 
@@ -496,6 +508,8 @@ var TOOLS = [
       }
       if (!html) throw new Error("Give either file_path or html.");
       if (Buffer.byteLength(html) > 20 * 1048576) throw new Error("That page is over 20 MB. Compress its images and try again.");
+      var inner = FA.unbundle(html);
+      if (inner) html = inner; // a file saved with Download → HTML: upload the page inside, not the frozen copy of the site
       if (!/<html[\s>]/i.test(html) || !/<body[\s>]/i.test(html)) throw new Error("That doesn't look like a complete HTML page (it needs <html> and <body>).");
       var s = await signIn(), C = s.acc.contrib, U = await users(true), vbase = null, vn = 0;
       if (a.new_version_of) {

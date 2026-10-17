@@ -227,7 +227,7 @@ kbd{{display:inline-block;font:600 12px Inter,system-ui,sans-serif;background:va
   <div class="grid2">
     <div class="card">
       {steps([
-          ("Build the page as one HTML file.", "Styles and images go inside the file. Follow the design skill so it looks like every other page."),
+          ("Build the page as one HTML file.", "Styles and images go inside the file. Follow the design skill so it looks like every other page. A page saved with Download → HTML also works: the page inside it is uploaded."),
           ("Press Upload and choose the file.", "The title is read from the page; change it if you need to."),
           ("Updating a page? Pick the solution it replaces.", "Choose it under “Is this a newer version of an existing solution?”. It keeps the same name and gets the next version number, v2, v3…, automatically."),
           ("For a new solution, give it a unique title.", "No two solutions can have the same name (only versions of one solution share a name), so an upload with a title that's already taken is refused."),
